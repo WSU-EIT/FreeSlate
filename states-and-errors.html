@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSU Form Kit — States &amp; Edge Cases</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="wsu-chrome.css">
+<link rel="stylesheet" href="styleguide.css">
+<link rel="stylesheet" href="wsu-forms.css">
+<link rel="stylesheet" href="slate-hints.css">
+</head>
+<body>
+<a class="sg-skip" href="#main">Skip to content</a>
+
+<header class="wsu-header-global">
+  <a class="wsu-wordmark" href="https://wsu.edu" title="WSU Homepage">
+    <span class="wsu-coug-head-boxed">
+      <svg class="wsu-coug-head-boxed__icon" role="img" aria-label="WSU Cougar Head" viewBox="0 0 70.2 69.6" xmlns="http://www.w3.org/2000/svg"><title>WSU Cougar Head Logo</title><path d="m42.8 69.6s3.6-1.5 5.5-7.4c1 2.3 1.5 4.8 1.3 7.3-2.3 0.1-4.5 0.2-6.8 0.1zm14.9-11.8c-10.4 1.4-12.2-20.3-12.2-20.3s3.5 11.1 10.9 10.7c7.7-0.4 5.5-12.2 5.5-12.2s7.5 20.2-4.2 21.8zm-47.7-5c-3.3 1-6.6 1.8-10 2.4 0 0 5.9-4.5 10.3-18.3l4.3 3.9-0.8 2.6c1.1 1.5 1.9 3.1 2.5 4.9 1.6-3.6 1.5-7.7-0.3-11.2l-0.5 1.6-1.7-1.5-2.8-2.7c1.2-3.6 3-7 5.3-10.1l0.4 0.4 3.3 3.8-1 1.7c1.5 1.7 2.9 3.4 4.2 5.3 0.6-3.4 0.4-6.8-0.4-10.1l-1.5 1.4-3.6-4.2c4.5-4.7 10-8.2 16.2-10.3-0.4 0.4-0.7 0.8-1 1.3-2 2.9-4.1 8.1-2.4 16.4 0.3 1.3 0.7 3.2 1.1 5.1 0.9 3.8 1.9 8.2 2.2 10.9 0.7 5.7 0.1 9.4-1.8 11.4-1.3 1.4-3.5 2-6.4 1.9v-1.4c0-2.4-0.3-4.8-0.8-7.2l-0.8-2.7-1.2 2.6c-1.9 4.1-8.6 14.1-17.2 16.1 2.6-4.2 4.1-9 4.4-14zm25.4 16.4h-0.5-0.1-0.3c-0.5 0-0.8-0.1-1.2-0.1-0.7-0.1-1.6-0.2-2.6-0.4-6.4-1.1-12.9-1.7-19.4-2 6.2-3.6 10.4-9.9 12-12.5 0.2 1.3 0.3 2.5 0.3 3.8 0 0.8 0 1.6-0.1 2.2l-0.1 1.1 1.1 0.1c0.7 0.1 1.3 0.1 1.9 0.1 3.3 0 5.7-0.8 7.3-2.5 2.4-2.5 3.1-6.7 2.3-13.1-0.4-2.9-1.4-7.4-2.3-11.1-0.5-2-0.9-3.8-1.1-5-1.5-7.6 0.3-12.3 2.1-14.8 1.3-1.9 3.2-3.4 5.5-4.2h0.1l3.3-10.8h1.1l-2.3 10.3c0.7-0.1 1.2-0.2 1.7-0.3l3-9.5h1.1l-2 9.2c2.9-0.4 6.1-0.7 10.3-1 0.8 0.4 1.4 1.1 1.8 1.9l9.8-3 0.4 1.1-9.5 3.7c0.1 0.2 0.2 0.4 0.2 0.6l10.3-1.3 0.2 1.1-10 2c0 0.2 0.1 0.4 0.1 0.6l10.4 0.3v1.1l-10.2 0.4c0 1.2-0.2 2.4-0.5 3.6 0.6 2.1 0.7 4.3 0.3 6.5-1.7-3.9-3-5.1-3-5.1-1.4-0.7-2.9-1-4.5-1-2.5 0-4.8 1.1-6.4 2.9-2.3 2.6-3.5 6-3.3 9.5 0.2 2.4 0.7 5.1 1.4 8.6 0.7 3.6 1.6 8.1 2.3 13.5 0.6 4.1-0.1 7.3-1.8 9.7-1.6 2.1-4 3.4-6.5 3.8h-0.1-0.2-0.1-2.2zm10.4-51.5c-2.1-0.1-4.2 0.4-6 1.3-1.5 1-2.5 2.7-2.6 4.5-0.1 0.6-0.1 1.2 0 1.8 0.8-1.5 2-2.8 3.3-3.9 2.4-1.5 5.1-2.3 7.9-2.4h0.9 0.3c0.4 0 0.7-0.1 0.8-0.2 0-0.1-0.1-0.3-0.4-0.4-1.3-0.5-2.7-0.8-4.2-0.7z"></path></svg>
+    </span>
+    <span class="wsu-wordmark__title">Washington State University</span>
+  </a>
+  <nav class="wsu-header-global__nav" aria-label="WSU utility"><ul><li><a href="https://foundation.wsu.edu/">Give</a></li><li><a href="https://admission.wsu.edu/apply/">Apply</a></li><li><a href="https://wsu.edu/about/statewide/">Locations</a></li><li><a href="https://mywsu.wsu.edu/">My WSU</a></li></ul></nav>
+</header>
+
+<div class="sg-hero">
+  <div class="sg-hero__inner">
+    <span class="sg-eyebrow">WSU Slate Form Kit</span>
+    <h1>States &amp; Edge Cases</h1>
+    <p>Every state a form can be in — plus the ugly situations nobody thinks about until they happen in production. All styled, all accessible.</p>
+  </div>
+</div>
+
+<div class="sg-shell">
+  <aside class="sg-sidebar" aria-label="Section navigation">
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Identity</p><ul><li><a href="#identity-bar" class="is-active">Logged-in bar</a></li></ul></nav>
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Field states</p><ul>
+      <li><a href="#state-default">Default</a></li>
+      <li><a href="#state-focus">Focus</a></li>
+      <li><a href="#state-error">Error</a></li>
+      <li><a href="#state-disabled">Disabled</a></li>
+      <li><a href="#state-valid">Valid</a></li>
+    </ul></nav>
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Validation</p><ul>
+      <li><a href="#error-summary">Error summary</a></li>
+    </ul></nav>
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Form-level</p><ul>
+      <li><a href="#form-closed">Form closed</a></li>
+      <li><a href="#capacity">Capacity full</a></li>
+      <li><a href="#deadline">Deadline passed</a></li>
+      <li><a href="#duplicate">Duplicate submission</a></li>
+      <li><a href="#thankyou">Thank-you / confirmation</a></li>
+    </ul></nav>
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Notifications</p><ul><li><a href="#notices">Notice banners</a></li></ul></nav>
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">↩ Kit</p><ul><li><a href="index.html">Back to home</a></li></ul></nav>
+  </aside>
+
+  <main class="sg-main" id="main">
+
+    <!-- IDENTITY BAR -->
+    <section class="sg-section" id="identity-bar">
+      <span class="sg-section__num">Identity</span>
+      <h2>Logged-in identity bar</h2>
+      <p>Slate shows a "Marco Bezzecchi (cordodor+marco72@gmail.com) · Log Out" strip when a user is authenticated. The stock version is an unstyled gray bar — we restyle it to crimson so it's clearly a WSU surface, not an error message.</p>
+      <div class="sg-example">
+        <div class="sg-example__bar">Before (stock gray) vs After (WSU crimson) <span class="a11y">✓ AA contrast, landmark role</span></div>
+        <div class="sg-example__preview sg-example__preview--subtle">
+          <div style="margin-bottom:1.5rem">
+            <p style="font-size:.8rem;font-weight:700;margin:0 0 .5rem;color:var(--muted)">BEFORE — stock Slate (AIM ~5.8)</p>
+            <div style="background:#d9d9d9;color:#333;font-size:.85rem;padding:.5rem 1rem;display:flex;justify-content:space-between">
+              <span>Marco Bezzecchi (cordodor+marco72@gmail.com)</span>
+              <a href="#" style="color:#333;font-weight:600">Log Out</a>
+            </div>
+          </div>
+          <div>
+            <p style="font-size:.8rem;font-weight:700;margin:0 0 .5rem;color:var(--muted)">AFTER — WSU kit</p>
+            <div class="wsu-content">
+              <div class="wsuf-identity-bar" role="region" aria-label="Signed in as Marco Bezzecchi">
+                <span class="wsuf-identity-bar__name">Signed in as <strong>Marco Bezzecchi</strong> — cordodor+marco72@gmail.com</span>
+                <a href="#" class="wsuf-identity-bar__link">Sign out</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sg-code"><button class="sg-copy" type="button">Copy</button><pre><code>&lt;div class="wsuf-identity-bar" role="banner" aria-label="Signed in as [Name]"&gt;
+  &lt;span class="wsuf-identity-bar__name"&gt;
+    Signed in as &lt;strong&gt;[Name]&lt;/strong&gt; — [email]
+  &lt;/span&gt;
+  &lt;a href="/logout" class="wsuf-identity-bar__link"&gt;Sign out&lt;/a&gt;
+&lt;/div&gt;</code></pre></div>
+      </div>
+    </section>
+
+    <!-- FIELD STATES -->
+    <section class="sg-section" id="state-default">
+      <span class="sg-section__num">Field states</span>
+      <h2>Default, focus, error, disabled, valid</h2>
+      <p>All four states side by side so you can see the full range at once. Click into any input to see the focus ring.</p>
+      <div class="sg-example">
+        <div class="sg-example__bar">All states — text input</div>
+        <div class="sg-example__preview">
+          <div class="wsu-content">
+            <div class="wsuf-row wsuf-row--2">
+              <div class="wsuf-field" id="state-default">
+                <label for="st-def">Default</label>
+                <input type="text" id="st-def" placeholder="Start typing…">
+              </div>
+              <div class="wsuf-field wsuf-field--required" id="state-focus">
+                <label for="st-req">Required (crimson left edge)</label>
+                <input type="text" id="st-req" required>
+              </div>
+              <div class="wsuf-field wsuf-field--error">
+                <label for="st-err">Error</label>
+                <input type="text" id="st-err" value="bademail" aria-invalid="true" aria-describedby="st-err-msg">
+                <p class="wsuf-error" id="st-err-msg">Enter a valid email address.</p>
+              </div>
+              <div class="wsuf-field">
+                <label for="st-dis">Disabled</label>
+                <input type="text" id="st-dis" value="Assigned after applying" disabled>
+              </div>
+              <div class="wsuf-field wsuf-field--valid">
+                <label for="st-ok">Valid</label>
+                <input type="text" id="st-ok" value="marco@wsu.edu">
+                <p class="wsuf-valid">Looks good!</p>
+              </div>
+              <div class="wsuf-field">
+                <label for="st-ro">Read-only</label>
+                <input type="text" id="st-ro" value="Washington State University" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERROR SUMMARY -->
+    <section class="sg-section" id="error-summary">
+      <span class="sg-section__num">Validation</span>
+      <h2>Error summary</h2>
+      <p>When a form fails validation on submit, a focused, linkable summary appears above the form. Each item links directly to the offending field. Screen readers hear it immediately (role="alert").</p>
+      <div class="sg-example">
+        <div class="sg-example__bar">Error summary + inline errors <span class="a11y">✓ role=alert, focus target</span></div>
+        <div class="sg-example__preview">
+          <div class="wsu-content">
+            <div class="wsuf-alert" role="alert" tabindex="-1">
+              <h2>There's a problem — 3 fields need attention</h2>
+              <ul>
+                <li><a href="#st-req">First name — this field is required.</a></li>
+                <li><a href="#st-err">Email address — enter a valid email address.</a></li>
+                <li><a href="#st-zip-ex">ZIP code — enter a 5-digit ZIP code.</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="sg-code"><button class="sg-copy" type="button">Copy</button><pre><code>&lt;div class="wsuf-alert" role="alert" tabindex="-1"&gt;
+  &lt;h2&gt;There's a problem&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#field-id"&gt;Field name — message.&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre></div>
+      </div>
+    </section>
+
+    <!-- FORM CLOSED -->
+    <section class="sg-section" id="form-closed">
+      <span class="sg-section__num">Form-level edge cases</span>
+      <h2>Form closed</h2>
+      <div class="sg-example">
+        <div class="sg-example__bar">Slate: form outside its open window</div>
+        <div class="sg-example__preview">
+          <div class="wsu-content">
+            <div class="wsuf-notice wsuf-notice--warn">
+              <span class="wsuf-notice__icon" aria-hidden="true">🔒</span>
+              <div class="wsuf-notice__body">
+                <strong>This form is no longer accepting submissions</strong>
+                <p>The registration period for Future Cougar Day — Fall 2026 closed on September 1, 2026. <a href="https://admission.wsu.edu/visit/">See upcoming visit events →</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sg-code"><button class="sg-copy" type="button">Copy</button><pre><code>&lt;div class="wsuf-notice wsuf-notice--warn"&gt;
+  &lt;span class="wsuf-notice__icon" aria-hidden="true"&gt;🔒&lt;/span&gt;
+  &lt;div class="wsuf-notice__body"&gt;
+    &lt;strong&gt;This form is no longer accepting submissions&lt;/strong&gt;
+    &lt;p&gt;[Message + link to next event]&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></div>
+      </div>
+    </section>
+
+    <!-- CAPACITY -->
+    <section class="sg-section" id="capacity">
+      <h2 class="wsuf-bare" style="font-size:1.9rem">Capacity full</h2>
+      <div class="sg-example">
+        <div class="sg-example__bar">Slate: registration cap reached</div>
+        <div class="sg-example__preview">
+          <div class="wsu-content">
+            <div class="wsuf-notice wsuf-notice--error">
+              <span class="wsuf-notice__icon" aria-hidden="true">⚠</span>
+              <div class="wsuf-notice__body">
+                <strong>This event is fully booked</strong>
+                <p>All spots for Future Cougar Day — Fall 2026 have been reserved. You can join the <a href="#">waitlist</a> or see <a href="https://admission.wsu.edu/visit/">other visit events</a>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEADLINE -->
+    <section class="sg-section" id="deadline">
+      <h2 class="wsuf-bare" style="font-size:1.9rem">Deadline passed</h2>
+      <div class="sg-example">
+        <div class="sg-example__bar">Slate: application deadline passed</div>
+        <div class="sg-example__preview">
+          <div class="wsu-content">
+            <div class="wsuf-notice wsuf-notice--warn">
+              <span class="wsuf-notice__icon" aria-hidden="true">📅</span>
+              <div class="wsuf-notice__body">
+                <strong>The deadline for this application has passed</strong>
+                <p>The Fall 2026 freshman application closed January 31, 2026. Applications for Fall 2027 open August 1, 2026. <a href="#">Get notified when applications open →</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DUPLICATE -->
+    <section class="sg-section" id="duplicate">
+      <h2 class="wsuf-bare" style="font-size:1.9rem">Duplicate submission</h2>
+      <div class="sg-example">
+        <div class="sg-example__bar">Slate: already submitted</div>
+        <div class="sg-example__preview">
+          <div class="wsu-content">
+            <div class="wsuf-notice wsuf-notice--info">
+              <span class="wsuf-notice__icon" aria-hidden="true">ℹ</span>
+              <div class="wsuf-notice__body">
+                <strong>You've already submitted this form</strong>
+                <p>We received your registration for Future Cougar Day on May 15, 2026. Check your email for a confirmation. <a href="#">Manage your registration →</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THANK YOU -->
+    <section class="sg-section" id="thankyou">
+      <h2 class="wsuf-bare" style="font-size:1.9rem">Thank-you / confirmation page</h2>
+      <p>The most important page nobody styles. This is the screen applicants screenshot and share with family.</p>
+      <div class="sg-example">
+        <div class="sg-example__bar">Confirmation <span class="a11y">✓ role=status, focus target</span></div>
+        <div class="sg-example__preview sg-example__preview--subtle">
+          <div class="wsu-content">
+            <div class="wsuf-alert wsuf-alert--success" role="status" tabindex="-1" style="margin:0 0 1.5rem">
+              <h2>You're registered — Go Cougs!</h2>
+              <p>We'll see you at <strong>Future Cougar Day, October 18, 2026</strong> on the Pullman campus. A confirmation email is on its way to <strong>marco@wsu.edu</strong>.</p>
+            </div>
+            <div class="wsuf-well">
+              <h3 style="font-size:1rem;margin:0 0 .75rem">What happens next</h3>
+              <ul style="margin:0;padding-left:1.2rem;font-size:.9rem">
+                <li>Check your email for your confirmation and schedule.</li>
+                <li>Add the event to your calendar — <a href="#">iCal</a> · <a href="#">Google Calendar</a></li>
+                <li>Questions? Email <a href="mailto:future.coug@wsu.edu">future.coug@wsu.edu</a> or call 509-553-5450.</li>
+              </ul>
+            </div>
+            <div class="wsuf-actions">
+              <a href="https://admission.wsu.edu" class="wsuf-btn">Back to Admissions</a>
+              <a href="#" class="wsuf-btn wsuf-btn--secondary">View campus map</a>
+            </div>
+          </div>
+        </div>
+        <div class="sg-code"><button class="sg-copy" type="button">Copy</button><pre><code>&lt;div class="wsuf-alert wsuf-alert--success" role="status" tabindex="-1"&gt;
+  &lt;h2&gt;You're registered — Go Cougs!&lt;/h2&gt;
+  &lt;p&gt;Confirmation sent to [email].&lt;/p&gt;
+&lt;/div&gt;</code></pre></div>
+      </div>
+    </section>
+
+    <!-- NOTICE BANNERS -->
+    <section class="sg-section" id="notices">
+      <span class="sg-section__num">Notifications</span>
+      <h2>Notice banners</h2>
+      <p>Four variants for different urgency levels. Never use color as the only signal — pair it with an icon and text.</p>
+      <div class="sg-example">
+        <div class="sg-example__bar">All notice variants</div>
+        <div class="sg-example__preview">
+          <div class="wsu-content">
+            <div class="wsuf-notice wsuf-notice--success"><span class="wsuf-notice__icon" aria-hidden="true">✓</span><div class="wsuf-notice__body"><strong>Application received</strong><p>We got it. Expect a decision by March 1, 2026.</p></div></div>
+            <div class="wsuf-notice wsuf-notice--info"><span class="wsuf-notice__icon" aria-hidden="true">ℹ</span><div class="wsuf-notice__body"><strong>New for Fall 2026</strong><p>The application fee waiver is available for qualifying students. <a href="#">Check eligibility →</a></p></div></div>
+            <div class="wsuf-notice wsuf-notice--warn"><span class="wsuf-notice__icon" aria-hidden="true">⚠</span><div class="wsuf-notice__body"><strong>Deadline in 3 days</strong><p>The Priority Deadline is January 31. Submit by midnight PST.</p></div></div>
+            <div class="wsuf-notice wsuf-notice--error" style="margin:0"><span class="wsuf-notice__icon" aria-hidden="true">✕</span><div class="wsuf-notice__body"><strong>Document upload failed</strong><p>Your transcript could not be uploaded. Try a smaller file (under 10 MB) in PDF format.</p></div></div>
+          </div>
+        </div>
+        <div class="sg-code"><button class="sg-copy" type="button">Copy</button><pre><code>&lt;!-- Variants: wsuf-notice--success / --info / --warn / --error --&gt;
+&lt;div class="wsuf-notice wsuf-notice--warn"&gt;
+  &lt;span class="wsuf-notice__icon" aria-hidden="true"&gt;⚠&lt;/span&gt;
+  &lt;div class="wsuf-notice__body"&gt;
+    &lt;strong&gt;Deadline in 3 days&lt;/strong&gt;
+    &lt;p&gt;Submit by midnight PST January 31.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer class="wsu-footer-global">
+  <div class="wsu-footer-global__copyright">© Washington State University · Office of Admissions</div>
+  <nav class="wsu-footer-global__nav" aria-label="WSU global"><ul><li><a href="https://access.wsu.edu/">Access</a></li><li><a href="https://policies.wsu.edu/">Policies</a></li><li><a href="https://portal.wsu.edu/">MyWSU</a></li><li><a href="https://socialmedia.wsu.edu/">Follow WSU</a></li></ul></nav>
+</footer>
+
+<script>
+document.querySelectorAll('.sg-copy').forEach(function(btn){btn.addEventListener('click',function(){var c=btn.parentElement.querySelector('code');navigator.clipboard.writeText(c.textContent).then(function(){btn.textContent='Copied';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},1600);});});});
+var links=Array.from(document.querySelectorAll('.sg-nav-group a')),map={};links.forEach(function(a){var id=a.getAttribute('href').slice(1);var el=document.getElementById(id);if(el)map[id]=a;});
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('is-active');});var a=map[e.target.id];if(a)a.classList.add('is-active');}});},{rootMargin:'-15% 0px -75% 0px',threshold:0});
+Object.keys(map).forEach(function(id){obs.observe(document.getElementById(id));});
+</script>
+
+<!-- Slate Editor Hints (showcase-only) -->
+<button class="sh-fab" aria-expanded="false" aria-controls="sh-drawer">Slate hints</button>
+<div class="sh-backdrop"></div>
+<aside class="sh-drawer" id="sh-drawer" role="dialog" aria-modal="false" aria-label="Slate editor hints">
+  <div class="sh-drawer__head"><div><h2>Slate Editor Hints</h2><p>States & edge cases</p></div><button class="sh-close" type="button" aria-label="Close hints">×</button></div>
+  <div class="sh-body"><h3>Build it in Slate</h3><p class="sh-hint">The gray logged-in bar restyles itself — Slate emits <code>div[role="banner"]</code> and the mapping layer makes it crimson. Nothing to paste.</p><p class="sh-hint">Form-closed / deadline-passed come from Slate’s form <b>availability window</b> settings. Style the message with a notice banner.</p><h3>Copy-paste</h3><p class="sh-snip__label">Notice banner (warn / error / success / info)</p><div class="sh-snip"><button class="sh-copy" type="button">Copy</button><pre><code>&lt;div class="wsuf-notice wsuf-notice--warn"&gt;
+  &lt;span class="wsuf-notice__icon" aria-hidden="true"&gt;⚠&lt;/span&gt;
+  &lt;div class="wsuf-notice__body"&gt;
+    &lt;strong&gt;Deadline in 3 days&lt;/strong&gt;
+    &lt;p&gt;Submit by midnight PST January 31.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></div><p class="sh-snip__label">Thank-you confirmation</p><div class="sh-snip"><button class="sh-copy" type="button">Copy</button><pre><code>&lt;div class="wsuf-alert wsuf-alert--success" role="status" tabindex="-1"&gt;
+  &lt;h2&gt;You’re registered — Go Cougs!&lt;/h2&gt;
+  &lt;p&gt;Confirmation sent to your email.&lt;/p&gt;
+&lt;/div&gt;</code></pre></div></div>
+</aside>
+<script src="slate-hints.js"></script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSU Admissions Form Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="wsu-chrome.css">
+<link rel="stylesheet" href="styleguide.css">
+<link rel="stylesheet" href="wsu-forms.css">
+<style>
+  .hub { max-width: 64rem; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+  .hub__lead { font-size: 1.15rem; color: var(--muted); line-height: 1.6; max-width: 60ch; margin: 0 0 2.5rem; }
+  .hub__group-title {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--crimson); margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--line);
+  }
+  .hub__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 1.1rem; }
+  .hub-card {
+    display: flex; flex-direction: column; gap: 0.5rem; text-decoration: none; color: inherit;
+    border: 1px solid var(--line); border-radius: 12px; padding: 1.4rem 1.5rem; background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  }
+  .hub-card[href]:hover { border-color: var(--crimson); box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .hub-card[href]:focus-visible { outline: 3px solid var(--crimson); outline-offset: 3px; }
+  .hub-card__status {
+    align-self: flex-start; font-size: 0.64rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 0.2rem 0.55rem; border-radius: 1rem;
+  }
+  .hub-card__status--ready { background: #edf7f0; color: #1f7a3d; }
+  .hub-card__status--soon { background: #f0f0f0; color: var(--muted); }
+  .hub-card h3 { margin: 0.3rem 0 0; font-size: 1.2rem; }
+  .hub-card p { margin: 0; font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+  .hub-card__go { margin-top: auto; padding-top: 0.6rem; font-weight: 700; font-size: 0.85rem; color: var(--crimson); }
+  .hub-card--disabled { opacity: 0.72; }
+</style>
+<link rel="stylesheet" href="slate-hints.css">
+</head>
+<body>
+<a class="sg-skip" href="#main">Skip to content</a>
+
+<header class="wsu-header-global" data-screen-label="WSU global header">
+  <a class="wsu-wordmark" href="https://wsu.edu" title="WSU Homepage">
+    <span class="wsu-coug-head-boxed">
+      <svg class="wsu-coug-head-boxed__icon" role="img" aria-label="WSU Cougar Head" viewBox="0 0 70.2 69.6" xmlns="http://www.w3.org/2000/svg">
+        <title>WSU Cougar Head Logo</title>
+        <path d="m42.8 69.6s3.6-1.5 5.5-7.4c1 2.3 1.5 4.8 1.3 7.3-2.3 0.1-4.5 0.2-6.8 0.1zm14.9-11.8c-10.4 1.4-12.2-20.3-12.2-20.3s3.5 11.1 10.9 10.7c7.7-0.4 5.5-12.2 5.5-12.2s7.5 20.2-4.2 21.8zm-47.7-5c-3.3 1-6.6 1.8-10 2.4 0 0 5.9-4.5 10.3-18.3l4.3 3.9-0.8 2.6c1.1 1.5 1.9 3.1 2.5 4.9 1.6-3.6 1.5-7.7-0.3-11.2l-0.5 1.6-1.7-1.5-2.8-2.7c1.2-3.6 3-7 5.3-10.1l0.4 0.4 3.3 3.8-1 1.7c1.5 1.7 2.9 3.4 4.2 5.3 0.6-3.4 0.4-6.8-0.4-10.1l-1.5 1.4-3.6-4.2c4.5-4.7 10-8.2 16.2-10.3-0.4 0.4-0.7 0.8-1 1.3-2 2.9-4.1 8.1-2.4 16.4 0.3 1.3 0.7 3.2 1.1 5.1 0.9 3.8 1.9 8.2 2.2 10.9 0.7 5.7 0.1 9.4-1.8 11.4-1.3 1.4-3.5 2-6.4 1.9v-1.4c0-2.4-0.3-4.8-0.8-7.2l-0.8-2.7-1.2 2.6c-1.9 4.1-8.6 14.1-17.2 16.1 2.6-4.2 4.1-9 4.4-14zm25.4 16.4h-0.5-0.1-0.3c-0.5 0-0.8-0.1-1.2-0.1-0.7-0.1-1.6-0.2-2.6-0.4-6.4-1.1-12.9-1.7-19.4-2 6.2-3.6 10.4-9.9 12-12.5 0.2 1.3 0.3 2.5 0.3 3.8 0 0.8 0 1.6-0.1 2.2l-0.1 1.1 1.1 0.1c0.7 0.1 1.3 0.1 1.9 0.1 3.3 0 5.7-0.8 7.3-2.5 2.4-2.5 3.1-6.7 2.3-13.1-0.4-2.9-1.4-7.4-2.3-11.1-0.5-2-0.9-3.8-1.1-5-1.5-7.6 0.3-12.3 2.1-14.8 1.3-1.9 3.2-3.4 5.5-4.2h0.1l3.3-10.8h1.1l-2.3 10.3c0.7-0.1 1.2-0.2 1.7-0.3l3-9.5h1.1l-2 9.2c2.9-0.4 6.1-0.7 10.3-1 0.8 0.4 1.4 1.1 1.8 1.9l9.8-3 0.4 1.1-9.5 3.7c0.1 0.2 0.2 0.4 0.2 0.6l10.3-1.3 0.2 1.1-10 2c0 0.2 0.1 0.4 0.1 0.6l10.4 0.3v1.1l-10.2 0.4c0 1.2-0.2 2.4-0.5 3.6 0.6 2.1 0.7 4.3 0.3 6.5-1.7-3.9-3-5.1-3-5.1-1.4-0.7-2.9-1-4.5-1-2.5 0-4.8 1.1-6.4 2.9-2.3 2.6-3.5 6-3.3 9.5 0.2 2.4 0.7 5.1 1.4 8.6 0.7 3.6 1.6 8.1 2.3 13.5 0.6 4.1-0.1 7.3-1.8 9.7-1.6 2.1-4 3.4-6.5 3.8h-0.1-0.2-0.1-2.2zm10.4-51.5c-2.1-0.1-4.2 0.4-6 1.3-1.5 1-2.5 2.7-2.6 4.5-0.1 0.6-0.1 1.2 0 1.8 0.8-1.5 2-2.8 3.3-3.9 2.4-1.5 5.1-2.3 7.9-2.4h0.9 0.3c0.4 0 0.7-0.1 0.8-0.2 0-0.1-0.1-0.3-0.4-0.4-1.3-0.5-2.7-0.8-4.2-0.7z"></path>
+      </svg>
+    </span>
+    <span class="wsu-wordmark__title">Washington State University</span>
+  </a>
+  <nav class="wsu-header-global__nav" aria-label="WSU utility">
+    <ul>
+      <li><a href="https://foundation.wsu.edu/">Give</a></li>
+      <li><a href="https://admission.wsu.edu/apply/">Apply</a></li>
+      <li><a href="https://wsu.edu/about/statewide/">Locations</a></li>
+      <li><a href="https://mywsu.wsu.edu/">My WSU</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="wsuf-banner wsuf-banner--pattern" data-screen-label="Kit masthead">
+  <div class="wsuf-banner__inner">
+    <span class="wsuf-banner__eyebrow">Office of Admissions · Slate</span>
+    <h1 id="main" tabindex="-1">WSU Admissions Form Kit</h1>
+    <p>One consistent, accessible system for every Slate form — built to pass WAVE &amp; AXE, styled in the WSU brand, and documented so any content editor can use it.</p>
+  </div>
+</div>
+
+<main class="hub">
+  <p class="hub__lead">Everything here runs on one stylesheet (<code>wsu-forms.css</code>) plus the shared WSU chrome. Browse the documentation, copy patterns into Slate, and see the real registration form rebuilt to pass accessibility.</p>
+
+  <a href="start-here.html" style="display:flex;gap:1rem;align-items:center;text-decoration:none;color:inherit;background:linear-gradient(100deg,#a60f2d 0,#a60f2d 55%,#680222 100%);border-radius:14px;padding:1.5rem 1.75rem;margin:0 0 2.5rem;box-shadow:0 6px 20px rgba(166,15,45,.25)">
+    <span style="font-size:2rem" aria-hidden="true">👋</span>
+    <span style="flex:1 1 auto">
+      <span style="display:block;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.8)">New here? Not a coder?</span>
+      <span style="display:block;font-size:1.35rem;font-weight:800;color:#fff;margin:.15rem 0">Start Here — for Content Editors</span>
+      <span style="display:block;font-size:.95rem;color:rgba(255,255,255,.9)">No CSS needed. Your form is already styled — this shows the whole job in 5 minutes.</span>
+    </span>
+    <span style="font-weight:800;color:#fff;font-size:1.5rem" aria-hidden="true">→</span>
+  </a>
+
+  <h2 class="hub__group-title">Documentation</h2>
+  <div class="hub__grid">
+    <a class="hub-card" href="editor-guide.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Editor Guide</h3>
+      <p>Task-based, plain-language how-to for content editors building forms in Slate. No code, no jargon.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="wsu-form-builder.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Form Builder</h3>
+      <p>Drag-drop designer — add questions, edit them, see a live WSU-styled preview, and copy a step-by-step "Slate Build Sheet". Saves as you go.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="foundations.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Foundations &amp; Principles</h3>
+      <p>Color, typography, spacing, tokens, the design principles, and how the kit reaches Slate.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="field-type-library.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Field Type Library</h3>
+      <p>Every Slate field type, styled and accessible, with copy-paste HTML and an a11y note on each.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+  </div>
+
+  <h2 class="hub__group-title">Live examples</h2>
+  <div class="hub__grid">
+    <a class="hub-card" href="registration-form.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Registration Form</h3>
+      <p>Your real "Daniel Copy" form, rebuilt with the kit: validation, conditional logic, EM masthead — passing WAVE.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="multi-page-form.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Multi-Page Form</h3>
+      <p>A 4-step paged form with stepped progress indicator, left-rail nav, per-page validation, and a review screen.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="states-and-errors.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>States &amp; Edge Cases</h3>
+      <p>Logged-in bar restyle, all field states, error summary, form-closed, capacity-full, deadline-passed, thank-you.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="event-registration.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Event Registration</h3>
+      <p>Future Cougar Day landing: event hero, capacity bar, stat tiles, two-column layout with inline registration form.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="applicant-portal.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Applicant Status Portal</h3>
+      <p>Template C portal: left-rail nav, status checklist, deadline table, action-required notices. The most-viewed admit page.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="email-templates.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Email &amp; Deliver Templates</h3>
+      <p>Confirmation, event reminder, and decision release — inline CSS, bulletproof buttons, rendering in Gmail / Outlook / Apple Mail.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="email-library.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Email Block Library</h3>
+      <p>Reusable inline-CSS email modules (header, hero, content+button, info box, footer) to assemble in Deliver. Variant tabs swap the accent.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="conditional-logic.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Conditional Logic Theater</h3>
+      <p>All 4 Slate condition patterns live and annotated: show/hide, cascade, value piping, conditional required. Play with it.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="media-gallery.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Image Gallery &amp; Carousel</h3>
+      <p>Responsive photo grid + an accessible, pausable, reduced-motion-aware carousel. Where the HTML/CSS/JS go in Slate.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="status-badges.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Status &amp; Badge System</h3>
+      <p>Badges, payment status, checklist states, decision card, deadline countdown. Variant tabs swap badge shape.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+  </div>
+
+  <h2 class="hub__group-title">For the Slate admin</h2>
+  <div class="hub__grid">
+    <a class="hub-card" href="deployment-guide.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Deployment Guide</h3>
+      <p>Exactly which files go where, the build.xslt link block, ?v= cache-busting, dev→publish workflow, and rollback.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="accessibility-checklist.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Accessibility Checklist</h3>
+      <p>28 items mapped to WAVE/AXE error codes. Interactive — check items off as you build. State persists in localStorage.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+    <a class="hub-card" href="slate-defaults-fixed.html">
+      <span class="hub-card__status hub-card__status--ready">Ready</span>
+      <h3>Slate Defaults, Fixed</h3>
+      <p>The papercut catalog — Slate's ugly/inaccessible defaults and the exact CSS or setting that fixes each. Most already handled by the kit.</p>
+      <span class="hub-card__go">Open →</span>
+    </a>
+  </div>
+</main>
+
+<footer class="wsu-footer-global">
+  <div class="wsu-footer-global__copyright">© Washington State University · Office of Admissions</div>
+  <nav class="wsu-footer-global__nav" aria-label="WSU global">
+    <ul>
+      <li><a href="https://access.wsu.edu/">Access</a></li>
+      <li><a href="https://policies.wsu.edu/">Policies</a></li>
+      <li><a href="https://portal.wsu.edu/">MyWSU</a></li>
+      <li><a href="https://socialmedia.wsu.edu/">Follow WSU</a></li>
+    </ul>
+  </nav>
+</footer>
+
+<!-- Slate Editor Hints (showcase-only) -->
+<button class="sh-fab" aria-expanded="false" aria-controls="sh-drawer">Slate hints</button>
+<div class="sh-backdrop"></div>
+<aside class="sh-drawer" id="sh-drawer" role="dialog" aria-modal="false" aria-label="Slate editor hints">
+  <div class="sh-drawer__head"><div><h2>Slate Editor Hints</h2><p>Kit overview</p></div><button class="sh-close" type="button" aria-label="Close hints">×</button></div>
+  <div class="sh-body"><h3>How the kit works</h3><p class="sh-hint">The kit is <b>three files</b> linked once in <code>build.xslt</code>: <code>wsu-forms.css</code> (forms), <code>wsu-chrome.css</code> (header/footer), and the XSLT itself. Once deployed, every form is styled automatically.</p><p class="sh-hint">Most native Slate fields need <b>no custom HTML</b> — the Slate mapping layer styles them. Use the snippets below only for things Slate can’t build natively (cards, banners, notices, columns).</p><p class="sh-hint">Paste snippets into a form’s <b>Edit HTML</b> block, an Instructions field set to HTML, or a Custom Content area.</p><h3>Starter snippet — a labeled field</h3><p class="sh-snip__label">Required text field</p><div class="sh-snip"><button class="sh-copy" type="button">Copy</button><pre><code>&lt;div class="wsuf-field wsuf-field--required"&gt;
+  &lt;label for="email"&gt;Email address&lt;/label&gt;
+  &lt;input type="email" id="email" autocomplete="email" required&gt;
+&lt;/div&gt;</code></pre></div></div>
+</aside>
+<script src="slate-hints.js"></script>
+</body>
+</html>

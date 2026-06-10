@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deliver Email Block Library — WSU Slate Form Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="wsu-chrome.css">
+<link rel="stylesheet" href="styleguide.css">
+<link rel="stylesheet" href="wsu-forms.css">
+<link rel="stylesheet" href="variants.css">
+<link rel="stylesheet" href="slate-hints.css">
+<style>
+  .email-frame{background:#e8e8e8;padding:1.5rem;border-radius:8px}
+  .email-block{background:#fff;max-width:600px;margin:0 auto;font-family:Montserrat,Arial,sans-serif;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+  /* Accent variant: swap crimson header for the 2025 gradient */
+  body[data-variant="gradient"] .eb-bar{background:linear-gradient(100deg,#a60f2d 0,#a60f2d 55%,#680222 100%)!important}
+  body[data-variant="dark"] .eb-bar{background:#1a1a1a!important}
+</style>
+</head>
+<body>
+<a class="sg-skip" href="#main">Skip to content</a>
+
+<header class="wsu-header-global">
+  <a class="wsu-wordmark" href="https://wsu.edu" title="WSU Homepage">
+    <span class="wsu-coug-head-boxed"><svg class="wsu-coug-head-boxed__icon" role="img" aria-label="WSU Cougar Head" viewBox="0 0 70.2 69.6" xmlns="http://www.w3.org/2000/svg"><title>WSU Cougar Head Logo</title><path d="m42.8 69.6s3.6-1.5 5.5-7.4c1 2.3 1.5 4.8 1.3 7.3-2.3 0.1-4.5 0.2-6.8 0.1zm14.9-11.8c-10.4 1.4-12.2-20.3-12.2-20.3s3.5 11.1 10.9 10.7c7.7-0.4 5.5-12.2 5.5-12.2s7.5 20.2-4.2 21.8zm-47.7-5c-3.3 1-6.6 1.8-10 2.4 0 0 5.9-4.5 10.3-18.3l4.3 3.9-0.8 2.6c1.1 1.5 1.9 3.1 2.5 4.9 1.6-3.6 1.5-7.7-0.3-11.2l-0.5 1.6-1.7-1.5-2.8-2.7c1.2-3.6 3-7 5.3-10.1l0.4 0.4 3.3 3.8-1 1.7c1.5 1.7 2.9 3.4 4.2 5.3 0.6-3.4 0.4-6.8-0.4-10.1l-1.5 1.4-3.6-4.2c4.5-4.7 10-8.2 16.2-10.3-0.4 0.4-0.7 0.8-1 1.3-2 2.9-4.1 8.1-2.4 16.4 0.3 1.3 0.7 3.2 1.1 5.1 0.9 3.8 1.9 8.2 2.2 10.9 0.7 5.7 0.1 9.4-1.8 11.4-1.3 1.4-3.5 2-6.4 1.9v-1.4c0-2.4-0.3-4.8-0.8-7.2l-0.8-2.7-1.2 2.6c-1.9 4.1-8.6 14.1-17.2 16.1 2.6-4.2 4.1-9 4.4-14zm25.4 16.4h-0.5-0.1-0.3c-0.5 0-0.8-0.1-1.2-0.1-0.7-0.1-1.6-0.2-2.6-0.4-6.4-1.1-12.9-1.7-19.4-2 6.2-3.6 10.4-9.9 12-12.5 0.2 1.3 0.3 2.5 0.3 3.8 0 0.8 0 1.6-0.1 2.2l-0.1 1.1 1.1 0.1c0.7 0.1 1.3 0.1 1.9 0.1 3.3 0 5.7-0.8 7.3-2.5 2.4-2.5 3.1-6.7 2.3-13.1-0.4-2.9-1.4-7.4-2.3-11.1-0.5-2-0.9-3.8-1.1-5-1.5-7.6 0.3-12.3 2.1-14.8 1.3-1.9 3.2-3.4 5.5-4.2h0.1l3.3-10.8h1.1l-2.3 10.3c0.7-0.1 1.2-0.2 1.7-0.3l3-9.5h1.1l-2 9.2c2.9-0.4 6.1-0.7 10.3-1 0.8 0.4 1.4 1.1 1.8 1.9l9.8-3 0.4 1.1-9.5 3.7c0.1 0.2 0.2 0.4 0.2 0.6l10.3-1.3 0.2 1.1-10 2c0 0.2 0.1 0.4 0.1 0.6l10.4 0.3v1.1l-10.2 0.4c0 1.2-0.2 2.4-0.5 3.6 0.6 2.1 0.7 4.3 0.3 6.5-1.7-3.9-3-5.1-3-5.1-1.4-0.7-2.9-1-4.5-1-2.5 0-4.8 1.1-6.4 2.9-2.3 2.6-3.5 6-3.3 9.5 0.2 2.4 0.7 5.1 1.4 8.6 0.7 3.6 1.6 8.1 2.3 13.5 0.6 4.1-0.1 7.3-1.8 9.7-1.6 2.1-4 3.4-6.5 3.8h-0.1-0.2-0.1-2.2zm10.4-51.5c-2.1-0.1-4.2 0.4-6 1.3-1.5 1-2.5 2.7-2.6 4.5-0.1 0.6-0.1 1.2 0 1.8 0.8-1.5 2-2.8 3.3-3.9 2.4-1.5 5.1-2.3 7.9-2.4h0.9 0.3c0.4 0 0.7-0.1 0.8-0.2 0-0.1-0.1-0.3-0.4-0.4-1.3-0.5-2.7-0.8-4.2-0.7z"/></svg></span>
+    <span class="wsu-wordmark__title">Washington State University</span>
+  </a>
+  <nav class="wsu-header-global__nav" aria-label="WSU utility"><ul><li><a href="https://foundation.wsu.edu/">Give</a></li><li><a href="index.html">Kit Home</a></li></ul></nav>
+</header>
+
+<nav class="wsu-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Form Kit</a></li><li><a href="email-templates.html">Email Templates</a></li><li>Block Library</li></ol></nav>
+
+<div class="vtabs" role="tablist" aria-label="Email header accent variants">
+  <span class="vtabs__label">Header accent</span>
+  <button class="vtab is-active" type="button" role="tab" aria-selected="true" data-variant="solid">Solid crimson</button>
+  <button class="vtab" type="button" role="tab" aria-selected="false" data-variant="gradient">2025 gradient</button>
+  <button class="vtab" type="button" role="tab" aria-selected="false" data-variant="dark">Dark</button>
+  <span class="vtabs__hint">Demo tool — re-skins the header bars below</span>
+</div>
+
+<div class="sg-hero">
+  <div class="sg-hero__inner">
+    <span class="sg-eyebrow">WSU Slate Form Kit · Deliver</span>
+    <h1>Email Block Library</h1>
+    <p>Reusable, inline-CSS email modules to assemble in Slate Deliver — header, hero, content + button, info box, footer. Mix and match. Each renders in Gmail, Outlook, and Apple Mail.</p>
+  </div>
+</div>
+
+<div class="sg-shell">
+  <aside class="sg-sidebar" aria-label="Section navigation">
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Blocks</p><ul>
+      <li><a href="#b-header" class="is-active">Header bar</a></li>
+      <li><a href="#b-hero">Hero band</a></li>
+      <li><a href="#b-content">Content + button</a></li>
+      <li><a href="#b-info">Info box</a></li>
+      <li><a href="#b-footer">Footer</a></li>
+    </ul></nav>
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Full templates</p><ul><li><a href="email-templates.html">Confirmation / reminder / decision</a></li></ul></nav>
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">↩ Kit</p><ul><li><a href="index.html">Back to home</a></li></ul></nav>
+  </aside>
+
+  <main class="sg-main" id="main">
+    <p style="font-size:1.05rem;color:var(--muted);max-width:60ch">Stack these inside one 600px wrapper table to build any message. The variant tabs re-skin the header bars so you can compare accents. <strong>Always inline CSS</strong> — Gmail strips &lt;style&gt; blocks.</p>
+
+    <section class="sg-section" id="b-header" style="margin-top:2rem">
+      <h2>Header <strong>bar</strong></h2>
+      <div class="sg-example"><div class="sg-example__bar">Wordmark header</div><div class="sg-example__preview email-frame"><div class="email-block">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"><tr><td class="eb-bar" style="background:#a60f2d;padding:18px 28px"><span style="font-family:Montserrat,Arial,sans-serif;font-size:1rem;font-weight:700;color:#fff">Washington State University · Admissions</span></td></tr></table>
+      </div></div>
+      <div class="sg-code"><button class="sg-copy" type="button">Copy</button><pre><code>&lt;table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"&gt;&lt;tr&gt;
+  &lt;td style="background:#a60f2d;padding:18px 28px"&gt;
+    &lt;span style="font-family:Montserrat,Arial,sans-serif;font-size:1rem;font-weight:700;color:#fff"&gt;Washington State University &#183; Admissions&lt;/span&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;</code></pre></div></div>
+    </section>
+
+    <section class="sg-section" id="b-hero">
+      <h2 class="wsuf-bare" style="font-size:1.9rem">Hero <strong>band</strong></h2>
+      <div class="sg-example"><div class="sg-example__bar">Crimson hero with eyebrow + headline</div><div class="sg-example__preview email-frame"><div class="email-block">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"><tr><td class="eb-bar" style="background:#7a0b21;padding:32px 28px">
+          <p style="font-family:Montserrat,Arial,sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.8);margin:0 0 8px">You're registered</p>
+          <h1 style="font-family:Montserrat,Arial,sans-serif;font-size:1.6rem;font-weight:800;color:#fff;margin:0">Future Cougar Day — Fall 2026</h1>
+        </td></tr></table>
+      </div></div>
+      <div class="sg-code"><button class="sg-copy" type="button">Copy</button><pre><code>&lt;table width="100%" role="presentation"&gt;&lt;tr&gt;&lt;td style="background:#7a0b21;padding:32px 28px"&gt;
+  &lt;p style="font:700 .72rem Montserrat,Arial;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.8);margin:0 0 8px"&gt;You're registered&lt;/p&gt;
+  &lt;h1 style="font:800 1.6rem Montserrat,Arial;color:#fff;margin:0"&gt;Future Cougar Day&lt;/h1&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></pre></div></div>
+    </section>
+
+    <section class="sg-section" id="b-content">
+      <h2 class="wsuf-bare" style="font-size:1.9rem">Content + <strong>button</strong></h2>
+      <div class="sg-example"><div class="sg-example__bar">Body copy + bulletproof CTA</div><div class="sg-example__preview email-frame"><div class="email-block">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"><tr><td style="padding:28px">
+          <p style="font-family:Montserrat,Arial,sans-serif;font-size:.95rem;color:#404040;line-height:1.6;margin:0 0 20px">Hi Marco, your campus tour is confirmed for October 18. Add it to your calendar so you don't miss it.</p>
+          <table cellpadding="0" cellspacing="0" border="0" role="presentation"><tr><td bgcolor="#a60f2d" style="border-radius:6px"><a href="#" style="font-family:Montserrat,Arial,sans-serif;font-size:1rem;font-weight:600;color:#fff;text-decoration:none;padding:14px 36px;display:inline-block;border-radius:6px;background:#a60f2d">Add to calendar →</a></td></tr></table>
+        </td></tr></table>
+      </div></div>
+      <div class="sg-code"><button class="sg-copy" type="button">Copy</button><pre><code>&lt;td style="padding:28px"&gt;
+  &lt;p style="font-family:Montserrat,Arial,sans-serif;font-size:.95rem;color:#404040;line-height:1.6;margin:0 0 20px"&gt;Body copy here.&lt;/p&gt;
+  &lt;table role="presentation"&gt;&lt;tr&gt;&lt;td bgcolor="#a60f2d" style="border-radius:6px"&gt;
+    &lt;a href="#" style="font-family:Montserrat,Arial,sans-serif;font-size:1rem;font-weight:600;color:#fff;text-decoration:none;padding:14px 36px;display:inline-block;border-radius:6px;background:#a60f2d"&gt;Add to calendar &rarr;&lt;/a&gt;
+  &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/td&gt;</code></pre></div></div>
+    </section>
+
+    <section class="sg-section" id="b-info">
+      <h2 class="wsuf-bare" style="font-size:1.9rem">Info <strong>box</strong></h2>
+      <div class="sg-example"><div class="sg-example__bar">Details panel</div><div class="sg-example__preview email-frame"><div class="email-block">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"><tr><td style="padding:0 28px 28px"><table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation" style="background:#f7f7f7;border-radius:6px"><tr><td style="padding:18px 20px;border-left:4px solid #a60f2d">
+          <p style="font-family:Montserrat,Arial,sans-serif;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#999;margin:0 0 8px">Your details</p>
+          <p style="font-family:Montserrat,Arial,sans-serif;font-size:.85rem;color:#404040;margin:0;line-height:1.6">Date: Oct 18, 2026<br>Time: 9 a.m. – 4 p.m.<br>Location: Lighty Bldg, Pullman</p>
+        </td></tr></table></td></tr></table>
+      </div></div></div>
+    </section>
+
+    <section class="sg-section" id="b-footer">
+      <h2 class="wsuf-bare" style="font-size:1.9rem">Footer</h2>
+      <div class="sg-example"><div class="sg-example__bar">Dark footer + unsubscribe</div><div class="sg-example__preview email-frame"><div class="email-block">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"><tr><td style="background:#1a1a1a;padding:20px 28px;border-top:4px solid #a60f2d">
+          <p style="font-family:Montserrat,Arial,sans-serif;font-size:.78rem;color:#b3b3b3;margin:0 0 4px">WSU Office of Admissions · 370 Lighty Bldg · Pullman, WA 99164</p>
+          <p style="font-family:Montserrat,Arial,sans-serif;font-size:.72rem;color:#808080;margin:0"><a href="#" style="color:#808080">Privacy</a> · <a href="#" style="color:#808080">Unsubscribe</a></p>
+        </td></tr></table>
+      </div></div></div>
+    </section>
+  </main>
+</div>
+
+<footer class="wsu-footer-global">
+  <div class="wsu-footer-global__copyright">© Washington State University · Office of Admissions</div>
+  <nav class="wsu-footer-global__nav" aria-label="WSU global"><ul><li><a href="https://access.wsu.edu/">Access</a></li><li><a href="https://policies.wsu.edu/">Policies</a></li><li><a href="https://portal.wsu.edu/">MyWSU</a></li><li><a href="https://socialmedia.wsu.edu/">Follow WSU</a></li></ul></nav>
+</footer>
+
+<button class="sh-fab" aria-expanded="false" aria-controls="sh-drawer">Slate hints</button>
+<div class="sh-backdrop"></div>
+<aside class="sh-drawer" id="sh-drawer" role="dialog" aria-modal="false" aria-label="Slate editor hints">
+  <div class="sh-drawer__head"><div><h2>Slate Editor Hints</h2><p>Deliver email blocks</p></div><button class="sh-close" type="button" aria-label="Close hints">×</button></div>
+  <div class="sh-body">
+    <h3>In Deliver</h3>
+    <p class="sh-hint">Stack blocks inside one <b>600px wrapper table</b>; paste into the Deliver message HTML source.</p>
+    <p class="sh-hint"><b>Inline CSS only.</b> No &lt;style&gt; blocks, no flexbox/grid — tables for layout.</p>
+    <p class="sh-hint">Merge fields like <code>{{first}}</code> drop straight into the copy.</p>
+    <p class="sh-hint">Add <code>role="presentation"</code> to every layout table (done here) so screen readers skip the grid.</p>
+    <p class="sh-hint">For full Outlook bulletproofing add MSO conditional comments around buttons; test with Litmus before a real send.</p>
+    <h3>Copy-paste</h3>
+    <p class="sh-snip__label">600px wrapper to stack blocks in</p>
+    <div class="sh-snip"><button class="sh-copy" type="button">Copy</button><pre><code>&lt;table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="background:#f5f5f5"&gt;
+ &lt;tr&gt;&lt;td align="center" style="padding:24px 16px"&gt;
+  &lt;table width="600" cellpadding="0" cellspacing="0" role="presentation" style="max-width:600px;width:100%;background:#fff"&gt;
+    &lt;!-- paste header / hero / content / footer blocks here --&gt;
+  &lt;/table&gt;
+ &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</code></pre></div>
+  </div>
+</aside>
+<script src="slate-hints.js"></script>
+<script src="variants.js"></script>
+<script>
+document.querySelectorAll('.sg-copy').forEach(function(btn){btn.addEventListener('click',function(){var c=btn.parentElement.querySelector('code');navigator.clipboard.writeText(c.textContent).then(function(){btn.textContent='Copied';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},1500);});});});
+var links=Array.from(document.querySelectorAll('.sg-nav-group a')),map={};links.forEach(function(a){var id=a.getAttribute('href').slice(1);var el=document.getElementById(id);if(el)map[id]=a;});
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('is-active');});var a=map[e.target.id];if(a)a.classList.add('is-active');}});},{rootMargin:'-15% 0px -75% 0px',threshold:0});
+Object.keys(map).forEach(function(id){obs.observe(document.getElementById(id));});
+</script>
+</body>
+</html>

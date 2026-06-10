@@ -1,0 +1,46 @@
+/* ============================================================================
+   SLATE EDITOR HINTS — slate-hints.css
+   Showcase-only helper drawer (NOT shipped to Slate). A fixed crimson tab opens
+   a slide-in panel of page-specific Slate tips + copy-paste HTML snippets.
+   ============================================================================ */
+.sh-fab {
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 500;
+  background: #a60f2d; color: #fff; border: 0; border-radius: 2rem;
+  padding: .75rem 1.15rem; font: 600 .85rem/1 "Montserrat", sans-serif; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25); display: flex; gap: .45rem; align-items: center;
+}
+.sh-fab:hover { background: #680222; }
+.sh-fab:focus-visible { outline: 3px solid #680222; outline-offset: 3px; }
+.sh-fab::before { content: "{ }"; font-weight: 700; }
+
+.sh-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 550; opacity: 0; visibility: hidden; transition: opacity .2s; }
+.sh-backdrop.is-open { opacity: 1; visibility: visible; }
+
+.sh-drawer {
+  position: fixed; top: 0; right: 0; height: 100vh; width: min(440px, 94vw);
+  background: #fff; z-index: 600; box-shadow: -8px 0 30px rgba(0,0,0,.25);
+  transform: translateX(100%); visibility: hidden; transition: transform .25s, visibility .25s;
+  display: flex; flex-direction: column; font-family: "Montserrat", sans-serif;
+}
+.sh-drawer.is-open { transform: translateX(0); visibility: visible; }
+.sh-drawer__head { background: #a60f2d; color: #fff; padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.sh-drawer__head h2 { margin: 0; font-size: 1.05rem; color: #fff; line-height: 1.2; }
+.sh-drawer__head p { margin: .15rem 0 0; font-size: .72rem; opacity: .85; }
+.sh-close { background: rgba(255,255,255,.16); border: 0; color: #fff; width: 2rem; height: 2rem; min-width: 2rem; border-radius: 50%; cursor: pointer; font-size: 1.1rem; line-height: 1; }
+.sh-close:hover { background: rgba(255,255,255,.3); }
+.sh-close:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.sh-body { padding: 1.25rem; overflow-y: auto; flex: 1; }
+.sh-body h3 { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: #a60f2d; margin: 1.5rem 0 .6rem; border-bottom: 1px solid #e2e2e2; padding-bottom: .35rem; }
+.sh-body h3:first-child { margin-top: 0; }
+.sh-hint { font-size: .85rem; line-height: 1.5; color: #262626; margin: 0 0 .6rem; padding-left: 1.2rem; position: relative; }
+.sh-hint::before { content: "\203a"; position: absolute; left: 0; color: #ca1237; font-weight: 700; }
+.sh-hint b { color: #7a0b21; }
+.sh-hint code { background: #f2f2f2; border-radius: 3px; padding: .05em .35em; font-size: .92em; }
+.sh-snip { position: relative; background: #2a2326; border-radius: 6px; margin: 0 0 .85rem; }
+.sh-snip__label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #595959; margin: 0 0 .3rem; }
+.sh-snip pre { margin: 0; padding: .85rem 1rem; overflow-x: auto; }
+.sh-snip code { font: .76rem/1.55 "SFMono-Regular", Menlo, Consolas, monospace; color: #f3e9ec; white-space: pre; }
+.sh-copy { position: absolute; top: .4rem; right: .4rem; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); color: #fff; font: 700 .62rem/1 "Montserrat", sans-serif; text-transform: uppercase; letter-spacing: .05em; padding: .32rem .55rem; border-radius: 4px; cursor: pointer; }
+.sh-copy:hover { background: rgba(255,255,255,.24); }
+.sh-copy.copied { background: #1f7a3d; border-color: #1f7a3d; }
+@media print { .sh-fab, .sh-drawer, .sh-backdrop { display: none !important; } }

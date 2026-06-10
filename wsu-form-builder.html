@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WSU Form Builder — Slate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="wsu-chrome.css">
+<link rel="stylesheet" href="wsu-forms.css">
+<style>
+  :root{--c:#a60f2d;--cd:#680222;--ink:#262626;--muted:#595959;--line:#d9d9d9;--bg:#f4f4f4}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Montserrat,sans-serif;color:var(--ink);background:var(--bg)}
+  .fb-bar{display:flex;align-items:center;gap:.75rem;padding:.6rem 1rem;background:#1f1f1f;color:#fff;border-bottom:3px solid var(--c);flex-wrap:wrap}
+  .fb-bar input{font:600 1rem Montserrat;border:1px solid #444;background:#2a2a2a;color:#fff;border-radius:6px;padding:.45rem .7rem;min-width:16rem}
+  .fb-bar label{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#b3b3b3;font-weight:700}
+  .fb-bar .sp{margin-left:auto}
+  .fb-btn{font:600 .82rem Montserrat;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;border-radius:6px;padding:.45rem .85rem;cursor:pointer}
+  .fb-btn:hover{background:rgba(255,255,255,.22)}
+  .fb-btn--p{background:var(--c);border-color:var(--c)}
+  .fb-btn--p:hover{background:var(--cd)}
+  .fb-grid{display:grid;grid-template-columns:14rem 1fr 17rem;gap:0;height:calc(100vh - 56px)}
+  @media(max-width:980px){.fb-grid{grid-template-columns:1fr;height:auto}}
+  .fb-col{overflow-y:auto;padding:1rem}
+  .fb-palette{background:#fff;border-right:1px solid var(--line)}
+  .fb-canvas{background:var(--bg)}
+  .fb-inspector{background:#fff;border-left:1px solid var(--line)}
+  .fb-h{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 .6rem}
+  .pal-item{display:flex;align-items:center;gap:.5rem;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:8px;padding:.55rem .7rem;margin-bottom:.4rem;font:600 .85rem Montserrat;color:var(--ink);cursor:grab}
+  .pal-item:hover{border-color:var(--c);background:#fff8f9}
+  .pal-item:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+  .pal-item .ic{font-size:1rem;color:var(--c)}
+  .pal-more{font:600 .78rem Montserrat;color:var(--c);background:none;border:0;cursor:pointer;padding:.4rem 0;text-decoration:underline}
+  .canvas-empty{border:2px dashed var(--line);border-radius:12px;padding:3rem 1rem;text-align:center;color:var(--muted)}
+  .canvas-list{list-style:none;margin:0;padding:0;max-width:42rem;margin:0 auto}
+  .ci{background:#fff;border:1px solid var(--line);border-radius:10px;padding:.7rem .85rem;margin-bottom:.6rem;display:flex;align-items:center;gap:.6rem;cursor:grab}
+  .ci.sel{border-color:var(--c);box-shadow:0 0 0 2px rgba(166,15,45,.18)}
+  .ci:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+  .pal-item{min-height:2.75rem}
+  .ci.drag-over{border-top:3px solid var(--c)}
+  .ci__type{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:#f2f2f2;border-radius:4px;padding:.15rem .4rem}
+  .ci__label{flex:1 1 auto;font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ci__req{color:var(--c);font-weight:800}
+  .ci__btns{display:flex;gap:.2rem;flex:0 0 auto}
+  .ci__btns button{width:2.5rem;height:2.5rem;min-width:2.5rem;border:1px solid var(--line);background:#fff;border-radius:6px;cursor:pointer;font-size:1rem;color:var(--ink);display:flex;align-items:center;justify-content:center}
+  .ci__btns button:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+  .ci__btns button:hover{border-color:var(--c);color:var(--c)}
+  .insp label{display:block;font-size:.78rem;font-weight:600;margin:.85rem 0 .25rem}
+  .insp input[type=text],.insp textarea,.insp select{width:100%;border:1px solid #767676;border-radius:6px;padding:.5rem .6rem;font:1rem Montserrat;box-sizing:border-box}
+  .insp textarea{min-height:3.5rem;resize:vertical}
+  .insp .row{display:flex;align-items:center;gap:.5rem;margin-top:.85rem}
+  .insp .row input[type=checkbox]{width:1.2rem;height:1.2rem;accent-color:var(--c)}
+  .opt-row{display:flex;gap:.35rem;margin-bottom:.35rem}
+  .opt-row input{flex:1 1 auto}
+  .opt-row button{flex:0 0 auto;border:1px solid var(--line);background:#fff;border-radius:6px;width:2rem;cursor:pointer}
+  .insp-empty{color:var(--muted);font-size:.9rem;margin-top:1rem}
+  .fb-drawer{background:#fff;border-top:1px solid var(--line)}
+  .fb-tabs{display:flex;gap:.25rem;padding:.5rem 1rem 0;border-bottom:1px solid var(--line);background:#fafafa}
+  .fb-tab{font:700 .8rem Montserrat;border:1px solid var(--line);border-bottom:0;background:#eee;color:var(--muted);border-radius:6px 6px 0 0;padding:.5rem .9rem;cursor:pointer}
+  .fb-tab.on{background:#fff;color:var(--c)}
+  .fb-pane{padding:1.5rem;display:none}
+  .fb-pane.on{display:block}
+  .preview-wrap{max-width:46rem;margin:0 auto}
+  .sheet ol{max-width:46rem;margin:0 auto;padding-left:1.4rem}
+  .sheet li{padding:.45rem 0;line-height:1.5;border-bottom:1px solid #eee}
+  .sheet b{color:var(--cd)}
+  .sheet .slate{font-size:.8rem;color:var(--muted)}
+  .sheet .hint{display:block;font-size:.8rem;color:#8a5d00;background:#fef8eb;border-left:3px solid #e6a817;padding:.4rem .6rem;border-radius:0 4px 4px 0;margin:.35rem 0}
+  .sheet-copy{margin:0 auto 1rem;display:block;max-width:46rem}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+</style>
+</head>
+<body>
+
+<header class="wsu-header-global" style="position:static">
+  <a class="wsu-wordmark" href="index.html"><span class="wsu-coug-head-boxed"><svg class="wsu-coug-head-boxed__icon" aria-hidden="true" focusable="false" viewBox="0 0 70.2 69.6" xmlns="http://www.w3.org/2000/svg"><path d="m42.8 69.6s3.6-1.5 5.5-7.4c1 2.3 1.5 4.8 1.3 7.3-2.3 0.1-4.5 0.2-6.8 0.1zm14.9-11.8c-10.4 1.4-12.2-20.3-12.2-20.3s3.5 11.1 10.9 10.7c7.7-0.4 5.5-12.2 5.5-12.2s7.5 20.2-4.2 21.8zm-47.7-5c-3.3 1-6.6 1.8-10 2.4 0 0 5.9-4.5 10.3-18.3l4.3 3.9-0.8 2.6c1.1 1.5 1.9 3.1 2.5 4.9 1.6-3.6 1.5-7.7-0.3-11.2l-0.5 1.6-1.7-1.5-2.8-2.7c1.2-3.6 3-7 5.3-10.1l0.4 0.4 3.3 3.8-1 1.7c1.5 1.7 2.9 3.4 4.2 5.3 0.6-3.4 0.4-6.8-0.4-10.1l-1.5 1.4-3.6-4.2c4.5-4.7 10-8.2 16.2-10.3-0.4 0.4-0.7 0.8-1 1.3-2 2.9-4.1 8.1-2.4 16.4 0.3 1.3 0.7 3.2 1.1 5.1 0.9 3.8 1.9 8.2 2.2 10.9 0.7 5.7 0.1 9.4-1.8 11.4-1.3 1.4-3.5 2-6.4 1.9v-1.4c0-2.4-0.3-4.8-0.8-7.2l-0.8-2.7-1.2 2.6c-1.9 4.1-8.6 14.1-17.2 16.1 2.6-4.2 4.1-9 4.4-14zm25.4 16.4h-0.5-0.1-0.3c-0.5 0-0.8-0.1-1.2-0.1-0.7-0.1-1.6-0.2-2.6-0.4-6.4-1.1-12.9-1.7-19.4-2 6.2-3.6 10.4-9.9 12-12.5 0.2 1.3 0.3 2.5 0.3 3.8 0 0.8 0 1.6-0.1 2.2l-0.1 1.1 1.1 0.1c0.7 0.1 1.3 0.1 1.9 0.1 3.3 0 5.7-0.8 7.3-2.5 2.4-2.5 3.1-6.7 2.3-13.1-0.4-2.9-1.4-7.4-2.3-11.1-0.5-2-0.9-3.8-1.1-5-1.5-7.6 0.3-12.3 2.1-14.8 1.3-1.9 3.2-3.4 5.5-4.2h0.1l3.3-10.8h1.1l-2.3 10.3c0.7-0.1 1.2-0.2 1.7-0.3l3-9.5h1.1l-2 9.2c2.9-0.4 6.1-0.7 10.3-1 0.8 0.4 1.4 1.1 1.8 1.9l9.8-3 0.4 1.1-9.5 3.7c0.1 0.2 0.2 0.4 0.2 0.6l10.3-1.3 0.2 1.1-10 2c0 0.2 0.1 0.4 0.1 0.6l10.4 0.3v1.1l-10.2 0.4c0 1.2-0.2 2.4-0.5 3.6 0.6 2.1 0.7 4.3 0.3 6.5-1.7-3.9-3-5.1-3-5.1-1.4-0.7-2.9-1-4.5-1-2.5 0-4.8 1.1-6.4 2.9-2.3 2.6-3.5 6-3.3 9.5 0.2 2.4 0.7 5.1 1.4 8.6 0.7 3.6 1.6 8.1 2.3 13.5 0.6 4.1-0.1 7.3-1.8 9.7-1.6 2.1-4 3.4-6.5 3.8h-0.1-0.2-0.1-2.2zm10.4-51.5c-2.1-0.1-4.2 0.4-6 1.3-1.5 1-2.5 2.7-2.6 4.5-0.1 0.6-0.1 1.2 0 1.8 0.8-1.5 2-2.8 3.3-3.9 2.4-1.5 5.1-2.3 7.9-2.4h0.9 0.3c0.4 0 0.7-0.1 0.8-0.2 0-0.1-0.1-0.3-0.4-0.4-1.3-0.5-2.7-0.8-4.2-0.7z"/></svg></span><span class="wsu-wordmark__title">WSU Form Builder</span></a>
+  <nav class="wsu-header-global__nav" aria-label="WSU utility"><ul><li><a href="editor-guide.html">Editor Guide</a></li><li><a href="index.html">Kit Home</a></li></ul></nav>
+</header>
+
+<div class="fb-bar">
+  <label for="fb-title">Form name</label>
+  <input id="fb-title" type="text" value="My new form" aria-label="Form name">
+  <span class="sp"></span>
+  <button class="fb-btn" id="fb-reset" type="button">New / clear</button>
+  <button class="fb-btn fb-btn--p" id="fb-tosheet" type="button">View Build Sheet ↓</button>
+</div>
+
+<div class="fb-grid">
+  <!-- PALETTE -->
+  <div class="fb-col fb-palette">
+    <p class="fb-h">Add a question</p>
+    <div id="pal-main"></div>
+    <button class="pal-more" id="pal-more-btn" type="button" aria-expanded="false">More field types…</button>
+    <div id="pal-more" hidden></div>
+    <p class="fb-h" style="margin-top:1.25rem">How</p>
+    <p style="font-size:.8rem;color:var(--muted);line-height:1.5;margin:0"><b>Mouse:</b> drag a block onto the canvas. <b>Keyboard / touch:</b> click or tap a block to add it; reorder with the ▲▼ buttons (or Alt+↑/↓ on a focused question). Everything works without dragging.</p>
+  </div>
+
+  <!-- CANVAS -->
+  <div class="fb-col fb-canvas">
+    <p class="fb-h">Your form</p>
+    <div id="canvas"></div>
+  </div>
+
+  <!-- INSPECTOR -->
+  <div class="fb-col fb-inspector">
+    <p class="fb-h">Question settings</p>
+    <div id="inspector"><p class="insp-empty">Select a question on the canvas to edit it.</p></div>
+  </div>
+</div>
+
+<!-- DRAWER -->
+<div class="fb-drawer">
+  <div class="fb-tabs" role="tablist">
+    <button class="fb-tab on" id="tab-preview" role="tab" aria-selected="true" data-pane="preview">Live preview</button>
+    <button class="fb-tab" id="tab-sheet" role="tab" aria-selected="false" data-pane="sheet">Slate Build Sheet</button>
+  </div>
+  <div class="fb-pane on" id="pane-preview"><div class="preview-wrap wsu-content" id="preview"></div></div>
+  <div class="fb-pane sheet" id="pane-sheet">
+    <button class="wsuf-btn wsuf-btn--sm sheet-copy" id="copy-sheet" type="button">Copy the whole build sheet</button>
+    <div id="sheet"></div>
+  </div>
+</div>
+
+<div class="sr" id="live" aria-live="polite"></div>
+
+<script>
+(function(){
+  // ---- field registry (plain name -> Slate name) ----
+  var REG = {
+    short:   {name:'Short answer',           ic:'▭', slate:'Text Box',        pv:'text',     opts:false},
+    long:    {name:'Long answer',            ic:'▤', slate:'Paragraph Text',  pv:'textarea', opts:false},
+    email:   {name:'Email',                  ic:'@', slate:'Text Box',        pv:'email',    opts:false},
+    phone:   {name:'Phone',                  ic:'☎', slate:'Text Box',        pv:'tel',      opts:false},
+    choice:  {name:'Multiple choice (one)',  ic:'◉', slate:'Option Buttons',  pv:'radio',    opts:true},
+    checks:  {name:'Checkboxes (many)',      ic:'☑', slate:'Check Boxes',     pv:'checkbox', opts:true},
+    dropdown:{name:'Dropdown',               ic:'▾', slate:'Select List',     pv:'select',   opts:true},
+    date:    {name:'Date',                   ic:'📅',slate:'Date',            pv:'date',     opts:false},
+    heading: {name:'Heading',                ic:'H', slate:'Heading 2',       pv:'heading',  opts:false, stat:true},
+    info:    {name:'Explanatory text',       ic:'¶', slate:'Instructions',    pv:'info',     opts:false, stat:true}
+  };
+  var MORE = {
+    file:    {name:'File upload',            ic:'⤓', slate:'Material Upload', pv:'file',     opts:false},
+    address: {name:'Address',                ic:'⌂', slate:'Street Address',  pv:'address',  opts:false},
+    rating:  {name:'Rating scale',           ic:'★', slate:'Rating Scale',    pv:'rating',   opts:false},
+    secret:  {name:'Secret (masked)',        ic:'•', slate:'Secret',         pv:'password', opts:false},
+    divider: {name:'Line / section break',   ic:'—', slate:'Section Break',  pv:'divider',  opts:false, stat:true},
+    carousel:{name:'Image carousel',         ic:'▦', slate:'Instructions (HTML)', pv:'carousel', opts:false, stat:true}
+  };
+  var ALL = Object.assign({}, REG, MORE);
+  var MAIN_ORDER = ['short','long','email','phone','choice','checks','dropdown','date','heading','info'];
+  var MORE_ORDER = ['file','address','rating','secret','divider','carousel'];
+
+  var KEY='wsu-fb:current';
+  var state = load() || { title:'My new form', fields:[] };
+  state.fields = (state.fields||[]).filter(Boolean);
+  try{ localStorage.setItem('wsu-fb:current', JSON.stringify(state)); }catch(e){}
+  var sel = null;
+  document.getElementById('fb-title').value = state.title;
+
+  function uid(){ return 'f'+Math.random().toString(36).slice(2,8); }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY)); }catch(e){ return null; } }
+  function announce(m){ document.getElementById('live').textContent = m; }
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function addField(type, atIndex){
+    var r = ALL[type];
+    var f = { id:uid(), type:type, label: defaultLabel(type), required:false, help:'', options: r.opts ? ['Option 1','Option 2'] : [], showWhen:null };
+    if(typeof atIndex==='number') state.fields.splice(atIndex,0,f); else state.fields.push(f);
+    sel = f.id; save(); render();
+    announce(r.name+' added. '+state.fields.length+' questions.');
+  }
+  function defaultLabel(type){
+    return {short:'Short answer',long:'Long answer',email:'Email address',phone:'Phone number',choice:'Choose one',checks:'Select all that apply',dropdown:'Choose from the list',date:'Date',heading:'Section heading',info:'Explanatory text goes here.',file:'Upload a file',address:'Mailing address',rating:'How would you rate…',secret:'Access code',divider:'(line break)',carousel:'Campus photos'}[type] || ALL[type].name;
+  }
+  function move(id,dir){
+    var i = state.fields.findIndex(function(f){return f.id===id;});
+    var j = i+dir; if(j<0||j>=state.fields.length) return;
+    var t = state.fields[i]; state.fields[i]=state.fields[j]; state.fields[j]=t;
+    save(); render();
+    announce((ALL[t.type]?t.label:'')+' moved to position '+(j+1)+' of '+state.fields.length);
+    var btn=document.querySelector('[data-mv="'+id+(dir<0?'up':'down')+'"]'); if(btn) btn.focus();
+  }
+  function del(id){ state.fields = state.fields.filter(function(f){return f.id!==id;}); if(sel===id) sel=null; save(); render(); announce('Question deleted.'); }
+
+  // ---- palette ----
+  function palBtn(type){
+    var r = ALL[type];
+    var b = document.createElement('button');
+    b.className='pal-item'; b.type='button'; b.draggable=true; b.dataset.type=type;
+    b.innerHTML = '<span class="ic" aria-hidden="true">'+r.ic+'</span> '+esc(r.name);
+    b.addEventListener('click', function(){ addField(type); });
+    b.addEventListener('dragstart', function(e){ e.dataTransfer.setData('text/new', type); e.dataTransfer.effectAllowed='copy'; });
+    return b;
+  }
+  function renderPalette(){
+    var m=document.getElementById('pal-main'); m.innerHTML='';
+    MAIN_ORDER.forEach(function(t){ m.appendChild(palBtn(t)); });
+    var mm=document.getElementById('pal-more'); mm.innerHTML='';
+    MORE_ORDER.forEach(function(t){ mm.appendChild(palBtn(t)); });
+  }
+
+  // ---- canvas ----
+  function renderCanvas(){
+    var c=document.getElementById('canvas');
+    if(!state.fields.length){ c.innerHTML='<div class="canvas-empty">Click or drag a block from the left to add your first question.</div>'; return; }
+    var ul=document.createElement('ul'); ul.className='canvas-list';
+    state.fields.forEach(function(f,i){
+      if(!f||!ALL[f.type])return;
+      var r=ALL[f.type];
+      var li=document.createElement('li'); li.className='ci'+(sel===f.id?' sel':''); li.tabIndex=0; li.draggable=true; li.dataset.id=f.id;
+      li.innerHTML='<span class="ci__type">'+esc(r?r.slate:f.type)+'</span><span class="ci__label">'+esc(f.label||'(no label)')+(f.required?' <span class="ci__req" title="Required">*</span>':'')+'</span>'+
+        '<span class="ci__btns"><button data-mv="'+f.id+'up" title="Move up" aria-label="Move up">▲</button><button data-mv="'+f.id+'down" title="Move down" aria-label="Move down">▼</button><button data-del="'+f.id+'" title="Delete" aria-label="Delete">✕</button></span>';
+      li.addEventListener('click', function(e){ if(e.target.closest('button'))return; sel=f.id; render(); });
+      li.addEventListener('keydown', function(e){
+        if(e.key==='Enter'||e.key===' '){ sel=f.id; render(); e.preventDefault(); }
+        else if(e.altKey&&e.key==='ArrowUp'){ move(f.id,-1); e.preventDefault(); }
+        else if(e.altKey&&e.key==='ArrowDown'){ move(f.id,1); e.preventDefault(); }
+        else if(e.key==='Delete'){ del(f.id); e.preventDefault(); }
+      });
+      li.addEventListener('dragstart', function(e){ e.dataTransfer.setData('text/move', f.id); e.dataTransfer.effectAllowed='move'; });
+      li.addEventListener('dragover', function(e){ e.preventDefault(); li.classList.add('drag-over'); });
+      li.addEventListener('dragleave', function(){ li.classList.remove('drag-over'); });
+      li.addEventListener('drop', function(e){ e.preventDefault(); li.classList.remove('drag-over'); handleDrop(e, i); });
+      ul.appendChild(li);
+    });
+    c.innerHTML=''; c.appendChild(ul);
+  }
+  function bindCanvasDropOnce(){
+    var c=document.getElementById('canvas');
+    c.addEventListener('dragover', function(e){ e.preventDefault(); });
+    c.addEventListener('drop', function(e){ if(!e.target.closest('.ci')){ e.preventDefault(); handleDrop(e, state.fields.length); } });
+  }
+  function handleDrop(e, index){
+    var nt=e.dataTransfer.getData('text/new');
+    if(nt){ addField(nt, index); return; }
+    var mid=e.dataTransfer.getData('text/move');
+    if(mid){ var from=state.fields.findIndex(function(f){return f.id===mid;}); if(from<0)return; var f=state.fields.splice(from,1)[0]; if(from<index)index--; state.fields.splice(index,0,f); save(); render(); }
+  }
+
+  // ---- inspector ----
+  function renderInspector(){
+    var box=document.getElementById('inspector');
+    var f = state.fields.find(function(x){return x.id===sel;});
+    if(!f){ box.innerHTML='<p class="insp-empty">Select a question on the canvas to edit it.</p>'; return; }
+    var r=ALL[f.type];
+    var h='<p style="font-size:.8rem;color:var(--muted);margin:0">In Slate: <b style="color:var(--ink)">'+esc(r.slate)+'</b></p>';
+    h+='<label for="i-label">'+(f.type==='heading'?'Heading text':f.type==='info'?'Text':'Question label')+'</label><input id="i-label" type="text" value="'+esc(f.label)+'">';
+    if(!r.stat){
+      h+='<label for="i-help">Help text <span style="font-weight:400;color:var(--muted)">(optional)</span></label><input id="i-help" type="text" value="'+esc(f.help)+'">';
+      h+='<div class="row"><input id="i-req" type="checkbox"'+(f.required?' checked':'')+'><label for="i-req" style="margin:0">Required</label></div>';
+      var _i=state.fields.indexOf(f), _earlier=state.fields.slice(0,_i).filter(function(x){return x&&!ALL[x.type].stat;});
+      if(_earlier.length){
+        h+='<label for="i-sw-src" style="margin-top:1rem">Show only when… <span style="font-weight:400;color:var(--muted)">(optional)</span></label>';
+        h+='<select id="i-sw-src"><option value="">Always show</option>'+_earlier.map(function(x){return '<option value="'+x.id+'"'+(f.showWhen&&f.showWhen.source===x.id?' selected':'')+'>'+esc(x.label)+'</option>';}).join('')+'</select>';
+        h+='<div id="i-sw-vw"'+(f.showWhen&&f.showWhen.source?'':' hidden')+' style="margin-top:.4rem"><label for="i-sw-val" style="margin:.2rem 0">is exactly</label><input id="i-sw-val" type="text" value="'+esc(f.showWhen?f.showWhen.value:'')+'" placeholder="e.g. Yes"></div>';
+      }
+    }
+    if(r.opts){
+      h+='<label style="margin-top:1rem">Options</label><div id="i-opts">';
+      f.options.forEach(function(o,k){ h+='<div class="opt-row"><input type="text" data-opt="'+k+'" value="'+esc(o)+'" aria-label="Option '+(k+1)+'"><button type="button" data-rmopt="'+k+'" aria-label="Remove option">✕</button></div>'; });
+      h+='</div><button type="button" id="i-addopt" class="pal-more">+ Add option</button>';
+    }
+    box.innerHTML=h;
+    var lab=document.getElementById('i-label'); lab.addEventListener('input', function(){ f.label=lab.value; save(); renderCanvas(); renderPreview(); renderSheet(); });
+    var help=document.getElementById('i-help'); if(help) help.addEventListener('input', function(){ f.help=help.value; save(); renderPreview(); });
+    var req=document.getElementById('i-req'); if(req) req.addEventListener('change', function(){ f.required=req.checked; save(); renderCanvas(); renderPreview(); renderSheet(); });
+    var swSrc=document.getElementById('i-sw-src');
+    if(swSrc){ swSrc.addEventListener('change', function(){ if(!swSrc.value){f.showWhen=null;}else{f.showWhen={source:swSrc.value, value:(f.showWhen?f.showWhen.value:'')};} save(); renderInspector(); renderPreview(); renderSheet(); });
+      var swVal=document.getElementById('i-sw-val'); if(swVal) swVal.addEventListener('input', function(){ if(f.showWhen){ f.showWhen.value=swVal.value; save(); renderPreview(); renderSheet(); } }); }
+    if(r.opts){
+      box.querySelectorAll('[data-opt]').forEach(function(inp){ inp.addEventListener('input', function(){ f.options[+inp.dataset.opt]=inp.value; save(); renderPreview(); renderSheet(); }); });
+      box.querySelectorAll('[data-rmopt]').forEach(function(b){ b.addEventListener('click', function(){ f.options.splice(+b.dataset.rmopt,1); save(); renderInspector(); renderPreview(); renderSheet(); }); });
+      document.getElementById('i-addopt').addEventListener('click', function(){ f.options.push('Option '+(f.options.length+1)); save(); renderInspector(); renderPreview(); renderSheet(); });
+    }
+  }
+
+  // ---- preview (kit-styled, Slate-shaped-ish) ----
+  function fieldId(f){ return 'pv-'+f.id; }
+  function renderPreview(){
+    var p=document.getElementById('preview');
+    if(!state.fields.length){ p.innerHTML='<p style="color:#595959">Your form preview appears here as you build.</p>'; return; }
+    var h='<h1 style="font-size:1.8rem">'+esc(state.title||'Form')+'</h1>';
+    state.fields.forEach(function(f){
+      if(!f||!ALL[f.type])return;
+      var r=ALL[f.type], id=fieldId(f), req=f.required, reqc=req?' wsuf-field--required':'';
+      if(f.showWhen&&f.showWhen.source){ var _sw=state.fields.find(function(x){return x&&x.id===f.showWhen.source;}); h+='<p style="font-size:.78rem;color:#8a5d00;background:#fef8eb;border-left:3px solid #e6a817;padding:.3rem .55rem;border-radius:0 4px 4px 0;margin:.4rem 0 .25rem">↳ Shows only when “'+esc(_sw?_sw.label:'?')+'” is “'+esc(f.showWhen.value)+'”</p>'; }
+      var lbl='<label for="'+id+'">'+esc(f.label)+'</label>';
+      var help=f.help?'<p class="wsuf-help" id="'+id+'-h">'+esc(f.help)+'</p>':'';
+      var desc=f.help?' aria-describedby="'+id+'-h"':'';
+      var reqa=req?' required':'';
+      if(f.type==='heading'){ h+='<h2 class="wsuf-h2-marked">'+esc(f.label)+'</h2>'; return; }
+      if(f.type==='info'){ h+='<div class="wsuf-instructions"><p>'+esc(f.label)+'</p></div>'; return; }
+      if(f.type==='divider'){ h+='<hr class="wsuf-divider">'; return; }
+      if(f.type==='carousel'){ h+='<div class="wsuf-carousel"><div class="wsuf-carousel__viewport"><div class="wsuf-carousel__track"><div class="wsuf-carousel__slide"><div class="wsuf-ph" style="aspect-ratio:16/9">campus photo 1 of 3</div><div class="wsuf-carousel__caption">'+esc(f.label)+'</div></div></div></div></div>'; return; }
+      if(r.pv==='text'||r.pv==='email'||r.pv==='tel'||r.pv==='date'||r.pv==='password'){ h+='<div class="wsuf-field'+reqc+'">'+lbl+help+'<input type="'+r.pv+'" id="'+id+'"'+desc+reqa+(r.pv==='date'?' class="wsuf-input--md"':'')+'></div>'; return; }
+      if(r.pv==='textarea'){ h+='<div class="wsuf-field'+reqc+'">'+lbl+help+'<textarea id="'+id+'"'+desc+reqa+'></textarea></div>'; return; }
+      if(r.pv==='file'){ h+='<div class="wsuf-field'+reqc+'">'+lbl+help+'<input type="file" id="'+id+'"'+desc+'></div>'; return; }
+      if(r.pv==='select'){ var o='<option value="">Select…</option>'+f.options.map(function(x){return '<option>'+esc(x)+'</option>';}).join(''); h+='<div class="wsuf-field'+reqc+'">'+lbl+help+'<select id="'+id+'" class="wsuf-input--md"'+desc+reqa+'>'+o+'</select></div>'; return; }
+      if(r.pv==='radio'||r.pv==='checkbox'){ var t=r.pv; var ch=f.options.map(function(x,k){ var oid=id+'-'+k; return '<div class="wsuf-choice"><input type="'+t+'" id="'+oid+'" name="'+id+'"><label for="'+oid+'">'+esc(x)+'</label></div>'; }).join(''); h+='<fieldset><legend>'+esc(f.label)+(req?' <span style="color:var(--wsu-red)">*</span>':'')+'</legend>'+(f.help?'<p class="wsuf-help">'+esc(f.help)+'</p>':'')+'<div class="wsuf-choices">'+ch+'</div></fieldset>'; return; }
+      if(r.pv==='rating'){ h+='<fieldset style="border:0;padding:0"><legend class="wsuf-legend" style="margin-left:0">'+esc(f.label)+'</legend><div class="wsuf-rating">'+[1,2,3,4,5].map(function(n){return '<input type="radio" id="'+id+'-'+n+'" name="'+id+'"><label for="'+id+'-'+n+'">'+n+'</label>';}).join('')+'</div></fieldset>'; return; }
+      if(r.pv==='address'){ h+='<fieldset><legend>'+esc(f.label)+(req?' <span style="color:var(--wsu-red)">*</span>':'')+'</legend><div class="wsuf-field wsuf-field--wide"><label for="'+id+'-s">Street</label><input type="text" id="'+id+'-s"></div><div class="wsuf-row" style="grid-template-columns:2fr 1fr 1fr"><div class="wsuf-field"><label for="'+id+'-c">City</label><input type="text" id="'+id+'-c"></div><div class="wsuf-field"><label for="'+id+'-st">State</label><input type="text" id="'+id+'-st"></div><div class="wsuf-field"><label for="'+id+'-z">ZIP</label><input type="text" id="'+id+'-z" class="wsuf-input--sm"></div></div></fieldset>'; return; }
+    });
+    if(state.fields.some(function(f){return f&&ALL[f.type]&&!ALL[f.type].stat;})) h+='<div class="wsuf-actions"><button type="button">Submit</button></div>';
+    p.innerHTML=h;
+  }
+
+  // ---- build sheet ----
+  function renderSheet(){
+    var s=document.getElementById('sheet');
+    var steps=[];
+    steps.push({t:'<b>Start from a template.</b> In Slate → Forms → <b>_Templates</b>, Copy the closest one and rename it "<b>'+esc(state.title)+'</b>". <span class="slate">(Never start from a blank form.)</span>'});
+    state.fields.forEach(function(f){
+      if(!f||!ALL[f.type])return;
+      var r=ALL[f.type], parts;
+      if(f.type==='heading'){ parts='Insert → <b>Heading 2</b>. Text: "'+esc(f.label)+'".'; }
+      else if(f.type==='info'){ parts='Insert → <b>Instructions</b>. Paste your text (use Source view).'; }
+      else if(f.type==='divider'){ parts='Insert → <b>Section Break</b> (a horizontal divider).'; }
+      else if(f.type==='carousel'){ parts='Insert → <b>Instructions</b>, switch to <b>Source / HTML view</b>, and paste the carousel block from the kit\u2019s Media page. Ask the web team to add <code>wsu-carousel.js</code> to the form once.'; }
+      else {
+        parts='Insert → <b>'+esc(r.slate)+'</b>. Label: "'+esc(f.label)+'".';
+        if(f.help) parts+=' Help text: "'+esc(f.help)+'".';
+        if(r.opts) parts+=' Add options in order: '+f.options.map(function(o){return '"'+esc(o)+'"';}).join(', ')+' (set a stored value for each, not just the label).';
+        if(f.required) parts+=' Set <b>Required = Yes</b>.';
+      }
+      var st={t:parts};
+      if(f.showWhen&&f.showWhen.source){ var _sw=state.fields.find(function(x){return x&&x.id===f.showWhen.source;}); st.t+=' <b>Edit Conditions</b> → show this when “'+esc(_sw?_sw.label:'?')+'” equals “'+esc(f.showWhen.value)+'”. <span class="slate">(Slate toggles inline display:none — never force display on the question wrapper.)</span>'; }
+      if(f.type==='date') st.hint='Use the single <b>Date</b> field (not the 3-dropdown Birthdate) — the composite emits empty labels and fails WAVE.';
+      if(f.type==='address') st.hint='The address sub-labels can\u2019t be edited in the builder; the asterisk/label fix is CSS-only (already in the kit). Changing Country re-renders the State field.';
+      steps.push(st);
+    });
+    steps.push({t:'<b>Form settings.</b> Set scope, open/close dates, and capacity in Properties. Add a confirmation page (your template already has one).'});
+    steps.push({t:'<b>Finish.</b> Preview on a phone, leave a required field blank to check the error, then Publish. If the web team changed any shared CSS, they\u2019ll bump the <code>?v=</code> date.'});
+
+    var html='<ol>';
+    steps.forEach(function(st){ html+='<li>'+st.t+(st.hint?'<span class="hint">⚠ '+st.hint+'</span>':'')+'</li>'; });
+    html+='</ol>';
+    s.innerHTML=html;
+  }
+  function sheetText(){
+    var lines=['SLATE BUILD SHEET — '+state.title,''];
+    var n=1;
+    lines.push(n++ +'. Start from a template: Forms → _Templates, Copy the closest, rename "'+state.title+'".');
+    state.fields.forEach(function(f){
+      if(!f||!ALL[f.type])return;
+      var r=ALL[f.type], p;
+      if(f.type==='heading') p='Insert → Heading 2. Text: "'+f.label+'".';
+      else if(f.type==='info') p='Insert → Instructions. Paste text via Source view.';
+      else if(f.type==='divider') p='Insert → Section Break.';
+      else if(f.type==='carousel') p='Insert → Instructions (Source view); paste the carousel block from the kit Media page; web team adds wsu-carousel.js.';
+      else { p='Insert → '+r.slate+'. Label: "'+f.label+'".'; if(f.help)p+=' Help: "'+f.help+'".'; if(r.opts)p+=' Options: '+f.options.join(', ')+'.'; if(f.required)p+=' Required = Yes.'; }
+      lines.push(n++ +'. '+p);
+    });
+    lines.push(n++ +'. Form settings: scope, open/close dates, capacity, confirmation page.');
+    lines.push(n++ +'. Finish: preview on phone, test a required field, Publish.');
+    return lines.join('\n');
+  }
+
+  function render(){ renderCanvas(); renderInspector(); renderPreview(); renderSheet(); }
+
+  // ---- wire up ----
+  renderPalette(); render(); bindCanvasDropOnce();
+  document.getElementById('fb-title').addEventListener('input', function(e){ state.title=e.target.value; save(); renderPreview(); renderSheet(); });
+  document.getElementById('pal-more-btn').addEventListener('click', function(){ var m=document.getElementById('pal-more'); var open=!m.hidden; m.hidden=open; this.setAttribute('aria-expanded', String(!open)); });
+  document.getElementById('fb-reset').addEventListener('click', function(){ if(confirm('Clear the whole form and start over?')){ state={title:'My new form',fields:[]}; sel=null; document.getElementById('fb-title').value=state.title; save(); render(); } });
+  document.getElementById('canvas').addEventListener('click', function(e){ var u=e.target.closest('[data-mv]'), d=e.target.closest('[data-del]'); if(u){ var id=u.dataset.mv.slice(0,-2); move(id, u.dataset.mv.slice(-2)==='up'?-1:1); } else if(d){ del(d.dataset.del); } });
+  document.querySelectorAll('.fb-tab').forEach(function(t){ t.addEventListener('click', function(){
+    document.querySelectorAll('.fb-tab').forEach(function(x){x.classList.remove('on');x.setAttribute('aria-selected','false');});
+    document.querySelectorAll('.fb-pane').forEach(function(x){x.classList.remove('on');});
+    t.classList.add('on'); t.setAttribute('aria-selected','true');
+    document.getElementById('pane-'+t.dataset.pane).classList.add('on');
+  }); });
+  document.getElementById('fb-tosheet').addEventListener('click', function(){ document.getElementById('tab-sheet').click(); document.getElementById('pane-sheet').scrollIntoView({block:'start'}); });
+  document.getElementById('copy-sheet').addEventListener('click', function(){ var b=this; navigator.clipboard.writeText(sheetText()).then(function(){ b.textContent='Copied!'; setTimeout(function(){b.textContent='Copy the whole build sheet';},1600); }); });
+})();
+</script>
+</body>
+</html>

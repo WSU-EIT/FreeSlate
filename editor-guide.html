@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editor Guide — Building WSU Forms in Slate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="wsu-chrome.css">
+<link rel="stylesheet" href="styleguide.css">
+<link rel="stylesheet" href="wsu-forms.css">
+<style>
+  .task { border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem 1.75rem; margin: 0 0 1.25rem; background: #fff; scroll-margin-top: 80px; }
+  .task h3 { margin: 0 0 .25rem; font-size: 1.25rem; border: 0; padding: 0; }
+  .task__sub { color: var(--muted); font-size: .9rem; margin: 0 0 1rem; }
+  .task ol { margin: 0; padding-left: 1.3rem; }
+  .task ol li { padding: .3rem 0; line-height: 1.5; }
+  .task ol li b { color: var(--crimson-ink, #7a0b21); }
+  .never { list-style: none; padding: 0; margin: 0; }
+  .never li { display: flex; gap: .6rem; align-items: flex-start; padding: .6rem 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+  .never li::before { content: "✕"; flex: 0 0 auto; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: #fceef0; color: #8a0019; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: .8rem; margin-top: .1rem; }
+  .ask { background: var(--bg-subtle); border-radius: 10px; padding: 1.25rem 1.5rem; margin-top: 1.5rem; }
+</style>
+</head>
+<body>
+<a class="sg-skip" href="#main">Skip to content</a>
+
+<header class="wsu-header-global">
+  <a class="wsu-wordmark" href="https://wsu.edu">
+    <span class="wsu-coug-head-boxed"><svg class="wsu-coug-head-boxed__icon" aria-hidden="true" focusable="false" viewBox="0 0 70.2 69.6" xmlns="http://www.w3.org/2000/svg"><path d="m42.8 69.6s3.6-1.5 5.5-7.4c1 2.3 1.5 4.8 1.3 7.3-2.3 0.1-4.5 0.2-6.8 0.1zm14.9-11.8c-10.4 1.4-12.2-20.3-12.2-20.3s3.5 11.1 10.9 10.7c7.7-0.4 5.5-12.2 5.5-12.2s7.5 20.2-4.2 21.8zm-47.7-5c-3.3 1-6.6 1.8-10 2.4 0 0 5.9-4.5 10.3-18.3l4.3 3.9-0.8 2.6c1.1 1.5 1.9 3.1 2.5 4.9 1.6-3.6 1.5-7.7-0.3-11.2l-0.5 1.6-1.7-1.5-2.8-2.7c1.2-3.6 3-7 5.3-10.1l0.4 0.4 3.3 3.8-1 1.7c1.5 1.7 2.9 3.4 4.2 5.3 0.6-3.4 0.4-6.8-0.4-10.1l-1.5 1.4-3.6-4.2c4.5-4.7 10-8.2 16.2-10.3-0.4 0.4-0.7 0.8-1 1.3-2 2.9-4.1 8.1-2.4 16.4 0.3 1.3 0.7 3.2 1.1 5.1 0.9 3.8 1.9 8.2 2.2 10.9 0.7 5.7 0.1 9.4-1.8 11.4-1.3 1.4-3.5 2-6.4 1.9v-1.4c0-2.4-0.3-4.8-0.8-7.2l-0.8-2.7-1.2 2.6c-1.9 4.1-8.6 14.1-17.2 16.1 2.6-4.2 4.1-9 4.4-14zm25.4 16.4h-0.5-0.1-0.3c-0.5 0-0.8-0.1-1.2-0.1-0.7-0.1-1.6-0.2-2.6-0.4-6.4-1.1-12.9-1.7-19.4-2 6.2-3.6 10.4-9.9 12-12.5 0.2 1.3 0.3 2.5 0.3 3.8 0 0.8 0 1.6-0.1 2.2l-0.1 1.1 1.1 0.1c0.7 0.1 1.3 0.1 1.9 0.1 3.3 0 5.7-0.8 7.3-2.5 2.4-2.5 3.1-6.7 2.3-13.1-0.4-2.9-1.4-7.4-2.3-11.1-0.5-2-0.9-3.8-1.1-5-1.5-7.6 0.3-12.3 2.1-14.8 1.3-1.9 3.2-3.4 5.5-4.2h0.1l3.3-10.8h1.1l-2.3 10.3c0.7-0.1 1.2-0.2 1.7-0.3l3-9.5h1.1l-2 9.2c2.9-0.4 6.1-0.7 10.3-1 0.8 0.4 1.4 1.1 1.8 1.9l9.8-3 0.4 1.1-9.5 3.7c0.1 0.2 0.2 0.4 0.2 0.6l10.3-1.3 0.2 1.1-10 2c0 0.2 0.1 0.4 0.1 0.6l10.4 0.3v1.1l-10.2 0.4c0 1.2-0.2 2.4-0.5 3.6 0.6 2.1 0.7 4.3 0.3 6.5-1.7-3.9-3-5.1-3-5.1-1.4-0.7-2.9-1-4.5-1-2.5 0-4.8 1.1-6.4 2.9-2.3 2.6-3.5 6-3.3 9.5 0.2 2.4 0.7 5.1 1.4 8.6 0.7 3.6 1.6 8.1 2.3 13.5 0.6 4.1-0.1 7.3-1.8 9.7-1.6 2.1-4 3.4-6.5 3.8h-0.1-0.2-0.1-2.2zm10.4-51.5c-2.1-0.1-4.2 0.4-6 1.3-1.5 1-2.5 2.7-2.6 4.5-0.1 0.6-0.1 1.2 0 1.8 0.8-1.5 2-2.8 3.3-3.9 2.4-1.5 5.1-2.3 7.9-2.4h0.9 0.3c0.4 0 0.7-0.1 0.8-0.2 0-0.1-0.1-0.3-0.4-0.4-1.3-0.5-2.7-0.8-4.2-0.7z"/></svg></span>
+    <span class="wsu-wordmark__title">Washington State University</span>
+  </a>
+  <nav class="wsu-header-global__nav" aria-label="WSU utility"><ul><li><a href="start-here.html">Start Here</a></li><li><a href="index.html">Kit Home</a></li></ul></nav>
+</header>
+
+<div class="wsuf-banner wsuf-banner--pattern">
+  <div class="wsuf-banner__inner">
+    <span class="wsuf-banner__eyebrow">For Content Editors</span>
+    <h1>Editor Guide</h1>
+    <p>How to build a WSU form in Slate, one task at a time. Plain steps, no code. If you can copy a document and fill in blanks, you can do this.</p>
+  </div>
+</div>
+
+<div class="sg-shell">
+  <aside class="sg-sidebar" aria-label="Tasks">
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Tasks</p><ul>
+      <li><a href="#new" class="is-active">Make a new form</a></li>
+      <li><a href="#add">Add a question</a></li>
+      <li><a href="#required">Make it required</a></li>
+      <li><a href="#conditional">Show only when…</a></li>
+      <li><a href="#dates">Dates &amp; capacity</a></li>
+      <li><a href="#thankyou">Thank-you message</a></li>
+      <li><a href="#paste">Paste text safely</a></li>
+      <li><a href="#test">Test your form</a></li>
+    </ul></nav>
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Reference</p><ul>
+      <li><a href="#never">Never do this</a></li>
+      <li><a href="#help">Get help</a></li>
+      <li><a href="start-here.html">Copy-paste blocks</a></li>
+    </ul></nav>
+  </aside>
+
+  <main class="sg-main" id="main">
+    <div class="wsu-note" style="max-width:60rem"><p style="margin:0"><strong>The big idea:</strong> you choose the words and questions. The system makes everything look right — colors, spacing, the WSU look, accessibility. You never pick a font or a color. If you're tempted to style something, you're probably about to make extra work; there's almost always a ready-made block instead.</p></div>
+
+    <section class="sg-section" id="new" style="margin-top:1.5rem">
+      <h2>The whole thing in 5 steps</h2>
+      <p>You don't start from a blank page — you copy a blessed template and change it. That's the secret to never breaking anything.</p>
+      <div class="task">
+        <h3>Make a new form</h3>
+        <p class="task__sub">≈ 2 minutes</p>
+        <ol>
+          <li>In Slate, go to <b>Forms</b> and open the <b>_Templates</b> folder.</li>
+          <li>Pick the closest one — <b>Event RSVP</b>, <b>Info Request</b>, or <b>Visit Registration</b> — and click <b>Copy Form</b>.</li>
+          <li><b>Rename</b> your copy (e.g. "Chemistry Open House RSVP"). Save.</li>
+          <li>Edit the questions, dates, and thank-you message (the tasks below).</li>
+          <li><b>Test</b> the link, then <b>Publish</b>. Done.</li>
+        </ol>
+      </div>
+      <div class="wsu-note"><p style="margin:0"><strong>Why copy instead of start fresh?</strong> The template already has the WSU look, a spam guard, and a friendly thank-you page built in. You get all of that for free and just change the parts that are yours.</p></div>
+    </section>
+
+    <section class="sg-section" id="add">
+      <h2>Editing your form</h2>
+      <div class="task" id="add-q">
+        <h3>Add a question</h3>
+        <p class="task__sub">It's automatically styled — you don't do anything special.</p>
+        <ol>
+          <li>In the form editor, click <b>Insert</b> and pick the kind of question you want: <b>Short answer</b>, <b>Multiple choice</b>, <b>Dropdown</b>, <b>Date</b>, <b>File upload</b>, and so on.</li>
+          <li>Type a clear <b>label</b> (the question text). Always fill this in — never leave it blank.</li>
+          <li>For choice questions, type your options one per line.</li>
+          <li>That's it. Preview and it already looks like WSU.</li>
+        </ol>
+      </div>
+      <div class="task" id="required">
+        <h3>Make a question required</h3>
+        <p class="task__sub">The red star and crimson edge appear by themselves.</p>
+        <ol>
+          <li>Click the question to open its settings.</li>
+          <li>Set <b>Required</b> to <b>Yes</b>. Save.</li>
+          <li>Don't type your own asterisk — Slate adds it, styled correctly, automatically.</li>
+        </ol>
+      </div>
+      <div class="task" id="conditional">
+        <h3>Show a question only when…</h3>
+        <p class="task__sub">For example: show "Dietary needs" only when "Staying for lunch?" is Yes.</p>
+        <ol>
+          <li>Add both questions first (the trigger question must come <b>before</b> the one it controls).</li>
+          <li>Open the question you want to hide/show and find <b>Edit Conditions</b>.</li>
+          <li>Add a condition that reads like a sentence: <b>Show this when [Staying for lunch?] [is] [Yes]</b>. Save.</li>
+          <li>Preview and try it — the question appears and disappears as you answer.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="sg-section" id="dates">
+      <h2>Settings that matter for events</h2>
+      <div class="task">
+        <h3>Set open/close dates and capacity</h3>
+        <ol>
+          <li>Open the form's <b>Properties</b> (or Settings).</li>
+          <li>Set the <b>open</b> and <b>close</b> dates — the form turns itself on and off.</li>
+          <li>Set a <b>capacity</b> if there's a limit. When it fills, Slate shows a "full" message automatically.</li>
+          <li>You can edit the closed / full / deadline messages right there if you want different wording.</li>
+        </ol>
+      </div>
+      <div class="task" id="thankyou">
+        <h3>Change the thank-you message</h3>
+        <ol>
+          <li>In Properties, find the <b>Confirmation</b> page (your copied template already has a friendly one).</li>
+          <li>Switch the editor to the <b>Source / HTML</b> view before pasting anything (see "Paste text safely").</li>
+          <li>Change the words. Keep it short and warm — "You're registered! We'll email you the details."</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="sg-section" id="paste">
+      <h2>Two habits that prevent 90% of problems</h2>
+      <div class="task">
+        <h3>Paste text safely</h3>
+        <p class="task__sub">Word and Google Docs hide invisible junk in copied text. This avoids it.</p>
+        <ol>
+          <li>When pasting from Word/Docs/email, use <b>Paste as plain text</b> (Ctrl+Shift+V / Cmd+Shift+V), or paste into Notepad first, then copy from there.</li>
+          <li>Then format it in Slate. The WSU fonts and colors take over automatically.</li>
+          <li>When pasting one of the ready-made blocks from <a href="start-here.html">Start Here</a>, always switch the editor to <b>Source / HTML view</b> first.</li>
+        </ol>
+      </div>
+      <div class="task" id="test">
+        <h3>Test your form before you share it</h3>
+        <ol>
+          <li>Open the form's <b>preview link</b> and fill it out like a student would.</li>
+          <li>Check it on your <b>phone</b> too — that's where most students will see it.</li>
+          <li>Try leaving a required field blank to confirm the error message appears.</li>
+          <li>If a conditional question is involved, make sure it shows and hides correctly.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="sg-section" id="never">
+      <h2>Never do these</h2>
+      <ul class="never">
+        <li><span>Don't paste from Word <b>without</b> "paste as plain text" — it brings invisible formatting that breaks the WSU look.</span></li>
+        <li><span>Don't edit anything inside the <b>_Templates</b> folder — copy it first, then edit your copy.</span></li>
+        <li><span>Don't open the <b>Edit Scripts / Styles</b> area. That's the web team's space; you never need it.</span></li>
+        <li><span>Don't try to change colors, fonts, or sizes. The brand decides those — and "our office's blue" is a no (it's a <a href="https://brand.wsu.edu/colors/">brand rule</a>, not us being difficult).</span></li>
+        <li><span>Don't use the old three-dropdown <b>Birthdate</b>. Use the <b>Date</b> field — it's cleaner and works for everyone.</span></li>
+      </ul>
+    </section>
+
+    <section class="sg-section" id="help">
+      <h2>Get help</h2>
+      <div class="ask">
+        <p style="margin:0 0 .5rem"><strong>Stuck, or something looks wrong?</strong> That's normal — reach out, don't wrestle with it.</p>
+        <p style="margin:0">Office of Admissions web team · <a href="mailto:future.coug@wsu.edu">future.coug@wsu.edu</a> · 509-553-5450</p>
+      </div>
+      <p style="margin-top:1.5rem;color:var(--muted)">Want the ready-made blocks (banner, note, button)? They're on the <a href="start-here.html">Start Here</a> page with one-click Copy. Want to see every component? The <a href="index.html">kit home</a> has it all.</p>
+    </section>
+  </main>
+</div>
+
+<footer class="wsu-footer-global">
+  <div class="wsu-footer-global__copyright">© Washington State University · Office of Admissions</div>
+  <nav class="wsu-footer-global__nav" aria-label="WSU global"><ul><li><a href="https://access.wsu.edu/">Access</a></li><li><a href="https://policies.wsu.edu/">Policies</a></li><li><a href="https://portal.wsu.edu/">MyWSU</a></li><li><a href="https://socialmedia.wsu.edu/">Follow WSU</a></li></ul></nav>
+</footer>
+
+<script>
+var links=Array.from(document.querySelectorAll('.sg-nav-group a')),map={};links.forEach(function(a){var id=a.getAttribute('href').slice(1);var el=document.getElementById(id);if(el)map[id]=a;});
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('is-active');});var a=map[e.target.id];if(a)a.classList.add('is-active');}});},{rootMargin:'-15% 0px -75% 0px',threshold:0});
+Object.keys(map).forEach(function(id){obs.observe(document.getElementById(id));});
+</script>
+</body>
+</html>

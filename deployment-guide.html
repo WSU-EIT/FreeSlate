@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deployment Guide — WSU Slate Form Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="wsu-chrome.css">
+<link rel="stylesheet" href="styleguide.css">
+<link rel="stylesheet" href="wsu-forms.css">
+<link rel="stylesheet" href="slate-hints.css">
+</head>
+<body>
+<a class="sg-skip" href="#main">Skip to content</a>
+
+<header class="wsu-header-global">
+  <a class="wsu-wordmark" href="https://wsu.edu" title="WSU Homepage">
+    <span class="wsu-coug-head-boxed"><svg class="wsu-coug-head-boxed__icon" role="img" aria-label="WSU Cougar Head" viewBox="0 0 70.2 69.6" xmlns="http://www.w3.org/2000/svg"><title>WSU Cougar Head Logo</title><path d="m42.8 69.6s3.6-1.5 5.5-7.4c1 2.3 1.5 4.8 1.3 7.3-2.3 0.1-4.5 0.2-6.8 0.1zm14.9-11.8c-10.4 1.4-12.2-20.3-12.2-20.3s3.5 11.1 10.9 10.7c7.7-0.4 5.5-12.2 5.5-12.2s7.5 20.2-4.2 21.8zm-47.7-5c-3.3 1-6.6 1.8-10 2.4 0 0 5.9-4.5 10.3-18.3l4.3 3.9-0.8 2.6c1.1 1.5 1.9 3.1 2.5 4.9 1.6-3.6 1.5-7.7-0.3-11.2l-0.5 1.6-1.7-1.5-2.8-2.7c1.2-3.6 3-7 5.3-10.1l0.4 0.4 3.3 3.8-1 1.7c1.5 1.7 2.9 3.4 4.2 5.3 0.6-3.4 0.4-6.8-0.4-10.1l-1.5 1.4-3.6-4.2c4.5-4.7 10-8.2 16.2-10.3-0.4 0.4-0.7 0.8-1 1.3-2 2.9-4.1 8.1-2.4 16.4 0.3 1.3 0.7 3.2 1.1 5.1 0.9 3.8 1.9 8.2 2.2 10.9 0.7 5.7 0.1 9.4-1.8 11.4-1.3 1.4-3.5 2-6.4 1.9v-1.4c0-2.4-0.3-4.8-0.8-7.2l-0.8-2.7-1.2 2.6c-1.9 4.1-8.6 14.1-17.2 16.1 2.6-4.2 4.1-9 4.4-14zm25.4 16.4h-0.5-0.1-0.3c-0.5 0-0.8-0.1-1.2-0.1-0.7-0.1-1.6-0.2-2.6-0.4-6.4-1.1-12.9-1.7-19.4-2 6.2-3.6 10.4-9.9 12-12.5 0.2 1.3 0.3 2.5 0.3 3.8 0 0.8 0 1.6-0.1 2.2l-0.1 1.1 1.1 0.1c0.7 0.1 1.3 0.1 1.9 0.1 3.3 0 5.7-0.8 7.3-2.5 2.4-2.5 3.1-6.7 2.3-13.1-0.4-2.9-1.4-7.4-2.3-11.1-0.5-2-0.9-3.8-1.1-5-1.5-7.6 0.3-12.3 2.1-14.8 1.3-1.9 3.2-3.4 5.5-4.2h0.1l3.3-10.8h1.1l-2.3 10.3c0.7-0.1 1.2-0.2 1.7-0.3l3-9.5h1.1l-2 9.2c2.9-0.4 6.1-0.7 10.3-1 0.8 0.4 1.4 1.1 1.8 1.9l9.8-3 0.4 1.1-9.5 3.7c0.1 0.2 0.2 0.4 0.2 0.6l10.3-1.3 0.2 1.1-10 2c0 0.2 0.1 0.4 0.1 0.6l10.4 0.3v1.1l-10.2 0.4c0 1.2-0.2 2.4-0.5 3.6 0.6 2.1 0.7 4.3 0.3 6.5-1.7-3.9-3-5.1-3-5.1-1.4-0.7-2.9-1-4.5-1-2.5 0-4.8 1.1-6.4 2.9-2.3 2.6-3.5 6-3.3 9.5 0.2 2.4 0.7 5.1 1.4 8.6 0.7 3.6 1.6 8.1 2.3 13.5 0.6 4.1-0.1 7.3-1.8 9.7-1.6 2.1-4 3.4-6.5 3.8h-0.1-0.2-0.1-2.2zm10.4-51.5c-2.1-0.1-4.2 0.4-6 1.3-1.5 1-2.5 2.7-2.6 4.5-0.1 0.6-0.1 1.2 0 1.8 0.8-1.5 2-2.8 3.3-3.9 2.4-1.5 5.1-2.3 7.9-2.4h0.9 0.3c0.4 0 0.7-0.1 0.8-0.2 0-0.1-0.1-0.3-0.4-0.4-1.3-0.5-2.7-0.8-4.2-0.7z"/></svg></span>
+    <span class="wsu-wordmark__title">Washington State University</span>
+  </a>
+  <nav class="wsu-header-global__nav" aria-label="WSU utility"><ul><li><a href="https://foundation.wsu.edu/">Give</a></li><li><a href="https://admission.wsu.edu/apply/">Apply</a></li><li><a href="https://mywsu.wsu.edu/">My WSU</a></li></ul></nav>
+</header>
+
+<div class="sg-hero">
+  <div class="sg-hero__inner">
+    <span class="sg-eyebrow">WSU Slate Form Kit · For Admins</span>
+    <h1>Deployment Guide</h1>
+    <p>Exactly where the files go, how to link the CSS in <code>build.xslt</code>, and how to cache-bust without breaking every form on the site.</p>
+    <div class="sg-hero__meta">
+      <span class="sg-tag sg-tag--crimson">Slate admin</span>
+      <span class="sg-tag">Test before publish</span>
+      <span class="sg-tag">?v= cache-busting</span>
+    </div>
+  </div>
+</div>
+
+<div class="sg-shell">
+  <aside class="sg-sidebar" aria-label="Section navigation">
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Files</p><ul>
+      <li><a href="#file-list" class="is-active">What goes where</a></li>
+      <li><a href="#xslt-edit">Edit build.xslt</a></li>
+    </ul></nav>
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Workflow</p><ul>
+      <li><a href="#dev-publish">Dev → Publish</a></li>
+      <li><a href="#cache-busting">Cache-busting</a></li>
+      <li><a href="#per-form">Per-form CSS</a></li>
+    </ul></nav>
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Checks</p><ul>
+      <li><a href="#verify">Verify it worked</a></li>
+      <li><a href="#rollback">Rollback</a></li>
+    </ul></nav>
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">↩ Kit</p><ul><li><a href="index.html">Back to home</a></li></ul></nav>
+  </aside>
+
+  <main class="sg-main" id="main">
+
+    <section class="sg-section" id="file-list">
+      <span class="sg-section__num">Files</span>
+      <h2>What goes where in Slate</h2>
+      <p>The kit is three CSS files. Upload them to <strong>Database → Files</strong> in the <code>/shared/</code> folder. Keep the names exactly as listed — other admins and future-you will be confused if they don't match.</p>
+
+      <div class="sg-callout"><p><strong>Always work in <code>/dev/</code> first.</strong> The Branding Editor's Publish action copies <code>/dev/</code> → <code>/shared/</code>. A broken <code>build.xslt</code> in <code>/shared/</code> takes down every externally-hosted Slate page. The test instance only, until confirmed.</p></div>
+
+      <table style="width:100%;border-collapse:collapse;font-size:.9rem;margin-top:1rem">
+        <thead><tr style="border-bottom:2px solid #a60f2d"><th style="text-align:left;padding:.5rem .75rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#595959">File</th><th style="text-align:left;padding:.5rem .75rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#595959">Upload to</th><th style="text-align:left;padding:.5rem .75rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#595959">What it does</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #ebebeb"><td style="padding:.65rem .75rem"><code>wsu-forms.css</code></td><td style="padding:.65rem .75rem"><code>/shared/wsu-forms.css</code></td><td style="padding:.65rem .75rem">The form kit — all tokens, components, validation states.</td></tr>
+          <tr style="border-bottom:1px solid #ebebeb"><td style="padding:.65rem .75rem"><code>wsu-chrome.css</code></td><td style="padding:.65rem .75rem"><code>/shared/wsu-chrome.css</code></td><td style="padding:.65rem .75rem">Header, footer, banner, breadcrumbs, identity bar.</td></tr>
+          <tr style="border-bottom:0"><td style="padding:.65rem .75rem"><code>web-design-system-overrides.css</code></td><td style="padding:.65rem .75rem"><code>/shared/web-design-system-overrides.css</code></td><td style="padding:.65rem .75rem">Existing Slate overrides — don't replace, merge your changes in.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="sg-section" id="xslt-edit">
+      <h2>Edit <strong>build.xslt</strong> to link the CSS</h2>
+      <p>Open <code>/shared/build.xslt</code> in the Branding Editor (or Files → edit). Find the <code>&lt;head&gt;</code> section and add the two new <code>&lt;link&gt;</code> tags <strong>after</strong> the existing web-design-system links so the kit wins the cascade:</p>
+
+      <div class="sg-code"><button class="sg-copy" type="button">Copy</button><pre><code>&lt;!-- existing lines — keep these --&gt;
+&lt;link href="/shared/web-design-system/style.css?v=20220215" rel="stylesheet" /&gt;
+&lt;link href="/shared/web-design-system-overrides.css?v=20220215" rel="stylesheet" /&gt;
+
+&lt;!-- ADD THESE — WSU Form Kit --&gt;
+&lt;link href="/shared/wsu-chrome.css?v=20260609" rel="stylesheet" /&gt;
+&lt;link href="/shared/wsu-forms.css?v=20260609" rel="stylesheet" /&gt;</code></pre></div>
+
+      <div class="sg-callout"><p><strong>Order matters.</strong> The kit must load <em>after</em> <code>style.css</code> and <code>web-design-system-overrides.css</code> or specificity fights will produce confusing results. Adding the kit last wins every cascade cleanly without needing <code>!important</code>.</p></div>
+    </section>
+
+    <section class="sg-section" id="dev-publish">
+      <span class="sg-section__num">Workflow</span>
+      <h2>Dev → Publish <strong>safely</strong></h2>
+      <ol style="line-height:2;padding-left:1.2rem">
+        <li>Upload <code>wsu-forms.css</code> and <code>wsu-chrome.css</code> to <strong><code>/dev/</code></strong>, not <code>/shared/</code>.</li>
+        <li>Edit <code>/dev/build.xslt</code> to reference the <code>/dev/</code> paths temporarily.</li>
+        <li>Preview a real form in the <strong>test instance</strong> at <code>wst-2.test.technolutions.net</code>. Run WAVE. Check on mobile.</li>
+        <li>When satisfied: in <strong>Database → Branding Editor</strong>, click <strong>Publish</strong>. This copies everything in <code>/dev/</code> to <code>/shared/</code> atomically.</li>
+        <li>Hard-refresh a live form (<kbd>Cmd+Shift+R</kbd> / <kbd>Ctrl+Shift+R</kbd>) to bypass browser cache and confirm the new styles appear.</li>
+      </ol>
+    </section>
+
+    <section class="sg-section" id="cache-busting">
+      <h2>Cache-busting with <strong>?v=</strong></h2>
+      <p>Slate (and browsers) cache <code>/shared/</code> CSS files aggressively — up to <strong>24 hours</strong> in the browser, ~15 minutes on Slate's servers. Changing the file isn't enough: you must bump the <code>?v=</code> datestamp in <code>build.xslt</code> or your changes will be invisible to most visitors.</p>
+
+      <div class="sg-code"><button class="sg-copy" type="button">Copy</button><pre><code>&lt;!-- Before edit: --&gt;
+&lt;link href="/shared/wsu-forms.css?v=20260609" rel="stylesheet" /&gt;
+
+&lt;!-- After edit — bump to today's date: --&gt;
+&lt;link href="/shared/wsu-forms.css?v=20260615" rel="stylesheet" /&gt;</code></pre></div>
+
+      <p>Convention: <strong>YYYYMMDD</strong>. If you edit the file twice in one day, append a counter: <code>?v=20260615b</code>.</p>
+
+      <dl class="sg-spec">
+        <dt>Server cache</dt><dd>~15 minutes after publish — forms served from Slate's CDN layer</dd>
+        <dt>Browser cache</dt><dd>Up to 24 hours — the ?v= change busts it by making the URL unique</dd>
+        <dt>Hard refresh</dt><dd><kbd>Cmd+Shift+R</kbd> (Mac) / <kbd>Ctrl+Shift+R</kbd> (Win) — bypasses browser cache without needing a ?v= bump</dd>
+      </dl>
+    </section>
+
+    <section class="sg-section" id="per-form">
+      <h2>Per-form <strong>CSS overrides</strong></h2>
+      <p>For form-specific styles that shouldn't apply globally, use <strong>Form editor → Edit Scripts/Styles</strong>. Slate scopes this CSS inside <code>#form_GUID_container</code> automatically, so it only affects that one form.</p>
+
+      <div class="sg-code"><button class="sg-copy" type="button">Copy</button><pre><code>/* Per-form override — e.g. wider fields for a specific form */
+#form_abc123_container .wsuf-field {
+  max-width: 100%;
+}
+#form_abc123_container h2 {
+  color: var(--wsu-crimson);
+}</code></pre></div>
+
+      <p>Don't use <code>!important</code> in per-form CSS unless you're fighting Slate's framework CSS (not the kit). The kit is intentionally low-specificity so your per-form rules win cleanly.</p>
+    </section>
+
+    <section class="sg-section" id="verify">
+      <span class="sg-section__num">Checks</span>
+      <h2>Verify <strong>it worked</strong></h2>
+      <ul style="line-height:2;padding-left:1.2rem">
+        <li>Open a hosted form in the test instance. Buttons should be <strong>WSU crimson</strong>, not the default Slate blue/gray.</li>
+        <li>Run <a href="https://wave.webaim.org/">WAVE</a> on the form URL. Target: <strong>0 errors</strong>.</li>
+        <li>In browser DevTools → Network → filter "CSS" — confirm <code>wsu-forms.css</code> loaded (status 200, not 304).</li>
+        <li>Check the <code>?v=</code> in the loaded URL matches what you set in <code>build.xslt</code>.</li>
+        <li>Test on a real mobile device or Chrome DevTools at 375px width.</li>
+      </ul>
+    </section>
+
+    <section class="sg-section" id="pipeline-gotchas">
+      <span class="sg-section__num">⚠ Gotchas</span>
+      <h2>Pipeline <strong>landmines</strong></h2>
+      <div class="sg-callout sg-callout--gotcha"><span class="sg-callout__eyebrow">⚠ One bad character = every page down</span><p>build.xslt is XSLT — an unescaped <code>&amp;</code> or <code>&lt;</code> pasted into it is a parse error <strong>site-wide</strong> (forms, app, portals all fail). Escape ampersands as <code>&amp;amp;</code> in any URL. Edit in <code>/dev/</code>, validate, publish — never hand-edit <code>/shared/build.xslt</code>.</p></div>
+      <div class="sg-callout sg-callout--gotcha"><span class="sg-callout__eyebrow">⚠ Absolute paths only</span><p>Assets must live in Slate Files and be referenced as <code>https://…/shared/…</code>. Relative URLs resolve differently between <code>/register/</code>, <code>/portal/</code>, and embeds; <code>http</code> assets get blocked as mixed content.</p></div>
+      <div class="sg-callout sg-callout--gotcha"><span class="sg-callout__eyebrow">⚠ The Mobile Template key</span><p>Without the Mobile Template config key (Configuration Keys → Branding), mobile devices get Slate's <strong>default grey template that ignores your branding entirely</strong> — the kit is desktop-only in effect until it's set.</p></div>
+      <div class="sg-callout sg-callout--gotcha"><span class="sg-callout__eyebrow">⚠ Typekit allowlist + GTM pile</span><p>If you ever switch to Proxima Nova, the Adobe Fonts kit only serves <strong>allowlisted domains</strong> — add <code>wst-2.test…</code> and <code>futurecoug.wsu.edu</code> or it silently falls back. build.xslt already injects 4 GTM containers + several pixels; don't add more per page (drags LCP, can shift layout).</p></div>
+    </section>
+
+    <section class="sg-section" id="rollback">
+      <h2>Rollback</h2>
+      <p>The Branding Editor keeps <strong>Version History</strong> for every file in <code>/dev/</code>. If a publish breaks something, go to Database → Branding Editor → Version History, select the last known-good version, and restore. The restore writes to <code>/dev/</code>; you still need to Publish to push it to <code>/shared/</code>.</p>
+      <div class="sg-callout"><p><strong>Emergency:</strong> If <code>build.xslt</code> is broken and forms are down, revert immediately via Version History. Don't try to fix in <code>/shared/</code> directly — use the Dev → Publish workflow even in an emergency.</p></div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="wsu-footer-global">
+  <div class="wsu-footer-global__copyright">© Washington State University · Office of Admissions</div>
+  <nav class="wsu-footer-global__nav" aria-label="WSU global"><ul><li><a href="https://access.wsu.edu/">Access</a></li><li><a href="https://policies.wsu.edu/">Policies</a></li><li><a href="https://portal.wsu.edu/">MyWSU</a></li><li><a href="https://socialmedia.wsu.edu/">Follow WSU</a></li></ul></nav>
+</footer>
+
+<script>
+document.querySelectorAll('.sg-copy').forEach(function(btn){btn.addEventListener('click',function(){var c=btn.parentElement.querySelector('code');navigator.clipboard.writeText(c.textContent).then(function(){btn.textContent='Copied';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},1600);});});});
+var links=Array.from(document.querySelectorAll('.sg-nav-group a')),map={};links.forEach(function(a){var id=a.getAttribute('href').slice(1);var el=document.getElementById(id);if(el)map[id]=a;});
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('is-active');});var a=map[e.target.id];if(a)a.classList.add('is-active');}});},{rootMargin:'-15% 0px -75% 0px',threshold:0});
+Object.keys(map).forEach(function(id){obs.observe(document.getElementById(id));});
+</script>
+
+<!-- Slate Editor Hints (showcase-only) -->
+<button class="sh-fab" aria-expanded="false" aria-controls="sh-drawer">Slate hints</button>
+<div class="sh-backdrop"></div>
+<aside class="sh-drawer" id="sh-drawer" role="dialog" aria-modal="false" aria-label="Slate editor hints">
+  <div class="sh-drawer__head"><div><h2>Slate Editor Hints</h2><p>Deployment</p></div><button class="sh-close" type="button" aria-label="Close hints">×</button></div>
+  <div class="sh-body"><h3>Quick reference</h3><p class="sh-hint">Upload to <code>/dev/</code>, Preview, then Publish to <code>/shared/</code>. Bump <code>?v=</code> on every CSS edit. Test instance only until verified.</p><h3>Copy-paste</h3><p class="sh-snip__label">build.xslt &lt;head&gt; links (after the WDS files)</p><div class="sh-snip"><button class="sh-copy" type="button">Copy</button><pre><code>&lt;link href="/shared/wsu-chrome.css?v=20260609" rel="stylesheet" /&gt;
+&lt;link href="/shared/wsu-forms.css?v=20260609" rel="stylesheet" /&gt;</code></pre></div><p class="sh-snip__label">Per-form scoped override</p><div class="sh-snip"><button class="sh-copy" type="button">Copy</button><pre><code>#form_GUID_container .wsuf-field { max-width: 100%; }</code></pre></div></div>
+</aside>
+<script src="slate-hints.js"></script>
+</body>
+</html>

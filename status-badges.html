@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status &amp; Badge System — WSU Slate Form Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="wsu-chrome.css">
+<link rel="stylesheet" href="styleguide.css">
+<link rel="stylesheet" href="wsu-forms.css">
+<link rel="stylesheet" href="variants.css">
+<link rel="stylesheet" href="slate-hints.css">
+<style>
+  /* Badge-style variants (showcase tabs) */
+  body[data-variant="tag"] .wsu-content .wsuf-badge { border-radius: 4px; }
+  body[data-variant="dot"] .wsu-content .wsuf-badge { border-radius: 4px; padding-left: 1.4rem; position: relative; }
+  body[data-variant="dot"] .wsu-content .wsuf-badge::before { content: ""; position: absolute; left: .55rem; top: 50%; transform: translateY(-50%); width: .5rem; height: .5rem; border-radius: 50%; background: currentColor; }
+  .countdown { display: inline-flex; gap: .5rem; }
+  .countdown__unit { background: var(--wsu-crimson, #a60f2d); color: #fff; border-radius: 6px; padding: .5rem .7rem; text-align: center; min-width: 3rem; font-family: Montserrat, sans-serif; }
+  .countdown__num { font-size: 1.4rem; font-weight: 800; line-height: 1; display: block; }
+  .countdown__lbl { font-size: .6rem; text-transform: uppercase; letter-spacing: .05em; opacity: .85; }
+  body[data-variant="tag"] .countdown__unit, body[data-variant="dot"] .countdown__unit { background: #680222; }
+  .swatch-row { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+</style>
+</head>
+<body>
+<a class="sg-skip" href="#main">Skip to content</a>
+
+<header class="wsu-header-global">
+  <a class="wsu-wordmark" href="https://wsu.edu" title="WSU Homepage">
+    <span class="wsu-coug-head-boxed"><svg class="wsu-coug-head-boxed__icon" role="img" aria-label="WSU Cougar Head" viewBox="0 0 70.2 69.6" xmlns="http://www.w3.org/2000/svg"><title>WSU Cougar Head Logo</title><path d="m42.8 69.6s3.6-1.5 5.5-7.4c1 2.3 1.5 4.8 1.3 7.3-2.3 0.1-4.5 0.2-6.8 0.1zm14.9-11.8c-10.4 1.4-12.2-20.3-12.2-20.3s3.5 11.1 10.9 10.7c7.7-0.4 5.5-12.2 5.5-12.2s7.5 20.2-4.2 21.8zm-47.7-5c-3.3 1-6.6 1.8-10 2.4 0 0 5.9-4.5 10.3-18.3l4.3 3.9-0.8 2.6c1.1 1.5 1.9 3.1 2.5 4.9 1.6-3.6 1.5-7.7-0.3-11.2l-0.5 1.6-1.7-1.5-2.8-2.7c1.2-3.6 3-7 5.3-10.1l0.4 0.4 3.3 3.8-1 1.7c1.5 1.7 2.9 3.4 4.2 5.3 0.6-3.4 0.4-6.8-0.4-10.1l-1.5 1.4-3.6-4.2c4.5-4.7 10-8.2 16.2-10.3-0.4 0.4-0.7 0.8-1 1.3-2 2.9-4.1 8.1-2.4 16.4 0.3 1.3 0.7 3.2 1.1 5.1 0.9 3.8 1.9 8.2 2.2 10.9 0.7 5.7 0.1 9.4-1.8 11.4-1.3 1.4-3.5 2-6.4 1.9v-1.4c0-2.4-0.3-4.8-0.8-7.2l-0.8-2.7-1.2 2.6c-1.9 4.1-8.6 14.1-17.2 16.1 2.6-4.2 4.1-9 4.4-14zm25.4 16.4h-0.5-0.1-0.3c-0.5 0-0.8-0.1-1.2-0.1-0.7-0.1-1.6-0.2-2.6-0.4-6.4-1.1-12.9-1.7-19.4-2 6.2-3.6 10.4-9.9 12-12.5 0.2 1.3 0.3 2.5 0.3 3.8 0 0.8 0 1.6-0.1 2.2l-0.1 1.1 1.1 0.1c0.7 0.1 1.3 0.1 1.9 0.1 3.3 0 5.7-0.8 7.3-2.5 2.4-2.5 3.1-6.7 2.3-13.1-0.4-2.9-1.4-7.4-2.3-11.1-0.5-2-0.9-3.8-1.1-5-1.5-7.6 0.3-12.3 2.1-14.8 1.3-1.9 3.2-3.4 5.5-4.2h0.1l3.3-10.8h1.1l-2.3 10.3c0.7-0.1 1.2-0.2 1.7-0.3l3-9.5h1.1l-2 9.2c2.9-0.4 6.1-0.7 10.3-1 0.8 0.4 1.4 1.1 1.8 1.9l9.8-3 0.4 1.1-9.5 3.7c0.1 0.2 0.2 0.4 0.2 0.6l10.3-1.3 0.2 1.1-10 2c0 0.2 0.1 0.4 0.1 0.6l10.4 0.3v1.1l-10.2 0.4c0 1.2-0.2 2.4-0.5 3.6 0.6 2.1 0.7 4.3 0.3 6.5-1.7-3.9-3-5.1-3-5.1-1.4-0.7-2.9-1-4.5-1-2.5 0-4.8 1.1-6.4 2.9-2.3 2.6-3.5 6-3.3 9.5 0.2 2.4 0.7 5.1 1.4 8.6 0.7 3.6 1.6 8.1 2.3 13.5 0.6 4.1-0.1 7.3-1.8 9.7-1.6 2.1-4 3.4-6.5 3.8h-0.1-0.2-0.1-2.2zm10.4-51.5c-2.1-0.1-4.2 0.4-6 1.3-1.5 1-2.5 2.7-2.6 4.5-0.1 0.6-0.1 1.2 0 1.8 0.8-1.5 2-2.8 3.3-3.9 2.4-1.5 5.1-2.3 7.9-2.4h0.9 0.3c0.4 0 0.7-0.1 0.8-0.2 0-0.1-0.1-0.3-0.4-0.4-1.3-0.5-2.7-0.8-4.2-0.7z"/></svg></span>
+    <span class="wsu-wordmark__title">Washington State University</span>
+  </a>
+  <nav class="wsu-header-global__nav" aria-label="WSU utility"><ul><li><a href="https://foundation.wsu.edu/">Give</a></li><li><a href="index.html">Kit Home</a></li></ul></nav>
+</header>
+
+<nav class="wsu-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Form Kit</a></li><li>Status &amp; Badge System</li></ol></nav>
+
+<div class="vtabs" role="tablist" aria-label="Badge style variants">
+  <span class="vtabs__label">Badge style</span>
+  <button class="vtab is-active" type="button" role="tab" aria-selected="true" data-variant="pill">Pill</button>
+  <button class="vtab" type="button" role="tab" aria-selected="false" data-variant="tag">Tag</button>
+  <button class="vtab" type="button" role="tab" aria-selected="false" data-variant="dot">Dot-led</button>
+  <span class="vtabs__hint">Demo tool — swaps badge shape live</span>
+</div>
+
+<div class="sg-hero">
+  <div class="sg-hero__inner">
+    <span class="sg-eyebrow">WSU Slate Form Kit · Patterns</span>
+    <h1>Status &amp; Badge System</h1>
+    <p>The small components that carry the most emotional weight — where an applicant reads "Received," "Action needed," or a decision. Consistent, accessible, never color-only.</p>
+  </div>
+</div>
+
+<div class="sg-shell">
+  <aside class="sg-sidebar" aria-label="Section navigation">
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">Components</p><ul>
+      <li><a href="#badges" class="is-active">Status badges</a></li>
+      <li><a href="#payment">Payment status</a></li>
+      <li><a href="#checklist">Checklist states</a></li>
+      <li><a href="#decision">Decision card</a></li>
+      <li><a href="#countdown">Deadline countdown</a></li>
+    </ul></nav>
+    <nav class="sg-nav-group"><p class="sg-nav-group__title">↩ Kit</p><ul><li><a href="index.html">Back to home</a></li></ul></nav>
+  </aside>
+
+  <main class="sg-main" id="main">
+    <section class="sg-section" id="badges">
+      <h2>Status <strong>badges</strong></h2>
+      <p>One badge component, five semantic colors. Each pairs a color with a word — never color alone (WCAG 1.4.1). Use the variant tabs above to compare shapes.</p>
+      <div class="sg-example"><div class="sg-example__bar">Badge set <span class="a11y">✓ color + text</span></div><div class="sg-example__preview"><div class="wsu-content"><div class="swatch-row">
+        <span class="wsuf-badge wsuf-badge--done">Received</span>
+        <span class="wsuf-badge wsuf-badge--wait">Awaiting</span>
+        <span class="wsuf-badge wsuf-badge--req">Required</span>
+        <span class="wsuf-badge wsuf-badge--new">New</span>
+        <span class="wsuf-badge wsuf-badge--na">N/A</span>
+      </div></div></div>
+      <div class="sg-code"><button class="sg-copy" type="button">Copy</button><pre><code>&lt;span class="wsuf-badge wsuf-badge--done"&gt;Received&lt;/span&gt;
+&lt;span class="wsuf-badge wsuf-badge--wait"&gt;Awaiting&lt;/span&gt;
+&lt;span class="wsuf-badge wsuf-badge--req"&gt;Required&lt;/span&gt;
+&lt;span class="wsuf-badge wsuf-badge--new"&gt;New&lt;/span&gt;
+&lt;span class="wsuf-badge wsuf-badge--na"&gt;N/A&lt;/span&gt;</code></pre></div></div>
+    </section>
+
+    <section class="sg-section" id="payment">
+      <h2 class="wsuf-bare" style="font-size:1.9rem">Payment <strong>status</strong></h2>
+      <p>The three states a payment moves through. Pair with the amount and date so it's unambiguous.</p>
+      <div class="sg-example"><div class="sg-example__bar">Payment states</div><div class="sg-example__preview"><div class="wsu-content">
+        <div class="wsuf-checklist-item" style="border:0"><span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--done">✓</span><div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">Application fee <span class="wsuf-badge wsuf-badge--done">Paid</span></div><div class="wsuf-checklist-item__desc">$70.00 · Nov 14, 2026 · Visa ••4242</div></div></div>
+        <div class="wsuf-checklist-item" style="border:0"><span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--wait">⏳</span><div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">Enrollment deposit <span class="wsuf-badge wsuf-badge--wait">Pending</span></div><div class="wsuf-checklist-item__desc">$200.00 · due May 1, 2027</div></div></div>
+        <div class="wsuf-checklist-item" style="border:0"><span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--req">✕</span><div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">Housing deposit <span class="wsuf-badge wsuf-badge--req">Declined</span></div><div class="wsuf-checklist-item__desc">Card declined — <a href="#">try another payment method →</a></div></div></div>
+      </div></div></div>
+    </section>
+
+    <section class="sg-section" id="checklist">
+      <h2 class="wsuf-bare" style="font-size:1.9rem">Checklist <strong>states</strong></h2>
+      <p>The four states an application item can be in. Icon shape + badge word + color all reinforce each other.</p>
+      <div class="sg-example"><div class="sg-example__bar">Checklist</div><div class="sg-example__preview"><div class="wsu-content"><ul class="wsuf-checklist">
+        <li class="wsuf-checklist-item"><span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--done">✓</span><div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">Application submitted <span class="wsuf-badge wsuf-badge--done">Complete</span></div></div></li>
+        <li class="wsuf-checklist-item"><span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--req">!</span><div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">Official transcript <span class="wsuf-badge wsuf-badge--req">Required</span></div><div class="wsuf-checklist-item__desc"><a href="#">Upload now →</a></div></div></li>
+        <li class="wsuf-checklist-item"><span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--wait">⏳</span><div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">Test scores <span class="wsuf-badge wsuf-badge--wait">Awaiting</span></div></div></li>
+        <li class="wsuf-checklist-item"><span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--na">—</span><div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">Transfer evaluation <span class="wsuf-badge wsuf-badge--na">N/A</span></div></div></li>
+      </ul></div></div></div>
+    </section>
+
+    <section class="sg-section" id="decision">
+      <h2 class="wsuf-bare" style="font-size:1.9rem">Decision-release <strong>card</strong></h2>
+      <p>The single most emotionally-charged surface. Calm, dignified, one clear action. Use Slate population rules to serve the right card.</p>
+      <div class="sg-example"><div class="sg-example__bar">Decision — admitted</div><div class="sg-example__preview sg-example__preview--subtle"><div class="wsu-content">
+        <div style="background:linear-gradient(120deg,#a60f2d 0,#a60f2d 60%,#680222 100%);color:#fff;border-radius:12px;padding:2rem;text-align:center">
+          <p style="font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.85;margin:0 0 .75rem">Your decision is ready</p>
+          <h3 style="color:#fff;font-size:1.9rem;margin:0 0 .5rem">Welcome, Coug.</h3>
+          <p style="color:rgba(255,255,255,.92);margin:0 0 1.25rem">You've been admitted to WSU Pullman for Fall 2027.</p>
+          <a href="#" class="wsuf-btn" style="background:#fff;color:#a60f2d;border-color:#fff">View my offer →</a>
+        </div>
+      </div></div></div>
+    </section>
+
+    <section class="sg-section" id="countdown">
+      <h2 class="wsuf-bare" style="font-size:1.9rem">Deadline <strong>countdown</strong></h2>
+      <p>For time-sensitive actions (deposit, priority deadline). Static here; wire to a date with a few lines of JS. Always state the actual date too — a countdown alone isn't accessible.</p>
+      <div class="sg-example"><div class="sg-example__bar">Countdown</div><div class="sg-example__preview"><div class="wsu-content">
+        <p style="font-weight:600;margin:0 0 .5rem">Enrollment deposit due in:</p>
+        <div class="countdown" role="timer" aria-label="12 days, 6 hours until the enrollment deposit deadline of May 1, 2027">
+          <span class="countdown__unit"><span class="countdown__num">12</span><span class="countdown__lbl">Days</span></span>
+          <span class="countdown__unit"><span class="countdown__num">06</span><span class="countdown__lbl">Hours</span></span>
+          <span class="countdown__unit"><span class="countdown__num">41</span><span class="countdown__lbl">Min</span></span>
+        </div>
+        <p style="font-size:.85rem;color:var(--wsu-muted);margin:.5rem 0 0">Deadline: May 1, 2027 at 11:59 p.m. PT</p>
+      </div></div></div>
+    </section>
+  </main>
+</div>
+
+<footer class="wsu-footer-global">
+  <div class="wsu-footer-global__copyright">© Washington State University · Office of Admissions</div>
+  <nav class="wsu-footer-global__nav" aria-label="WSU global"><ul><li><a href="https://access.wsu.edu/">Access</a></li><li><a href="https://policies.wsu.edu/">Policies</a></li><li><a href="https://portal.wsu.edu/">MyWSU</a></li><li><a href="https://socialmedia.wsu.edu/">Follow WSU</a></li></ul></nav>
+</footer>
+
+<button class="sh-fab" aria-expanded="false" aria-controls="sh-drawer">Slate hints</button>
+<div class="sh-backdrop"></div>
+<aside class="sh-drawer" id="sh-drawer" role="dialog" aria-modal="false" aria-label="Slate editor hints">
+  <div class="sh-drawer__head"><div><h2>Slate Editor Hints</h2><p>Status &amp; badges</p></div><button class="sh-close" type="button" aria-label="Close hints">×</button></div>
+  <div class="sh-body">
+    <h3>In Slate</h3>
+    <p class="sh-hint">Drive checklist rows + statuses from a <b>query</b> of the applicant's materials/checklist, output with Liquid into this markup.</p>
+    <p class="sh-hint">Map each Slate status value to a badge class (<code>--done</code>, <code>--wait</code>, <code>--req</code>, <code>--na</code>, <code>--new</code>).</p>
+    <p class="sh-hint">Decision cards: use <b>population rules</b> so admit/deny/waitlist each get the right card. Never show the admit card to a denied applicant.</p>
+    <h3>Copy-paste</h3>
+    <p class="sh-snip__label">Status badge</p>
+    <div class="sh-snip"><button class="sh-copy" type="button">Copy</button><pre><code>&lt;span class="wsuf-badge wsuf-badge--req"&gt;Required&lt;/span&gt;</code></pre></div>
+    <p class="sh-snip__label">Checklist row</p>
+    <div class="sh-snip"><button class="sh-copy" type="button">Copy</button><pre><code>&lt;li class="wsuf-checklist-item"&gt;
+  &lt;span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--req"&gt;!&lt;/span&gt;
+  &lt;div class="wsuf-checklist-item__body"&gt;
+    &lt;div class="wsuf-checklist-item__title"&gt;Transcript &lt;span class="wsuf-badge wsuf-badge--req"&gt;Required&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="wsuf-checklist-item__desc"&gt;&lt;a href="#"&gt;Upload now&lt;/a&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/li&gt;</code></pre></div>
+  </div>
+</aside>
+<script src="slate-hints.js"></script>
+<script src="variants.js"></script>
+<script>
+document.querySelectorAll('.sg-copy').forEach(function(btn){btn.addEventListener('click',function(){var c=btn.parentElement.querySelector('code');navigator.clipboard.writeText(c.textContent).then(function(){btn.textContent='Copied';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},1500);});});});
+var links=Array.from(document.querySelectorAll('.sg-nav-group a')),map={};links.forEach(function(a){var id=a.getAttribute('href').slice(1);var el=document.getElementById(id);if(el)map[id]=a;});
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('is-active');});var a=map[e.target.id];if(a)a.classList.add('is-active');}});},{rootMargin:'-15% 0px -75% 0px',threshold:0});
+Object.keys(map).forEach(function(id){obs.observe(document.getElementById(id));});
+</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Application Status — WSU Admissions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="wsu-chrome.css">
+<link rel="stylesheet" href="wsu-forms.css">
+<style>
+body{margin:0;background:#f7f7f7}
+.portal-shell{max-width:72rem;margin:0 auto;display:grid;grid-template-columns:15rem 1fr;gap:0;min-height:60vh}
+.portal-nav{background:#fff;border-right:1px solid #e2e2e2;padding:1.5rem 0}
+.portal-nav__title{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;padding:.5rem 1.25rem;margin:0}
+.portal-nav a{display:block;padding:.55rem 1.25rem;font-size:.9rem;font-weight:600;color:#404040;text-decoration:none;border-left:4px solid transparent}
+.portal-nav a:hover{background:#f2f2f2;border-left-color:#b3b3b3}
+.portal-nav a.is-active{background:#f2f2f2;border-left-color:#ca1237;color:#a60f2d}
+.portal-main{padding:2rem 2.5rem 4rem;min-width:0}
+@media(max-width:700px){.portal-shell{grid-template-columns:1fr}.portal-nav{display:none}}
+.deadline-table{width:100%;border-collapse:collapse;font-size:.9rem}
+.deadline-table th{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#595959;padding:.5rem .75rem;text-align:left;border-bottom:2px solid #a60f2d;background:#fff}
+.deadline-table td{padding:.65rem .75rem;border-bottom:1px solid #ebebeb;background:#fff}
+.deadline-table tr:last-child td{border-bottom:0}
+.deadline-table td:last-child{text-align:right}
+</style>
+<link rel="stylesheet" href="slate-hints.css">
+</head>
+<body>
+<a class="wsu-skip" href="#portal-main">Skip to application status</a>
+
+<header class="wsu-header-global wsu-header-global--sticky">
+  <a class="wsu-wordmark" href="https://wsu.edu" title="WSU Homepage">
+    <span class="wsu-coug-head-boxed"><svg class="wsu-coug-head-boxed__icon" role="img" aria-label="WSU Cougar Head" viewBox="0 0 70.2 69.6" xmlns="http://www.w3.org/2000/svg"><title>WSU Cougar Head Logo</title><path d="m42.8 69.6s3.6-1.5 5.5-7.4c1 2.3 1.5 4.8 1.3 7.3-2.3 0.1-4.5 0.2-6.8 0.1zm14.9-11.8c-10.4 1.4-12.2-20.3-12.2-20.3s3.5 11.1 10.9 10.7c7.7-0.4 5.5-12.2 5.5-12.2s7.5 20.2-4.2 21.8zm-47.7-5c-3.3 1-6.6 1.8-10 2.4 0 0 5.9-4.5 10.3-18.3l4.3 3.9-0.8 2.6c1.1 1.5 1.9 3.1 2.5 4.9 1.6-3.6 1.5-7.7-0.3-11.2l-0.5 1.6-1.7-1.5-2.8-2.7c1.2-3.6 3-7 5.3-10.1l0.4 0.4 3.3 3.8-1 1.7c1.5 1.7 2.9 3.4 4.2 5.3 0.6-3.4 0.4-6.8-0.4-10.1l-1.5 1.4-3.6-4.2c4.5-4.7 10-8.2 16.2-10.3-0.4 0.4-0.7 0.8-1 1.3-2 2.9-4.1 8.1-2.4 16.4 0.3 1.3 0.7 3.2 1.1 5.1 0.9 3.8 1.9 8.2 2.2 10.9 0.7 5.7 0.1 9.4-1.8 11.4-1.3 1.4-3.5 2-6.4 1.9v-1.4c0-2.4-0.3-4.8-0.8-7.2l-0.8-2.7-1.2 2.6c-1.9 4.1-8.6 14.1-17.2 16.1 2.6-4.2 4.1-9 4.4-14zm25.4 16.4h-0.5-0.1-0.3c-0.5 0-0.8-0.1-1.2-0.1-0.7-0.1-1.6-0.2-2.6-0.4-6.4-1.1-12.9-1.7-19.4-2 6.2-3.6 10.4-9.9 12-12.5 0.2 1.3 0.3 2.5 0.3 3.8 0 0.8 0 1.6-0.1 2.2l-0.1 1.1 1.1 0.1c0.7 0.1 1.3 0.1 1.9 0.1 3.3 0 5.7-0.8 7.3-2.5 2.4-2.5 3.1-6.7 2.3-13.1-0.4-2.9-1.4-7.4-2.3-11.1-0.5-2-0.9-3.8-1.1-5-1.5-7.6 0.3-12.3 2.1-14.8 1.3-1.9 3.2-3.4 5.5-4.2h0.1l3.3-10.8h1.1l-2.3 10.3c0.7-0.1 1.2-0.2 1.7-0.3l3-9.5h1.1l-2 9.2c2.9-0.4 6.1-0.7 10.3-1 0.8 0.4 1.4 1.1 1.8 1.9l9.8-3 0.4 1.1-9.5 3.7c0.1 0.2 0.2 0.4 0.2 0.6l10.3-1.3 0.2 1.1-10 2c0 0.2 0.1 0.4 0.1 0.6l10.4 0.3v1.1l-10.2 0.4c0 1.2-0.2 2.4-0.5 3.6 0.6 2.1 0.7 4.3 0.3 6.5-1.7-3.9-3-5.1-3-5.1-1.4-0.7-2.9-1-4.5-1-2.5 0-4.8 1.1-6.4 2.9-2.3 2.6-3.5 6-3.3 9.5 0.2 2.4 0.7 5.1 1.4 8.6 0.7 3.6 1.6 8.1 2.3 13.5 0.6 4.1-0.1 7.3-1.8 9.7-1.6 2.1-4 3.4-6.5 3.8h-0.1-0.2-0.1-2.2zm10.4-51.5c-2.1-0.1-4.2 0.4-6 1.3-1.5 1-2.5 2.7-2.6 4.5-0.1 0.6-0.1 1.2 0 1.8 0.8-1.5 2-2.8 3.3-3.9 2.4-1.5 5.1-2.3 7.9-2.4h0.9 0.3c0.4 0 0.7-0.1 0.8-0.2 0-0.1-0.1-0.3-0.4-0.4-1.3-0.5-2.7-0.8-4.2-0.7z"/></svg></span>
+    <span class="wsu-wordmark__title">Washington State University</span>
+  </a>
+  <nav class="wsu-header-global__nav" aria-label="WSU utility"><ul><li><a href="https://foundation.wsu.edu/">Give</a></li><li><a href="https://admission.wsu.edu/apply/">Apply</a></li><li><a href="https://mywsu.wsu.edu/">My WSU</a></li></ul></nav>
+</header>
+
+<div class="wsuf-identity-bar wsu-content" role="region" aria-label="Signed in">
+  <span class="wsuf-identity-bar__name">Signed in as <strong>Marco Bezzecchi</strong> — cordodor+marco72@gmail.com</span>
+  <a href="#" class="wsuf-identity-bar__link">Sign out</a>
+</div>
+
+<nav class="wsu-breadcrumbs" aria-label="Breadcrumb">
+  <ol><li><a href="https://admission.wsu.edu">Admissions</a></li><li>Application Status</li></ol>
+</nav>
+
+<div class="portal-shell">
+  <!-- LEFT NAV (Template C) -->
+  <nav class="portal-nav" aria-label="Portal sections">
+    <p class="portal-nav__title">My Application</p>
+    <a href="#" class="is-active">Application status</a>
+    <a href="#">My documents</a>
+    <a href="#">Financial aid</a>
+    <a href="#">Scholarships</a>
+    <p class="portal-nav__title" style="margin-top:1rem">Next steps</p>
+    <a href="#">Campus visits</a>
+    <a href="#">Housing</a>
+    <a href="#">Orientation</a>
+    <p class="portal-nav__title" style="margin-top:1rem">Resources</p>
+    <a href="#">Contact admissions</a>
+    <a href="https://admission.wsu.edu">Admissions home</a>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="portal-main wsu-content" id="portal-main">
+
+    <div class="wsuf-card__header" style="margin-bottom:1.5rem">
+      <div>
+        <h1 style="margin:0 0 .25rem;font-size:1.75rem">Application <strong>Status</strong></h1>
+        <p style="margin:0;color:var(--wsu-muted);font-size:.95rem">Fall 2027 · First-Year Student · Pullman Campus</p>
+      </div>
+      <span class="wsuf-badge wsuf-badge--wait" style="font-size:.8rem;padding:.35rem .9rem">In Review</span>
+    </div>
+
+    <!-- DEADLINE WARNING -->
+    <div class="wsuf-notice wsuf-notice--warn" style="margin-bottom:1.5rem">
+      <span class="wsuf-notice__icon" aria-hidden="true">⚠</span>
+      <div class="wsuf-notice__body">
+        <strong>Action required — transcript missing</strong>
+        <p>Your official high school transcript has not been received. <a href="#">Upload now →</a> Deadline: January 31, 2027.</p>
+      </div>
+    </div>
+
+    <!-- STATUS CHECKLIST -->
+    <div class="wsuf-card" style="margin-bottom:1.5rem">
+      <div class="wsuf-card__header"><h2 class="wsuf-card__title">Application checklist</h2></div>
+      <ul class="wsuf-checklist" aria-label="Application requirements">
+        <li class="wsuf-checklist-item">
+          <span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--done" aria-label="Complete">✓</span>
+          <div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">Application submitted <span class="wsuf-badge wsuf-badge--done">Complete</span></div><div class="wsuf-checklist-item__desc">Submitted November 14, 2026 · Confirmation #WSU-2026-847291</div></div>
+        </li>
+        <li class="wsuf-checklist-item">
+          <span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--done" aria-label="Complete">✓</span>
+          <div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">Application fee <span class="wsuf-badge wsuf-badge--done">Received</span></div><div class="wsuf-checklist-item__desc">$70.00 received November 14, 2026</div></div>
+        </li>
+        <li class="wsuf-checklist-item">
+          <span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--req" aria-label="Action required">!</span>
+          <div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">Official high school transcript <span class="wsuf-badge wsuf-badge--req">Required</span></div><div class="wsuf-checklist-item__desc">Not yet received. <a href="#">Upload your transcript →</a> or ask your school to send it to future.coug@wsu.edu.</div></div>
+        </li>
+        <li class="wsuf-checklist-item">
+          <span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--wait" aria-label="Awaiting">⏳</span>
+          <div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">SAT / ACT scores <span class="wsuf-badge wsuf-badge--wait">Awaiting</span></div><div class="wsuf-checklist-item__desc">Not required for Fall 2027 — test-optional policy in effect. Submit if you'd like scores considered.</div></div>
+        </li>
+        <li class="wsuf-checklist-item">
+          <span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--done" aria-label="Complete">✓</span>
+          <div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">Personal essay <span class="wsuf-badge wsuf-badge--done">Received</span></div><div class="wsuf-checklist-item__desc">Received with your application</div></div>
+        </li>
+        <li class="wsuf-checklist-item">
+          <span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--na" aria-label="Not applicable">—</span>
+          <div class="wsuf-checklist-item__body"><div class="wsuf-checklist-item__title">Transfer credit evaluation <span class="wsuf-badge wsuf-badge--na">N/A</span></div><div class="wsuf-checklist-item__desc">Only required for transfer applicants</div></div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- STATS -->
+    <div class="wsuf-stats">
+      <div class="wsuf-stat"><div class="wsuf-stat__value">4</div><div class="wsuf-stat__label">Items submitted</div></div>
+      <div class="wsuf-stat"><div class="wsuf-stat__value">1</div><div class="wsuf-stat__label">Items required</div></div>
+      <div class="wsuf-stat"><div class="wsuf-stat__value">Mar 1</div><div class="wsuf-stat__label">Decision date</div></div>
+    </div>
+
+    <!-- DEADLINES -->
+    <div class="wsuf-card">
+      <div class="wsuf-card__header"><h2 class="wsuf-card__title">Key dates</h2></div>
+      <table class="deadline-table" aria-label="Application deadlines">
+        <thead><tr><th scope="col">Milestone</th><th scope="col">Date</th><th scope="col">Status</th></tr></thead>
+        <tbody>
+          <tr><td>Priority deadline</td><td>January 31, 2027</td><td><span class="wsuf-badge wsuf-badge--wait">Upcoming</span></td></tr>
+          <tr><td>Transcript due</td><td>January 31, 2027</td><td><span class="wsuf-badge wsuf-badge--req">Action needed</span></td></tr>
+          <tr><td>Admissions decision</td><td>March 1, 2027</td><td><span class="wsuf-badge wsuf-badge--na">Pending</span></td></tr>
+          <tr><td>Enrollment deposit</td><td>May 1, 2027 (if admitted)</td><td><span class="wsuf-badge wsuf-badge--na">Pending</span></td></tr>
+          <tr><td>FAFSA priority filing</td><td>January 31, 2027</td><td><span class="wsuf-badge wsuf-badge--new">Action recommended</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="wsuf-well" style="margin-top:1.5rem">
+      <h2 style="font-size:1.1rem;margin:0 0 .75rem">Contact <strong>admissions</strong></h2>
+      <p style="font-size:.9rem;margin:0 0 .35rem">370 Lighty Student Services Bldg · Pullman, WA 99164-1067</p>
+      <p style="font-size:.9rem;margin:0 0 .35rem">Call or Text: <a href="tel:5095535450">509-553-5450</a></p>
+      <p style="font-size:.9rem;margin:0">Email: <a href="mailto:future.coug@wsu.edu">future.coug@wsu.edu</a> · Mon–Fri 8 a.m. – 5 p.m.</p>
+    </div>
+  </main>
+</div>
+
+<footer class="wsu-footer-global">
+  <div class="wsu-footer-global__copyright">© Washington State University · Office of Admissions</div>
+  <nav class="wsu-footer-global__nav" aria-label="WSU global"><ul><li><a href="https://access.wsu.edu/">Access</a></li><li><a href="https://policies.wsu.edu/">Policies</a></li><li><a href="https://portal.wsu.edu/">MyWSU</a></li><li><a href="https://socialmedia.wsu.edu/">Follow WSU</a></li></ul></nav>
+</footer>
+
+<!-- Slate Editor Hints (showcase-only) -->
+<button class="sh-fab" aria-expanded="false" aria-controls="sh-drawer">Slate hints</button>
+<div class="sh-backdrop"></div>
+<aside class="sh-drawer" id="sh-drawer" role="dialog" aria-modal="false" aria-label="Slate editor hints">
+  <div class="sh-drawer__head"><div><h2>Slate Editor Hints</h2><p>Status portal</p></div><button class="sh-close" type="button" aria-label="Close hints">×</button></div>
+  <div class="sh-body"><h3>Build it in Slate</h3><p class="sh-hint">Build on a Slate <b>Portal</b>. The checklist rows are driven by a query of the applicant’s checklist/materials; map each status to a badge class.</p><p class="sh-hint">The logged-in identity bar is styled automatically (Slate emits <code>div[role="banner"]</code>; the mapping layer turns it crimson).</p><h3>Copy-paste</h3><p class="sh-snip__label">Checklist item</p><div class="sh-snip"><button class="sh-copy" type="button">Copy</button><pre><code>&lt;li class="wsuf-checklist-item"&gt;
+  &lt;span class="wsuf-checklist-item__icon wsuf-checklist-item__icon--req"&gt;!&lt;/span&gt;
+  &lt;div class="wsuf-checklist-item__body"&gt;
+    &lt;div class="wsuf-checklist-item__title"&gt;Transcript &lt;span class="wsuf-badge wsuf-badge--req"&gt;Required&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="wsuf-checklist-item__desc"&gt;Not yet received.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/li&gt;</code></pre></div><p class="sh-snip__label">Status badges</p><div class="sh-snip"><button class="sh-copy" type="button">Copy</button><pre><code>&lt;span class="wsuf-badge wsuf-badge--done"&gt;Received&lt;/span&gt;
+&lt;span class="wsuf-badge wsuf-badge--wait"&gt;Awaiting&lt;/span&gt;
+&lt;span class="wsuf-badge wsuf-badge--req"&gt;Required&lt;/span&gt;</code></pre></div></div>
+</aside>
+<script src="slate-hints.js"></script>
+</body>
+</html>
