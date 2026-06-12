@@ -1,0 +1,521 @@
+/* ════════════════════════════════════════════════════════════════════════
+   WSU EIT FORMS — content-editor extras
+   wsu-eit-extras.css · v8 · Enrollment Information Technology · 2026-06-11
+
+   ── WHY THIS FILE EXISTS ─────────────────────────────────────────────────
+   build.css restyles what Slate already renders. THIS file adds optional
+   components an editor can opt into by typing ONE class on a wrapper —
+   the contents then "just become" the component. Rules of admission here:
+     1. Zero JavaScript. Everything is pure CSS (dept. policy).
+     2. Accessible by construction — native elements (<details>, <ol>,
+        <table>) doing what they were born to do, plus focus styles,
+        reduced-motion guards, and no autoplay anywhere.
+     3. One-class simple. If using it needs more than a wrapper class and
+        ordinary HTML inside, it doesn't ship.
+   Loaded from build.xslt after build.css. Safe to delete: pages lose the
+   extras, nothing else changes.
+
+   ┌─────────────────────────────────────────────────────────────────────┐
+   │ FIND-IT INDEX — Ctrl+F the §tag (or any synonym on a banner)        │
+   │  §REEL ……… carousel, photo strip, gallery, slideshow, scroll-snap   │
+   │  §FAQ ………… accordion, expander, collapsible, details, disclosure    │
+   │  §STEPS …… numbered steps, how-to, process, counters                │
+   │  §CARDS …… card grid, tiles, link cards, hover lift                 │
+   │  §STATS …… big numbers, stat tiles, figures                         │
+   │  §BANNER … hero, gradient band, call-to-action block                │
+   │  §TIMELINE  dates, milestones, history line                         │
+   │  §BADGES … status pills, done/waiting/todo chips                    │
+   │  §ACCENTS … secondary colors, autumn, goldfinch, vineyard, sky,     │
+   │             midnight, highlight, panes, accent edges                │
+   │  §TABLES … data table, zebra stripes, sticky header                 │
+   │  §REVEAL … scroll animation, fade in, rise (progressive)            │
+   └─────────────────────────────────────────────────────────────────────┘
+   ════════════════════════════════════════════════════════════════════════ */
+
+
+/* ═══ §REEL ═══════════════════════════════════════════════════════════════
+   FIND: reel, carousel, photo strip, gallery, slideshow, scroll-snap, swipe
+   WHY  The classic "image carousel" request, with zero script: CSS
+        scroll-snap gives momentum, snapping, swipe and trackpad support
+        for free. No autoplay BY DESIGN — the user is always driving,
+        which is also what lets it pass WCAG 2.2.2 without a pause button.
+   USE  <div class="wsu-eit-reel" tabindex="0" role="group"
+            aria-label="Campus photos">  <img …>  <img …>  </div>
+        tabindex="0" is REQUIRED — it's what makes the strip arrow-key
+        scrollable for keyboard users. Plain <img> children, or <figure>
+        with <figcaption> for captions. */
+.wsu-eit-reel {
+  display: flex;
+  gap: var(--wsu-eit-gap-3);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 0 var(--wsu-eit-gap-3);
+  scrollbar-color: var(--wsu-eit-brand) var(--wsu-eit-mist);
+}
+.wsu-eit-reel:focus-visible { outline: 3px solid var(--wsu-eit-brand); outline-offset: 3px; }
+.wsu-eit-reel > img, .wsu-eit-reel > figure {
+  flex: 0 0 min(28rem, 85%);   /* next slide peeks in = visible affordance */
+  margin: 0;
+  scroll-snap-align: start;
+}
+.wsu-eit-reel img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--wsu-eit-round);
+  display: block;
+}
+.wsu-eit-reel > figure > figcaption { font-size: .85rem; color: var(--wsu-eit-quiet); padding-top: .4rem; }
+
+
+/* ═══ §FAQ ════════════════════════════════════════════════════════════════
+   FIND: faq, accordion, expander, collapsible, details, summary, disclosure
+   WHY  Editors constantly want collapsible Q&A. The native <details>
+        element IS an accordion — keyboard, screen reader, and find-in-page
+        support built into the browser. We only dress it.
+   USE  <details class="wsu-eit-faq">
+          <summary>When are decisions released?</summary>
+          <p>Late January for early applicants…</p>
+        </details>
+        Stack as many as you like. Add `open` to pre-expand one. */
+.wsu-eit-faq {
+  border: 1px solid var(--wsu-eit-hairline);
+  border-radius: var(--wsu-eit-round);
+  margin: 0 0 var(--wsu-eit-gap-3);
+  background: var(--wsu-eit-paper);
+  max-width: 70ch;
+}
+.wsu-eit-faq > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--wsu-eit-gap-4);
+  padding: var(--wsu-eit-gap-4) var(--wsu-eit-gap-5);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;              /* hide the default triangle… */
+}
+.wsu-eit-faq > summary::-webkit-details-marker { display: none; }
+.wsu-eit-faq > summary::after { /* …and draw our own +/− cue */
+  content: "+";
+  flex: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--wsu-eit-brand);
+  line-height: 1;
+}
+.wsu-eit-faq[open] > summary::after { content: "−"; }
+.wsu-eit-faq[open] > summary { border-bottom: 1px solid var(--wsu-eit-hairline); }
+.wsu-eit-faq > summary:hover { color: var(--wsu-eit-brand); }
+.wsu-eit-faq > summary:focus-visible { outline: 3px solid var(--wsu-eit-brand); outline-offset: -3px; border-radius: var(--wsu-eit-round); }
+.wsu-eit-faq > :not(summary) { margin: var(--wsu-eit-gap-3) var(--wsu-eit-gap-5); }
+/* smooth open where the engine can animate <details> (Chrome 131+);
+   everywhere else it simply snaps open — progressive, never broken */
+@supports (interpolate-size: allow-keywords) {
+  .wsu-eit-faq { interpolate-size: allow-keywords; }
+  .wsu-eit-faq::details-content {
+    opacity: 0; block-size: 0; overflow-y: clip;
+    transition: content-visibility .25s allow-discrete, opacity .25s, block-size .25s;
+  }
+  .wsu-eit-faq[open]::details-content { opacity: 1; block-size: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wsu-eit-faq::details-content { transition: none; }
+}
+
+
+/* ═══ §STEPS ══════════════════════════════════════════════════════════════
+   FIND: steps, numbered steps, how-to, process, instructions, counters
+   WHY  "How to apply" content reads better as big numbered milestones than
+        a plain list. CSS counters number the circles automatically —
+        reorder or delete <li>s and the numbers fix themselves (the win
+        over typing numbers by hand).
+   USE  <ol class="wsu-eit-steps">
+          <li><b>Create your account.</b> Takes two minutes.</li>
+          <li><b>Upload your transcript.</b></li>
+        </ol> */
+.wsu-eit-steps {
+  list-style: none;
+  counter-reset: wsu-eit-step;
+  margin: 0 0 var(--wsu-eit-gap-5);
+  padding: 0;
+  max-width: 70ch;
+}
+.wsu-eit-steps > li {
+  counter-increment: wsu-eit-step;
+  position: relative;
+  padding: 0 0 var(--wsu-eit-gap-5) 3.4rem;
+}
+.wsu-eit-steps > li::before {     /* the numbered crimson disc */
+  content: counter(wsu-eit-step);
+  position: absolute;
+  left: 0; top: -.2rem;
+  width: 2.3rem; height: 2.3rem;
+  border-radius: 50%;
+  background: var(--wsu-eit-brand);
+  color: #fff;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wsu-eit-steps > li::after {      /* connector line between discs */
+  content: "";
+  position: absolute;
+  left: 1.1rem; top: 2.3rem; bottom: .2rem;
+  width: 2px;
+  background: var(--wsu-eit-hairline);
+}
+.wsu-eit-steps > li:last-child { padding-bottom: 0; }
+.wsu-eit-steps > li:last-child::after { content: none; }
+
+
+/* ═══ §CARDS ══════════════════════════════════════════════════════════════
+   FIND: cards, card grid, tiles, link cards, hover lift, auto grid
+   WHY  A grid that needs no breakpoint babysitting: auto-fit packs as many
+        columns as fit, from phone (1) to desktop (3–4). Children become
+        cards; <a> children become whole-card click targets with a lift.
+   USE  <div class="wsu-eit-cards">
+          <a href="…"><h3>Visit Pullman</h3><p>Book a campus tour.</p></a>
+          <div><h3>Plain card</h3><p>Not a link — no lift.</p></div>
+        </div> */
+.wsu-eit-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--wsu-eit-gap-4);
+  margin: 0 0 var(--wsu-eit-gap-5);
+}
+.wsu-eit-cards > * {
+  background: var(--wsu-eit-paper);
+  border: 1px solid var(--wsu-eit-hairline);
+  border-top: 4px solid var(--wsu-eit-brand);
+  border-radius: var(--wsu-eit-round);
+  padding: var(--wsu-eit-gap-5);
+}
+.wsu-eit-cards > * > :first-child { margin-top: 0; }
+.wsu-eit-cards > * > :last-child { margin-bottom: 0; }
+.wsu-eit-cards h3 { margin: 0 0 var(--wsu-eit-gap-2); font-size: 1.1rem; }
+/* link cards: defeat the global underline (the heading is the cue),
+   keep body ink, add lift + shadow on hover — motion-gated below */
+.wsu-eit .wsu-eit-cards > a,
+.wsu-eit .wsu-eit-cards > a:visited {
+  display: block;
+  color: var(--wsu-eit-body);
+  text-decoration: none;
+}
+.wsu-eit .wsu-eit-cards > a h3 { color: var(--wsu-eit-brand-text); text-decoration: underline; text-underline-offset: .18em; }
+.wsu-eit .wsu-eit-cards > a:hover { border-color: var(--wsu-eit-brand); box-shadow: 0 6px 18px rgba(0,0,0,.12); }
+.wsu-eit .wsu-eit-cards > a:hover h3 { color: var(--wsu-eit-brand); }
+.wsu-eit .wsu-eit-cards > a:focus-visible { outline: 3px solid var(--wsu-eit-brand); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .wsu-eit .wsu-eit-cards > a { transition: translate .15s ease-out, box-shadow .15s ease-out; }
+  .wsu-eit .wsu-eit-cards > a:hover { translate: 0 -3px; }
+}
+
+
+/* ═══ §STATS ══════════════════════════════════════════════════════════════
+   FIND: stats, big numbers, stat tiles, figures, facts band
+   WHY  "200+ majors · 97% placement" facts read at a glance when the
+        number is the hero. Strong = the number, rest of the line = label.
+   USE  <div class="wsu-eit-stats">
+          <div><strong>200+</strong> programs of study</div>
+          <div><strong>$430M</strong> in aid awarded</div>
+        </div> */
+.wsu-eit-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: var(--wsu-eit-gap-3);
+  margin: 0 0 var(--wsu-eit-gap-5);
+}
+.wsu-eit-stats > div {
+  background: var(--wsu-eit-mist);
+  border-top: 3px solid var(--wsu-eit-flag);
+  border-radius: 0 0 var(--wsu-eit-round) var(--wsu-eit-round);
+  padding: var(--wsu-eit-gap-4) var(--wsu-eit-gap-4) var(--wsu-eit-gap-3);
+  font-size: .9rem;
+  color: var(--wsu-eit-quiet);
+}
+.wsu-eit-stats strong {
+  display: block;
+  font-size: 2.1rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--wsu-eit-brand);
+}
+
+
+/* ═══ §BANNER ═════════════════════════════════════════════════════════════
+   FIND: banner, hero, gradient band, call to action, CTA block, masthead
+   WHY  A page-opening moment using the one brand-sanctioned gradient
+        (crimson → deep crimson; crimson-to-gray is a brand violation).
+        Headings inside drop their crimson underline bar automatically —
+        white-on-crimson needs no second decoration.
+   USE  <div class="wsu-eit-banner">
+          <p class="wsu-eit-banner__kicker">Future Coug Day</p>
+          <h2>You belong here.</h2>
+          <p>Register for the October 18 visit day.</p>
+        </div> */
+.wsu-eit-banner {
+  background: linear-gradient(100deg, var(--wsu-eit-brand) 0%, var(--wsu-eit-brand) 55%, var(--wsu-eit-brand-deep) 100%);
+  color: #fff;
+  border-radius: var(--wsu-eit-round);
+  padding: var(--wsu-eit-gap-6) var(--wsu-eit-gap-5);
+  margin: 0 0 var(--wsu-eit-gap-5);
+}
+.wsu-eit-banner :is(h1, h2, h3) {
+  color: #fff;
+  border: 0;                /* no crimson bar on crimson */
+  padding-bottom: 0;
+  margin: 0 0 var(--wsu-eit-gap-3);
+  font-size: 2rem;
+  font-weight: 800;
+}
+.wsu-eit-banner p { color: rgba(255,255,255,.92); max-width: 60ch; }
+.wsu-eit-banner > :last-child { margin-bottom: 0; }
+.wsu-eit-banner__kicker {
+  font-size: .8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: rgba(255,255,255,.85);
+  margin: 0 0 var(--wsu-eit-gap-2);
+}
+/* links/buttons inside flip to white-outline so they read on crimson */
+.wsu-eit .wsu-eit-banner a,
+.wsu-eit .wsu-eit-banner a:visited { color: #fff; }
+.wsu-eit .wsu-eit-banner a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.wsu-eit .wsu-eit-banner a.wsu-eit-btn,
+.wsu-eit .wsu-eit-banner a.wsu-eit-btn:visited {
+  background: #fff;
+  border-color: #fff;
+  color: var(--wsu-eit-brand);
+  text-decoration: none;
+}
+
+
+/* ═══ §TIMELINE ═══════════════════════════════════════════════════════════
+   FIND: timeline, dates, milestones, deadlines, history line, schedule
+   WHY  Deadline sequences ("Nov 1 priority → Jan 31 regular → May 1
+        deposit") are clearer as a dotted line than a table.
+   USE  <ul class="wsu-eit-timeline">
+          <li><b>November 1</b> — Priority application deadline</li>
+          <li><b>January 31</b> — Regular deadline</li>
+        </ul> */
+.wsu-eit-timeline {
+  list-style: none;
+  margin: 0 0 var(--wsu-eit-gap-5);
+  padding: 0;
+  max-width: 70ch;
+}
+.wsu-eit-timeline > li {
+  position: relative;
+  padding: 0 0 var(--wsu-eit-gap-4) 2.1rem;
+  border-left: 2px solid var(--wsu-eit-hairline);
+  margin-left: .55rem;
+}
+.wsu-eit-timeline > li::before {   /* the crimson milestone dot */
+  content: "";
+  position: absolute;
+  left: -.55rem; top: .25rem;
+  width: .9rem; height: .9rem;
+  border-radius: 50%;
+  background: var(--wsu-eit-brand);
+  border: 2px solid var(--wsu-eit-paper);
+  box-sizing: border-box;
+}
+.wsu-eit-timeline > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+.wsu-eit-timeline b { color: var(--wsu-eit-brand-text); }
+
+
+/* ═══ §BADGES ═════════════════════════════════════════════════════════════
+   FIND: badges, status pills, chips, done, waiting, todo, received, info
+   WHY  Checklist/status language ("Received", "In review", "Action
+        needed") lands faster as a colored pill — color PLUS text, never
+        color alone, so it works for color-blind readers too.
+   COLOR PROVENANCE (brand-derived, 2026-06-11): each pill is built from an
+   APPROVED accent family (brand.wsu.edu/colors), not generic UI colors —
+   but never the raw accent as text. Brand rule: accents are decorative and
+   sparing; WCAG rule: most fail 4.5:1 as text. So the wash is a pale tint
+   of the true accent and the ink is the same hue darkened until it passes
+   AA (every pairing machine-verified at build time):
+     --done  Vineyard  #AADC24 → wash #eef7d8 · ink #3f5b0a  (6.6:1)
+     --wait  Autumn    #FF6727 → wash #ffe9de · ink #9c3a00  (6.0:1)
+     --todo  Secondary Red #CA1237 family →   #fbebee · #8a0019 (7.0:1)
+     --info  Midnight  #002D61 used RAW as ink (it's dark enough) on a
+             pale Pacific Sky #5BC3F5 wash #e2f1fc           (12.9:1)
+   USE  <span class="wsu-eit-badge wsu-eit-badge--done">Received</span>
+        modifiers: --done · --wait · --todo · --info · none (neutral gray) */
+.wsu-eit-badge {
+  display: inline-block;
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  padding: .2rem .65rem;
+  border-radius: 1rem;
+  background: var(--wsu-eit-mist);
+  color: var(--wsu-eit-quiet);
+}
+.wsu-eit-badge--done { background: #eef7d8; color: #3f5b0a; }  /* Vineyard family */
+.wsu-eit-badge--wait { background: #ffe9de; color: #9c3a00; }  /* Autumn family */
+.wsu-eit-badge--todo { background: #fbebee; color: #8a0019; }  /* Red family */
+.wsu-eit-badge--info { background: #e2f1fc; color: #002d61; }  /* Sky + Midnight */
+
+
+/* ═══ §ACCENTS ════════════════════════════════════════════════════════════
+   FIND: accents, secondary colors, autumn, goldfinch, vineyard, pacific
+   sky, midnight, highlight, highlighter, panes, accent edge, color coding
+   WHY  The brand's five accent colors (brand.wsu.edu/colors) exist to
+        "distinguish elements in a sequence" and "differentiate parts of a
+        whole" — sparingly, never dominant, never paired with crimson as an
+        equal, never as text or buttons. These utilities are the SANCTIONED
+        ways in: thin edges, a highlighter, and two content panes. The raw
+        hexes appear only on non-text surfaces; anything readable uses the
+        AA-verified derived inks documented in §BADGES.
+   USE
+     Accent edges — recolor the top border of any card / stat tile:
+       <div class="wsu-eit-stats">
+         <div class="wsu-eit-edge--sky"><strong>5</strong> campuses</div>
+       </div>
+     Highlighter — goldfinch behind dark ink (12:1, AA-safe):
+       Deposit by <mark class="wsu-eit-hi">May 1</mark>.
+     Midnight pane — the one accent dark enough for white text:
+       <div class="wsu-eit-pane--midnight"><p>Did you know…</p></div>
+     Sky pane — calm informational wash, body ink:
+       <div class="wsu-eit-pane--sky"><p>…</p></div> */
+.wsu-eit .wsu-eit-edge--autumn    { border-top-color: #ff6727; }
+.wsu-eit .wsu-eit-edge--goldfinch { border-top-color: #f3e700; }
+.wsu-eit .wsu-eit-edge--vineyard  { border-top-color: #aadc24; }
+.wsu-eit .wsu-eit-edge--sky       { border-top-color: #5bc3f5; }
+.wsu-eit .wsu-eit-edge--midnight  { border-top-color: #002d61; }
+
+mark.wsu-eit-hi {
+  background: #f3e700;            /* Goldfinch, raw — it's a surface, not text */
+  color: var(--wsu-eit-body);     /* dark ink on it: 12.6:1 */
+  padding: 0 .25em;
+  border-radius: 3px;
+}
+
+.wsu-eit-pane--midnight {
+  background: #002d61;            /* Midnight, raw — white text passes 12.9:1 */
+  color: #fff;
+  border-radius: var(--wsu-eit-round);
+  padding: var(--wsu-eit-gap-5);
+  margin: 0 0 var(--wsu-eit-gap-5);
+  max-width: 70ch;
+}
+.wsu-eit-pane--midnight :is(h2,h3,h4) { color: #fff; border: 0; padding-bottom: 0; margin-top: 0; }
+.wsu-eit-pane--midnight > :last-child { margin-bottom: 0; }
+.wsu-eit .wsu-eit-pane--midnight a,
+.wsu-eit .wsu-eit-pane--midnight a:visited { color: #fff; }
+.wsu-eit .wsu-eit-pane--midnight a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+.wsu-eit-pane--sky {
+  background: #e2f1fc;            /* pale Pacific Sky tint */
+  border-left: 6px solid #5bc3f5; /* the raw accent, as a decorative edge */
+  border-radius: var(--wsu-eit-round);
+  padding: var(--wsu-eit-gap-4) var(--wsu-eit-gap-5);
+  margin: 0 0 var(--wsu-eit-gap-5);
+  max-width: 70ch;
+}
+.wsu-eit-pane--sky > :last-child { margin-bottom: 0; }
+
+
+/* ═══ §MEDIA-HELPERS ══════════════════════════════════════════════════════
+   FIND: figure, photo, image, caption, dark band, surface, swatch
+   WHY  Pasted media kept sprouting inline styles; these classes replace
+        every one of them so content carries ZERO style attributes. */
+.wsu-eit-figure { margin: 0; }
+.wsu-eit-photo { width: 100%; border-radius: var(--wsu-eit-round); display: block; }
+.wsu-eit-caption { font-size: .85rem; color: var(--wsu-eit-quiet); margin-top: var(--wsu-eit-gap-2); }
+/* a dark strip for showing light-on-dark lockups/content — the band OWNS
+   its text color so children (mark__name, captions) never render dark-on-dark */
+.wsu-eit-dark-band { background: #1f1f1f; color: #fff; padding: var(--wsu-eit-gap-4) var(--wsu-eit-gap-5); border-radius: var(--wsu-eit-round); display: flex; align-items: center; gap: .7rem; }
+/* demo surfaces for showing marks on their approved backgrounds */
+.wsu-eit-surface--white { background: #fff; }
+.wsu-eit-surface--dark { background: #262626; }
+.wsu-eit-surface--crimson { background: var(--wsu-eit-brand); }
+/* brand swatch chips — exact color + its approved text ink */
+.wsu-eit-swatch { font-size: .7rem; font-weight: 700; padding: .5rem .7rem; border-radius: var(--wsu-eit-round); line-height: 1.35; border: 1px solid rgba(0,0,0,.1); display: inline-block; }
+.wsu-eit-swatch--crimson { background: #a60f2d; color: #fff; }
+.wsu-eit-swatch--deep { background: #680222; color: #fff; }
+.wsu-eit-swatch--red { background: #ca1237; color: #fff; }
+.wsu-eit-swatch--gray { background: #4d4d4d; color: #fff; }
+.wsu-eit-swatch--autumn { background: #ff6727; color: #262626; }
+.wsu-eit-swatch--goldfinch { background: #f3e700; color: #262626; }
+.wsu-eit-swatch--vineyard { background: #aadc24; color: #262626; }
+.wsu-eit-swatch--sky { background: #5bc3f5; color: #262626; }
+.wsu-eit-swatch--midnight { background: #002d61; color: #fff; }
+
+
+/* the 70/20/10 ratio bar — brand-proportion demo as composable pieces */
+.wsu-eit-ratio-bar { display: flex; height: 3.2rem; border-radius: var(--wsu-eit-round); overflow: hidden; }
+.wsu-eit-ratio-bar > span { display: flex; align-items: center; justify-content: center; color: #fff; font-size: .75rem; font-weight: 800; letter-spacing: .03em; }
+.wsu-eit-ratio-bar__core { flex: 7; background: var(--wsu-eit-brand); }
+.wsu-eit-ratio-bar__secondary { flex: 2; background: var(--wsu-eit-flag); }
+.wsu-eit-ratio-bar__accent { flex: 1; background: #002d61; }
+/* the sanctioned gradient as a standalone band (same paint as the banner) */
+.wsu-eit-gradient-band { background: linear-gradient(100deg, var(--wsu-eit-brand) 0%, var(--wsu-eit-brand) 55%, var(--wsu-eit-brand-deep) 100%); border-radius: var(--wsu-eit-round); min-height: 4.5rem; display: flex; align-items: center; padding: 0 var(--wsu-eit-gap-5); color: #fff; font-weight: 700; }
+
+/* ═══ §TABLES ═════════════════════════════════════════════════════════════
+   FIND: tables, data table, zebra stripes, sticky header, deadlines table
+   WHY  Pasted tables arrive unstyled and overflow phones. One wrapper
+        class fixes both: zebra rows, a header that stays visible while
+        the table scrolls, and safe horizontal scrolling on small screens.
+   USE  <div class="wsu-eit-table" tabindex="0" role="region"
+            aria-label="Application deadlines">
+          <table>…ordinary table markup…</table>
+        </div>
+        tabindex="0" + role + aria-label make the scroll region reachable
+        and announce-able for keyboard users (same rule as the reel). */
+.wsu-eit-table {
+  overflow-x: auto;
+  max-height: 70vh;            /* lets the sticky header earn its keep */
+  margin: 0 0 var(--wsu-eit-gap-5);
+  border: 1px solid var(--wsu-eit-hairline);
+  border-radius: var(--wsu-eit-round);
+}
+.wsu-eit-table:focus-visible { outline: 3px solid var(--wsu-eit-brand); outline-offset: 2px; }
+.wsu-eit-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .95rem;
+}
+.wsu-eit-table th {
+  position: sticky; top: 0;    /* header holds while rows scroll under it */
+  background: var(--wsu-eit-paper);
+  text-align: left;
+  font-weight: 700;
+  padding: .7rem .9rem;
+  border-bottom: 3px solid var(--wsu-eit-brand);
+}
+.wsu-eit-table td { padding: .65rem .9rem; border-bottom: 1px solid var(--wsu-eit-hairline); }
+.wsu-eit-table tbody tr:nth-child(even) { background: var(--wsu-eit-mist); }
+.wsu-eit-table tbody tr:last-child td { border-bottom: 0; }
+
+
+/* ═══ §REVEAL ═════════════════════════════════════════════════════════════
+   FIND: reveal, scroll animation, fade in, rise, entrance, animate on scroll
+   WHY  The "flashy" one — children fade-and-rise as they scroll into view,
+        the effect people assume needs a JS library. Pure CSS scroll-driven
+        animation. Triple-guarded so it can only ever enhance:
+          @supports  → browsers without animation-timeline just show the
+                       content (no hiding, no broken state)
+          @media     → reduced-motion users get no movement at all
+          `both`+range → elements already in view on load render finished
+   USE  <div class="wsu-eit-reveal"> …any blocks… </div>
+        Each direct child animates individually as it enters. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .wsu-eit-reveal > * {
+      animation: wsu-eit-rise linear both;
+      animation-timeline: view();
+      /* play while the element crosses the lower 35% of the viewport */
+      animation-range: entry 0% entry 35%;
+    }
+    @keyframes wsu-eit-rise {
+      from { opacity: 0; transform: translateY(1.1rem); }
+      to   { opacity: 1; transform: none; }
+    }
+  }
+}

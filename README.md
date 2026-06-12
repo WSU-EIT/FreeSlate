@@ -1,152 +1,76 @@
-# FreeSlate — WSU Slate Form Kit
+# WSU EIT Forms — 3.1 (flat layout) (accessibility, demonstrated)
 
-A consistent, accessible, on-brand styling system for every externally hosted page
-in the WSU Admissions **Slate (Technolutions)** instance — forms, event registration,
-multi-page applications, portals, and Deliver email. Built to match
-`admission.wsu.edu`, follow the WSU brand, and score **0 errors in WAVE / AXE**.
-
-The kit is plain HTML, CSS, and XSLT. No build step, no framework, no dependencies.
-
----
-
-## Why this exists
-
-Slate hosts WSU Admissions' public-facing forms and portals, but out of the box it
-renders them with dated, partially inaccessible defaults that don't match the
-university's web presence. Restyling happens through exactly one sanctioned
-mechanism: a global XSLT template (`/shared/build.xslt`) plus CSS files uploaded to
-Slate's file store. This repo is that mechanism, done once, correctly:
-
-- **One source of truth** for how every Slate page looks, instead of per-form ad-hoc CSS.
-- **Brand-accurate** — verified against the official WSU brand guidelines and the
-  live WSU Web Design System (Montserrat, crimson `#a60f2d`, the signature h1 rule).
-- **Accessibility first** — WCAG 2.1 AA throughout, AAA where the brand palette
-  allows, forced-colors and reduced-motion support, and an interactive audit checklist.
-- **Editor-proof** — a raw Slate form themes correctly with *no* custom HTML, and
-  content editors get a small, documented class vocabulary plus a form-builder tool
-  so they never need to touch code.
-
----
+A complete, accessible, brand-exact styling and content kit for every
+externally hosted page in the WSU Admissions **Slate (Technolutions)**
+instance — forms, events, portals — built by **Enrollment Information
+Technology (EIT)**. Plain CSS + XSLT with two small, justified JS files.
+No build step, no framework, no dependencies.
 
 ## Quick start
 
-**Just looking?** Open `index.html` in a browser (or serve the repo with any static
-file server). It's the kit's documentation hub — design foundations, a library of
-every styled field type, worked example pages, deployment instructions, and tools.
-Nothing to install.
+- **See everything:** open `index.html` in a browser — 119 documented,
+  searchable examples with live previews, copyable markup (pretty ⇄ minified),
+  copy-inspiration variants, the 80-icon brand set, logos, photography, and
+  brand rules. Every example explains *what / why / how / when / in Slate /
+  learn more*, plus the framework pattern it relies on.
+- **Deploy:** see the table below; the ritual is upload → Preview a real form
+  in the test instance → Publish → bump `?v=` stamps on any later edit.
 
-**Content editor building a form?** Start at `start-here.html`, then
-`editor-guide.html`. The drag-drop **Form Builder** (`wsu-form-builder.html`) lets
-you design a form visually, see a live WSU-styled preview, and copy a step-by-step
-"Slate Build Sheet" — the exact clicks to recreate it in Slate's form editor
-(Slate has no form import, so the build sheet *is* the hand-off).
+## The files
 
-**Admin deploying to Slate?** See [Deploying](#deploying-to-slate) below and
-`deployment-guide.html` for the full walkthrough.
-
----
-
-## What's in the repo
-
-### Production files — the only files that go to Slate
-
-| File | Slate path | Purpose |
+| File | To Slate? | What it is |
 |---|---|---|
-| `build.xslt` | `/shared/build.xslt` | Global page template. Wraps every Slate-hosted page in WSU chrome (header, footer, fonts) and links the two kit stylesheets *after* the legacy Web Design System files, so the kit wins the cascade without `!important`. |
-| `wsu-forms.css` | `/shared/wsu-forms.css` | The form layer: design tokens, typography, every field type, validation states, page patterns, tables, and the **Slate mapping layer** that themes Slate's raw output (`.form_question`, `.form_label`, `#menu`, the logged-in identity bar) directly. Everything is scoped under `.wsu-content`. Also defines the editor-facing classes (below). |
-| `wsu-chrome.css` | `/shared/wsu-chrome.css` | Header, footer, Enrollment Management banner, breadcrumbs. Self-contained (uses `var(--x, fallback)`), so it works with or without `wsu-forms.css`. |
-| `wsu-carousel.js` | per-form scripts or `<path>/default.js` | Optional. Accessible, dependency-free carousel for `.wsuf-carousel`: keyboard support, play/pause, live-region announcements, never autoplays under `prefers-reduced-motion`. |
-| `assets/` | as referenced | Cougar head logo PNGs (crimson, gray). |
+| `build.css` | ✅ `/shared/` | THE styling layer: design tokens, page frame, global links, header/footers, type, inputs, buttons, the verified Slate mapping layer, validation, editor utilities, print/contrast/motion guards. Fully commented with a Ctrl+F **FIND-IT index** (§LINKS, §INPUTS, §ERRORS…). |
+| `build-fonts.css` | ✅ `/shared/` | Montserrat (the brand face) + wsu-icons, via `@import`. |
+| `wsu-eit-extras.css` | ✅ `/shared/` | Ten opt-in, CSS-only components (carousel, FAQ accordion, steps, cards, stats, banner, timeline, badges, tables, scroll reveal) + §ACCENTS utilities for the approved secondary colors. |
+| `build.xslt` | ✅ `/shared/` | The page template Slate wraps every external page in. Links everything; carries the deploy notes. **A broken build.xslt takes down every external page — test instance first, always.** |
+| `wsu-eit-a11y.js` | ✅ `/shared/` | **Accessibility helper & fixer.** 9 repairs that are impossible in CSS, each verified against real Slate output (control naming, empty-label removal, date-part names, aria-required, failed-submit alert announcement, new-tab notices, iframe titles, alt backstop, aria-current). Ceiling: ≤10 features / ≤300 lines. |
+| `wsu-eit-extras.js` | ✅ `/shared/` | **Opt-in behaviors**, `data-eit-*` activated: copy buttons, character counter, local-time rendering, FAQ expand-all, static-list filter. Trimmed from 7 to 5 after auditing the Slate Knowledge Base — anything Slate does natively stays in Slate. Same ceiling. |
+| `wsu-eit-showcase.js` | with index.html only | The showcase page's own interactivity (search, filters, copy buttons). External because Slate's static host refuses inline scripts; its styling stays inline in index.html (inline styles are served fine). Never link from build.xslt. |
+| `index.html` | ❌ kit pages: never | The showcase/sample page described above. Internal tool; its search/filter script never ships. |
+| `RESEARCH.md` | ❌ | The pattern audit: every relevant CSS/HTML/a11y pattern evaluated (adopt / already / skip) + the Slate-native audit. |
+| `wsu-eit-icon-*.svg` (80) · `wsu-eit-img-*.png` (4) | as needed | The official brand icons and cougar-head marks. **Flat layout, no folders** — names are prefixed so a filename sort groups them: `build*` (Slate trio) · `wsu-eit-*.css/.js` (kit code) · `wsu-eit-icon-*` (icons) · `wsu-eit-img-*` (images). Re-host anything you use in Slate Files. |
 
-> `styleguide.css`, `variants.css`/`variants.js`, and `slate-hints.css`/`slate-hints.js`
-> power the documentation site only. **Never upload them to Slate.**
+## The five conventions (for content editors)
 
-### Documentation & showcase site
+1. **Four Slate surfaces**: the form builder's *Instructions tool* (HTML blocks),
+   a field's *help text* (plain text), an event's *Description tab*, a portal's
+   *static content blocks*. Questions themselves are built with Slate's native
+   field types — the kit themes raw builder output automatically.
+2. **One class does the work** — components are a single wrapper class around
+   ordinary HTML.
+3. **Naming grammar** — `wsu-eit-badge` component · `__piece` · `--variant`
+   (always paired with its base).
+4. **Colors are tokens** — nobody types hex values into content, ever.
+5. **Behaviors are opt-in** — no `data-eit-*` attribute, no JS behavior.
 
-`index.html` is the hub; every page below is self-contained and linked from it.
+## Index & legend — the concepts this kit implements
 
-**Guides**
-- `start-here.html` — 5-minute orientation for non-coders.
-- `editor-guide.html` — task-based, plain-language how-to for content editors.
-- `foundations.html` — color, typography, spacing, tokens, and how the kit reaches Slate.
-- `deployment-guide.html` — which files go where, the `build.xslt` link block, cache-busting, dev→publish, rollback.
-- `accessibility-checklist.html` — interactive audit checklist mapped to WAVE/AXE error codes (state persists in localStorage).
-- `slate-defaults-fixed.html` — catalog of Slate's default papercuts and the exact fix for each.
+Each entry: the concept, why it's here, a Wikipedia primer, and a suggested
+search to go deeper.
 
-**Component references**
-- `field-type-library.html` — every Slate field type, styled, with copy-paste HTML and an accessibility note per field.
-- `states-and-errors.html` — field states, error summary, form-closed / capacity-full / deadline-passed / thank-you pages.
-- `status-badges.html` — badges, payment status, checklist states, decision card, deadline countdown.
-- `conditional-logic.html` — all four Slate condition patterns (show/hide, cascade, value piping, conditional required), live and annotated.
-- `media-gallery.html` — responsive photo grid + the carousel, and where each piece goes in Slate.
-- `email-templates.html` / `email-library.html` — Deliver email templates and reusable inline-CSS blocks (confirmation, reminder, decision release).
+| Concept | Used for | Primer | Go deeper |
+|---|---|---|---|
+| Design tokens / single source of truth | all colors & spacing live once in `build.css` §TOKENS | [Wikipedia — Single source of truth](https://en.wikipedia.org/wiki/Single_source_of_truth) | [search: "design tokens css custom properties"](https://www.google.com/search?q=design+tokens+css+custom+properties) |
+| BEM-style naming | `component__piece--variant` grammar | [Wikipedia — Naming convention (programming)](https://en.wikipedia.org/wiki/Naming_convention_(programming)) | [search: "BEM CSS naming methodology"](https://www.google.com/search?q=BEM+CSS+naming+methodology) |
+| Progressive enhancement | CSS-first; JS adds, never carries | [Wikipedia — Progressive enhancement](https://en.wikipedia.org/wiki/Progressive_enhancement) | [search: "progressive enhancement vs graceful degradation"](https://www.google.com/search?q=progressive+enhancement+vs+graceful+degradation) |
+| WCAG accessibility | contrast, targets, focus, labels throughout | [Wikipedia — WCAG](https://en.wikipedia.org/wiki/Web_Content_Accessibility_Guidelines) | [search: "WCAG 2.2 AA checklist forms"](https://www.google.com/search?q=WCAG+2.2+AA+checklist+forms) |
+| ARIA | the a11y file's repairs (labels, alerts, current) | [Wikipedia — WAI-ARIA](https://en.wikipedia.org/wiki/WAI-ARIA) | [search: "aria-label aria-required form controls"](https://www.google.com/search?q=aria-label+aria-required+form+controls) |
+| Screen readers | why empty labels & nameless fields matter | [Wikipedia — Screen reader](https://en.wikipedia.org/wiki/Screen_reader) | [search: "test form with NVDA VoiceOver"](https://www.google.com/search?q=test+form+with+NVDA+VoiceOver) |
+| Skip links | first element of every page | [Wikipedia — Skip link](https://en.wikipedia.org/wiki/Skip_link) | [search: "skip to content link accessibility"](https://www.google.com/search?q=skip+to+content+link+accessibility) |
+| Responsive design | auto-fit grids, fluid type, coarse-pointer targets | [Wikipedia — Responsive web design](https://en.wikipedia.org/wiki/Responsive_web_design) | [search: "css auto-fit minmax grid"](https://www.google.com/search?q=css+auto-fit+minmax+grid) |
+| Native disclosure widgets | `<details>` FAQ accordion | [Wikipedia — Progressive disclosure](https://en.wikipedia.org/wiki/Progressive_disclosure) | [search: "details summary accordion accessibility"](https://www.google.com/search?q=details+summary+accordion+accessibility) |
+| CSS scroll snap | the no-JS photo carousel | [Wikipedia — CSS](https://en.wikipedia.org/wiki/CSS) | [search: "css scroll snap carousel no javascript"](https://www.google.com/search?q=css+scroll+snap+carousel+no+javascript) |
+| Separation of concerns | content (Slate) vs style (kit) vs behavior (opt-in JS) | [Wikipedia — Separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns) | [search: "separation of concerns html css js"](https://www.google.com/search?q=separation+of+concerns+html+css+js) |
+| XSLT templating | how `build.xslt` wraps every Slate page | [Wikipedia — XSLT](https://en.wikipedia.org/wiki/XSLT) | [search: "Slate Technolutions build.xslt branding"](https://www.google.com/search?q=Slate+Technolutions+build.xslt+branding) |
+| Liquid markup | Slate-native conditional content (use before JS!) | [Wikipedia — Template processor](https://en.wikipedia.org/wiki/Template_processor) | [search: "Slate Liquid markup merge fields"](https://www.google.com/search?q=Slate+Liquid+markup+merge+fields) |
+| Brand management | exact colors, the one gradient, accent rules | [Wikipedia — Brand management](https://en.wikipedia.org/wiki/Brand_management) | [search: "WSU brand colors crimson guidelines"](https://www.google.com/search?q=WSU+brand+colors+crimson+guidelines) |
 
-**Worked examples** — realistic full pages built with the kit
-- `registration-form.html` — a real production form rebuilt: validation, conditional logic, EM masthead, passing WAVE.
-- `multi-page-form.html` — 4-step paged form with progress indicator, left-rail nav, per-page validation, review screen.
-- `event-registration.html` — event landing page with hero, capacity bar, stat tiles, inline registration.
-- `applicant-portal.html` — applicant status portal: left-rail nav, status checklist, deadline table, action-required notices.
+## History
 
-**Tool**
-- `wsu-form-builder.html` — single-file, zero-dependency form designer. Drag-drop and keyboard-operable; outputs a live preview in Slate-shaped markup plus a copyable, printable Slate Build Sheet.
-
-### Reference documents
-- `wsu-brand-reference.md` — the styling source of truth: the legacy-Spine→Web-Design-System migration map, brand tokens, the selectors Slate actually emits, and the full field palette.
-- `ROADMAP.md` — planned and in-progress work.
-- `docs/` — working notes and decision logs.
-
----
-
-## Deploying to Slate
-
-> ⚠ **A broken `build.xslt` takes down every external Slate page** — forms, events,
-> portals, all of it. Always deploy to the test instance first.
-
-1. **Upload** `wsu-forms.css`, `wsu-chrome.css`, and `build.xslt` to the **`/dev/`**
-   folder in Database → Files (Branding Editor).
-2. **Preview** a real form in the test instance. Run WAVE. Check at 375 px width.
-3. **Publish** (Branding Editor → Publish) to copy `/dev/` → `/shared/`.
-4. **Cache-bust:** on every subsequent edit, bump the `?v=YYYYMMDD` on the
-   corresponding `<link>` in `build.xslt`, or Slate serves the stale copy for up to 24 h.
-5. Hard-refresh (`Cmd/Ctrl+Shift+R`) a live form to confirm.
-
-Full walkthrough with rollback steps: `deployment-guide.html`.
-
-### Verify before trusting: two selectors
-
-The Slate mapping layer styles the markup Slate emits. Two hooks are best-guesses
-until confirmed against *your* instance — inspect a **required** field and a
-**failed-validation** field in DevTools and correct if needed:
-
-1. **Required marker** — assumed `.form_question[data-required="1"]` or `.form_required`.
-2. **Validation** — assumed `.form_error` (message) and `.error` (wrapper).
-
-Everything else in the mapping layer matches observed Slate output.
+`3.1` = `3.0` flattened to a single directory (upload tools without folder support) with sort-friendly file prefixes; one upstream typo fixed (`pluse-circle` → `plus-circle`). `3.0` = production-parity topbar + required-empty edge · `2.x` = consolidation + documentation layer · `1.0`–`1.8` = prior generations (1.7 is the clean-room rewrite).
+`1.0`–`1.8` = prior generations, oldest first (1.7 is the clean-room rewrite
+that makes this work provably EIT's own). This folder supersedes all of them.
 
 ---
-
-## The editor-facing class API
-
-Content editors never need raw CSS. The full vocabulary they may type into the
-Slate editor is six classes, all self-contained and safe to nest in pasted content:
-
-`.wsu-note` · `.wsu-warn` · `.wsu-button` · `.wsu-two-col` · `.wsu-small` · `.wsu-divider`
-
-The kit also includes a Word-paste neutralizer that strips pasted `font-family` /
-size / color so WSU typography always wins. Live examples: `editor-guide.html`.
-
----
-
-## Accessibility
-
-The kit targets **WCAG 2.1 AA everywhere and AAA where the brand palette permits**:
-7:1 ink tokens for error/success text, AAA-compliant button colors, visible focus
-rings (including `forced-colors` mode), reduced-motion handling, print styles, and
-≥16 px inputs (no iOS zoom). `accessibility-checklist.html` is the acceptance
-gate — every item maps to a WAVE/AXE error code.
-
----
-
-## License
-
-MIT © WSU Enrollment IT. See `LICENSE`.
+© Washington State University · Built by Enrollment Information Technology
