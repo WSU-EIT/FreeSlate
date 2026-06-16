@@ -34,7 +34,7 @@ Desktop.ini
 # Playwright browsers (large, downloaded on demand)
 **/ms-playwright/
 
-# docs-generator outputs (screenshots are regenerated on each run)
+# docs-generator build outputs (not the committed images)
 docs-generator/screenshots/
 docs-generator/bin/
 docs-generator/obj/

@@ -1,11 +1,11 @@
 ﻿// ════════════════════════════════════════════════════════════════════════
 // FreeSlate Documentation Generator
 // Captures screenshots of every tweakable setting in the "Tune the kit"
-// configurator, then assembles usermanual.md with inline base64 images.
+// configurator, then assembles usermanual.md with referenced image files.
 //
 // Usage:  dotnet run [-- <path-to-index.html>]
-// Default: serves ../index.html on a local HTTP server, captures all 40
-// tune-card screenshots, then generates ../usermanual.md.
+// Default: serves ../index.html on a local HTTP server, captures all 41
+// tune-card screenshots into ../usermanual-images/, then generates ../usermanual.md.
 // ════════════════════════════════════════════════════════════════════════
 using System.Net;
 using System.Text;
@@ -319,7 +319,7 @@ if (!File.Exists(indexPath))
     return 1;
 }
 
-var screenshotDir = Path.Combine(Path.GetDirectoryName(indexPath)!, "docs-generator", "screenshots");
+var screenshotDir = Path.Combine(repoRoot, "usermanual-images");
 Directory.CreateDirectory(screenshotDir);
 
 var outputPath = Path.Combine(repoRoot, "usermanual.md");
@@ -383,10 +383,9 @@ for (int i = 0; i < tuneCards.Count && i < Settings.Length; i++)
 
     // Screenshot just this card
     var pngBytes = await card.ScreenshotAsync(new() { Type = ScreenshotType.Png });
-    var b64 = Convert.ToBase64String(pngBytes);
-    screenshots[setting.Id] = b64;
+    screenshots[setting.Id] = setting.Id; // just track that we have it
 
-    // Also save to disk for debug/inspection
+    // Save to the committed images folder (consistent name = overwrites on re-run)
     var filePath = Path.Combine(screenshotDir, $"{setting.Id}.png");
     await File.WriteAllBytesAsync(filePath, pngBytes);
 
@@ -483,10 +482,10 @@ static string GenerateMarkdown(SettingInfo[] settings, Dictionary<string, string
         sb.AppendLine($"### {settingNum}. {s.Name}");
         sb.AppendLine();
 
-        // Screenshot
-        if (screenshots.TryGetValue(s.Id, out var b64))
+        // Screenshot (relative path — works on GitHub)
+        if (screenshots.ContainsKey(s.Id))
         {
-            sb.AppendLine($"![{s.Name} configurator card](data:image/png;base64,{b64})");
+            sb.AppendLine($"![{s.Name} configurator card](usermanual-images/{s.Id}.png)");
             sb.AppendLine();
         }
 
@@ -548,7 +547,7 @@ static string GenerateMarkdown(SettingInfo[] settings, Dictionary<string, string
     sb.AppendLine("```");
     sb.AppendLine();
     sb.AppendLine("This runs a headless Chromium browser, navigates to the showcase's Tune tab,");
-    sb.AppendLine("captures each setting card, and assembles this file with inline base64 screenshots.");
+    sb.AppendLine("captures each setting card into `usermanual-images/`, and assembles this file.");
     sb.AppendLine("Run it after every deployment to keep documentation screenshots accurate.");
 
     return sb.ToString();
