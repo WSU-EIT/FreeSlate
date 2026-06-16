@@ -521,6 +521,59 @@ static string GenerateMarkdown(SettingInfo[] settings, Dictionary<string, string
         sb.AppendLine();
     }
 
+    // Helpful hints and tutorials
+    sb.AppendLine("## Helpful Hints");
+    sb.AppendLine();
+    sb.AppendLine("### Quick Tips");
+    sb.AppendLine();
+    sb.AppendLine("- **You can't break anything** — the Tune-the-Kit configurator only affects your local browser until you export. Experiment freely.");
+    sb.AppendLine("- **Start with defaults** — the shipped values are carefully researched. Only change tokens when you have a specific design reason.");
+    sb.AppendLine("- **Test with zoom** — after changing text sizes, zoom your browser to 200%. If content overflows or gets clipped, the value is too aggressive.");
+    sb.AppendLine("- **Check contrast** — when changing colors, use a [contrast checker](https://webaim.org/resources/contrastchecker/) to verify you still meet 4.5:1 (AA).");
+    sb.AppendLine("- **One token at a time** — change one value, check the live preview, then move to the next. Batching changes makes it harder to spot issues.");
+    sb.AppendLine("- **rem vs px** — `rem` scales with user preferences (good for text); `px` is fixed (good for borders/outlines). The kit uses the right unit for each token already.");
+    sb.AppendLine();
+    sb.AppendLine("### W3Schools Tutorials");
+    sb.AppendLine();
+    sb.AppendLine("These free tutorials cover the CSS concepts behind every token in this manual:");
+    sb.AppendLine();
+    sb.AppendLine("| Topic | Link | Relevant Tokens |");
+    sb.AppendLine("|-------|------|-----------------|");
+    sb.AppendLine("| CSS Custom Properties | [CSS Variables](https://www.w3schools.com/css/css3_variables.asp) | All 41 tokens — this is the mechanism |");
+    sb.AppendLine("| The `var()` function | [var() Reference](https://www.w3schools.com/cssref/func_var.php) | How rules read token values |");
+    sb.AppendLine("| `:root` selector | [:root Reference](https://www.w3schools.com/cssref/sel_root.php) | Where tokens are declared in build.css |");
+    sb.AppendLine("| `font-size` | [font-size](https://www.w3schools.com/cssref/pr_font_font-size.php) | Body text size, H2/H3 size, link/label size |");
+    sb.AppendLine("| `line-height` | [line-height](https://www.w3schools.com/cssref/pr_dim_line-height.php) | Reading line-height, heading line-height |");
+    sb.AppendLine("| `font-weight` | [font-weight](https://www.w3schools.com/cssref/pr_font_weight.php) | Link weight, H1 weight, button/label weight |");
+    sb.AppendLine("| `color` | [color](https://www.w3schools.com/cssref/pr_text_color.php) | Body text color, heading color, focus ring color |");
+    sb.AppendLine("| `border-radius` | [border-radius](https://www.w3schools.com/css/css3_borders.asp) | Corner radius |");
+    sb.AppendLine("| `border` | [border](https://www.w3schools.com/css/css_border.asp) | Input border width, button border |");
+    sb.AppendLine("| `outline` | [outline](https://www.w3schools.com/cssref/pr_outline.php) | Focus ring width, offset |");
+    sb.AppendLine("| `background-color` | [background-color](https://www.w3schools.com/cssref/pr_background-color.php) | Field fill, content paper, page backdrop |");
+    sb.AppendLine("| `text-transform` | [text-transform](https://www.w3schools.com/cssref/pr_text_text-transform.php) | Button text case |");
+    sb.AppendLine("| `text-decoration` | [text-decoration](https://www.w3schools.com/cssref/pr_text_text-decoration.php) | Link underline, underline offset |");
+    sb.AppendLine("| `text-align` | [text-align](https://www.w3schools.com/cssref/pr_text_text-align.php) | Heading alignment |");
+    sb.AppendLine("| `letter-spacing` | [letter-spacing](https://www.w3schools.com/cssref/pr_text_letter-spacing.php) | Heading letter-spacing |");
+    sb.AppendLine("| `max-width` | [max-width](https://www.w3schools.com/cssref/pr_dim_max-width.php) | Paragraph width, content width |");
+    sb.AppendLine("| `padding` | [padding](https://www.w3schools.com/css/css_padding.asp) | Content padding, field density |");
+    sb.AppendLine("| CSS Units (rem, px, em) | [CSS Units](https://www.w3schools.com/cssref/css_units.php) | Understanding rem vs px in token values |");
+    sb.AppendLine("| `::selection` pseudo | [::selection](https://www.w3schools.com/cssref/sel_selection.php) | Text selection token |");
+    sb.AppendLine();
+    sb.AppendLine("### Accessibility Resources");
+    sb.AppendLine();
+    sb.AppendLine("| Resource | Link |");
+    sb.AppendLine("|----------|------|");
+    sb.AppendLine("| WCAG 2.2 Quick Reference | [w3.org/WAI/WCAG22/quickref](https://www.w3.org/WAI/WCAG22/quickref/) |");
+    sb.AppendLine("| WebAIM Contrast Checker | [webaim.org/resources/contrastchecker](https://webaim.org/resources/contrastchecker/) |");
+    sb.AppendLine("| W3Schools Accessibility | [w3schools.com/accessibility](https://www.w3schools.com/accessibility/index.php) |");
+    sb.AppendLine("| W3Schools ARIA Tutorial | [w3schools.com/accessibility/accessibility_aria](https://www.w3schools.com/accessibility/accessibility_aria.php) |");
+    sb.AppendLine("| Understanding Focus Visible | [w3.org/WAI/WCAG21/Understanding/focus-visible](https://www.w3.org/WAI/WCAG21/Understanding/focus-visible.html) |");
+    sb.AppendLine("| Understanding Resize Text | [w3.org/WAI/WCAG21/Understanding/resize-text](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html) |");
+    sb.AppendLine("| Understanding Contrast | [w3.org/WAI/WCAG21/Understanding/contrast-minimum](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html) |");
+    sb.AppendLine();
+    sb.AppendLine("---");
+    sb.AppendLine();
+
     // How to apply
     sb.AppendLine("## How to Apply Changes");
     sb.AppendLine();
