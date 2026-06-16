@@ -1,0 +1,43 @@
+# Build outputs
+bin/
+obj/
+out/
+
+# .NET
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# IDE
+.vs/
+.vscode/.ropeproject
+*.swp
+*.swo
+*~
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Playwright browsers (large, downloaded on demand)
+**/ms-playwright/
+
+# docs-generator outputs (screenshots are regenerated on each run)
+docs-generator/screenshots/
+docs-generator/bin/
+docs-generator/obj/
+
+# Node (if any tooling added later)
+node_modules/
