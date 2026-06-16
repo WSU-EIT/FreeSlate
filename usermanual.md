@@ -1351,6 +1351,26 @@ A visible backdrop frames the content and signals 'this is the form area.' It's 
 
 ## How to Apply Changes
 
+```
+  Override Workflow
+  ════════════════
+
+  ┌──────────────────────┐       ┌──────────────────────────────────┐
+  │  index.html          │       │  Slate Instance (/shared/)       │
+  │  Tune the Kit tab    │       │                                  │
+  │                      │       │                                  │
+  │  1. Adjust sliders   │       │  4. Upload updated build.css     │
+  │     + choices        │       │     via Branding Editor          │
+  │                      │       │                                  │
+  │  2. See live preview │       │  5. Every page picks up the      │
+  │                      │       │     new token values instantly   │
+  │  3. Copy override  ──┼───────►     (after cache bust ?v=)       │
+  │     block            │ PASTE │                                  │
+  └──────────────────────┘       └──────────────────────────────────┘
+```
+
+**Steps:**
+
 1. Open the showcase (`index.html`) and click **Tune the kit** in the sidebar.
 2. Adjust sliders/choices — the live examples update instantly.
 3. Click **Copy override block** to get the CSS.
@@ -1366,13 +1386,54 @@ A visible backdrop frames the content and signals 'this is the form area.' It's 
 }
 ```
 
+## How Tokens Cascade to Rules
+
+```
+  build.css §TOKENS        (you edit these)
+  ───────────────────────────────────────────────
+  :root {
+    --wsu-eit-round: 12px;          ─┐
+    --wsu-eit-body-size: 1.0625rem;  │  set once at the top
+    --wsu-eit-focus: 4px;           ─┘
+  }
+            │
+            │  var() references
+            ▼
+  build.css §TYPE / §INPUTS / §BUTTONS / §CHROME
+  ───────────────────────────────────────────────
+  .wsu-eit input {
+    border-radius: var(--wsu-eit-round);   ◄── every rule follows
+    font-size: var(--wsu-eit-body-size);
+  }
+  .wsu-eit :focus-visible {
+    outline-width: var(--wsu-eit-focus);
+  }
+```
+
 ## Regenerating This Document
+
+```
+  docs-generator Pipeline
+  ═══════════════════════
+
+  ┌──────────────┐     ┌──────────────┐     ┌───────────────────┐
+  │ HttpListener │     │  Playwright  │     │  Markdown         │
+  │ serves       │────►│  headless    │────►│  generator        │
+  │ index.html   │     │  Chromium    │     │                   │
+  │ on :8799     │     │              │     │  41 settings      │
+  └──────────────┘     │  screenshots │     │  + images → PNG   │
+                       │  each card   │     │  + property table │
+                       └──────────────┘     │  + a11y notes     │
+                                            └────────┬──────────┘
+                                                     │
+                                                     ▼
+                                     usermanual-images/*.png (41 files)
+                                     usermanual.md (this file)
+```
 
 ```bash
 cd docs-generator
 dotnet run
 ```
 
-This runs a headless Chromium browser, navigates to the showcase's Tune tab,
-captures each setting card into `usermanual-images/`, and assembles this file.
-Run it after every deployment to keep documentation screenshots accurate.
+Run after every deployment to keep documentation screenshots accurate.

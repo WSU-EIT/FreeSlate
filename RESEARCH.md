@@ -5,6 +5,48 @@
 > GOV.UK & USWDS design systems, every-layout/defensive-css idioms).
 > Verdicts: **ADOPTED** (new in v10) · **ALREADY** (kit had it) · **SKIP** (with reason).
 
+## 0 · Responsibility Boundaries
+
+```
+ ┌─────────────────────────────────────────────────────────────────────────┐
+ │                     VISITOR'S BROWSER                                   │
+ │                                                                         │
+ │  ┌─────────────────────────────────────┐  ┌──────────────────────────┐  │
+ │  │  FreeSlate Kit (our code)           │  │  Slate Platform          │  │
+ │  │  ─────────────────────────────────  │  │  (Technolutions' code)   │  │
+ │  │                                     │  │  ────────────────────────│  │
+ │  │  OWNS:                              │  │  OWNS:                   │  │
+ │  │  • Page frame & chrome              │  │  • Form field rendering  │  │
+ │  │  • Typography & brand colors        │  │  • Validation logic      │  │
+ │  │  • Input/button styling             │  │  • AJAX navigation       │  │
+ │  │  • 41 design tokens                 │  │  • Conditional display   │  │
+ │  │  • 11 CSS components (opt-in)       │  │  • Payment processing    │  │
+ │  │  • 9 a11y DOM repairs               │  │  • Data submission       │  │
+ │  │  • 5 JS behaviors (opt-in)          │  │  • Event registration    │  │
+ │  │                                     │  │  • Portal queries/data   │  │
+ │  │  NEVER TOUCHES:                     │  │  • Countdown timers      │  │
+ │  │  • Form submission                  │  │  • Activation dates      │  │
+ │  │  • Field values/validation logic    │  │  • Waitlist logic        │  │
+ │  │  • Slate's event/portal features    │  │  • Closed-form messages  │  │
+ │  │  • Navigation between pages         │  │                          │  │
+ │  │  • Overlays/dialogs                 │  │                          │  │
+ │  └─────────────────────────────────────┘  └──────────────────────────┘  │
+ │                                                                         │
+ │              ▲ SCOPING RULE: .wsu-eit ▲                                 │
+ │              │  (all kit CSS lives inside this boundary)                │
+ │              │                                                          │
+ └──────────────┼──────────────────────────────────────────────────────────┘
+                │
+                │  served by
+                ▼
+ ┌─────────────────────────────────────────────────────────────────────────┐
+ │  Slate Instance (/shared/)                                              │
+ │  build.xslt wraps every page in #wsu-eit-frame.wsu-eit                 │
+ │  ───────────────────────────────────────────────────────────────────── │
+ │  Technolutions hosts • we upload via Branding Editor                   │
+ └─────────────────────────────────────────────────────────────────────────┘
+```
+
 ## 1 · CSS patterns evaluated
 
 | Pattern | Verdict | Notes |
@@ -66,6 +108,19 @@
 
 ## 4 · The 9 JS features (each impossible in CSS)
 
+```
+  Slate's Rendered DOM                    wsu-eit-a11y.js Repairs
+  ──────────────────────                  ─────────────────────────
+  <select> (no label)        ───A1/A2──▶  aria-label="Month" injected
+  <label></label> (empty)    ───A3─────▶  element removed from DOM
+  <input data-required="1">  ───A4─────▶  aria-required="true" added
+  [Submit clicked, errors]   ───A5─────▶  role="alert" + focus moved
+  <a target="_blank">        ───A6─────▶  "(opens in new tab)" appended
+  <iframe> (no title)        ───A7─────▶  title="content from host.edu"
+  <img> (no alt)             ───A8─────▶  alt="" (decorative fallback)
+  .selected rail link        ───A9─────▶  aria-current="page" set
+```
+
 A1 date-part select naming (backstop) · A2 name every nameless control ·
 A3 remove empty labels · A4 `aria-required` mirror · A5 announce + focus
 Slate's failed-submit alert · A6 "(opens in new tab)" SR notice ·
@@ -78,6 +133,32 @@ auto table captions (invents content), focus restoration across AJAX swaps
 
 Checked every extras.js feature against knowledge.technolutions.net so we
 never force Slate admins to change native workflows:
+
+```
+  Feature Decision Tree
+  ═════════════════════
+
+  "Should we build this?"
+           │
+           ▼
+  ┌─────────────────────────────────┐
+  │  Does Slate already do this     │
+  │  natively (KB search)?          │
+  └───────────┬───────────┬─────────┘
+              │YES        │NO
+              ▼           ▼
+  ┌───────────────────┐  ┌──────────────────────┐
+  │  CUT from kit.    │  │  Does it require      │
+  │  Document Slate's │  │  field/form logic?    │
+  │  native way in    │  └──────┬──────────┬────┘
+  │  cheat sheets.    │         │YES       │NO
+  └───────────────────┘         ▼          ▼
+                       ┌────────────┐  ┌─────────────┐
+                       │  SKIP.     │  │  KEEP in    │
+                       │  Belongs   │  │  extras.js  │
+                       │  to Slate  │  │  (data-eit) │
+                       └────────────┘  └─────────────┘
+```
 
 | Feature | Slate-native? | Action |
 |---|---|---|

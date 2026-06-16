@@ -11,7 +11,7 @@ using System.Net;
 using System.Text;
 using Microsoft.Playwright;
 
-// All 40 settings in display order, matching wsu-eit-showcase.js SPEC[]
+// All 41 settings in display order, matching wsu-eit-showcase.js SPEC[]
 var Settings = new SettingInfo[]
 {
     // ── TYPE ──
@@ -350,7 +350,7 @@ Console.WriteLine("[2/4] Launching headless Chromium...");
 using var playwright = await Playwright.CreateAsync();
 await using var browser = await playwright.Chromium.LaunchAsync(new() { Headless = true });
 
-Console.WriteLine("[3/4] Capturing screenshots of all 40 settings...");
+Console.WriteLine("[3/4] Capturing screenshots of all 41 settings...");
 Console.WriteLine();
 
 var screenshots = new Dictionary<string, string>(); // id -> base64 png
@@ -524,6 +524,26 @@ static string GenerateMarkdown(SettingInfo[] settings, Dictionary<string, string
     // How to apply
     sb.AppendLine("## How to Apply Changes");
     sb.AppendLine();
+    sb.AppendLine("```");
+    sb.AppendLine("  Override Workflow");
+    sb.AppendLine("  ════════════════");
+    sb.AppendLine();
+    sb.AppendLine("  ┌──────────────────────┐       ┌──────────────────────────────────┐");
+    sb.AppendLine("  │  index.html          │       │  Slate Instance (/shared/)       │");
+    sb.AppendLine("  │  Tune the Kit tab    │       │                                  │");
+    sb.AppendLine("  │                      │       │                                  │");
+    sb.AppendLine("  │  1. Adjust sliders   │       │  4. Upload updated build.css     │");
+    sb.AppendLine("  │     + choices        │       │     via Branding Editor          │");
+    sb.AppendLine("  │                      │       │                                  │");
+    sb.AppendLine("  │  2. See live preview │       │  5. Every page picks up the      │");
+    sb.AppendLine("  │                      │       │     new token values instantly   │");
+    sb.AppendLine("  │  3. Copy override  ──┼───────►     (after cache bust ?v=)       │");
+    sb.AppendLine("  │     block            │ PASTE │                                  │");
+    sb.AppendLine("  └──────────────────────┘       └──────────────────────────────────┘");
+    sb.AppendLine("```");
+    sb.AppendLine();
+    sb.AppendLine("**Steps:**");
+    sb.AppendLine();
     sb.AppendLine("1. Open the showcase (`index.html`) and click **Tune the kit** in the sidebar.");
     sb.AppendLine("2. Adjust sliders/choices — the live examples update instantly.");
     sb.AppendLine("3. Click **Copy override block** to get the CSS.");
@@ -539,16 +559,57 @@ static string GenerateMarkdown(SettingInfo[] settings, Dictionary<string, string
     sb.AppendLine("}");
     sb.AppendLine("```");
     sb.AppendLine();
+    sb.AppendLine("## How Tokens Cascade to Rules");
+    sb.AppendLine();
+    sb.AppendLine("```");
+    sb.AppendLine("  build.css §TOKENS        (you edit these)");
+    sb.AppendLine("  ───────────────────────────────────────────────");
+    sb.AppendLine("  :root {");
+    sb.AppendLine("    --wsu-eit-round: 12px;          ─┐");
+    sb.AppendLine("    --wsu-eit-body-size: 1.0625rem;  │  set once at the top");
+    sb.AppendLine("    --wsu-eit-focus: 4px;           ─┘");
+    sb.AppendLine("  }");
+    sb.AppendLine("            │");
+    sb.AppendLine("            │  var() references");
+    sb.AppendLine("            ▼");
+    sb.AppendLine("  build.css §TYPE / §INPUTS / §BUTTONS / §CHROME");
+    sb.AppendLine("  ───────────────────────────────────────────────");
+    sb.AppendLine("  .wsu-eit input {");
+    sb.AppendLine("    border-radius: var(--wsu-eit-round);   ◄── every rule follows");
+    sb.AppendLine("    font-size: var(--wsu-eit-body-size);");
+    sb.AppendLine("  }");
+    sb.AppendLine("  .wsu-eit :focus-visible {");
+    sb.AppendLine("    outline-width: var(--wsu-eit-focus);");
+    sb.AppendLine("  }");
+    sb.AppendLine("```");
+    sb.AppendLine();
     sb.AppendLine("## Regenerating This Document");
+    sb.AppendLine();
+    sb.AppendLine("```");
+    sb.AppendLine("  docs-generator Pipeline");
+    sb.AppendLine("  ═══════════════════════");
+    sb.AppendLine();
+    sb.AppendLine("  ┌──────────────┐     ┌──────────────┐     ┌───────────────────┐");
+    sb.AppendLine("  │ HttpListener │     │  Playwright  │     │  Markdown         │");
+    sb.AppendLine("  │ serves       │────►│  headless    │────►│  generator        │");
+    sb.AppendLine("  │ index.html   │     │  Chromium    │     │                   │");
+    sb.AppendLine("  │ on :8799     │     │              │     │  41 settings      │");
+    sb.AppendLine("  └──────────────┘     │  screenshots │     │  + images → PNG   │");
+    sb.AppendLine("                       │  each card   │     │  + property table │");
+    sb.AppendLine("                       └──────────────┘     │  + a11y notes     │");
+    sb.AppendLine("                                            └────────┬──────────┘");
+    sb.AppendLine("                                                     │");
+    sb.AppendLine("                                                     ▼");
+    sb.AppendLine("                                     usermanual-images/*.png (41 files)");
+    sb.AppendLine("                                     usermanual.md (this file)");
+    sb.AppendLine("```");
     sb.AppendLine();
     sb.AppendLine("```bash");
     sb.AppendLine("cd docs-generator");
     sb.AppendLine("dotnet run");
     sb.AppendLine("```");
     sb.AppendLine();
-    sb.AppendLine("This runs a headless Chromium browser, navigates to the showcase's Tune tab,");
-    sb.AppendLine("captures each setting card into `usermanual-images/`, and assembles this file.");
-    sb.AppendLine("Run it after every deployment to keep documentation screenshots accurate.");
+    sb.AppendLine("Run after every deployment to keep documentation screenshots accurate.");
 
     return sb.ToString();
 }
