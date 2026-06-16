@@ -29,10 +29,14 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
         <link href="/shared/build-fonts.css?v=20260611" rel="stylesheet" />
-        <!-- 20260612b: Slate's real submit (<button class="default">) now
+        <!-- 20260613a: tunable design tokens — hardcoded sizes (link size/weight,
+             focus ring, radii, required edge, h1 bar, star color, field
+             density, column, wash) promoted to §TOKENS vars so the showcase
+             Tune tab can drive them and exports can be adopted verbatim.
+             20260612b: Slate's real submit (<button class="default">) now
              painted crimson — the class-less-button guard had excluded it.
              20260612a: production-parity topbar. -->
-        <link href="/shared/build.css?v=20260612b" rel="stylesheet" />
+        <link href="/shared/build.css?v=20260613a" rel="stylesheet" />
         <!-- Opt-in editor components (reel/carousel, FAQ accordion, steps,
              cards, stats, banner, timeline, badges, tables, scroll reveal).
              All CSS-only. Safe to remove: pages lose the extras, nothing

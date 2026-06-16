@@ -1,6 +1,6 @@
 /* ════════════════════════════════════════════════════════════════════════
    WSU EIT FORMS — styling layer for WSU Admissions Slate pages
-   build.css · v8 · Enrollment Information Technology · 2026-06-11
+   build.css · v9 · Enrollment Information Technology · 2026-06-11
    (File NAME is dictated by Slate's Branding Editor, which always publishes
    build.xslt + build.css + build-fonts.css as a trio.)
 
@@ -67,8 +67,63 @@
   --wsu-eit-face: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --wsu-eit-gap-1: .25rem; --wsu-eit-gap-2: .5rem; --wsu-eit-gap-3: .75rem;
   --wsu-eit-gap-4: 1rem;   --wsu-eit-gap-5: 1.5rem; --wsu-eit-gap-6: 2.5rem;
-  --wsu-eit-round: 6px;
-  --wsu-eit-col: 75rem;    /* 1200px content column */
+  --wsu-eit-round: 6px;    /* corner radius everywhere · TUNABLE 0–24px */
+  --wsu-eit-col: 75rem;    /* 1200px content column · TUNABLE 56–96rem */
+
+  /* ── TUNABLE TOKENS ────────────────────────────────────────────────────
+     WHY: design decisions that used to be hardcoded numbers buried in
+     rules. The showcase's "Tune the kit" tab drives each one live within
+     brand-safe bounds and exports a paste-ready override block — so a
+     stakeholder meeting can SEE "links at 18px" instead of arguing about
+     it. To adopt a decision permanently, change the value HERE; every
+     rule that uses the token follows. */
+  --wsu-eit-body-size: 16px;            /* body text size · TUNABLE 15–18px */
+  --wsu-eit-line: 1.55;                 /* reading line-height · TUNABLE 1.45–1.75 */
+  --wsu-eit-link-size: 1rem;            /* link text size · TUNABLE 14–22px */
+  --wsu-eit-link-weight: 600;           /* link weight · TUNABLE 400/600/700 */
+  --wsu-eit-underline: 1px;             /* link underline thickness · TUNABLE 1–3px */
+  --wsu-eit-focus: 3px;                 /* focus-ring width · TUNABLE 2–8px */
+  --wsu-eit-edge-hint: 3px;             /* required-empty left edge · TUNABLE 0–8px (0 = off) */
+  --wsu-eit-h1-bar: 4px;                /* h1 crimson bar · TUNABLE 0–12px (0 = off) */
+  --wsu-eit-h1-weight: 800;             /* h1 weight · TUNABLE 700/800/900 */
+  --wsu-eit-star: var(--wsu-eit-flag);  /* required star color · TUNABLE flag/crimson */
+  --wsu-eit-input-border: 1px;          /* input border width · TUNABLE 1–3px */
+  --wsu-eit-field-pad-y: .7rem;         /* input padding · TUNABLE via field density */
+  --wsu-eit-field-pad-x: .85rem;
+  --wsu-eit-q-gap: 1.5rem;              /* space between questions · TUNABLE via field density */
+  --wsu-eit-btn-pad-y: .75rem;          /* button padding · TUNABLE via button size */
+  --wsu-eit-btn-pad-x: 2rem;
+
+  /* ── EXPANSION TOKENS — more knobs, same brand-safe philosophy. Each has a
+     control in the showcase's Tune tab with a live example + an On/Off switch
+     that previews the kit treatment removed. ── */
+  --wsu-eit-head-color: var(--wsu-eit-body);   /* h2/h3 color · TUNABLE black/crimson */
+  --wsu-eit-h2-size: 1.45rem;                  /* TUNABLE 1.2–1.85rem */
+  --wsu-eit-h3-size: 1.15rem;                  /* TUNABLE 1–1.45rem */
+  --wsu-eit-head-line: 1.18;                   /* heading line-height · TUNABLE 1.05–1.4 */
+  --wsu-eit-head-track: 0em;                   /* heading letter-spacing · TUNABLE -.02–.06em */
+  --wsu-eit-h1-bar-width: 100%;                /* h1 bar length · TUNABLE 100% (full underline) or ~3.5rem (short callout tick) */
+  --wsu-eit-head-align: left;                  /* heading alignment · TUNABLE left/center */
+  --wsu-eit-h1-bar-mx: 0;                       /* h1 bar side margin · 0 = left-aligned, auto = centered (paired with align) */
+  --wsu-eit-measure: 75ch;                     /* paragraph max width · TUNABLE 55–90ch */
+  --wsu-eit-underline-offset: .18em;           /* link underline gap · TUNABLE .04–.32em */
+  --wsu-eit-btn-border: 2px;                   /* button border width · TUNABLE 0–4px */
+  --wsu-eit-btn-weight: 600;                   /* button text weight · TUNABLE 500/600/700 */
+  --wsu-eit-btn-transform: none;               /* button text case · TUNABLE none/uppercase */
+  --wsu-eit-btn-track: 0em;                    /* button letter-spacing (paired w/ case) */
+  --wsu-eit-input-bg: var(--wsu-eit-paper);    /* field fill · TUNABLE white/mist */
+  --wsu-eit-label-weight: 600;                 /* field label weight · TUNABLE 400/600/700 */
+  --wsu-eit-label-size: .95rem;                /* field label size · TUNABLE .85–1.1rem */
+  --wsu-eit-textarea-h: 7rem;                  /* textarea min height · TUNABLE 4–12rem */
+  --wsu-eit-section-gap: var(--wsu-eit-gap-6); /* space above H2 sections · TUNABLE 1.5–4rem */
+  --wsu-eit-choice-size: 1.15rem;              /* radio/checkbox size · TUNABLE 1–1.5rem */
+  --wsu-eit-focus-color: var(--wsu-eit-brand); /* focus ring color · TUNABLE crimson/red/black */
+  --wsu-eit-focus-offset: 2px;                 /* focus ring gap · TUNABLE 0–5px */
+  --wsu-eit-select-bg: #f3e700;                /* text-selection bg · TUNABLE goldfinch/crimson/gray */
+  --wsu-eit-select-fg: #262626;                /* text-selection ink */
+  --wsu-eit-topbar-rule: 4px;                  /* topbar crimson hairline · TUNABLE 0–10px */
+  --wsu-eit-star-size: 1em;                    /* required star size · TUNABLE .9–1.4em */
+  --wsu-eit-page-pad: var(--wsu-eit-gap-6);    /* content top/bottom padding · TUNABLE 1.5–4rem */
 }
 
 
@@ -80,14 +135,14 @@
 body {
   margin: 0;
   font-family: var(--wsu-eit-face);
-  font-size: 16px;
-  line-height: 1.55;
+  font-size: var(--wsu-eit-body-size);
+  line-height: var(--wsu-eit-line);
   color: var(--wsu-eit-body);
   background: var(--wsu-eit-wash);
   color-scheme: light;   /* stops forced-dark browser modes inverting form fields */
 }
 html { scrollbar-gutter: stable; }  /* no layout shift between short/long pages */
-.wsu-eit ::selection { background: #f3e700; color: #262626; }  /* goldfinch highlighter, AA */
+.wsu-eit ::selection { background: var(--wsu-eit-select-bg); color: var(--wsu-eit-select-fg); }  /* goldfinch highlighter, AA */
 #wsu-eit-frame {
   min-height: 100vh;
   display: flex;
@@ -100,7 +155,7 @@ main.wsu-eit-zone {
   width: 100%;
   max-width: var(--wsu-eit-col);
   margin: 0 auto;
-  padding: var(--wsu-eit-gap-6) var(--wsu-eit-gap-5);
+  padding: var(--wsu-eit-page-pad) var(--wsu-eit-gap-5);
   background: var(--wsu-eit-paper);
 }
 @media (min-width: 75rem) {
@@ -132,18 +187,18 @@ main.wsu-eit-zone:focus { outline: none; }
    those rules come LATER in this file, so they win on purpose. Keep this
    section ABOVE §CHROME or the chrome overrides stop working. */
 .wsu-eit a {
-  font-size: 1rem;             /* 16px floor, the boss rule */
-  font-weight: 600;
+  font-size: var(--wsu-eit-link-size);     /* 16px default, the boss rule — token-tunable */
+  font-weight: var(--wsu-eit-link-weight);
   color: var(--wsu-eit-brand-text);
   text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: .18em;
+  text-decoration-thickness: var(--wsu-eit-underline);
+  text-underline-offset: var(--wsu-eit-underline-offset);
   border-radius: 2px;          /* softens the focus outline corners */
 }
 .wsu-eit a:visited { color: var(--wsu-eit-brand-text); }  /* same as unvisited: calmer */
-.wsu-eit a:hover   { color: var(--wsu-eit-brand); text-decoration-thickness: 2px; }
+.wsu-eit a:hover   { color: var(--wsu-eit-brand); text-decoration-thickness: calc(var(--wsu-eit-underline) + 1px); }
 .wsu-eit a:active  { color: var(--wsu-eit-brand-deep); }  /* pressed = deep crimson */
-.wsu-eit a:focus-visible { outline: 3px solid var(--wsu-eit-brand); outline-offset: 2px; }
+.wsu-eit a:focus-visible { outline: var(--wsu-eit-focus) solid var(--wsu-eit-focus-color); outline-offset: var(--wsu-eit-focus-offset); }
 
 
 /* ═══ §CHROME ═════════════════════════════════════════════════════════════
@@ -156,7 +211,7 @@ main.wsu-eit-zone:focus { outline: none; }
 .wsu-eit-topbar {
   background: #1f1f1f;
   /* the production hairline: a thin red rule across the very top of the page */
-  border-top: 4px solid var(--wsu-eit-flag);
+  border-top: var(--wsu-eit-topbar-rule) solid var(--wsu-eit-flag);
   display: flex;
   align-items: stretch;          /* plate + menu links run the bar's full height */
   justify-content: space-between;
@@ -209,7 +264,7 @@ main.wsu-eit-zone:focus { outline: none; }
 }
 .wsu-eit a.wsu-eit-mark:hover .wsu-eit-mark__name::after,
 .wsu-eit a.wsu-eit-mark:focus-visible .wsu-eit-mark__name::after { transform: scaleX(1); }
-.wsu-eit a.wsu-eit-mark:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.wsu-eit a.wsu-eit-mark:focus-visible { outline: var(--wsu-eit-focus) solid #fff; outline-offset: 3px; }
 
 .wsu-eit-topbar__menu ul,
 .wsu-eit-baseline__menu ul {
@@ -251,7 +306,7 @@ main.wsu-eit-zone:focus { outline: none; }
 .wsu-eit .wsu-eit-topbar__menu a:hover { color: #fff; text-decoration: none; }
 .wsu-eit .wsu-eit-topbar__menu a:hover::after,
 .wsu-eit .wsu-eit-topbar__menu a:focus-visible::after { transform: scaleX(1); }
-.wsu-eit .wsu-eit-topbar__menu a:focus-visible { outline: 3px solid #fff; outline-offset: -3px; }
+.wsu-eit .wsu-eit-topbar__menu a:focus-visible { outline: var(--wsu-eit-focus) solid #fff; outline-offset: -3px; }
 /* vestibular safety: the bar appears instantly for reduced-motion users */
 @media (prefers-reduced-motion: reduce) {
   .wsu-eit .wsu-eit-topbar__menu a::after,
@@ -293,7 +348,7 @@ main.wsu-eit-zone:focus { outline: none; }
   text-underline-offset: .2em;
 }
 .wsu-eit .wsu-eit-deck a:hover { color: #fff; text-decoration-color: #fff; }
-.wsu-eit .wsu-eit-deck a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.wsu-eit .wsu-eit-deck a:focus-visible { outline: var(--wsu-eit-focus) solid #fff; outline-offset: 2px; }
 
 /* baseline bar: copyright + policy links + the EIT credit */
 .wsu-eit-baseline {
@@ -310,7 +365,7 @@ main.wsu-eit-zone:focus { outline: none; }
 .wsu-eit .wsu-eit-baseline__menu a,
 .wsu-eit .wsu-eit-baseline__menu a:visited { color: #e3e3e3; font-size: .8rem; text-decoration: none; }
 .wsu-eit .wsu-eit-baseline__menu a:hover { color: #fff; text-decoration: underline; text-underline-offset: .2em; }
-.wsu-eit .wsu-eit-baseline__menu a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.wsu-eit .wsu-eit-baseline__menu a:focus-visible { outline: var(--wsu-eit-focus) solid #fff; outline-offset: 2px; }
 .wsu-eit-credit { color: #8a8a8a; }
 
 
@@ -320,20 +375,32 @@ main.wsu-eit-zone:focus { outline: none; }
 .wsu-eit-zone h1, .wsu-eit-zone h2, .wsu-eit-zone h3, .wsu-eit-zone h4 {
   font-family: var(--wsu-eit-face);
   color: var(--wsu-eit-body);
-  line-height: 1.18;
+  line-height: var(--wsu-eit-head-line);
+  letter-spacing: var(--wsu-eit-head-track);
   text-wrap: balance;
   scroll-margin-top: var(--wsu-eit-gap-4);  /* anchored headings clear the viewport edge */
   margin: 0 0 var(--wsu-eit-gap-4);
 }
 .wsu-eit-zone h1 {
   font-size: clamp(1.55rem, 1.1rem + 1.5vw, 2rem);  /* fluid: phones get a fit, desktop gets 2rem */
-  font-weight: 800;
-  padding-bottom: var(--wsu-eit-gap-3);
-  border-bottom: 4px solid var(--wsu-eit-brand);   /* the signature crimson bar */
+  font-weight: var(--wsu-eit-h1-weight);
+  text-align: var(--wsu-eit-head-align);
 }
-.wsu-eit-zone h2 { font-size: 1.45rem; font-weight: 700; margin-top: var(--wsu-eit-gap-6); }
-.wsu-eit-zone h3 { font-size: 1.15rem; font-weight: 700; margin-top: var(--wsu-eit-gap-5); }
-.wsu-eit-zone p  { margin: 0 0 var(--wsu-eit-gap-4); max-width: 75ch; text-wrap: pretty; }
+.wsu-eit-zone h1::after {   /* signature crimson bar — a pseudo-element so length AND alignment are tunable: full underline ↔ short centered callout tick */
+  content: "";
+  display: block;
+  height: var(--wsu-eit-h1-bar);            /* 0 removes it */
+  width: var(--wsu-eit-h1-bar-width);       /* 100% = full underline · ~3.5rem = short tick */
+  max-width: 100%;
+  background: var(--wsu-eit-brand);
+  margin-top: var(--wsu-eit-gap-3);
+  margin-left: var(--wsu-eit-h1-bar-mx);    /* auto centers the tick when headings are centered */
+  margin-right: var(--wsu-eit-h1-bar-mx);
+}
+.wsu-eit-zone h2 { font-size: var(--wsu-eit-h2-size); font-weight: 700; color: var(--wsu-eit-head-color); margin-top: var(--wsu-eit-section-gap); text-align: var(--wsu-eit-head-align); }   /* Bold 700 */
+.wsu-eit-zone h3 { font-size: var(--wsu-eit-h3-size); font-weight: 600; color: var(--wsu-eit-head-color); margin-top: var(--wsu-eit-gap-5); text-align: var(--wsu-eit-head-align); }   /* SemiBold 600 — WDS type ladder (h1 ExtraBold · h2 Bold · h3/h4 SemiBold) */
+.wsu-eit-zone h4 { font-weight: 600; }   /* SemiBold 600 */
+.wsu-eit-zone p  { margin: 0 0 var(--wsu-eit-gap-4); max-width: var(--wsu-eit-measure); text-wrap: pretty; }
 
 
 /* ═══ §INPUTS ═════════════════════════════════════════════════════════════
@@ -348,13 +415,13 @@ main.wsu-eit-zone:focus { outline: none; }
   box-sizing: border-box;
   font: 400 1rem/1.4 var(--wsu-eit-face);
   color: var(--wsu-eit-body);
-  background: var(--wsu-eit-paper);
-  border: 1px solid var(--wsu-eit-edge);
+  background: var(--wsu-eit-input-bg);
+  border: var(--wsu-eit-input-border) solid var(--wsu-eit-edge);
   border-radius: var(--wsu-eit-round);
-  padding: .7rem .85rem;
+  padding: var(--wsu-eit-field-pad-y) var(--wsu-eit-field-pad-x);
   max-width: 100%;
 }
-.wsu-eit-zone textarea { width: 100%; max-width: 38rem; min-height: 7rem; }
+.wsu-eit-zone textarea { width: 100%; max-width: 38rem; min-height: var(--wsu-eit-textarea-h); }
 .wsu-eit-zone input[type="text"], .wsu-eit-zone input[type="email"],
 .wsu-eit-zone input[type="tel"], .wsu-eit-zone input[type="password"],
 .wsu-eit-zone input[type="search"], .wsu-eit-zone input[type="url"] { width: 100%; max-width: 26rem; }
@@ -364,8 +431,8 @@ main.wsu-eit-zone:focus { outline: none; }
 .wsu-eit-zone select { width: auto; padding-right: 2rem; }
 
 .wsu-eit-zone :is(input, select, textarea):focus-visible {
-  outline: 3px solid var(--wsu-eit-brand);
-  outline-offset: 1px;
+  outline: var(--wsu-eit-focus) solid var(--wsu-eit-focus-color);
+  outline-offset: var(--wsu-eit-focus-offset);
   border-color: var(--wsu-eit-body);
 }
 .wsu-eit-zone :is(input, select, textarea):disabled {
@@ -381,7 +448,7 @@ main.wsu-eit-zone:focus { outline: none; }
 }
 /* textareas grow with their content where the engine supports it */
 @supports (field-sizing: content) {
-  .wsu-eit-zone textarea { field-sizing: content; min-height: 7rem; }
+  .wsu-eit-zone textarea { field-sizing: content; min-height: var(--wsu-eit-textarea-h); }
 }
 
 
@@ -404,12 +471,14 @@ main.wsu-eit-zone:focus { outline: none; }
 .wsu-eit-zone input[type="submit"], .wsu-eit-zone input[type="button"],
 .wsu-eit-zone .wsu-eit-btn {
   display: inline-block;
-  font: 600 1rem var(--wsu-eit-face);
+  font: var(--wsu-eit-btn-weight) 1rem var(--wsu-eit-face);
+  text-transform: var(--wsu-eit-btn-transform);
+  letter-spacing: var(--wsu-eit-btn-track);
   color: #fff;
   background: var(--wsu-eit-brand);
-  border: 2px solid var(--wsu-eit-brand);
+  border: var(--wsu-eit-btn-border) solid var(--wsu-eit-brand);
   border-radius: var(--wsu-eit-round);
-  padding: .75rem 2rem;
+  padding: var(--wsu-eit-btn-pad-y) var(--wsu-eit-btn-pad-x);
   cursor: pointer;
   text-decoration: none;
   transition: background .12s ease-out;
@@ -425,7 +494,7 @@ main.wsu-eit-zone:focus { outline: none; }
 .wsu-eit-zone .form_button:focus-visible,
 .wsu-eit-zone button:not([class]):focus-visible,
 .wsu-eit-zone input[type="submit"]:focus-visible, .wsu-eit-zone input[type="button"]:focus-visible,
-.wsu-eit-zone .wsu-eit-btn:focus-visible { outline: 3px solid var(--wsu-eit-brand); outline-offset: 3px; }
+.wsu-eit-zone .wsu-eit-btn:focus-visible { outline: var(--wsu-eit-focus) solid var(--wsu-eit-focus-color); outline-offset: var(--wsu-eit-focus-offset); }
 /* compact button — inline actions beside text (copy chips, small CTAs) */
 .wsu-eit-zone .wsu-eit-btn--compact { padding: .3rem 1rem; font-size: .85rem; }
 /* touch targets: WCAG 2.5.8 minimum on coarse pointers */
@@ -451,7 +520,7 @@ main.wsu-eit-zone:focus { outline: none; }
 .wsu-eit-zone .form_page { margin: 0 0 var(--wsu-eit-gap-6); }
 
 .wsu-eit-zone .form_question {
-  margin: 0 0 var(--wsu-eit-gap-5);
+  margin: 0 0 var(--wsu-eit-q-gap);
   padding: 0;
   border: 0;
 }
@@ -463,8 +532,8 @@ main.wsu-eit-zone:focus { outline: none; }
 .wsu-eit-zone .form_label,
 .wsu-eit-zone legend.form_label {
   display: block;
-  font-size: .95rem;
-  font-weight: 600;
+  font-size: var(--wsu-eit-label-size);
+  font-weight: var(--wsu-eit-label-weight);
   color: var(--wsu-eit-body);
   margin: 0 0 var(--wsu-eit-gap-2);
   max-width: 70ch;
@@ -476,13 +545,15 @@ main.wsu-eit-zone:focus { outline: none; }
    of dangling after the residue on its own line. */
 .wsu-eit-zone .form_question[data-required="1"] .form_label::after {
   content: " *";
-  color: var(--wsu-eit-flag);
+  color: var(--wsu-eit-star);
+  font-size: var(--wsu-eit-star-size);
   font-weight: 700;
 }
 .wsu-eit-zone .form_question[data-required="1"] .form_label:has(br, p, div, ul, ol)::after { content: none; }
 .wsu-eit-zone .form_question[data-required="1"] .form_label:has(br, p, div, ul, ol) > :first-child::after {
   content: " *";
-  color: var(--wsu-eit-flag);
+  color: var(--wsu-eit-star);
+  font-size: var(--wsu-eit-star-size);
   font-weight: 700;
 }
 
@@ -500,7 +571,7 @@ main.wsu-eit-zone:focus { outline: none; }
    file at equal specificity) — the edge width stays, the color escalates. */
 .wsu-eit-zone .form_responses :is(input, select, textarea).wsu-eit-blank,
 .wsu-eit-zone :is(input:not([type="radio"]):not([type="checkbox"]), select, textarea):required:invalid {
-  border-left: 3px solid var(--wsu-eit-brand);
+  border-left: var(--wsu-eit-edge-hint) solid var(--wsu-eit-brand);
 }
 
 .wsu-eit-zone .form_responses { max-width: 100%; }
@@ -520,7 +591,7 @@ main.wsu-eit-zone:focus { outline: none; }
 }
 .wsu-eit-zone .form_response input[type="radio"],
 .wsu-eit-zone .form_response input[type="checkbox"] {
-  width: 1.15rem; height: 1.15rem;
+  width: var(--wsu-eit-choice-size); height: var(--wsu-eit-choice-size);
   accent-color: var(--wsu-eit-brand);
   flex: none;
   transform: translateY(.15rem);
@@ -673,7 +744,7 @@ body > div[role="alert"], body > div[role="alertdialog"] {
   .wsu-eit *, .wsu-eit-skip { transition: none !important; animation: none !important; }
 }
 @media (forced-colors: active) {
-  .wsu-eit-zone :is(input, select, textarea):focus-visible { outline: 3px solid CanvasText; }
+  .wsu-eit-zone :is(input, select, textarea):focus-visible { outline: var(--wsu-eit-focus) solid CanvasText; }
   .wsu-eit-mark__crest { forced-color-adjust: none; }
 }
 /* users who ask the OS for more contrast get firmer boundaries */

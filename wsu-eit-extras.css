@@ -447,6 +447,151 @@ mark.wsu-eit-hi {
 .wsu-eit-swatch--sky { background: #5bc3f5; color: #262626; }
 .wsu-eit-swatch--midnight { background: #002d61; color: #fff; }
 
+/* ════ §QUOTE / §COLS / §BYLINE / card variants ════════════════════════════
+   WDS "Blockquote / Columns / Article / Person+News Card" CONCEPTS, rebuilt in
+   wsu-eit styling. We borrow the ideas from the (out-of-date) WSU Storybook —
+   never its wsu-c-* classes — and bind everything to our tokens. */
+.wsu-eit-quote { margin: 0 0 var(--wsu-eit-gap-5); padding: var(--wsu-eit-gap-2) 0 var(--wsu-eit-gap-2) var(--wsu-eit-gap-5); border-left: 4px solid var(--wsu-eit-brand); max-width: 70ch; }
+.wsu-eit-quote > p { font-size: 1.15rem; line-height: 1.5; color: var(--wsu-eit-body); margin: 0 0 var(--wsu-eit-gap-3); text-wrap: pretty; }
+.wsu-eit-quote > p:last-child { margin-bottom: 0; }
+.wsu-eit-quote cite { display: block; font-style: normal; font-size: .9rem; color: var(--wsu-eit-quiet); }
+.wsu-eit-quote cite b { color: var(--wsu-eit-body); font-weight: 600; }
+.wsu-eit-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--wsu-eit-gap-5); margin: 0 0 var(--wsu-eit-gap-5); }
+.wsu-eit-cols > * > :first-child { margin-top: 0; }
+.wsu-eit-cols > * > :last-child { margin-bottom: 0; }
+.wsu-eit-byline { display: flex; flex-wrap: wrap; gap: var(--wsu-eit-gap-4); font-size: .9rem; color: var(--wsu-eit-quiet); margin: 0 0 var(--wsu-eit-gap-4); }
+.wsu-eit-byline > span { display: inline-flex; align-items: center; gap: .35rem; }
+.wsu-eit-card__role { color: var(--wsu-eit-quiet); font-weight: 600; font-size: .9rem; margin: 0 0 var(--wsu-eit-gap-3) !important; }
+.wsu-eit-card__meta { font-size: .85rem; color: var(--wsu-eit-quiet); border-top: 1px solid var(--wsu-eit-hairline); margin-top: var(--wsu-eit-gap-3); padding-top: var(--wsu-eit-gap-3); }
+
+/* §LOADING — WSU cougar loading spinner (Butch loading-icon concept, Motion).
+   A crimson ring rotates around the official cougar head for submit / AJAX
+   waits. Accessible (role=status) and disabled under reduced-motion. */
+.wsu-eit-loading { display: inline-flex; align-items: center; justify-content: center; width: 3.75rem; height: 3.75rem; position: relative; }
+.wsu-eit-loading::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 3px solid var(--wsu-eit-hairline); border-top-color: var(--wsu-eit-brand); animation: wsu-eit-spin .9s linear infinite; }
+.wsu-eit-loading svg { width: 54%; height: 54%; fill: var(--wsu-eit-brand); }
+@keyframes wsu-eit-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .wsu-eit-loading::before { animation: none; border-top-color: var(--wsu-eit-brand); } }
+
+/* §MODAL — fullscreen native <dialog>. Use sparingly (a required ack before a
+   form). Native dialog gives focus trap + Esc + backdrop for free. */
+.wsu-eit-modal { border: none; border-radius: var(--wsu-eit-round); padding: 0; max-width: 40rem; width: calc(100% - 2rem); color: var(--wsu-eit-body); background: var(--wsu-eit-paper); box-shadow: 0 10px 40px rgba(0,0,0,.25); }
+.wsu-eit-modal::backdrop { background: rgba(31,31,31,.6); }
+.wsu-eit-modal__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: var(--wsu-eit-gap-4) var(--wsu-eit-gap-5); border-bottom: 1px solid var(--wsu-eit-hairline); }
+.wsu-eit-modal__head h2 { margin: 0; border: 0; padding: 0; font-size: 1.25rem; }
+.wsu-eit-modal__head h2::after { display: none; }
+.wsu-eit-modal__close { border: none; background: none; font: inherit; font-size: 1.6rem; line-height: 1; cursor: pointer; color: var(--wsu-eit-quiet); padding: .15rem .55rem; border-radius: var(--wsu-eit-round); }
+.wsu-eit-modal__close:hover { color: var(--wsu-eit-brand); }
+.wsu-eit-modal__close:focus-visible { outline: 3px solid var(--wsu-eit-brand); outline-offset: 2px; }
+.wsu-eit-modal__body { padding: var(--wsu-eit-gap-5); }
+.wsu-eit-modal__body > :first-child { margin-top: 0; }
+.wsu-eit-modal--full { max-width: none; width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; }
+.wsu-eit-modal--full .wsu-eit-modal__body { max-width: 70rem; margin-inline: auto; }
+
+/* §SEP — horizontal separators (WDS "Separator": default rule + crimson tick) */
+.wsu-eit-sep { border: 0; border-top: 1px solid var(--wsu-eit-hairline); margin: var(--wsu-eit-gap-6) 0; }
+.wsu-eit-sep--crimson { width: 3.5rem; margin: var(--wsu-eit-gap-6) auto; border-top-width: 3px; border-top-color: var(--wsu-eit-brand); }
+/* dark stat band (WDS "Dark Stat") — reuses the stat grid on a dark surface */
+.wsu-eit-stats--dark { background: #1f1f1f; border-radius: var(--wsu-eit-round); padding: var(--wsu-eit-gap-5); }
+.wsu-eit-stats--dark > div { background: #333; color: #e6e6e6; }
+.wsu-eit-stats--dark strong { color: #fff; }
+
+/* §FEATURE — image feature card with a crimson hover/focus frame, echoing the
+   "What's Happening at WSU" cards on wsu.edu. Reduced-motion safe; the whole
+   card is one link (no redundant link warnings). */
+.wsu-eit-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--wsu-eit-gap-4); margin: 0 0 var(--wsu-eit-gap-5); }
+.wsu-eit-feature { position: relative; display: block; min-height: 17rem; border-radius: var(--wsu-eit-round); overflow: hidden; color: #fff; text-decoration: none; }
+.wsu-eit .wsu-eit-feature, .wsu-eit .wsu-eit-feature:hover { text-decoration: none; }
+.wsu-eit-feature img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.wsu-eit-feature__scrim { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.82), rgba(0,0,0,.15) 60%); }
+.wsu-eit-feature__body { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: .35rem; padding: var(--wsu-eit-gap-5); }
+.wsu-eit-feature h3 { color: #fff; margin: 0; font-size: 1.15rem; }
+.wsu-eit-feature h3::after { display: none; }
+.wsu-eit-feature p { color: rgba(255,255,255,.92); margin: 0; font-size: .88rem; }
+.wsu-eit-feature::after { content: ""; position: absolute; inset: .65rem; border: 3px solid var(--wsu-eit-brand); border-radius: 4px; opacity: 0; transition: opacity .18s ease, inset .18s ease; pointer-events: none; }
+.wsu-eit-feature:hover::after, .wsu-eit-feature:focus-visible::after { opacity: 1; inset: .4rem; }
+.wsu-eit-feature:focus-visible { outline: 3px solid var(--wsu-eit-brand); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .wsu-eit-feature::after { transition: none; } }
+
+/* §HATCH — big stat on a subtle diagonal-pinstripe panel (the "$403 million"
+   stat on wsu.edu). Hatch is a faint gray tint (decorative, never the only
+   signal); the number is brand crimson, which clears AAA on this tint. */
+.wsu-eit-stat-hatch { background-color: var(--wsu-eit-mist); background-image: repeating-linear-gradient(135deg, transparent 0 7px, rgba(77,77,77,.07) 7px 8px); border-radius: var(--wsu-eit-round); padding: var(--wsu-eit-gap-5); margin: 0 0 var(--wsu-eit-gap-5); max-width: 32rem; }
+.wsu-eit-stat-hatch strong { display: block; font-size: clamp(2rem, 1.2rem + 3vw, 3rem); font-weight: 800; color: var(--wsu-eit-brand-text); line-height: 1; }
+.wsu-eit-stat-hatch span { display: block; margin-top: var(--wsu-eit-gap-2); font-weight: 700; color: var(--wsu-eit-body); }
+/* §FRAME — framed photo: a thin inset hairline + an offset crimson block
+   behind, echoing the framed images across wsu.edu. */
+.wsu-eit-frame { position: relative; display: inline-block; margin: .9rem 0 var(--wsu-eit-gap-5) .9rem; max-width: 100%; }
+.wsu-eit-frame::before { content: ""; position: absolute; top: -.9rem; left: -.9rem; width: 60%; height: 60%; background: var(--wsu-eit-brand); border-radius: 2px; z-index: 0; }
+.wsu-eit-frame img { position: relative; z-index: 1; display: block; width: 100%; border-radius: 2px; }
+.wsu-eit-frame__line { position: absolute; inset: .55rem; border: 1px solid rgba(255,255,255,.85); z-index: 2; pointer-events: none; }
+
+/* §LINKLIST — "Dig deeper"-style link list. A crimson bar slides in on hover
+   AND keyboard focus (parity, never mouse-only), with a faint tint; reduced-
+   motion shows the bar without sliding. Echoes the link lists on wsu.edu. */
+.wsu-eit-linklist { list-style: none; margin: 0 0 var(--wsu-eit-gap-5); padding: 0; max-width: 26rem; }
+.wsu-eit-linklist li { border-bottom: 1px solid var(--wsu-eit-hairline); }
+.wsu-eit .wsu-eit-linklist a { display: block; position: relative; padding: .6rem .4rem .6rem .95rem; text-decoration: none; color: var(--wsu-eit-brand-text); font-weight: 600; }
+.wsu-eit-linklist a::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--wsu-eit-brand); transform: scaleY(0); transition: transform .15s ease; }
+.wsu-eit .wsu-eit-linklist a:hover, .wsu-eit .wsu-eit-linklist a:focus-visible { background: var(--wsu-eit-mist); text-decoration: underline; }
+.wsu-eit-linklist a:hover::before, .wsu-eit-linklist a:focus-visible::before { transform: scaleY(1); }
+.wsu-eit-linklist a:focus-visible { outline: 3px solid var(--wsu-eit-brand); outline-offset: -3px; }
+@media (prefers-reduced-motion: reduce) { .wsu-eit-linklist a::before { transition: none; } }
+
+/* §REEL--NEWS — two-up news carousel (WSU Foundation "Featured News"). Built on
+   the scroll-snap reel: swipe/scroll/keyboard, NO autoplay or auto-rotate
+   (auto-advancing carousels fail WCAG 2.2.2 and the kit avoids them). */
+.wsu-eit-reel--news > article { flex: 0 0 min(22rem, 88%); margin: 0; scroll-snap-align: start; background: var(--wsu-eit-paper); border: 1px solid var(--wsu-eit-hairline); border-radius: var(--wsu-eit-round); overflow: hidden; }
+.wsu-eit-reel--news > article img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
+.wsu-eit-reel--news__body { padding: var(--wsu-eit-gap-4) var(--wsu-eit-gap-5); }
+.wsu-eit-reel--news__body h3 { margin: 0 0 var(--wsu-eit-gap-2); font-size: 1.05rem; }
+.wsu-eit-reel--news__body h3::after { display: none; }
+.wsu-eit-reel--news__body p { margin: 0; font-size: .88rem; color: var(--wsu-eit-body); }
+
+/* §CONTACT — split-name contact form + staff/team grid (WSU Foundation
+   "Contact us" + "Meet our Team"). Real labels, required stars, autocomplete. */
+.wsu-eit-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--wsu-eit-gap-4); }
+.wsu-eit-team { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--wsu-eit-gap-4); margin: 0 0 var(--wsu-eit-gap-5); }
+.wsu-eit-team > div { background: var(--wsu-eit-paper); border: 1px solid var(--wsu-eit-hairline); border-radius: var(--wsu-eit-round); padding: var(--wsu-eit-gap-5); text-align: center; }
+.wsu-eit-team__avatar { width: 4rem; height: 4rem; border-radius: 50%; background: var(--wsu-eit-brand); color: #fff; display: flex; align-items: center; justify-content: center; font: 700 1.2rem Montserrat, sans-serif; margin: 0 auto var(--wsu-eit-gap-3); }
+.wsu-eit-team h3 { margin: 0 0 var(--wsu-eit-gap-1); font-size: 1rem; }
+.wsu-eit-team h3::after { display: none; }
+.wsu-eit-team__role { color: var(--wsu-eit-quiet); font-size: .85rem; margin: 0 0 var(--wsu-eit-gap-3); }
+.wsu-eit-team a { font-size: .85rem; }
+
+/* §GLOSSARY — plain-English term tooltips + collapsible legend (showcase aid) */
+.gloss { border-bottom: 1px dotted var(--wsu-eit-brand); cursor: help; position: relative; }
+.gloss:focus-visible { outline: 2px solid var(--wsu-eit-brand); outline-offset: 2px; border-radius: 2px; }
+.gloss__pop { position: absolute; left: 0; bottom: 130%; z-index: 60; width: max-content; max-width: 17rem; background: #1f1f1f; color: #fff; font: 400 .8rem/1.45 var(--wsu-eit-face); letter-spacing: 0; text-transform: none; padding: .5rem .65rem; border-radius: 6px; box-shadow: 0 6px 22px rgba(0,0,0,.28); opacity: 0; visibility: hidden; transition: opacity .12s ease; pointer-events: none; }
+.gloss:hover .gloss__pop, .gloss:focus .gloss__pop, .gloss:focus-within .gloss__pop { opacity: 1; visibility: visible; }
+.gloss-legend { margin: 1rem 0 1.4rem; border: 1px solid #e2e2e2; border-radius: 8px; padding: .55rem .9rem; background: #fff; max-width: 75ch; }
+.gloss-legend > summary { font: 700 .9rem var(--wsu-eit-face); cursor: pointer; color: #262626; }
+.gloss-legend dl { margin: .7rem 0 .2rem; display: grid; grid-template-columns: minmax(8rem, 12rem) 1fr; gap: .35rem .9rem; }
+.gloss-legend dt { font-weight: 700; color: #262626; font-size: .85rem; }
+.gloss-legend dd { margin: 0; color: #3a3a3a; font-size: .85rem; line-height: 1.45; }
+@media (max-width: 34rem) { .gloss-legend dl { grid-template-columns: 1fr; gap: .1rem .9rem; } .gloss-legend dd { margin-bottom: .5rem; } }
+@media (prefers-reduced-motion: reduce) { .gloss__pop { transition: none; } }
+.gloss--open .gloss__pop { opacity: 1; visibility: visible; }
+.gloss__i { display: inline-flex; align-items: center; justify-content: center; width: 1.05em; height: 1.05em; margin-left: .15em; padding: 0; border: 1px solid var(--wsu-eit-brand); border-radius: 50%; background: none; color: var(--wsu-eit-brand); font: 700 .7em/1 var(--wsu-eit-face); cursor: pointer; vertical-align: .08em; }
+.gloss__i:hover { background: var(--wsu-eit-brand); color: #fff; }
+.gloss__i:focus-visible { outline: 2px solid var(--wsu-eit-brand); outline-offset: 2px; }
+/* by-HTML-type group headings reuse the class-group look */
+.htmlgrp > h2 > code { font-size: .85em; background: #f1f4f6; border: 1px solid #cdd8df; border-radius: 6px; padding: .1em .4em; color: #1f3a4d; }
+
+/* §GALLERY — sourced image gallery. Every tile is ONE link back to the page
+   the photo appears on (attribution, no redundant links). Lazy-loaded; the
+   official secondary mark is contained, photos are cover-cropped. */
+.wsu-eit-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: var(--wsu-eit-gap-3); }
+.wsu-eit-gallery figure { margin: 0; }
+.wsu-eit .wsu-eit-gallery a { display: block; position: relative; border-radius: var(--wsu-eit-round); overflow: hidden; text-decoration: none; }
+.wsu-eit .wsu-eit-gallery a:hover { text-decoration: none; }
+.wsu-eit-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: var(--wsu-eit-mist); transition: transform .2s ease; }
+.wsu-eit-gallery a:hover img, .wsu-eit-gallery a:focus-visible img { transform: scale(1.04); }
+.wsu-eit-gallery a:focus-visible { outline: 3px solid var(--wsu-eit-brand); outline-offset: 2px; }
+.wsu-eit-gallery--mark img { object-fit: contain; padding: 1rem; background: #fff; transform: none; }
+.wsu-eit-gallery__cred { position: absolute; left: 0; right: 0; bottom: 0; font: 700 .66rem/1.2 Montserrat, sans-serif; letter-spacing: .03em; color: #fff; background: linear-gradient(0deg, rgba(0,0,0,.8), transparent); padding: 1rem .5rem .4rem; }
+@media (prefers-reduced-motion: reduce) { .wsu-eit-gallery img { transition: none; } }
+
 
 /* the 70/20/10 ratio bar — brand-proportion demo as composable pieces */
 .wsu-eit-ratio-bar { display: flex; height: 3.2rem; border-radius: var(--wsu-eit-round); overflow: hidden; }

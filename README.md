@@ -1,10 +1,34 @@
-# WSU EIT Forms — 3.1 (flat layout) (accessibility, demonstrated)
+# WSU EIT Forms — 6.0 (expanded component library, sourced to official WSU)
 
 A complete, accessible, brand-exact styling and content kit for every
 externally hosted page in the WSU Admissions **Slate (Technolutions)**
 instance — forms, events, portals — built by **Enrollment Information
 Technology (EIT)**. Plain CSS + XSLT with two small, justified JS files.
 No build step, no framework, no dependencies.
+
+**New in 4.0 — Tune the kit.** The showcase rail has two modes: **Browse**
+(search, tags, chapters) and **Tune the kit** — a live design-token
+configurator. It opens full-width as grouped **token cards** (Type · Shape &
+density · Brand cues · Page) — ~40 controls spanning type (size, line-height,
+measure, link & heading treatment), shape & density (radius, borders, button
+& field sizing), brand cues (focus ring, required edge/star, selection,
+topbar rule) and page (width, padding, paper, backdrop), each driving a real
+`build.css §TOKENS` variable bounded to a brand-safe range. Every card carries
+a **live example** showing exactly what that one token changes, plus an
+**On/Off switch** that previews the page with the treatment removed entirely
+— the character-creator model: move any control, you still can't leave the
+brand. *Randomize* explores; *Export* emits a paste-ready `:root` override
+block annotating each deviation (and each disabled feature) from shipped. *Randomize (brand-safe)* explores; *Export*
+emits a paste-ready `:root` override block annotated with each deviation
+from shipped defaults, so a stakeholder meeting ends with a deliverable
+instead of a vibe. Settings persist per-browser and affect only the
+showcase until the export lands in `build.css`.
+
+Also in 4.0: snippet whitespace is hardened against upload tools that
+re-indent the hosted HTML (tabs can no longer leak into pretty/minified/
+copied markup), and the copy-inspiration browser now swaps whole-paragraph
+messages too — cards with no safely swappable sentence say so honestly
+("ideas only — sample text stays") instead of looking broken.
 
 ## Quick start
 
@@ -26,7 +50,7 @@ No build step, no framework, no dependencies.
 | `build.xslt` | ✅ `/shared/` | The page template Slate wraps every external page in. Links everything; carries the deploy notes. **A broken build.xslt takes down every external page — test instance first, always.** |
 | `wsu-eit-a11y.js` | ✅ `/shared/` | **Accessibility helper & fixer.** 9 repairs that are impossible in CSS, each verified against real Slate output (control naming, empty-label removal, date-part names, aria-required, failed-submit alert announcement, new-tab notices, iframe titles, alt backstop, aria-current). Ceiling: ≤10 features / ≤300 lines. |
 | `wsu-eit-extras.js` | ✅ `/shared/` | **Opt-in behaviors**, `data-eit-*` activated: copy buttons, character counter, local-time rendering, FAQ expand-all, static-list filter. Trimmed from 7 to 5 after auditing the Slate Knowledge Base — anything Slate does natively stays in Slate. Same ceiling. |
-| `wsu-eit-showcase.js` | with index.html only | The showcase page's own interactivity (search, filters, copy buttons). External because Slate's static host refuses inline scripts; its styling stays inline in index.html (inline styles are served fine). Never link from build.xslt. |
+| `wsu-eit-showcase.js` | with index.html only | The showcase page's own interactivity (search, filters, copy buttons, the Tune-the-kit configurator). External because Slate's static host refuses inline scripts; its styling stays inline in index.html (inline styles are served fine). Never link from build.xslt. |
 | `index.html` | ❌ kit pages: never | The showcase/sample page described above. Internal tool; its search/filter script never ships. |
 | `RESEARCH.md` | ❌ | The pattern audit: every relevant CSS/HTML/a11y pattern evaluated (adopt / already / skip) + the Slate-native audit. |
 | `wsu-eit-icon-*.svg` (80) · `wsu-eit-img-*.png` (4) | as needed | The official brand icons and cougar-head marks. **Flat layout, no folders** — names are prefixed so a filename sort groups them: `build*` (Slate trio) · `wsu-eit-*.css/.js` (kit code) · `wsu-eit-icon-*` (icons) · `wsu-eit-img-*` (images). Re-host anything you use in Slate Files. |
@@ -68,7 +92,7 @@ search to go deeper.
 
 ## History
 
-`3.1` = `3.0` flattened to a single directory (upload tools without folder support) with sort-friendly file prefixes; one upstream typo fixed (`pluse-circle` → `plus-circle`). `3.0` = production-parity topbar + required-empty edge · `2.x` = consolidation + documentation layer · `1.0`–`1.8` = prior generations (1.7 is the clean-room rewrite).
+`6.0` = `5.0` snapshot + a full deep-dive review/test pass. `5.0` = `4.0` + an **About & brand sources** chapter (every requirement/suggestion cited to an exact quote on brand.wsu.edu or a named uploaded doc), per-pattern **“Seen on WSU”** reference links to live official pages, an H3≤H2 clamp + callout-bar/heading-alignment controls in the tuner, a real DOM pretty-printer, and a batch of Storybook/wsu.edu-derived components (blockquote, columns, byline, person/news cards, cougar loading spinner, fullscreen modal, separators, dark stat, image feature cards, hatched stat, framed photo, highlight link-list, two-up news carousel, contact form, staff grid) — all in wsu-eit styling, never the WDS `wsu-c-*` classes.
 `1.0`–`1.8` = prior generations, oldest first (1.7 is the clean-room rewrite
 that makes this work provably EIT's own). This folder supersedes all of them.
 
