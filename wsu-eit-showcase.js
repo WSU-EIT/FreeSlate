@@ -3,20 +3,17 @@
    ═══════════════════════════════════════════════════════════════════════
    WHY THIS FILE EXISTS: Slate's static file host serves /shared/ pages
    with a Content-Security-Policy that permits external same-origin
-   scripts but BLOCKS inline <script> blocks. The showcase's interactivity
-   (search, tag filters, chapter/class ordering, pretty⇄minified snippets,
-   copy inspiration, icon copy, vision simulator, per-example docs) used
-   to live inline and silently died under that CSP — page rendered,
-   nothing clicked. Externalized 2026-06-12; load order preserved exactly
-   (the blocks below run in their original document order, after the DOM
-   is parsed, via defer).
+   scripts but BLOCKS inline <script> blocks, so the showcase's
+   interactivity (search, tag filters, chapter/class ordering,
+   pretty⇄minified snippets, copy inspiration, icon copy, vision
+   simulator, per-example docs) lives in this external file and loads
+   via defer, after the DOM is parsed.
 
    NEVER reference this file from build.xslt — it styles/scripts the
    showcase only. The deployed kit remains build.css + build-fonts.css +
    wsu-eit-extras.css + wsu-eit-a11y.js + wsu-eit-extras.js.
    ════════════════════════════════════════════════════════════════════ */
 
-/* ── block 1 of 9 (original inline position preserved) ── */
 document.getElementById('fixture-alert-btn').addEventListener('click', function () {
   var d = document.createElement('div');
   d.className = 'wsu-eit-sim-dialog';
@@ -25,7 +22,6 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 4000);
 });
 
-/* ── block 2 of 9 (original inline position preserved) ── */
 /* Showcase-page-only script (search, tag filter, icon copy). The deployed
    kit ships no JS for styling — this page is an internal tool. */
 (function () {
@@ -99,7 +95,6 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   });
 })();
 
-/* ── block 3 of 9 (original inline position preserved) ── */
 /* Every example must carry the HTML that produces its rendered preview.
    Most patterns ship a hand-written snippet; for any .pat that has a demo
    but no snippet (brand-guidance cards, logos, photography, the fixtures),
@@ -132,7 +127,6 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   });
 })();
 
-/* ── block 4 of 9 (original inline position preserved) ── */
 /* Pretty ⇄ Minified swap on every "Markup to paste" block.
    Source snippets are stored minified (that's what editors should paste —
    Slate's editor mangles multi-line HTML less when it's one line); the
@@ -278,7 +272,6 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   });
 })();
 
-/* ── block 5 of 9 (original inline position preserved) ── */
 /* Class-name surfacing + "organize by CSS class" mode (showcase-only).
    Every pattern header grows a row of monospace chips naming the exact
    wsu-eit-* classes its demo uses (clicking one searches for it), and the
@@ -436,7 +429,6 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   document.querySelectorAll('.tagchip').forEach(function (c) { c.addEventListener('click', fixGroups); });
 })();
 
-/* ── block 6 of 9 (original inline position preserved) ── */
 /* Live index counts: while a search/tag filter is active, every chapter (or
    class-group) link in the rail shows "matching / total" and grays out when
    nothing inside it qualifies. Attached last, so it always runs after the
@@ -480,7 +472,6 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   syncIndex();
 })();
 
-/* ── block 7 of 9 (original inline position preserved) ── */
 /* EVERY EXAMPLE DOCUMENTED (showcase-only script).
    Each pattern card gets: (1) a one-line BRIEF under its class chips —
    what it is and when to reach for it; (2) an expandable "Full notes"
@@ -626,7 +617,6 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   });
 })();
 
-/* ── block 8 of 9 (original inline position preserved) ── */
 /* A11Y LAYER (showcase-only).
    (a) Vision simulator: one filter class on the content column.
    (b) ♿ chips: any example whose markup carries accessibility attributes
@@ -742,7 +732,6 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   });
 })();
 
-/* ── block 9 of 9 (original inline position preserved) ── */
 /* Copy inspiration: 10 alternate messages per pattern, browsable with
    ‹ › inside every Markup-to-paste section. Banks are grouped by what
    the pattern is FOR (deadline urgency, field help, CTAs…), so related
@@ -860,10 +849,10 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   });
 })();
 
-/* ── block 10 (added in 4.0): "TUNE THE KIT" — live design-token configurator
-   WHY THIS EXISTS: stakeholders kept asking "what if links were bigger /
-   corners squarer / fields denser?" — questions that used to mean edit CSS,
-   re-upload, reload, squint. Every control below drives a CSS custom
+/* "TUNE THE KIT" — live design-token configurator.
+   Stakeholders ask "what if links were bigger / corners squarer / fields
+   denser?" — questions that otherwise mean edit CSS, re-upload, reload,
+   squint. Every control below drives a CSS custom
    property that build.css §TOKENS actually consumes, bounded to brand-safe
    ranges (the character-creator model: sliders move, the brand doesn't
    break). The export block turns a meeting decision into a paste-ready
@@ -994,8 +983,7 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
       fmt: PX, hint: 'Size of major section headings.', pv: EX_H2,
       vars: function (v) { return { '--wsu-eit-h2-size': v + 'rem' }; }, off: { '--wsu-eit-h2-size': '1.5rem' } },
     { id: 'h3size', group: 'Type', name: 'H3 size', kind: 'range', min: 1.0, max: 1.45, def: 1.15, step: 0.05,
-      fmt: PX, hint: 'Size of sub-headings. Auto-capped just below H2 — a subheading never outsizes its parent.', pv: EX_H3,
-      dynMax: function () { var h2 = specById('h2size'); return +(val(h2) - 0.05).toFixed(2); },
+      fmt: PX, hint: 'Size of sub-headings. Capped just below H2 so a subheading never outsizes its parent.', pv: EX_H3,
       vars: function (v) { return { '--wsu-eit-h3-size': v + 'rem' }; }, off: { '--wsu-eit-h3-size': '1.17rem' } },
     { id: 'headline', group: 'Type', name: 'Heading line-height', kind: 'range', min: 1.05, max: 1.4, def: 1.18, step: 0.05,
       fmt: function (v) { return (+v).toFixed(2); },
@@ -1063,8 +1051,8 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
     { id: 'focusoffset', group: 'Brand cues', name: 'Focus ring offset', kind: 'range', min: 0, max: 5, def: 2, unit: 'px',
       hint: 'Gap between the control and its focus ring.', pv: EX_RING,
       vars: function (v) { return { '--wsu-eit-focus-offset': v + 'px' }; }, off: { '--wsu-eit-focus-offset': '0' } },
-    { id: 'edge', group: 'Brand cues', name: 'Required-field edge', kind: 'range', min: 0, max: 8, def: 3, unit: 'px',
-      hint: 'The crimson left edge on empty required fields. 0 / Off turns it off.', pv: EX_EDGE,
+    { id: 'edge', group: 'Brand cues', name: 'Required-field edge', kind: 'range', min: 0, max: 8, def: 0, unit: 'px',
+      hint: 'Optional crimson edge on empty required fields. Ships Off — the asterisk marks required. Raise to add a cue that clears as each field is filled.', pv: EX_EDGE,
       vars: function (v) { return { '--wsu-eit-edge-hint': v + 'px' }; }, off: { '--wsu-eit-edge-hint': '0' } },
     { id: 'star', group: 'Brand cues', name: 'Required star color', kind: 'choice', def: '#ca1237',
       opts: [['#ca1237', 'Secondary red'], ['#a60f2d', 'Crimson']],
@@ -1121,35 +1109,6 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
     if (mBar && mS) mBar.style.width = isOff(mS) ? '100%' : Math.round(val(mS) / mS.max * 100) + '%';
   }
 
-  /* dependent-range clamps: keep H3 strictly below H2 so a subheading can
-     never outsize its parent heading. WSU's own web type scale always has
-     h3 < h2 (h2 2.1rem / h3 1.8rem per the WDS scale in 001_wsu_brand_reference.md),
-     so this enforces real brand hierarchy, not just a nicety. Generalised via
-     each spec's optional dynMax(). */
-  function reconcile() {
-    SPEC.forEach(function (s) {
-      if (s.kind !== 'range' || typeof s.dynMax !== 'function') return;
-      var cap = s.dynMax();
-      var input = document.getElementById('ti-' + s.id);
-      var maxLbl = document.getElementById('tmax-' + s.id);
-      if (cap == null || isNaN(cap)) {
-        if (input) input.max = s.max;
-        if (maxLbl) { maxLbl.textContent = fmt(s, s.max); maxLbl.classList.remove('tune-scale--capped'); }
-        return;
-      }
-      cap = Math.min(cap, s.max);
-      if (input) input.max = cap;
-      if (maxLbl) {
-        var capped = cap < s.max;
-        maxLbl.textContent = fmt(s, cap) + (capped ? ' · ≤H2' : '');
-        maxLbl.classList.toggle('tune-scale--capped', capped);
-      }
-      if (val(s) > cap) {
-        state[s.id] = +cap.toFixed(4);
-        if (String(state[s.id]) === String(s.def)) delete state[s.id];
-      }
-    });
-  }
   function fmt(s, v) { return s.fmt ? s.fmt(v) : (s.kind === 'range' ? v + s.unit : labelOf(s, v)); }
   function labelOf(s, v) {
     if (!s.opts) return String(v);
@@ -1235,7 +1194,6 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
         var num = step < 1 ? +(Math.round(parseFloat(input.value) / step) * step).toFixed(4) : parseInt(input.value, 10);
         state[s.id] = num;
         if (String(num) === String(s.def)) delete state[s.id];
-        reconcile();
         syncUI();
         applyAll(); save();
       });
@@ -1324,11 +1282,11 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
       }
       if (String(state[s.id]) === String(s.def)) delete state[s.id];
     });
-    reconcile(); syncUI(); applyAll(); save();
+    syncUI(); applyAll(); save();
   });
   document.getElementById('tune-reset').addEventListener('click', function () {
     state = {}; state.off = {};
-    reconcile(); syncUI(); applyAll(); save();
+    syncUI(); applyAll(); save();
   });
   document.getElementById('tune-export-copy').addEventListener('click', function () {
     var btn = this;
@@ -1337,5 +1295,5 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
       function () { btn.textContent = 'Copy blocked'; setTimeout(function () { btn.textContent = 'Copy override block'; }, 1400); });
   });
 
-  reconcile(); syncUI(); applyAll();
+  syncUI(); applyAll();
 })();

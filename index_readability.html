@@ -373,7 +373,7 @@ main.wsu-eit-zone { max-width: 90em; }
   </header>
   <main id="wsu-eit-main" class="wsu-eit-zone" tabindex="-1">
     <h1>WSU EIT Forms — Showcase</h1>
-    <p>Everything the kit can do on a Slate page, in one place: <strong>108 paste-ready patterns</strong>, the <strong>official brand icon set</strong>, <strong>logo files</strong>, <strong>photography guidance</strong>, and the brand rules behind it all. Search, filter by tag, or jump by chapter. Every demo is live; expand <strong>Markup to paste</strong> and drop it into a Slate text block — no CSS, no scripts needed on the form. Switch to the <strong>Tune the kit</strong> tab to try brand-safe design-token changes live and export them.</p>
+    <p>Everything the kit can do on a Slate page, in one place: <strong>108 paste-ready patterns</strong>, the <strong>official brand icon set</strong>, <strong>logo files</strong>, <strong>photography guidance</strong>, and the brand rules behind it all. Search, filter by tag, or jump by chapter. Every demo is live; expand <strong>Markup to paste</strong> and drop it into a Slate text block — no CSS, no scripts needed on the form.</p>
     <details class="pat-docs wsu-eit-primer">
       <summary>New to this framework? The five conventions (2-minute read)</summary>
       <div>
@@ -733,5 +733,16 @@ main.wsu-eit-zone { max-width: 90em; }
     </nav>
   </footer>
 </div>
+<script>
+/* SHOWCASE-ONLY curated view — does not touch the kit's CSS/JS */
+window.WSU_VIEW = {
+  id: 'readability',
+  mode: 'tune',
+  title: 'Readability \u0026 Type',
+  blurb: 'For the comms and content folks: only the settings that change how a form reads \u2014 body size, line spacing, line length, link size, the heading scale, and ink color. Nothing about shape or chrome.',
+  allow: ['bodysize', 'line', 'measure', 'linksize', 'h2size', 'h3size', 'headline', 'bodyink']
+};
+</script>
+<script src="wsu-eit-view.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,34 @@
+WSU EIT Forms — Slate deploy set (v7.1 · stamped 20260622)
+==========================================================
+
+Upload all SIX files in this folder to Slate's /shared/ folder via the
+Branding Editor, then Publish. These are the ONLY files that go live —
+the showcase, curated views, and docs in the parent 7.1/ folder are
+internal tooling and must NOT be deployed.
+
+Files (all → /shared/):
+  build.xslt            page template (links the others; ?v= stamps live here)
+  build.css             all styling — tokens, chrome, type, inputs, buttons,
+                        the Slate --fw-* override layer (§SLATEVARS), guards
+  build-fonts.css       Montserrat + icon @imports
+  wsu-eit-extras.css    11 opt-in, CSS-only components
+  wsu-eit-a11y.js       9 DOM accessibility repairs
+  wsu-eit-extras.js     5 opt-in behaviors (activate on data-eit-*)
+
+Deploy steps
+------------
+1. Branding Editor ▸ upload each file above to /shared/ (overwrite).
+2. Preview a real form in the TEST instance first — a malformed build.xslt
+   fails the transform on EVERY external page at once.
+3. Publish (Publish IS the deploy).
+4. On any LATER edit, bump the matching ?v= stamp in build.xslt, or Slate
+   serves the stale copy for up to ~15 min (nodes) / ~24 h (browser cache).
+
+Font/icon note: build-fonts.css @imports load from fonts.googleapis.com,
+fonts.gstatic.com and cdn.web.wsu.edu. If they don't load on a deployed
+page, allowlist those domains under Configuration Keys ▸ "External Domains
+for Allowed Scripts", or self-host the files in /shared/.
+
+This deploy set is stamped v7.1 (20260622). The full source, showcase,
+and docs live in the parent 7.1/ folder; README.md there has the complete
+"Deploy / Never deploy" list.

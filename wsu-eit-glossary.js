@@ -123,8 +123,11 @@
   if (about) {
     var det = document.createElement('details');
     det.className = 'gloss-legend';
+    var esc = function (s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    };
     var rows = keys.slice().sort().map(function (k) {
-      return '<dt>' + k + '</dt><dd>' + TERMS[k] + '</dd>';
+      return '<dt>' + esc(k) + '</dt><dd>' + esc(TERMS[k]) + '</dd>';
     }).join('');
     det.innerHTML = '<summary>Plain-English glossary &mdash; CSS &amp; kit terms</summary><dl>' + rows + '</dl>';
     var after = about.querySelector('.ref-legend') || about.querySelector('.ref-intro') || about.querySelector('h2');
