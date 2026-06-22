@@ -520,15 +520,15 @@ The range (1.2-1.85rem) keeps H2 visually distinct from both H1 above and H3 bel
 
 #### What It Does
 
-Font size of sub-headings (H3). Auto-capped to stay below H2 — a sub-heading never visually outsizes its parent.
+Font size of sub-headings (H3). Capped just below H2 in CSS via min()+calc() so a sub-heading never outsizes its parent — no JavaScript required.
 
 #### Accessibility (a11y)
 
-WCAG 1.3.1 requires that heading hierarchy is programmatically determinable. Visual sizing should match semantic level — if H3 looks bigger than H2, sighted users get a false hierarchy cue. The auto-cap enforces this.
+WCAG 1.3.1 requires that heading hierarchy is programmatically determinable. Visual sizing should match semantic level — if H3 looks bigger than H2, sighted users get a false hierarchy cue. The CSS-enforced cap (min() + calc()) makes this structurally impossible to misconfigure.
 
 #### Design Guidance
 
-The dynamic maximum (always < H2) prevents configuration mistakes. If you shrink H2, H3 automatically shrinks to stay subordinate.
+The h3 ≤ h2 hierarchy is enforced structurally in CSS — no runtime script needed. This follows the WSU web type scale (h2 2.1rem / h3 1.8rem in the WDS scale). The cap ensures that even if you raise h3's token, the rendered size never exceeds h2.
 
 #### References
 
@@ -1076,21 +1076,21 @@ Offset creates visual separation between the control and its focus ring, making 
 | Property | Value |
 |----------|-------|
 | **CSS Token** | `--wsu-eit-edge-hint` |
-| **Default** | `3px` |
+| **Default** | `0 (Off)` |
 | **Control type** | range |
 | **Group** | Brand cues |
 
 #### What It Does
 
-Width of the crimson left-edge hint on empty required fields. A non-text visual cue that a field still needs to be filled.
+Optional crimson left-edge cue on empty required fields. Ships Off — the asterisk already marks required. Raise to add a visual cue that clears as each field is filled.
 
 #### Accessibility (a11y)
 
-This is a SUPPLEMENTARY cue — it does NOT replace the required star (*) or aria-required='true'. WCAG 1.4.1 (Use of Color) means this red edge alone can't be the only indicator of 'required.' The kit provides: the edge (color), the star (symbol), and aria-required (programmatic). Removing the edge (0px) is safe because the other two indicators remain.
+This is a SUPPLEMENTARY cue — it does NOT replace the required star (*) or aria-required='true'. WCAG 1.4.1 (Use of Color) means this red edge alone can't be the only indicator of 'required.' The kit provides the star (symbol) and aria-required (programmatic) regardless of this setting. The default ships Off because the asterisk is sufficient; the edge is available for teams that want a stronger visual lane.
 
 #### Design Guidance
 
-The crimson edge creates a left-aligned visual 'lane' that draws the eye to incomplete fields. It appears only while the field is empty and vanishes once filled — a gentle, progressive hint rather than an error message.
+The crimson edge creates a left-aligned visual 'lane' that draws the eye to incomplete fields. It appears only while the field is empty and vanishes once filled — a gentle, progressive hint rather than an error message. Ships Off by default because the asterisk is the standard convention; enable it (3-5px) if your forms are long or users frequently miss required fields.
 
 #### References
 
