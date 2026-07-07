@@ -1,0 +1,26 @@
+WSU EIT Forms Kit — Deploy Set
+Updated: 2026-07-07
+
+Upload every file in this folder to Slate's /shared/ directory via:
+  Database ▸ Branding ▸ Branding Editor ▸ /dev
+
+These six files are the complete kit:
+
+  build.xslt          Page template (wraps every external page)
+  build-fonts.css     Montserrat + wsu-icons CDN imports
+  build.css           Core styling layer (tokens → rules)
+  wsu-eit-extras.css  11 opt-in CSS components + accent utilities
+  wsu-eit-a11y.js     9 accessibility DOM repairs
+  wsu-eit-extras.js   5 opt-in behaviors (data-eit-*)
+
+IMPORTANT:
+  • gtm-primary-container.js and google-tag-manager.js must already
+    exist in /shared/ — do not delete them. build.xslt references them.
+  • After uploading, Preview a real form in the TEST INSTANCE first.
+  • Then Publish (copies /dev → /shared/).
+  • Bump the ?v= cache stamp in build.xslt for any file you changed.
+  • See CHECKLIST.md for the full deploy workflow.
+
+NEVER DEPLOY these showcase-only files:
+  index.html, index_*.html, wsu-eit-showcase.js, wsu-eit-view.js,
+  wsu-eit-icons.js, wsu-eit-glossary.js, docs.html, *.md

@@ -156,6 +156,12 @@ Workflow: edit in `/dev` → **Preview** a real form **in the test instance** �
 | `README.md`, `RESEARCH.md` | This file, and the pattern-decision record (what the kit uses, and what it deliberately skips, with reasons). |
 | `docs.html` | Browser-rendered view of the three `.md` docs. It fetches them at runtime, so open it from a hosted or local-server copy — `file://` won't load the markdown. |
 | `SLATE-COOKBOOK.md` | Copy-paste examples for every Slate surface this kit touches — XSLT page template, conditional branding, `--fw-*` overrides, the Slate DOM contract, per-form CSS, Instructions blocks, portals + Liquid, events, deployment, and caching. The platform-integration companion to RESEARCH.md (which covers CSS/HTML pattern decisions). |
+| `REVIEW.md` | Top-to-bottom review of the kit with severity-rated findings and an implementation log of what was fixed. |
+| `TUNE-SOURCES.md` | Per-setting evidence table — every Tune control's shipped value traced to an official WSU page or captured CSS. |
+| `LIVE-SITE-NOTES.md` | Raw research notes from brand.wsu.edu and admission.wsu.edu — colors, type, stats, CTAs, patterns. |
+| `usermanual.md` | Auto-generated user manual documenting all 49 design tokens with screenshots, CSS references, a11y notes, and design guidance. Regenerate with `cd docs-generator && dotnet run`. |
+| `deploy/` | Ready-to-upload copies of the six deploy files, plus `UPLOAD-THESE.txt` (instructions) and `CHECKLIST.md` (deploy workflow). Re-sync from the parent folder before each deploy. |
+| `docs-generator/` | C# + Playwright automation that captures screenshots of every Tune card and assembles `usermanual.md`. Run `dotnet run` inside this folder to regenerate. |
 
 Brand **icons** (`wsu-eit-icon-*.svg`) and **images** (`wsu-eit-img-*.png`)
 re-host into Slate Files as needed. Names are prefixed so a filename sort
