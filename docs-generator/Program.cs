@@ -4,14 +4,14 @@
 // configurator, then assembles usermanual.md with referenced image files.
 //
 // Usage:  dotnet run [-- <path-to-index.html>]
-// Default: serves ../index.html on a local HTTP server, captures all 41
+// Default: serves ../index.html on a local HTTP server, captures all 49
 // tune-card screenshots into ../usermanual-images/, then generates ../usermanual.md.
 // ════════════════════════════════════════════════════════════════════════
 using System.Net;
 using System.Text;
 using Microsoft.Playwright;
 
-// All 41 settings in display order, matching wsu-eit-showcase.js SPEC[]
+// All 49 settings in display order, matching wsu-eit-showcase.js SPEC[]
 var Settings = new SettingInfo[]
 {
     // ── TYPE ──
@@ -26,8 +26,8 @@ var Settings = new SettingInfo[]
         "Vertical space between lines of paragraph text. Affects readability of multi-line content blocks.",
         "https://www.w3schools.com/cssref/pr_dim_line-height.php",
         "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation.html",
-        "--wsu-eit-line", "1.55",
-        "WCAG 1.4.12 Text Spacing requires that line-height can be set to at least 1.5x font size without loss of content. The kit's default of 1.55 already exceeds this. Reducing below 1.4 makes dense paragraphs harder to track for users with dyslexia or cognitive disabilities.",
+        "--wsu-eit-line", "1.6",
+        "WCAG 1.4.12 Text Spacing requires that line-height can be set to at least 1.5x font size without loss of content. The kit's default of 1.6 exceeds this. 2.0 is the documented lead-paragraph spacing. Reducing below 1.4 makes dense paragraphs harder to track for users with dyslexia or cognitive disabilities.",
         "Tight line-heights (below 1.3) cause lines to visually merge for users with tracking difficulties. The 1.5-1.6 range is the research-backed sweet spot for body copy. Headings can go tighter (1.1-1.2) because they're short."),
     new("bodyink", "Type", "Body text color", "choice",
         "The ink color for all body copy. All offered choices pass WCAG AA contrast on white backgrounds.",
@@ -75,8 +75,8 @@ var Settings = new SettingInfo[]
         "Height of the signature crimson rule that appears beneath page titles (H1 headings). A distinctive WSU brand cue.",
         "https://www.w3schools.com/cssref/pr_border-bottom.php",
         "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html",
-        "--wsu-eit-h1-bar", "4px",
-        "The bar is decorative — it doesn't convey information. Screen readers skip it entirely (it's rendered via CSS ::after with no content). Setting to 0 removes the brand cue but has no accessibility impact. The bar's crimson color meets non-text contrast requirements (3:1+ against white).",
+        "--wsu-eit-h1-bar", "3px",
+        "The bar is decorative — it doesn't convey information. Screen readers skip it entirely (it's rendered via CSS ::after with no content). Setting to 0 removes the brand cue but has no accessibility impact. The bar's crimson color meets non-text contrast requirements (3:1+ against white). 3px matches the documented stat-label crimson border thickness.",
         "This mimics the heading treatment on wsu.edu and admission.wsu.edu. It signals 'you're on a WSU page' to sighted users. The thickness range (0-12px) stays proportional to heading text."),
     new("h1barstyle", "Type", "Bar length", "choice",
         "Whether the H1 crimson bar spans the full heading width or renders as a short 'tick' mark. The centered tick is the WSU callout heading style.",
@@ -110,16 +110,16 @@ var Settings = new SettingInfo[]
         "Font size of major section headings (H2). These divide the form into logical chunks.",
         "https://www.w3schools.com/cssref/pr_font_font-size.php",
         "https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html",
-        "--wsu-eit-h2-size", "1.45rem (~23px)",
-        "Heading sizes must maintain a clear hierarchy: H1 > H2 > H3 > body. If H2 is too close to body size, the document structure becomes unclear to sighted users. The rem unit ensures headings scale with browser zoom (WCAG 1.4.4).",
-        "The range (1.2-1.85rem) keeps H2 visually distinct from both H1 above and H3 below. A modular scale (each level ~1.2x the next) creates natural rhythm."),
+        "--wsu-eit-h2-size", "2.1rem",
+        "Heading sizes must maintain a clear hierarchy: H1 > H2 > H3 > body. The WDS specifies h2 at 2.1rem (1.75rem responsive ≤991px). The slider spans this responsive range. The rem unit ensures headings scale with browser zoom (WCAG 1.4.4).",
+        "2.1rem is the WDS desktop size. The slider range (1.75-2.1rem) covers the documented responsive breakpoints."),
     new("h3size", "Type", "H3 size", "range",
         "Font size of sub-headings (H3). Capped just below H2 in CSS via min()+calc() so a sub-heading never outsizes its parent — no JavaScript required.",
         "https://www.w3schools.com/cssref/pr_font_font-size.php",
         "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html",
-        "--wsu-eit-h3-size", "1.15rem (~18px)",
-        "WCAG 1.3.1 requires that heading hierarchy is programmatically determinable. Visual sizing should match semantic level — if H3 looks bigger than H2, sighted users get a false hierarchy cue. The CSS-enforced cap (min() + calc()) makes this structurally impossible to misconfigure.",
-        "The h3 ≤ h2 hierarchy is enforced structurally in CSS — no runtime script needed. This follows the WSU web type scale (h2 2.1rem / h3 1.8rem in the WDS scale). The cap ensures that even if you raise h3's token, the rendered size never exceeds h2."),
+        "--wsu-eit-h3-size", "1.8rem",
+        "WCAG 1.3.1 requires that heading hierarchy is programmatically determinable. Visual sizing should match semantic level — if H3 looks bigger than H2, sighted users get a false hierarchy cue. The CSS-enforced cap (min() + calc()) makes this structurally impossible to misconfigure. The WDS specifies h3 at 1.8rem (1.5rem responsive).",
+        "1.8rem is the WDS desktop size. The slider range (1.5-1.8rem) covers the documented responsive breakpoints. The h3 ≤ h2 hierarchy is enforced structurally in CSS — no runtime script needed."),
     new("headline", "Type", "Heading line-height", "range",
         "Line spacing within multi-line headings. Tighter than body text because headings are short and benefit from compact vertical rhythm.",
         "https://www.w3schools.com/cssref/pr_dim_line-height.php",
@@ -134,6 +134,20 @@ var Settings = new SettingInfo[]
         "--wsu-eit-head-track", "0em (normal)",
         "WCAG 1.4.12 Text Spacing requires letter-spacing can be set to at least 0.12em without breaking layout. The kit respects user overrides. Negative tracking (tightening) can make text harder to read for users with dyslexia — use sparingly and only on large display headings.",
         "Tight tracking (-0.02em) creates a modern, dense feel. Positive tracking (+0.04em) reads more formal/editorial. Extreme values in either direction hurt legibility."),
+    new("bodyface", "Type", "Body & UI typeface", "choice",
+        "The typeface used for body text and all UI elements. Montserrat is the sole official WSU web face; Corbel/system is the documented Office substitute.",
+        "https://www.w3schools.com/cssref/pr_font_font-family.php",
+        "https://www.w3.org/WAI/WCAG21/Understanding/images-of-text.html",
+        "--wsu-eit-face", "Montserrat",
+        "WCAG 1.4.5 Images of Text prohibits images for text content. Using a real web font (Montserrat via Google Fonts) means text is real, selectable, zoomable, and readable by screen readers. The system-font fallback (Corbel/Arial) works if the CDN is unreachable.",
+        "Montserrat is the sole official WSU web typeface (brand.wsu.edu/typography). The Corbel/system option is the brand's documented Microsoft Office substitute. Both are sans-serif, maintaining the same visual rhythm."),
+    new("headface", "Type", "Heading typeface", "choice",
+        "Typeface for headings. Locked to match the body face — WSU's serif slot (FreightBig Pro) is print-only.",
+        "https://www.w3schools.com/cssref/pr_font_font-family.php",
+        "https://www.w3.org/WAI/WCAG21/Understanding/images-of-text.html",
+        "--wsu-eit-head-face", "Match body (Montserrat)",
+        "Consistent typeface across headings and body aids reading flow. WSU's brand guide reserves serif typefaces (FreightBig Pro) for print only — web headings are always Montserrat.",
+        "Locked — the web brand has a single typeface. This control exists to document the decision, not to offer alternatives."),
 
     // ── SHAPE & DENSITY ──
     new("round", "Shape & density", "Corner radius", "range",
@@ -164,13 +178,13 @@ var Settings = new SettingInfo[]
         "--wsu-eit-btn-pad-y / --wsu-eit-btn-pad-x", "Standard (.75rem / 2rem)",
         "WCAG 2.5.5 Target Size (Enhanced, AAA) requires 44x44px minimum touch targets. All three sizes meet this for typical button text. 'Compact' may fall below 44px height with short labels on high-DPI screens — test on actual devices.",
         "Compact suits dense interfaces with many actions. Standard is the universal safe choice. Large suits hero CTAs where you want one dominant action (like 'Start application')."),
-    new("btnborder", "Shape & density", "Button border", "range",
-        "The border ringing buttons. Uses the same crimson as the button fill, creating a solid-looking button even at small sizes.",
+    new("btnborder", "Shape & density", "Button border", "choice",
+        "Border on primary action buttons. Locked — WDS primary buttons are borderless; secondary buttons use 1px #b3b3b3.",
         "https://www.w3schools.com/cssref/pr_border-width.php",
         "https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html",
-        "--wsu-eit-btn-border", "2px",
-        "The border adds to the button's visual footprint and provides a crisp edge that helps it stand out from surrounding content. At 0px the button relies solely on its background fill — still accessible as long as the fill color contrasts with the page (crimson on white = 7.4:1).",
-        "2px is the WSU default — provides a definitive edge. 0px creates a 'flat' modern button. 4px creates a thick frame effect."),
+        "--wsu-eit-btn-border", "0 (Borderless)",
+        "The button's crimson fill (7.4:1 on white) provides sufficient contrast without a border. WDS primary buttons are documented as borderless. The border token exists for secondary/outline button variants.",
+        "Locked — matches the WSU Design System specification. Primary buttons use their fill color for identification, not a border."),
     new("btnweight", "Shape & density", "Button weight", "choice",
         "Font weight of button label text. Affects how prominent and readable the button's call-to-action text appears.",
         "https://www.w3schools.com/cssref/pr_font_weight.php",
@@ -199,13 +213,13 @@ var Settings = new SettingInfo[]
         "--wsu-eit-label-weight", "600 (Semibold)",
         "WCAG 3.3.2 Labels or Instructions requires visible labels for all form inputs. Heavier label weights make labels more visually distinct from help text and placeholder text, reducing the chance users skip over them.",
         "Regular (400) creates a quiet, minimal aesthetic but can make labels blend into surrounding text. Semibold (600) clearly distinguishes labels. Bold (700) makes labels dominant in the visual hierarchy."),
-    new("labelsize", "Shape & density", "Label size", "range",
-        "Font size of question labels. Adjust relative to body text — labels should be prominent but not overwhelming.",
+    new("labelsize", "Shape & density", "Label size", "choice",
+        "Font size of question labels. Locked at the documented label size.",
         "https://www.w3schools.com/cssref/pr_font_font-size.php",
         "https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html",
-        "--wsu-eit-label-size", "0.95rem (~15px)",
-        "Labels must be large enough to read comfortably. Below 0.85rem (~13.6px) labels become hard to read for users with mild vision impairment. The rem unit ensures labels scale with browser zoom.",
-        "Labels slightly smaller than body text (0.95rem) create hierarchy without shouting. At 1.0rem they match body text exactly. At 1.1rem they dominate — useful for forms where field identification is critical."),
+        "--wsu-eit-label-size", ".875rem (14px)",
+        "Labels must be large enough to read comfortably. The 14px documented size is the WSU form convention. The rem unit ensures labels scale with browser zoom (WCAG 1.4.4).",
+        "Locked — matches the documented label size from the WSU component library (wsu-c-form)."),
     new("textareah", "Shape & density", "Textarea height", "range",
         "Minimum height of multi-line text boxes (textareas). Sets the visual expectation of how much text is expected.",
         "https://www.w3schools.com/tags/att_textarea_rows.asp",
@@ -213,13 +227,13 @@ var Settings = new SettingInfo[]
         "--wsu-eit-textarea-h", "7rem",
         "A generous default height signals 'write more than a sentence.' Too-small textareas (2.5rem = single line height) discourage responses and confuse the expectation. Users can always resize, but the initial height sets the psychological frame.",
         "Match height to expected response length: 2.5-4rem for short answers (1-2 sentences), 7rem for paragraphs (personal statements, essays), 10-12rem for long-form responses."),
-    new("choicesize", "Shape & density", "Checkbox size", "range",
-        "Size of radio buttons and checkboxes. Larger targets are easier to tap on touch devices.",
+    new("choicesize", "Shape & density", "Checkbox size", "choice",
+        "Size of radio buttons and checkboxes. Locked at the documented control size (22x22px).",
         "https://www.w3schools.com/cssref/pr_dim_width.php",
         "https://www.w3.org/WAI/WCAG21/Understanding/target-size-enhanced.html",
-        "--wsu-eit-choice-size", "1.15rem (~18px)",
-        "WCAG 2.5.5 requires 44x44px targets. While the visual checkbox may be 18px, the clickable label area around it typically meets the 44px requirement. Larger checkboxes (1.3-1.5rem) improve precision for users with motor impairments and are easier to see for users with low vision.",
-        "Browser-default checkboxes are typically 13-16px. The kit enlarges them for touch accessibility. The range (1.0-1.5rem) keeps them proportional to their labels."),
+        "--wsu-eit-choice-size", "1.375rem (22px)",
+        "WCAG 2.5.5 requires 44x44px targets. The visual checkbox is 22px but the clickable label area around it meets the 44px requirement. The 22px size matches the WSU component library specification.",
+        "Locked — matches the documented checkbox/radio size from the WSU component library (wsu-c-form: 22×22)."),
 
     // ── BRAND CUES ──
     new("focus", "Brand cues", "Focus ring width", "range",
@@ -244,12 +258,12 @@ var Settings = new SettingInfo[]
         "Offset creates visual separation between the control and its focus ring, making the ring more noticeable. At 0px the ring touches the element — still accessible but less visually distinct. Large offsets (>5px) can cause the ring to overlap adjacent elements, creating confusion about which element is focused.",
         "2px is the standard — enough separation to be clear without encroaching on neighbors. 0px for a tight, modern look. 3-5px for maximum visibility."),
     new("edge", "Brand cues", "Required-field edge", "range",
-        "Optional crimson left-edge cue on empty required fields. Ships Off — the asterisk already marks required. Raise to add a visual cue that clears as each field is filled.",
+        "The crimson left-edge on required fields — straight from the live form spec. The kit refines it: the edge clears once the field is answered.",
         "https://www.w3schools.com/cssref/pr_border-left.php",
         "https://www.w3.org/WAI/WCAG21/Understanding/error-identification.html",
-        "--wsu-eit-edge-hint", "0 (Off)",
-        "This is a SUPPLEMENTARY cue — it does NOT replace the required star (*) or aria-required='true'. WCAG 1.4.1 (Use of Color) means this red edge alone can't be the only indicator of 'required.' The kit provides the star (symbol) and aria-required (programmatic) regardless of this setting. The default ships Off because the asterisk is sufficient; the edge is available for teams that want a stronger visual lane.",
-        "The crimson edge creates a left-aligned visual 'lane' that draws the eye to incomplete fields. It appears only while the field is empty and vanishes once filled — a gentle, progressive hint rather than an error message. Ships Off by default because the asterisk is the standard convention; enable it (3-5px) if your forms are long or users frequently miss required fields."),
+        "--wsu-eit-edge-hint", "2px",
+        "This is a SUPPLEMENTARY cue — it does NOT replace the required star (*) or aria-required='true'. WCAG 1.4.1 (Use of Color) means this red edge alone can't be the only indicator of 'required.' The kit provides the star (symbol) and aria-required (programmatic) regardless. The 2px value comes from the documented wsu-c-form spec (required inputs: border-left 2px solid #A60F2D). Set to 0 to remove.",
+        "The crimson edge creates a left-aligned visual 'lane' that draws the eye to incomplete required fields. The kit refines the raw spec: the edge appears while the field is empty and vanishes once filled — a progressive hint, not a static label. 2px matches the documented component spec."),
     new("star", "Brand cues", "Required star color", "choice",
         "Color of the asterisk (*) that marks required fields. Both options maintain sufficient contrast.",
         "https://www.w3schools.com/cssref/pr_text_color.php",
@@ -264,13 +278,6 @@ var Settings = new SettingInfo[]
         "--wsu-eit-star-size", "1em (same as label)",
         "Larger stars (1.2-1.4em) are easier to perceive for users with low vision. However, very large stars can visually dominate the label text, drawing attention away from the field name itself.",
         "1em blends with the label text. 1.2em adds slight emphasis. 1.4em makes the star a strong visual signal — useful if your audience frequently misses required fields."),
-    new("selection", "Brand cues", "Text selection", "choice",
-        "Highlight color when a visitor selects (drags over) text on the page. A subtle brand touchpoint.",
-        "https://www.w3schools.com/cssref/sel_selection.php",
-        "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html",
-        "--wsu-eit-select-bg / --wsu-eit-select-fg", "Goldfinch (yellow highlight)",
-        "Selected text must remain readable — the foreground/background combination must maintain sufficient contrast. Goldfinch (yellow bg, dark text) = excellent contrast. Crimson (red bg, white text) = good contrast. Gray (gray bg, dark text) = good contrast. All shipped options are safe.",
-        "Goldfinch creates a highlighter-pen effect — warm, readable, brand-adjacent (it's an official WSU accent color). Crimson is strongly branded. Gray is neutral/institutional."),
     new("topbarrule", "Brand cues", "Topbar hairline", "range",
         "Height of the thin crimson rule across the very top of every page — the first thing a user's eye hits. A signature WSU brand element.",
         "https://www.w3schools.com/cssref/pr_border-top.php",
@@ -280,20 +287,20 @@ var Settings = new SettingInfo[]
         "The hairline appears on wsu.edu and admission.wsu.edu. It's a subtle 'you're on a WSU page' signal. 4px is the default; up to 10px creates a bolder brand stripe."),
 
     // ── PAGE ──
-    new("col", "Page", "Content width", "range",
-        "Maximum width of the centered content column. Controls how much of the viewport the form occupies on wide screens.",
+    new("col", "Page", "Content width", "choice",
+        "Maximum width of the centered content column, using the five documented WDS width presets.",
         "https://www.w3schools.com/cssref/pr_dim_max-width.php",
         "https://www.w3.org/WAI/WCAG21/Understanding/reflow.html",
-        "--wsu-eit-col", "75rem (1200px)",
-        "WCAG 1.4.10 Reflow requires content to be usable at 320px width (no horizontal scrolling). The kit handles this via responsive design, not this token. This token only sets the MAXIMUM — on narrow screens, content always fills the viewport. 'Off' removes the max-width entirely, running content full-bleed on wide monitors (poor readability at 2560px+).",
-        "1200px is the web standard for content width. Narrower (56rem = 896px) creates a focused reading experience. Wider (96rem = 1536px) uses more screen on ultrawide monitors but may push line lengths past comfortable limits (use with --wsu-eit-measure to constrain paragraphs independently)."),
-    new("pagepad", "Page", "Content padding", "range",
-        "Vertical breathing room (padding) above and below the content column. Creates whitespace between the topbar/footer and the form content.",
+        "--wsu-eit-col", "75rem (1200px wide)",
+        "WCAG 1.4.10 Reflow requires content to be usable at 320px width (no horizontal scrolling). The kit handles this via responsive design. This token only sets the MAXIMUM — on narrow screens, content always fills the viewport. The five presets (600/800/1000/1200/1400) are the documented WDS width values.",
+        "600px (xnarrow) for focused reading. 800px (narrow) for simple forms. 1000px (medium) for standard layouts. 1200px (wide, default) for most pages. 1400px (xwide) for dashboards or data-heavy layouts."),
+    new("pagepad", "Page", "Content padding", "choice",
+        "Vertical breathing room (padding) above and below the content column, using the documented WDS spacing scale. Ships Off (0) since no official page-padding value is captured.",
         "https://www.w3schools.com/cssref/pr_padding.php",
         "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation.html",
-        "--wsu-eit-page-pad", "2.5rem",
-        "Generous padding helps users with cognitive disabilities by reducing visual clutter and creating clear content boundaries. Reducing to minimum (0.5rem) packs content tightly, which can feel overwhelming. No specific WCAG requirement, but it contributes to overall 'cognitive accessibility.'",
-        "2.5rem gives the content room to breathe. Smaller values (0.5-1rem) suit embedded contexts where the form appears inside another page. Larger values (3-4rem) create a premium, spacious feel."),
+        "--wsu-eit-page-pad", "0 (Off)",
+        "Generous padding helps users with cognitive disabilities by reducing visual clutter and creating clear content boundaries. No specific WCAG requirement, but it contributes to overall cognitive accessibility. The options follow the documented WDS spacing scale.",
+        "Ships at 0 (Off) since no official page-padding value is documented. Enable with the WDS spacing scale: small (1rem), medium (2rem), med-lg (3rem), large (4rem), or xlarge (6rem)."),
     new("paper", "Page", "Content paper", "choice",
         "Background color of the content column itself — the 'paper' that form questions sit on.",
         "https://www.w3schools.com/cssref/pr_background-color.php",
@@ -308,6 +315,57 @@ var Settings = new SettingInfo[]
         "--wsu-eit-wash", "#f5f5f5 (Light gray)",
         "The wash doesn't contain text directly, so text contrast requirements don't apply to it. However, the contrast between wash and paper helps users perceive the content column boundaries. Light gray (#f5f5f5) against white (#ffffff) is subtle; Cool gray (#eff0f1) is slightly more distinct. White-on-white ('Off') removes the column distinction entirely.",
         "A visible backdrop frames the content and signals 'this is the form area.' It's especially helpful on wide screens where the content column doesn't span the full viewport."),
+
+    // ── DISPLAY & PATTERNS ──
+    new("dispstroke", "Display & patterns", "Display outline", "range",
+        "Stroke width of the display/hero text. 0 = solid filled lettering; 1-5px = outlined lettering. Outlined is the documented preference.",
+        "https://www.w3schools.com/cssref/css3_pr_text-stroke.php",
+        "https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html",
+        "--wsu-eit-display-stroke / --wsu-eit-display-fill", "2px (Outlined)",
+        "Display text is typically large enough that thin outlines remain readable. Outlined text at 0.5-1px may become hard to read at small sizes or on low-DPI screens. At 2px+ the stroke is clearly visible. 'Off' (0) renders solid-filled lettering — also approved by the brand guide.",
+        "Outlined lettering is the documented preference in the EM Visual Style Guide ('outlined preferred, solid acceptable'). The stroke thickness is matched to the guide's own artwork."),
+    new("dispsize", "Display & patterns", "Display size", "range",
+        "Font size of the display/hero text. The documented hero-display range tops out at 5rem.",
+        "https://www.w3schools.com/cssref/pr_font_font-size.php",
+        "https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html",
+        "--wsu-eit-display-size", "4.5rem",
+        "Large display text is decorative/hero content. WCAG 1.4.4 Resize Text still applies — the rem unit ensures it scales with browser zoom. At 5rem on a 320px screen the text may overflow; the kit handles this with responsive sizing.",
+        "The WDS hero title range is 4.5-5rem. The EM guide says 'make type large and impactful.' Smaller values (2.5-3rem) work for secondary display text."),
+    new("disptrack", "Display & patterns", "Display tracking", "range",
+        "Letter-spacing on the display/hero text. Negative values tighten; positive values spread.",
+        "https://www.w3schools.com/cssref/pr_text_letter-spacing.php",
+        "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html",
+        "--wsu-eit-display-track", "-0.01em",
+        "WCAG 1.4.12 Text Spacing allows users to override letter-spacing to 0.12em. The kit respects user overrides. Negative tracking on large display text is a common design choice that doesn't meaningfully impact accessibility at hero sizes.",
+        "No official tracking value is documented — ships at browser default. Tight tracking (-0.02 to -0.04em) creates a dense, impactful feel. Loose tracking (+0.02 to +0.04em) adds formality."),
+    new("dispcolor", "Display & patterns", "Display color", "choice",
+        "Color of the display/hero text. Crimson matches the EM artwork; Light Gray matches the guide's background texture swatch.",
+        "https://www.w3schools.com/cssref/pr_text_color.php",
+        "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html",
+        "--wsu-eit-display-color", "Crimson",
+        "Display text is large enough that the 3:1 contrast ratio for large text (WCAG 1.4.3) applies rather than the 4.5:1 for normal text. Crimson on white = 7.4:1 (exceeds both). Light Gray #CCC9C8 on white = 1.8:1 — intended as a background texture, not readable text.",
+        "Crimson matches the EM guide artwork. Light Gray is the 2025 Cheat Sheet swatch (#CCC9C8), used as a subtle background element rather than readable text."),
+    new("patcolor", "Display & patterns", "Pattern color", "choice",
+        "Color of the brand pattern texture overlay. Patterns may only use approved brand colors.",
+        "https://www.w3schools.com/cssref/pr_text_color.php",
+        "https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html",
+        "--wsu-eit-pattern-color", "Crimson",
+        "Patterns are purely decorative and do not convey information, so WCAG contrast requirements for text don't apply. However, overly strong patterns can interfere with text readability — hence the separate opacity control.",
+        "The EM guide rule: patterns only in approved brand colors. brand.wsu.edu renders them in Light Gray on its imagery page. Crimson is the default for maximum brand impact."),
+    new("patopacity", "Display & patterns", "Pattern strength", "range",
+        "Opacity of the brand pattern overlay. Visually matched to the official pattern swatches (light on white).",
+        "https://www.w3schools.com/cssref/css3_pr_opacity.php",
+        "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html",
+        "--wsu-eit-pattern-opacity", "10%",
+        "Patterns must not interfere with text readability. At 10% (the default), the pattern is a subtle texture that doesn't affect text contrast. Above 20%, the pattern becomes visually prominent and may compete with body text — check contrast ratios. 'Off' (0%) hides the pattern entirely.",
+        "Matched to the brand.wsu.edu/imagery swatch appearance. 3-10% is subtle texture. 10-20% is visible pattern. Above 20% is bold and should only be used on hero/display areas without body text."),
+    new("patscale", "Display & patterns", "Pattern scale", "range",
+        "Tile size of the brand pattern texture. 1x = the artwork's own authored scale.",
+        "https://www.w3schools.com/cssref/css3_pr_background-size.php",
+        "https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html",
+        "--wsu-eit-pattern-scale", "1x",
+        "Pattern scale is purely decorative. Very small scales (0.5x) can create moiré effects on some screens. Very large scales (2x) may make the pattern look blocky. 1x preserves the artist's intended detail level.",
+        "0.5x creates a fine, dense texture. 1x preserves the original artwork scale. 2x creates a large, bold pattern — suitable for hero sections."),
 };
 
 var repoRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
@@ -350,7 +408,7 @@ Console.WriteLine("[2/4] Launching headless Chromium...");
 using var playwright = await Playwright.CreateAsync();
 await using var browser = await playwright.Chromium.LaunchAsync(new() { Headless = true });
 
-Console.WriteLine("[3/4] Capturing screenshots of all 41 settings...");
+Console.WriteLine("[3/4] Capturing screenshots of all 49 settings...");
 Console.WriteLine();
 
 var screenshots = new Dictionary<string, string>(); // id -> base64 png
@@ -430,7 +488,7 @@ static string GenerateMarkdown(SettingInfo[] settings, Dictionary<string, string
     sb.AppendLine();
     sb.AppendLine("## What This Guide Covers");
     sb.AppendLine();
-    sb.AppendLine("The FreeSlate kit exposes **41 design tokens** — CSS custom properties in `build.css` section `TOKENS` —");
+    sb.AppendLine("The FreeSlate kit exposes **49 design tokens** — CSS custom properties in `build.css` section `TOKENS` —");
     sb.AppendLine("that let you customize the look and feel of every Slate form page without touching any component code.");
     sb.AppendLine("Think of them as a character creator: move any slider, you still can't leave the WSU brand.");
     sb.AppendLine();
@@ -539,7 +597,7 @@ static string GenerateMarkdown(SettingInfo[] settings, Dictionary<string, string
     sb.AppendLine();
     sb.AppendLine("| Topic | Link | Relevant Tokens |");
     sb.AppendLine("|-------|------|-----------------|");
-    sb.AppendLine("| CSS Custom Properties | [CSS Variables](https://www.w3schools.com/css/css3_variables.asp) | All 41 tokens — this is the mechanism |");
+    sb.AppendLine("| CSS Custom Properties | [CSS Variables](https://www.w3schools.com/css/css3_variables.asp) | All 49 tokens — this is the mechanism |");
     sb.AppendLine("| The `var()` function | [var() Reference](https://www.w3schools.com/cssref/func_var.php) | How rules read token values |");
     sb.AppendLine("| `:root` selector | [:root Reference](https://www.w3schools.com/cssref/sel_root.php) | Where tokens are declared in build.css |");
     sb.AppendLine("| `font-size` | [font-size](https://www.w3schools.com/cssref/pr_font_font-size.php) | Body text size, H2/H3 size, link/label size |");
@@ -646,7 +704,7 @@ static string GenerateMarkdown(SettingInfo[] settings, Dictionary<string, string
     sb.AppendLine("  │ HttpListener │     │  Playwright  │     │  Markdown         │");
     sb.AppendLine("  │ serves       │────►│  headless    │────►│  generator        │");
     sb.AppendLine("  │ index.html   │     │  Chromium    │     │                   │");
-    sb.AppendLine("  │ on :8799     │     │              │     │  41 settings      │");
+    sb.AppendLine("  │ on :8799     │     │              │     │  49 settings      │");
     sb.AppendLine("  └──────────────┘     │  screenshots │     │  + images → PNG   │");
     sb.AppendLine("                       │  each card   │     │  + property table │");
     sb.AppendLine("                       └──────────────┘     │  + a11y notes     │");

@@ -5,7 +5,7 @@
 
 ## What This Guide Covers
 
-The FreeSlate kit exposes **41 design tokens** — CSS custom properties in `build.css` section `TOKENS` —
+The FreeSlate kit exposes **49 design tokens** — CSS custom properties in `build.css` section `TOKENS` —
 that let you customize the look and feel of every Slate form page without touching any component code.
 Think of them as a character creator: move any slider, you still can't leave the WSU brand.
 
@@ -40,33 +40,42 @@ Each setting below includes:
 - [15. H3 size](#h3size)
 - [16. Heading line-height](#headline)
 - [17. Heading letter-spacing](#headtrack)
+- [18. Body & UI typeface](#bodyface)
+- [19. Heading typeface](#headface)
 ### Shape & density
-- [18. Corner radius](#round)
-- [19. Input border width](#inputborder)
-- [20. Field fill](#inputbg)
-- [21. Button size](#btnsize)
-- [22. Button border](#btnborder)
-- [23. Button weight](#btnweight)
-- [24. Button text case](#btncase)
-- [25. Field density](#density)
-- [26. Label weight](#labelweight)
-- [27. Label size](#labelsize)
-- [28. Textarea height](#textareah)
-- [29. Checkbox size](#choicesize)
+- [20. Corner radius](#round)
+- [21. Input border width](#inputborder)
+- [22. Field fill](#inputbg)
+- [23. Button size](#btnsize)
+- [24. Button border](#btnborder)
+- [25. Button weight](#btnweight)
+- [26. Button text case](#btncase)
+- [27. Field density](#density)
+- [28. Label weight](#labelweight)
+- [29. Label size](#labelsize)
+- [30. Textarea height](#textareah)
+- [31. Checkbox size](#choicesize)
 ### Brand cues
-- [30. Focus ring width](#focus)
-- [31. Focus ring color](#focuscolor)
-- [32. Focus ring offset](#focusoffset)
-- [33. Required-field edge](#edge)
-- [34. Required star color](#star)
-- [35. Required star size](#starsize)
-- [36. Text selection](#selection)
-- [37. Topbar hairline](#topbarrule)
+- [32. Focus ring width](#focus)
+- [33. Focus ring color](#focuscolor)
+- [34. Focus ring offset](#focusoffset)
+- [35. Required-field edge](#edge)
+- [36. Required star color](#star)
+- [37. Required star size](#starsize)
+- [38. Topbar hairline](#topbarrule)
 ### Page
-- [38. Content width](#col)
-- [39. Content padding](#pagepad)
-- [40. Content paper](#paper)
-- [41. Page backdrop](#wash)
+- [39. Content width](#col)
+- [40. Content padding](#pagepad)
+- [41. Content paper](#paper)
+- [42. Page backdrop](#wash)
+### Display & patterns
+- [43. Display outline](#dispstroke)
+- [44. Display size](#dispsize)
+- [45. Display tracking](#disptrack)
+- [46. Display color](#dispcolor)
+- [47. Pattern color](#patcolor)
+- [48. Pattern strength](#patopacity)
+- [49. Pattern scale](#patscale)
 
 ---
 
@@ -111,7 +120,7 @@ Users with low vision rely on browser font-size settings. Using rem (relative to
 | Property | Value |
 |----------|-------|
 | **CSS Token** | `--wsu-eit-line` |
-| **Default** | `1.55` |
+| **Default** | `1.6` |
 | **Control type** | range |
 | **Group** | Type |
 
@@ -121,7 +130,7 @@ Vertical space between lines of paragraph text. Affects readability of multi-lin
 
 #### Accessibility (a11y)
 
-WCAG 1.4.12 Text Spacing requires that line-height can be set to at least 1.5x font size without loss of content. The kit's default of 1.55 already exceeds this. Reducing below 1.4 makes dense paragraphs harder to track for users with dyslexia or cognitive disabilities.
+WCAG 1.4.12 Text Spacing requires that line-height can be set to at least 1.5x font size without loss of content. The kit's default of 1.6 exceeds this. 2.0 is the documented lead-paragraph spacing. Reducing below 1.4 makes dense paragraphs harder to track for users with dyslexia or cognitive disabilities.
 
 #### Design Guidance
 
@@ -328,7 +337,7 @@ Research (Baymard Institute, NNGroup) consistently shows 50-75 characters per li
 | Property | Value |
 |----------|-------|
 | **CSS Token** | `--wsu-eit-h1-bar` |
-| **Default** | `4px` |
+| **Default** | `3px` |
 | **Control type** | range |
 | **Group** | Type |
 
@@ -338,7 +347,7 @@ Height of the signature crimson rule that appears beneath page titles (H1 headin
 
 #### Accessibility (a11y)
 
-The bar is decorative — it doesn't convey information. Screen readers skip it entirely (it's rendered via CSS ::after with no content). Setting to 0 removes the brand cue but has no accessibility impact. The bar's crimson color meets non-text contrast requirements (3:1+ against white).
+The bar is decorative — it doesn't convey information. Screen readers skip it entirely (it's rendered via CSS ::after with no content). Setting to 0 removes the brand cue but has no accessibility impact. The bar's crimson color meets non-text contrast requirements (3:1+ against white). 3px matches the documented stat-label crimson border thickness.
 
 #### Design Guidance
 
@@ -483,7 +492,7 @@ Crimson headings create a stronger brand presence but can feel heavy in forms wi
 | Property | Value |
 |----------|-------|
 | **CSS Token** | `--wsu-eit-h2-size` |
-| **Default** | `1.45rem (~23px)` |
+| **Default** | `2.1rem` |
 | **Control type** | range |
 | **Group** | Type |
 
@@ -493,11 +502,11 @@ Font size of major section headings (H2). These divide the form into logical chu
 
 #### Accessibility (a11y)
 
-Heading sizes must maintain a clear hierarchy: H1 > H2 > H3 > body. If H2 is too close to body size, the document structure becomes unclear to sighted users. The rem unit ensures headings scale with browser zoom (WCAG 1.4.4).
+Heading sizes must maintain a clear hierarchy: H1 > H2 > H3 > body. The WDS specifies h2 at 2.1rem (1.75rem responsive ≤991px). The slider spans this responsive range. The rem unit ensures headings scale with browser zoom (WCAG 1.4.4).
 
 #### Design Guidance
 
-The range (1.2-1.85rem) keeps H2 visually distinct from both H1 above and H3 below. A modular scale (each level ~1.2x the next) creates natural rhythm.
+2.1rem is the WDS desktop size. The slider range (1.75-2.1rem) covers the documented responsive breakpoints.
 
 #### References
 
@@ -514,7 +523,7 @@ The range (1.2-1.85rem) keeps H2 visually distinct from both H1 above and H3 bel
 | Property | Value |
 |----------|-------|
 | **CSS Token** | `--wsu-eit-h3-size` |
-| **Default** | `1.15rem (~18px)` |
+| **Default** | `1.8rem` |
 | **Control type** | range |
 | **Group** | Type |
 
@@ -524,11 +533,11 @@ Font size of sub-headings (H3). Capped just below H2 in CSS via min()+calc() so 
 
 #### Accessibility (a11y)
 
-WCAG 1.3.1 requires that heading hierarchy is programmatically determinable. Visual sizing should match semantic level — if H3 looks bigger than H2, sighted users get a false hierarchy cue. The CSS-enforced cap (min() + calc()) makes this structurally impossible to misconfigure.
+WCAG 1.3.1 requires that heading hierarchy is programmatically determinable. Visual sizing should match semantic level — if H3 looks bigger than H2, sighted users get a false hierarchy cue. The CSS-enforced cap (min() + calc()) makes this structurally impossible to misconfigure. The WDS specifies h3 at 1.8rem (1.5rem responsive).
 
 #### Design Guidance
 
-The h3 ≤ h2 hierarchy is enforced structurally in CSS — no runtime script needed. This follows the WSU web type scale (h2 2.1rem / h3 1.8rem in the WDS scale). The cap ensures that even if you raise h3's token, the rendered size never exceeds h2.
+1.8rem is the WDS desktop size. The slider range (1.5-1.8rem) covers the documented responsive breakpoints. The h3 ≤ h2 hierarchy is enforced structurally in CSS — no runtime script needed.
 
 #### References
 
@@ -599,10 +608,72 @@ Tight tracking (-0.02em) creates a modern, dense feel. Positive tracking (+0.04e
 
 ---
 
+<a id="bodyface"></a>
+### 18. Body & UI typeface
+
+![Body & UI typeface configurator card](usermanual-images/bodyface.png)
+
+| Property | Value |
+|----------|-------|
+| **CSS Token** | `--wsu-eit-face` |
+| **Default** | `Montserrat` |
+| **Control type** | choice |
+| **Group** | Type |
+
+#### What It Does
+
+The typeface used for body text and all UI elements. Montserrat is the sole official WSU web face; Corbel/system is the documented Office substitute.
+
+#### Accessibility (a11y)
+
+WCAG 1.4.5 Images of Text prohibits images for text content. Using a real web font (Montserrat via Google Fonts) means text is real, selectable, zoomable, and readable by screen readers. The system-font fallback (Corbel/Arial) works if the CDN is unreachable.
+
+#### Design Guidance
+
+Montserrat is the sole official WSU web typeface (brand.wsu.edu/typography). The Corbel/system option is the brand's documented Microsoft Office substitute. Both are sans-serif, maintaining the same visual rhythm.
+
+#### References
+
+- **CSS property:** [https://www.w3schools.com/cssref/pr_font_font-family.php](https://www.w3schools.com/cssref/pr_font_font-family.php)
+- **WCAG Understanding:** [https://www.w3.org/WAI/WCAG21/Understanding/images-of-text.html](https://www.w3.org/WAI/WCAG21/Understanding/images-of-text.html)
+
+---
+
+<a id="headface"></a>
+### 19. Heading typeface
+
+![Heading typeface configurator card](usermanual-images/headface.png)
+
+| Property | Value |
+|----------|-------|
+| **CSS Token** | `--wsu-eit-head-face` |
+| **Default** | `Match body (Montserrat)` |
+| **Control type** | choice |
+| **Group** | Type |
+
+#### What It Does
+
+Typeface for headings. Locked to match the body face — WSU's serif slot (FreightBig Pro) is print-only.
+
+#### Accessibility (a11y)
+
+Consistent typeface across headings and body aids reading flow. WSU's brand guide reserves serif typefaces (FreightBig Pro) for print only — web headings are always Montserrat.
+
+#### Design Guidance
+
+Locked — the web brand has a single typeface. This control exists to document the decision, not to offer alternatives.
+
+#### References
+
+- **CSS property:** [https://www.w3schools.com/cssref/pr_font_font-family.php](https://www.w3schools.com/cssref/pr_font_font-family.php)
+- **WCAG Understanding:** [https://www.w3.org/WAI/WCAG21/Understanding/images-of-text.html](https://www.w3.org/WAI/WCAG21/Understanding/images-of-text.html)
+
+---
+
 ## Shape & density
 
 <a id="round"></a>
-### 18. Corner radius
+### 20. Corner radius
 
 ![Corner radius configurator card](usermanual-images/round.png)
 
@@ -633,7 +704,7 @@ No direct WCAG requirement for corner radius. However, extremely rounded inputs 
 ---
 
 <a id="inputborder"></a>
-### 19. Input border width
+### 21. Input border width
 
 ![Input border width configurator card](usermanual-images/inputborder.png)
 
@@ -664,7 +735,7 @@ WCAG 1.4.11 Non-text Contrast requires UI components to have at least 3:1 contra
 ---
 
 <a id="inputbg"></a>
-### 20. Field fill
+### 22. Field fill
 
 ![Field fill configurator card](usermanual-images/inputbg.png)
 
@@ -695,7 +766,7 @@ White fields on a white page rely entirely on borders for identification. Mist-g
 ---
 
 <a id="btnsize"></a>
-### 21. Button size
+### 23. Button size
 
 ![Button size configurator card](usermanual-images/btnsize.png)
 
@@ -726,28 +797,28 @@ Compact suits dense interfaces with many actions. Standard is the universal safe
 ---
 
 <a id="btnborder"></a>
-### 22. Button border
+### 24. Button border
 
 ![Button border configurator card](usermanual-images/btnborder.png)
 
 | Property | Value |
 |----------|-------|
 | **CSS Token** | `--wsu-eit-btn-border` |
-| **Default** | `2px` |
-| **Control type** | range |
+| **Default** | `0 (Borderless)` |
+| **Control type** | choice |
 | **Group** | Shape & density |
 
 #### What It Does
 
-The border ringing buttons. Uses the same crimson as the button fill, creating a solid-looking button even at small sizes.
+Border on primary action buttons. Locked — WDS primary buttons are borderless; secondary buttons use 1px #b3b3b3.
 
 #### Accessibility (a11y)
 
-The border adds to the button's visual footprint and provides a crisp edge that helps it stand out from surrounding content. At 0px the button relies solely on its background fill — still accessible as long as the fill color contrasts with the page (crimson on white = 7.4:1).
+The button's crimson fill (7.4:1 on white) provides sufficient contrast without a border. WDS primary buttons are documented as borderless. The border token exists for secondary/outline button variants.
 
 #### Design Guidance
 
-2px is the WSU default — provides a definitive edge. 0px creates a 'flat' modern button. 4px creates a thick frame effect.
+Locked — matches the WSU Design System specification. Primary buttons use their fill color for identification, not a border.
 
 #### References
 
@@ -757,7 +828,7 @@ The border adds to the button's visual footprint and provides a crisp edge that 
 ---
 
 <a id="btnweight"></a>
-### 23. Button weight
+### 25. Button weight
 
 ![Button weight configurator card](usermanual-images/btnweight.png)
 
@@ -788,7 +859,7 @@ Medium (500) feels light and modern. Semibold (600) is the shipped standard — 
 ---
 
 <a id="btncase"></a>
-### 24. Button text case
+### 26. Button text case
 
 ![Button text case configurator card](usermanual-images/btncase.png)
 
@@ -819,7 +890,7 @@ Normal case is friendlier and more readable. UPPERCASE reads as more formal/inst
 ---
 
 <a id="density"></a>
-### 25. Field density
+### 27. Field density
 
 ![Field density configurator card](usermanual-images/density.png)
 
@@ -850,7 +921,7 @@ Compact suits long applications (many questions). Standard is the safe default. 
 ---
 
 <a id="labelweight"></a>
-### 26. Label weight
+### 28. Label weight
 
 ![Label weight configurator card](usermanual-images/labelweight.png)
 
@@ -881,28 +952,28 @@ Regular (400) creates a quiet, minimal aesthetic but can make labels blend into 
 ---
 
 <a id="labelsize"></a>
-### 27. Label size
+### 29. Label size
 
 ![Label size configurator card](usermanual-images/labelsize.png)
 
 | Property | Value |
 |----------|-------|
 | **CSS Token** | `--wsu-eit-label-size` |
-| **Default** | `0.95rem (~15px)` |
-| **Control type** | range |
+| **Default** | `.875rem (14px)` |
+| **Control type** | choice |
 | **Group** | Shape & density |
 
 #### What It Does
 
-Font size of question labels. Adjust relative to body text — labels should be prominent but not overwhelming.
+Font size of question labels. Locked at the documented label size.
 
 #### Accessibility (a11y)
 
-Labels must be large enough to read comfortably. Below 0.85rem (~13.6px) labels become hard to read for users with mild vision impairment. The rem unit ensures labels scale with browser zoom.
+Labels must be large enough to read comfortably. The 14px documented size is the WSU form convention. The rem unit ensures labels scale with browser zoom (WCAG 1.4.4).
 
 #### Design Guidance
 
-Labels slightly smaller than body text (0.95rem) create hierarchy without shouting. At 1.0rem they match body text exactly. At 1.1rem they dominate — useful for forms where field identification is critical.
+Locked — matches the documented label size from the WSU component library (wsu-c-form).
 
 #### References
 
@@ -912,7 +983,7 @@ Labels slightly smaller than body text (0.95rem) create hierarchy without shouti
 ---
 
 <a id="textareah"></a>
-### 28. Textarea height
+### 30. Textarea height
 
 ![Textarea height configurator card](usermanual-images/textareah.png)
 
@@ -943,28 +1014,28 @@ Match height to expected response length: 2.5-4rem for short answers (1-2 senten
 ---
 
 <a id="choicesize"></a>
-### 29. Checkbox size
+### 31. Checkbox size
 
 ![Checkbox size configurator card](usermanual-images/choicesize.png)
 
 | Property | Value |
 |----------|-------|
 | **CSS Token** | `--wsu-eit-choice-size` |
-| **Default** | `1.15rem (~18px)` |
-| **Control type** | range |
+| **Default** | `1.375rem (22px)` |
+| **Control type** | choice |
 | **Group** | Shape & density |
 
 #### What It Does
 
-Size of radio buttons and checkboxes. Larger targets are easier to tap on touch devices.
+Size of radio buttons and checkboxes. Locked at the documented control size (22x22px).
 
 #### Accessibility (a11y)
 
-WCAG 2.5.5 requires 44x44px targets. While the visual checkbox may be 18px, the clickable label area around it typically meets the 44px requirement. Larger checkboxes (1.3-1.5rem) improve precision for users with motor impairments and are easier to see for users with low vision.
+WCAG 2.5.5 requires 44x44px targets. The visual checkbox is 22px but the clickable label area around it meets the 44px requirement. The 22px size matches the WSU component library specification.
 
 #### Design Guidance
 
-Browser-default checkboxes are typically 13-16px. The kit enlarges them for touch accessibility. The range (1.0-1.5rem) keeps them proportional to their labels.
+Locked — matches the documented checkbox/radio size from the WSU component library (wsu-c-form: 22×22).
 
 #### References
 
@@ -976,7 +1047,7 @@ Browser-default checkboxes are typically 13-16px. The kit enlarges them for touc
 ## Brand cues
 
 <a id="focus"></a>
-### 30. Focus ring width
+### 32. Focus ring width
 
 ![Focus ring width configurator card](usermanual-images/focus.png)
 
@@ -1007,7 +1078,7 @@ Thicker rings (4-8px) are easier to spot but busier visually. 3px is the WSU def
 ---
 
 <a id="focuscolor"></a>
-### 31. Focus ring color
+### 33. Focus ring color
 
 ![Focus ring color configurator card](usermanual-images/focuscolor.png)
 
@@ -1038,7 +1109,7 @@ Crimson focus rings reinforce the WSU brand even during keyboard navigation. Bla
 ---
 
 <a id="focusoffset"></a>
-### 32. Focus ring offset
+### 34. Focus ring offset
 
 ![Focus ring offset configurator card](usermanual-images/focusoffset.png)
 
@@ -1069,28 +1140,28 @@ Offset creates visual separation between the control and its focus ring, making 
 ---
 
 <a id="edge"></a>
-### 33. Required-field edge
+### 35. Required-field edge
 
 ![Required-field edge configurator card](usermanual-images/edge.png)
 
 | Property | Value |
 |----------|-------|
 | **CSS Token** | `--wsu-eit-edge-hint` |
-| **Default** | `0 (Off)` |
+| **Default** | `2px` |
 | **Control type** | range |
 | **Group** | Brand cues |
 
 #### What It Does
 
-Optional crimson left-edge cue on empty required fields. Ships Off — the asterisk already marks required. Raise to add a visual cue that clears as each field is filled.
+The crimson left-edge on required fields — straight from the live form spec. The kit refines it: the edge clears once the field is answered.
 
 #### Accessibility (a11y)
 
-This is a SUPPLEMENTARY cue — it does NOT replace the required star (*) or aria-required='true'. WCAG 1.4.1 (Use of Color) means this red edge alone can't be the only indicator of 'required.' The kit provides the star (symbol) and aria-required (programmatic) regardless of this setting. The default ships Off because the asterisk is sufficient; the edge is available for teams that want a stronger visual lane.
+This is a SUPPLEMENTARY cue — it does NOT replace the required star (*) or aria-required='true'. WCAG 1.4.1 (Use of Color) means this red edge alone can't be the only indicator of 'required.' The kit provides the star (symbol) and aria-required (programmatic) regardless. The 2px value comes from the documented wsu-c-form spec (required inputs: border-left 2px solid #A60F2D). Set to 0 to remove.
 
 #### Design Guidance
 
-The crimson edge creates a left-aligned visual 'lane' that draws the eye to incomplete fields. It appears only while the field is empty and vanishes once filled — a gentle, progressive hint rather than an error message. Ships Off by default because the asterisk is the standard convention; enable it (3-5px) if your forms are long or users frequently miss required fields.
+The crimson edge creates a left-aligned visual 'lane' that draws the eye to incomplete required fields. The kit refines the raw spec: the edge appears while the field is empty and vanishes once filled — a progressive hint, not a static label. 2px matches the documented component spec.
 
 #### References
 
@@ -1100,7 +1171,7 @@ The crimson edge creates a left-aligned visual 'lane' that draws the eye to inco
 ---
 
 <a id="star"></a>
-### 34. Required star color
+### 36. Required star color
 
 ![Required star color configurator card](usermanual-images/star.png)
 
@@ -1131,7 +1202,7 @@ Red/crimson stars are the web convention for 'required' — users recognize them
 ---
 
 <a id="starsize"></a>
-### 35. Required star size
+### 37. Required star size
 
 ![Required star size configurator card](usermanual-images/starsize.png)
 
@@ -1161,39 +1232,8 @@ Larger stars (1.2-1.4em) are easier to perceive for users with low vision. Howev
 
 ---
 
-<a id="selection"></a>
-### 36. Text selection
-
-![Text selection configurator card](usermanual-images/selection.png)
-
-| Property | Value |
-|----------|-------|
-| **CSS Token** | `--wsu-eit-select-bg / --wsu-eit-select-fg` |
-| **Default** | `Goldfinch (yellow highlight)` |
-| **Control type** | choice |
-| **Group** | Brand cues |
-
-#### What It Does
-
-Highlight color when a visitor selects (drags over) text on the page. A subtle brand touchpoint.
-
-#### Accessibility (a11y)
-
-Selected text must remain readable — the foreground/background combination must maintain sufficient contrast. Goldfinch (yellow bg, dark text) = excellent contrast. Crimson (red bg, white text) = good contrast. Gray (gray bg, dark text) = good contrast. All shipped options are safe.
-
-#### Design Guidance
-
-Goldfinch creates a highlighter-pen effect — warm, readable, brand-adjacent (it's an official WSU accent color). Crimson is strongly branded. Gray is neutral/institutional.
-
-#### References
-
-- **CSS property:** [https://www.w3schools.com/cssref/sel_selection.php](https://www.w3schools.com/cssref/sel_selection.php)
-- **WCAG Understanding:** [https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
-
----
-
 <a id="topbarrule"></a>
-### 37. Topbar hairline
+### 38. Topbar hairline
 
 ![Topbar hairline configurator card](usermanual-images/topbarrule.png)
 
@@ -1226,28 +1266,28 @@ The hairline appears on wsu.edu and admission.wsu.edu. It's a subtle 'you're on 
 ## Page
 
 <a id="col"></a>
-### 38. Content width
+### 39. Content width
 
 ![Content width configurator card](usermanual-images/col.png)
 
 | Property | Value |
 |----------|-------|
 | **CSS Token** | `--wsu-eit-col` |
-| **Default** | `75rem (1200px)` |
-| **Control type** | range |
+| **Default** | `75rem (1200px wide)` |
+| **Control type** | choice |
 | **Group** | Page |
 
 #### What It Does
 
-Maximum width of the centered content column. Controls how much of the viewport the form occupies on wide screens.
+Maximum width of the centered content column, using the five documented WDS width presets.
 
 #### Accessibility (a11y)
 
-WCAG 1.4.10 Reflow requires content to be usable at 320px width (no horizontal scrolling). The kit handles this via responsive design, not this token. This token only sets the MAXIMUM — on narrow screens, content always fills the viewport. 'Off' removes the max-width entirely, running content full-bleed on wide monitors (poor readability at 2560px+).
+WCAG 1.4.10 Reflow requires content to be usable at 320px width (no horizontal scrolling). The kit handles this via responsive design. This token only sets the MAXIMUM — on narrow screens, content always fills the viewport. The five presets (600/800/1000/1200/1400) are the documented WDS width values.
 
 #### Design Guidance
 
-1200px is the web standard for content width. Narrower (56rem = 896px) creates a focused reading experience. Wider (96rem = 1536px) uses more screen on ultrawide monitors but may push line lengths past comfortable limits (use with --wsu-eit-measure to constrain paragraphs independently).
+600px (xnarrow) for focused reading. 800px (narrow) for simple forms. 1000px (medium) for standard layouts. 1200px (wide, default) for most pages. 1400px (xwide) for dashboards or data-heavy layouts.
 
 #### References
 
@@ -1257,28 +1297,28 @@ WCAG 1.4.10 Reflow requires content to be usable at 320px width (no horizontal s
 ---
 
 <a id="pagepad"></a>
-### 39. Content padding
+### 40. Content padding
 
 ![Content padding configurator card](usermanual-images/pagepad.png)
 
 | Property | Value |
 |----------|-------|
 | **CSS Token** | `--wsu-eit-page-pad` |
-| **Default** | `2.5rem` |
-| **Control type** | range |
+| **Default** | `0 (Off)` |
+| **Control type** | choice |
 | **Group** | Page |
 
 #### What It Does
 
-Vertical breathing room (padding) above and below the content column. Creates whitespace between the topbar/footer and the form content.
+Vertical breathing room (padding) above and below the content column, using the documented WDS spacing scale. Ships Off (0) since no official page-padding value is captured.
 
 #### Accessibility (a11y)
 
-Generous padding helps users with cognitive disabilities by reducing visual clutter and creating clear content boundaries. Reducing to minimum (0.5rem) packs content tightly, which can feel overwhelming. No specific WCAG requirement, but it contributes to overall 'cognitive accessibility.'
+Generous padding helps users with cognitive disabilities by reducing visual clutter and creating clear content boundaries. No specific WCAG requirement, but it contributes to overall cognitive accessibility. The options follow the documented WDS spacing scale.
 
 #### Design Guidance
 
-2.5rem gives the content room to breathe. Smaller values (0.5-1rem) suit embedded contexts where the form appears inside another page. Larger values (3-4rem) create a premium, spacious feel.
+Ships at 0 (Off) since no official page-padding value is documented. Enable with the WDS spacing scale: small (1rem), medium (2rem), med-lg (3rem), large (4rem), or xlarge (6rem).
 
 #### References
 
@@ -1288,7 +1328,7 @@ Generous padding helps users with cognitive disabilities by reducing visual clut
 ---
 
 <a id="paper"></a>
-### 40. Content paper
+### 41. Content paper
 
 ![Content paper configurator card](usermanual-images/paper.png)
 
@@ -1319,7 +1359,7 @@ Pure white is clean and maximizes contrast. Warm white reduces eye strain for ex
 ---
 
 <a id="wash"></a>
-### 41. Page backdrop
+### 42. Page backdrop
 
 ![Page backdrop configurator card](usermanual-images/wash.png)
 
@@ -1349,6 +1389,225 @@ A visible backdrop frames the content and signals 'this is the form area.' It's 
 
 ---
 
+## Display & patterns
+
+<a id="dispstroke"></a>
+### 43. Display outline
+
+![Display outline configurator card](usermanual-images/dispstroke.png)
+
+| Property | Value |
+|----------|-------|
+| **CSS Token** | `--wsu-eit-display-stroke / --wsu-eit-display-fill` |
+| **Default** | `2px (Outlined)` |
+| **Control type** | range |
+| **Group** | Display & patterns |
+
+#### What It Does
+
+Stroke width of the display/hero text. 0 = solid filled lettering; 1-5px = outlined lettering. Outlined is the documented preference.
+
+#### Accessibility (a11y)
+
+Display text is typically large enough that thin outlines remain readable. Outlined text at 0.5-1px may become hard to read at small sizes or on low-DPI screens. At 2px+ the stroke is clearly visible. 'Off' (0) renders solid-filled lettering — also approved by the brand guide.
+
+#### Design Guidance
+
+Outlined lettering is the documented preference in the EM Visual Style Guide ('outlined preferred, solid acceptable'). The stroke thickness is matched to the guide's own artwork.
+
+#### References
+
+- **CSS property:** [https://www.w3schools.com/cssref/css3_pr_text-stroke.php](https://www.w3schools.com/cssref/css3_pr_text-stroke.php)
+- **WCAG Understanding:** [https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html](https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html)
+
+---
+
+<a id="dispsize"></a>
+### 44. Display size
+
+![Display size configurator card](usermanual-images/dispsize.png)
+
+| Property | Value |
+|----------|-------|
+| **CSS Token** | `--wsu-eit-display-size` |
+| **Default** | `4.5rem` |
+| **Control type** | range |
+| **Group** | Display & patterns |
+
+#### What It Does
+
+Font size of the display/hero text. The documented hero-display range tops out at 5rem.
+
+#### Accessibility (a11y)
+
+Large display text is decorative/hero content. WCAG 1.4.4 Resize Text still applies — the rem unit ensures it scales with browser zoom. At 5rem on a 320px screen the text may overflow; the kit handles this with responsive sizing.
+
+#### Design Guidance
+
+The WDS hero title range is 4.5-5rem. The EM guide says 'make type large and impactful.' Smaller values (2.5-3rem) work for secondary display text.
+
+#### References
+
+- **CSS property:** [https://www.w3schools.com/cssref/pr_font_font-size.php](https://www.w3schools.com/cssref/pr_font_font-size.php)
+- **WCAG Understanding:** [https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html)
+
+---
+
+<a id="disptrack"></a>
+### 45. Display tracking
+
+![Display tracking configurator card](usermanual-images/disptrack.png)
+
+| Property | Value |
+|----------|-------|
+| **CSS Token** | `--wsu-eit-display-track` |
+| **Default** | `-0.01em` |
+| **Control type** | range |
+| **Group** | Display & patterns |
+
+#### What It Does
+
+Letter-spacing on the display/hero text. Negative values tighten; positive values spread.
+
+#### Accessibility (a11y)
+
+WCAG 1.4.12 Text Spacing allows users to override letter-spacing to 0.12em. The kit respects user overrides. Negative tracking on large display text is a common design choice that doesn't meaningfully impact accessibility at hero sizes.
+
+#### Design Guidance
+
+No official tracking value is documented — ships at browser default. Tight tracking (-0.02 to -0.04em) creates a dense, impactful feel. Loose tracking (+0.02 to +0.04em) adds formality.
+
+#### References
+
+- **CSS property:** [https://www.w3schools.com/cssref/pr_text_letter-spacing.php](https://www.w3schools.com/cssref/pr_text_letter-spacing.php)
+- **WCAG Understanding:** [https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html](https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html)
+
+---
+
+<a id="dispcolor"></a>
+### 46. Display color
+
+![Display color configurator card](usermanual-images/dispcolor.png)
+
+| Property | Value |
+|----------|-------|
+| **CSS Token** | `--wsu-eit-display-color` |
+| **Default** | `Crimson` |
+| **Control type** | choice |
+| **Group** | Display & patterns |
+
+#### What It Does
+
+Color of the display/hero text. Crimson matches the EM artwork; Light Gray matches the guide's background texture swatch.
+
+#### Accessibility (a11y)
+
+Display text is large enough that the 3:1 contrast ratio for large text (WCAG 1.4.3) applies rather than the 4.5:1 for normal text. Crimson on white = 7.4:1 (exceeds both). Light Gray #CCC9C8 on white = 1.8:1 — intended as a background texture, not readable text.
+
+#### Design Guidance
+
+Crimson matches the EM guide artwork. Light Gray is the 2025 Cheat Sheet swatch (#CCC9C8), used as a subtle background element rather than readable text.
+
+#### References
+
+- **CSS property:** [https://www.w3schools.com/cssref/pr_text_color.php](https://www.w3schools.com/cssref/pr_text_color.php)
+- **WCAG Understanding:** [https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
+
+---
+
+<a id="patcolor"></a>
+### 47. Pattern color
+
+![Pattern color configurator card](usermanual-images/patcolor.png)
+
+| Property | Value |
+|----------|-------|
+| **CSS Token** | `--wsu-eit-pattern-color` |
+| **Default** | `Crimson` |
+| **Control type** | choice |
+| **Group** | Display & patterns |
+
+#### What It Does
+
+Color of the brand pattern texture overlay. Patterns may only use approved brand colors.
+
+#### Accessibility (a11y)
+
+Patterns are purely decorative and do not convey information, so WCAG contrast requirements for text don't apply. However, overly strong patterns can interfere with text readability — hence the separate opacity control.
+
+#### Design Guidance
+
+The EM guide rule: patterns only in approved brand colors. brand.wsu.edu renders them in Light Gray on its imagery page. Crimson is the default for maximum brand impact.
+
+#### References
+
+- **CSS property:** [https://www.w3schools.com/cssref/pr_text_color.php](https://www.w3schools.com/cssref/pr_text_color.php)
+- **WCAG Understanding:** [https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html](https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html)
+
+---
+
+<a id="patopacity"></a>
+### 48. Pattern strength
+
+![Pattern strength configurator card](usermanual-images/patopacity.png)
+
+| Property | Value |
+|----------|-------|
+| **CSS Token** | `--wsu-eit-pattern-opacity` |
+| **Default** | `10%` |
+| **Control type** | range |
+| **Group** | Display & patterns |
+
+#### What It Does
+
+Opacity of the brand pattern overlay. Visually matched to the official pattern swatches (light on white).
+
+#### Accessibility (a11y)
+
+Patterns must not interfere with text readability. At 10% (the default), the pattern is a subtle texture that doesn't affect text contrast. Above 20%, the pattern becomes visually prominent and may compete with body text — check contrast ratios. 'Off' (0%) hides the pattern entirely.
+
+#### Design Guidance
+
+Matched to the brand.wsu.edu/imagery swatch appearance. 3-10% is subtle texture. 10-20% is visible pattern. Above 20% is bold and should only be used on hero/display areas without body text.
+
+#### References
+
+- **CSS property:** [https://www.w3schools.com/cssref/css3_pr_opacity.php](https://www.w3schools.com/cssref/css3_pr_opacity.php)
+- **WCAG Understanding:** [https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
+
+---
+
+<a id="patscale"></a>
+### 49. Pattern scale
+
+![Pattern scale configurator card](usermanual-images/patscale.png)
+
+| Property | Value |
+|----------|-------|
+| **CSS Token** | `--wsu-eit-pattern-scale` |
+| **Default** | `1x` |
+| **Control type** | range |
+| **Group** | Display & patterns |
+
+#### What It Does
+
+Tile size of the brand pattern texture. 1x = the artwork's own authored scale.
+
+#### Accessibility (a11y)
+
+Pattern scale is purely decorative. Very small scales (0.5x) can create moiré effects on some screens. Very large scales (2x) may make the pattern look blocky. 1x preserves the artist's intended detail level.
+
+#### Design Guidance
+
+0.5x creates a fine, dense texture. 1x preserves the original artwork scale. 2x creates a large, bold pattern — suitable for hero sections.
+
+#### References
+
+- **CSS property:** [https://www.w3schools.com/cssref/css3_pr_background-size.php](https://www.w3schools.com/cssref/css3_pr_background-size.php)
+- **WCAG Understanding:** [https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html](https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html)
+
+---
+
 ## Helpful Hints
 
 ### Quick Tips
@@ -1366,7 +1625,7 @@ These free tutorials cover the CSS concepts behind every token in this manual:
 
 | Topic | Link | Relevant Tokens |
 |-------|------|-----------------|
-| CSS Custom Properties | [CSS Variables](https://www.w3schools.com/css/css3_variables.asp) | All 41 tokens — this is the mechanism |
+| CSS Custom Properties | [CSS Variables](https://www.w3schools.com/css/css3_variables.asp) | All 49 tokens — this is the mechanism |
 | The `var()` function | [var() Reference](https://www.w3schools.com/cssref/func_var.php) | How rules read token values |
 | `:root` selector | [:root Reference](https://www.w3schools.com/cssref/sel_root.php) | Where tokens are declared in build.css |
 | `font-size` | [font-size](https://www.w3schools.com/cssref/pr_font_font-size.php) | Body text size, H2/H3 size, link/label size |
@@ -1471,7 +1730,7 @@ These free tutorials cover the CSS concepts behind every token in this manual:
   │ HttpListener │     │  Playwright  │     │  Markdown         │
   │ serves       │────►│  headless    │────►│  generator        │
   │ index.html   │     │  Chromium    │     │                   │
-  │ on :8799     │     │              │     │  41 settings      │
+  │ on :8799     │     │              │     │  49 settings      │
   └──────────────┘     │  screenshots │     │  + images → PNG   │
                        │  each card   │     │  + property table │
                        └──────────────┘     │  + a11y notes     │
