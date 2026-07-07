@@ -14,7 +14,8 @@
    wsu-eit-extras.css + wsu-eit-a11y.js + wsu-eit-extras.js.
    ════════════════════════════════════════════════════════════════════ */
 
-document.getElementById('fixture-alert-btn').addEventListener('click', function () {
+var fixtureAlertBtn = document.getElementById('fixture-alert-btn');
+if (fixtureAlertBtn) fixtureAlertBtn.addEventListener('click', function () {
   var d = document.createElement('div');
   d.className = 'wsu-eit-sim-dialog';
   d.innerHTML = '<span>3 required fields were not completed.</span>';
@@ -31,6 +32,17 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   var icons = Array.prototype.slice.call(document.querySelectorAll('.ic-grid li'));
   var chaps = Array.prototype.slice.call(document.querySelectorAll('.chap'));
   var activeTag = '';
+
+  /* chapter-nav counts: computed from the DOM at load so new cards can't
+     leave the hardcoded numbers stale (drift killer) */
+  chaps.forEach(function (c) {
+    var h2 = c.querySelector('h2[id]');
+    if (!h2) return;
+    var badge = document.querySelector('#nav-chapters a[href="#' + h2.id + '"] span');
+    if (!badge) return;
+    var n = c.querySelectorAll('.pat').length + c.querySelectorAll('.ic-grid li').length;
+    if (n) badge.textContent = n;
+  });
 
   function apply() {
     var needle = q.value.trim().toLowerCase();
@@ -883,19 +895,10 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
 
   /* field density is one knob that moves three tokens together — exposing
      raw padding x/y would invite un-brand-safe combinations */
-  var DENSITY = {
-    compact:  { '--wsu-eit-field-pad-y': '.45rem', '--wsu-eit-field-pad-x': '.6rem',  '--wsu-eit-q-gap': '1rem' },
-    standard: { '--wsu-eit-field-pad-y': '.7rem',  '--wsu-eit-field-pad-x': '.85rem', '--wsu-eit-q-gap': '1.5rem' },
-    roomy:    { '--wsu-eit-field-pad-y': '.95rem', '--wsu-eit-field-pad-x': '1.05rem','--wsu-eit-q-gap': '2.25rem' }
-  };
+  /* (DENSITY/BTNSIZE preset maps removed 2026-07 \u2014 replaced by the single documented wsu-c-form / WDS values; see TUNE-SOURCES.md) */
 
   /* button size is the same pattern: one knob moving two padding tokens so
      compact/standard/large can't drift into off-brand proportions */
-  var BTNSIZE = {
-    compact:  { '--wsu-eit-btn-pad-y': '.5rem',  '--wsu-eit-btn-pad-x': '1.3rem' },
-    standard: { '--wsu-eit-btn-pad-y': '.75rem', '--wsu-eit-btn-pad-x': '2rem' },
-    large:    { '--wsu-eit-btn-pad-y': '.95rem', '--wsu-eit-btn-pad-x': '2.6rem' }
-  };
 
   /* reusable live-example snippets — each is a REAL kit element, so it reads
      the very token the control beside it drives and updates the instant the
@@ -923,6 +926,12 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   var EX_BODY = '<p class="tpv tpv-bodytext">Your work saves as you go.</p>';
   var EX_LH = '<p class="tpv tpv-lh">Most students finish in under an hour. Your progress saves on every page.</p>';
   var EX_BODYINK = '<p class="tpv tpv-bodyink">Most students finish in under an hour.</p>';
+  var EX_FACE = '<p class="tpv tpv-face">Washington State University</p>';
+  var EX_HEADFACE = '<p class="tpv tpv-headface">Application checklist</p>';
+  var EX_DISPLAY = '<div class="tpv tpv-display"><span class="wsu-eit-display">WSU</span></div>';
+  var EX_PATTERN = '<div class="tpv tpv-pattern wsu-eit-pattern wsu-eit-pattern--wsu"><span>Pattern</span></div>';
+  /* --true = no preview floor; the Strength card shows the real token value */
+  var EX_PATTERN_TRUE = '<div class="tpv tpv-pattern tpv-pattern--true wsu-eit-pattern wsu-eit-pattern--wsu"><span>Pattern</span></div>';
 
   function PX(v) { return Math.round(v * 16) + 'px'; }   /* rem → px label */
 
@@ -933,161 +942,248 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
     /* ── TYPE ── */
     { id: 'bodysize', group: 'Type', name: 'Body text size', kind: 'range', min: 15, max: 18, def: 16, unit: 'px',
       hint: 'Base reading size for all paragraph text.', pv: EX_BODY,
+      src: { t: 'WDS type scale: base 16px, as on admission.wsu.edu', u: 'https://admission.wsu.edu/' },
       vars: function (v) { return { '--wsu-eit-body-size': (v / 16) + 'rem' }; }, off: { '--wsu-eit-body-size': '1rem' } },
-    { id: 'line', group: 'Type', name: 'Reading line-height', kind: 'range', min: 1.2, max: 1.75, def: 1.55, step: 0.05,
+    { id: 'line', group: 'Type', name: 'Reading line-height', kind: 'range', min: 1.2, max: 2, def: 1.6, step: 0.05,
       fmt: function (v) { return (+v).toFixed(2); },
-      hint: 'Vertical space between lines. Off shows the browser-default tight spacing.', pv: EX_LH,
+      hint: 'Vertical space between lines. 2.0 is the documented lead-paragraph spacing.', pv: EX_LH,
+      src: { t: 'WDS: body line-height 1.6 (lead paragraphs: 2)' },
       vars: function (v) { return { '--wsu-eit-line': String(v) }; }, off: { '--wsu-eit-line': 'normal' } },
     { id: 'bodyink', group: 'Type', name: 'Body text color', kind: 'choice', def: '#262626',
-      opts: [['#262626', 'Near-black'], ['#1a1a1a', 'True black'], ['#3a3a3a', 'Soft gray']],
-      hint: 'The ink for body copy. All three pass AA on white.', pv: EX_BODYINK,
+      opts: [['#262626', 'Near-black']],
+      hint: 'The documented WDS body ink. Locked — no other body ink appears on official pages.', pv: EX_BODYINK,
+      src: { t: 'WDS: body and heading ink #262626' },
       vars: function (v) { return { '--wsu-eit-body': v }; }, off: { '--wsu-eit-body': '#262626' } },
     { id: 'linksize', group: 'Type', name: 'Link text size', kind: 'range', min: 14, max: 22, def: 16, unit: 'px',
-      hint: 'Links never render smaller than this. 16px is the shipped floor.', pv: EX_LINK,
+      hint: 'Links never render smaller than this.', pv: EX_LINK,
+      src: { t: 'WDS: body-copy links inherit the 16px body size' },
       vars: function (v) { return { '--wsu-eit-link-size': (v / 16) + 'rem' }; }, off: { '--wsu-eit-link-size': '16px' } },
-    { id: 'linkweight', group: 'Type', name: 'Link weight', kind: 'choice', def: '600',
-      opts: [['400', 'Regular'], ['600', 'Semibold'], ['700', 'Bold']],
-      hint: 'Semibold is the shipped look; Regular reads quieter in dense copy.', pv: EX_LINK,
+    { id: 'linkweight', group: 'Type', name: 'Link weight', kind: 'choice', def: '400',
+      opts: [['400', 'Regular']],
+      hint: 'Locked — WDS links inherit the body weight; no bolded-link style is documented.', pv: EX_LINK,
+      src: { t: 'WDS: links inherit body weight (regular)' },
       vars: function (v) { return { '--wsu-eit-link-weight': v }; }, off: { '--wsu-eit-link-weight': '400' } },
     { id: 'underline', group: 'Type', name: 'Link underline', kind: 'range', min: 1, max: 3, def: 1, unit: 'px',
-      hint: 'Thickness of the underline under every link. Off removes it entirely.', pv: EX_LINK,
+      hint: 'Thickness of the underline under every link. The live hover state thickens to ~3px (.2em).', pv: EX_LINK,
+      src: { t: 'WDS: link underline border-bottom .05em (\u2248 1px at 16px); hover .2em' },
       vars: function (v) { return { '--wsu-eit-underline': v + 'px' }; }, off: { '--wsu-eit-underline': '0' } },
-    { id: 'underlineoffset', group: 'Type', name: 'Underline offset', kind: 'range', min: 0.04, max: 0.32, def: 0.18, step: 0.02,
+    { id: 'underlineoffset', group: 'Type', name: 'Underline offset', kind: 'range', min: 0.04, max: 0.32, def: 0.18, step: 0.02, offDefault: true,
       fmt: function (v) { return (+v).toFixed(2) + 'em'; },
-      hint: 'Gap between link text and its underline.', pv: EX_LINK,
+      hint: 'Gap between link text and underline.', pv: EX_LINK,
+      src: { t: 'No official example \u2014 WSU underlines are border-bottom. Ships at the browser default.' },
       vars: function (v) { return { '--wsu-eit-underline-offset': (+v).toFixed(2) + 'em' }; }, off: { '--wsu-eit-underline-offset': 'auto' } },
-    { id: 'measure', group: 'Type', name: 'Paragraph width', kind: 'range', min: 55, max: 90, def: 75, unit: 'ch',
-      hint: 'Max line length for body copy. Off lets text run the full column.', pv: EX_MEASURE,
+    { id: 'measure', group: 'Type', name: 'Paragraph width', kind: 'range', min: 55, max: 90, def: 75, unit: 'ch', offDefault: true,
+      hint: 'Max line length for body copy.', pv: EX_MEASURE,
+      src: { t: 'No official example \u2014 no documented text measure. Ships at the browser default (full column).' },
       vars: function (v) { return { '--wsu-eit-measure': v + 'ch' }; }, off: { '--wsu-eit-measure': 'none' } },
-    { id: 'h1bar', group: 'Type', name: 'H1 crimson bar', kind: 'range', min: 0, max: 12, def: 4, unit: 'px',
-      hint: 'The signature rule under page titles. 0 / Off removes it.', pv: EX_H1,
+    { id: 'h1bar', group: 'Type', name: 'H1 crimson bar', kind: 'range', min: 0, max: 12, def: 3, unit: 'px',
+      hint: 'The signature rule under page titles.', pv: EX_H1,
+      src: { t: 'WDS: h1 carries a #CA1237 ::after rule; thickness uncaptured \u2014 3px is the documented stat-label crimson border, the nearest measured example' },
       vars: function (v) { return { '--wsu-eit-h1-bar': v + 'px' }; }, off: { '--wsu-eit-h1-bar': '0' } },
     { id: 'h1barstyle', group: 'Type', name: 'Bar length', kind: 'choice', def: '100%',
-      opts: [['100%', 'Full underline'], ['3.5rem', 'Short tick']],
-      hint: 'A full-width underline, or the short crimson callout tick WSU uses on centered headings.', pv: EX_H1,
+      opts: [['100%', 'Full underline'], ['3.5rem', 'Short mark']],
+      hint: 'Full rule as on captured h1s, or the short crimson mark of WDS \u201cmarked\u201d headings.', pv: EX_H1,
+      src: { t: 'WDS: h1 ::after rule (full) \u00b7 wsu-heading--style-marked (short mark)' },
       vars: function (v) { return { '--wsu-eit-h1-bar-width': v }; }, off: { '--wsu-eit-h1-bar-width': '100%' } },
     { id: 'headalign', group: 'Type', name: 'Heading alignment', kind: 'choice', def: 'left',
-      opts: [['left', 'Left'], ['center', 'Centered']],
-      hint: 'Centered titles center the heading and its crimson bar \u2014 the brand \u201ccallout heading\u201d look.', pv: EX_H1,
-      vars: function (v) { return v === 'center' ? { '--wsu-eit-head-align': 'center', '--wsu-eit-h1-bar-mx': 'auto' } : { '--wsu-eit-head-align': 'left', '--wsu-eit-h1-bar-mx': '0' }; },
+      opts: [['left', 'Left']],
+      hint: 'Locked \u2014 every captured WSU page left-aligns headings.', pv: EX_H1,
+      src: { t: 'admission.wsu.edu + wsu.edu: headings are left-aligned throughout', u: 'https://admission.wsu.edu/' },
+      vars: function (v) { return { '--wsu-eit-head-align': 'left', '--wsu-eit-h1-bar-mx': '0' }; },
       off: { '--wsu-eit-head-align': 'left', '--wsu-eit-h1-bar-mx': '0' } },
     { id: 'h1weight', group: 'Type', name: 'H1 weight', kind: 'choice', def: '800',
-      opts: [['700', 'Bold'], ['800', 'Extrabold'], ['900', 'Black']],
-      hint: 'Weight of page titles. Off drops to a plain regular heading.', pv: EX_H1,
+      opts: [['800', 'Extrabold']],
+      hint: 'Locked \u2014 the documented h1 weight.', pv: EX_H1,
+      src: { t: 'WDS: h1 weight 800' },
       vars: function (v) { return { '--wsu-eit-h1-weight': v }; }, off: { '--wsu-eit-h1-weight': '400' } },
     { id: 'headcolor', group: 'Type', name: 'Heading color', kind: 'choice', def: 'var(--wsu-eit-body)',
-      opts: [['var(--wsu-eit-body)', 'Black'], ['var(--wsu-eit-brand-text)', 'Crimson']],
-      hint: 'Color of H2 / H3 section headings.', pv: EX_H2,
+      opts: [['var(--wsu-eit-body)', 'Black']],
+      hint: 'Locked \u2014 WDS headings are body ink; crimson headings don\u2019t appear on official pages.', pv: EX_H2,
+      src: { t: 'WDS: headings #262626' },
       vars: function (v) { return { '--wsu-eit-head-color': v }; }, off: { '--wsu-eit-head-color': 'var(--wsu-eit-body)' } },
-    { id: 'h2size', group: 'Type', name: 'H2 size', kind: 'range', min: 1.2, max: 1.85, def: 1.45, step: 0.05,
-      fmt: PX, hint: 'Size of major section headings.', pv: EX_H2,
+    { id: 'h2size', group: 'Type', name: 'H2 size', kind: 'range', min: 1.75, max: 2.1, def: 2.1, step: 0.05,
+      fmt: PX, hint: 'Slider spans the real responsive range: 2.1rem desktop \u2192 1.75rem \u2264991px.', pv: EX_H2,
+      src: { t: 'WDS: h2 2.1rem (1.75rem \u2264991px)' },
       vars: function (v) { return { '--wsu-eit-h2-size': v + 'rem' }; }, off: { '--wsu-eit-h2-size': '1.5rem' } },
-    { id: 'h3size', group: 'Type', name: 'H3 size', kind: 'range', min: 1.0, max: 1.45, def: 1.15, step: 0.05,
-      fmt: PX, hint: 'Size of sub-headings. Capped just below H2 so a subheading never outsizes its parent.', pv: EX_H3,
+    { id: 'h3size', group: 'Type', name: 'H3 size', kind: 'range', min: 1.5, max: 1.8, def: 1.8, step: 0.05,
+      fmt: PX, hint: 'Slider spans the real responsive range. Structurally capped below H2.', pv: EX_H3,
+      src: { t: 'WDS: h3 1.8rem (1.5rem responsive)' },
       vars: function (v) { return { '--wsu-eit-h3-size': v + 'rem' }; }, off: { '--wsu-eit-h3-size': '1.17rem' } },
-    { id: 'headline', group: 'Type', name: 'Heading line-height', kind: 'range', min: 1.05, max: 1.4, def: 1.18, step: 0.05,
+    { id: 'headline', group: 'Type', name: 'Heading line-height', kind: 'range', min: 1.05, max: 1.4, def: 1.18, step: 0.05, offDefault: true,
       fmt: function (v) { return (+v).toFixed(2); },
       hint: 'Line spacing inside multi-line headings.', pv: EX_HEAD,
+      src: { t: 'No official example \u2014 heading line-height uncaptured. Ships at the browser default.' },
       vars: function (v) { return { '--wsu-eit-head-line': String(v) }; }, off: { '--wsu-eit-head-line': 'normal' } },
-    { id: 'headtrack', group: 'Type', name: 'Heading letter-spacing', kind: 'range', min: -0.02, max: 0.06, def: 0, step: 0.01,
+    { id: 'headtrack', group: 'Type', name: 'Heading letter-spacing', kind: 'range', min: -0.02, max: 0.06, def: 0, step: 0.01, offDefault: true,
       fmt: function (v) { return (+v).toFixed(2) + 'em'; },
-      hint: 'Tracking on headings. Tighter reads modern, wider reads formal.', pv: EX_HEAD,
+      hint: 'Tracking on headings.', pv: EX_HEAD,
+      src: { t: 'No official example \u2014 ships at the browser default (normal).' },
       vars: function (v) { return { '--wsu-eit-head-track': (+v).toFixed(2) + 'em' }; }, off: { '--wsu-eit-head-track': '0em' } },
+    { id: 'bodyface', group: 'Type', name: 'Body & UI typeface', kind: 'choice', def: '"Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif',
+      opts: [['"Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif', 'Montserrat'], ['"Corbel", "Segoe UI", system-ui, sans-serif', 'Corbel / system']],
+      hint: 'Montserrat is the sole official web face; Corbel/Arial is the brand\u2019s documented Office substitute.', pv: EX_FACE,
+      src: { t: 'brand.wsu.edu/typography: web face + Microsoft substitute table', u: 'https://brand.wsu.edu/typography/' },
+      vars: function (v) { return { '--wsu-eit-face': v }; }, off: { '--wsu-eit-face': 'Arial, sans-serif' } },
+    { id: 'headface', group: 'Type', name: 'Heading typeface', kind: 'choice', def: 'var(--wsu-eit-face)',
+      opts: [['var(--wsu-eit-face)', 'Match body (Montserrat)']],
+      hint: 'Locked \u2014 web headings are Montserrat; the serif slot (FreightBig Pro) is print-only.', pv: EX_HEADFACE,
+      src: { t: 'brand.wsu.edu/typography: one web typeface; serifs reserved for print', u: 'https://brand.wsu.edu/typography/' },
+      vars: function (v) { return { '--wsu-eit-head-face': v }; }, off: { '--wsu-eit-head-face': 'var(--wsu-eit-face)' } },
 
     /* ── SHAPE & DENSITY ── */
-    { id: 'round', group: 'Shape & density', name: 'Corner radius', kind: 'range', min: 0, max: 24, def: 6, unit: 'px',
-      hint: '0 = sharp institutional corners, 24 = soft. Inputs, buttons, callouts all follow.', pv: EX_ROUND,
+    { id: 'round', group: 'Shape & density', name: 'Corner radius', kind: 'range', min: 0, max: 24, def: 5, unit: 'px',
+      hint: 'Inputs, buttons, callouts all follow. Live WDS buttons are 8px \u2014 noted, one radius token here.', pv: EX_ROUND,
+      src: { t: 'wsu-c-form: inputs, checkboxes, fieldsets border-radius 5px (WDS 2.x buttons: 8px)' },
       vars: function (v) { return { '--wsu-eit-round': v + 'px' }; }, off: { '--wsu-eit-round': '0' } },
     { id: 'inputborder', group: 'Shape & density', name: 'Input border width', kind: 'range', min: 1, max: 3, def: 1, unit: 'px',
-      hint: 'How heavy field outlines look. Off removes the border.', pv: EX_FIELD,
+      hint: 'How heavy field outlines look.', pv: EX_FIELD,
+      src: { t: 'wsu-c-form: border 1px solid #ccc' },
       vars: function (v) { return { '--wsu-eit-input-border': v + 'px' }; }, off: { '--wsu-eit-input-border': '0' } },
     { id: 'inputbg', group: 'Shape & density', name: 'Field fill', kind: 'choice', def: 'var(--wsu-eit-paper)',
-      opts: [['var(--wsu-eit-paper)', 'White'], ['var(--wsu-eit-mist)', 'Mist gray']],
-      hint: 'Inside color of text fields.', pv: EX_FIELD,
+      opts: [['var(--wsu-eit-paper)', 'White']],
+      hint: 'Locked \u2014 the documented field fill.', pv: EX_FIELD,
+      src: { t: 'wsu-c-form: white fields, #080808 input text' },
       vars: function (v) { return { '--wsu-eit-input-bg': v }; }, off: { '--wsu-eit-input-bg': 'var(--wsu-eit-paper)' } },
-    { id: 'btnsize', group: 'Shape & density', name: 'Button size', kind: 'choice', def: 'standard',
-      opts: [['compact', 'Compact'], ['standard', 'Standard'], ['large', 'Large']],
-      hint: 'Padding inside submit / CTA buttons. Large suits a single hero action.', pv: EX_BTN,
-      vars: function (v) { return BTNSIZE[v]; }, off: { '--wsu-eit-btn-pad-y': '.2rem', '--wsu-eit-btn-pad-x': '.55rem' } },
-    { id: 'btnborder', group: 'Shape & density', name: 'Button border', kind: 'range', min: 0, max: 4, def: 2, unit: 'px',
-      hint: 'The border ringing buttons (same crimson as the fill).', pv: EX_BTN,
+    { id: 'btnsize', group: 'Shape & density', name: 'Button size', kind: 'choice', def: 'wds',
+      opts: [['wds', '1em \u00d7 3em']],
+      hint: 'Locked \u2014 the documented WDS button padding. (The old compact/standard/large presets were guesses.)', pv: EX_BTN,
+      src: { t: 'WDS buttons: padding 1em 3em' },
+      vars: function (v) { return { '--wsu-eit-btn-pad-y': '1em', '--wsu-eit-btn-pad-x': '3em' }; },
+      off: { '--wsu-eit-btn-pad-y': '.2rem', '--wsu-eit-btn-pad-x': '.55rem' } },
+    { id: 'btnborder', group: 'Shape & density', name: 'Button border', kind: 'choice', def: '0',
+      opts: [['0', 'Borderless']],
+      hint: 'Locked \u2014 WDS primary buttons have no border (secondary: 1px #b3b3b3).', pv: EX_BTN,
+      src: { t: 'WDS: primary buttons borderless; secondary 1px #b3b3b3' },
       vars: function (v) { return { '--wsu-eit-btn-border': v + 'px' }; }, off: { '--wsu-eit-btn-border': '0' } },
     { id: 'btnweight', group: 'Shape & density', name: 'Button weight', kind: 'choice', def: '600',
-      opts: [['500', 'Medium'], ['600', 'Semibold'], ['700', 'Bold']],
-      hint: 'Weight of button label text.', pv: EX_BTN,
+      opts: [['600', 'Semibold']],
+      hint: 'Locked \u2014 the documented button label weight.', pv: EX_BTN,
+      src: { t: 'WDS: button weight 600' },
       vars: function (v) { return { '--wsu-eit-btn-weight': v }; }, off: { '--wsu-eit-btn-weight': '400' } },
     { id: 'btncase', group: 'Shape & density', name: 'Button text case', kind: 'choice', def: 'none',
-      opts: [['none', 'Normal'], ['uppercase', 'UPPERCASE']],
-      hint: 'UPPERCASE adds tracking automatically for legibility.', pv: EX_BTN,
-      vars: function (v) { return v === 'uppercase' ? { '--wsu-eit-btn-transform': 'uppercase', '--wsu-eit-btn-track': '.06em' } : { '--wsu-eit-btn-transform': 'none', '--wsu-eit-btn-track': '0em' }; },
+      opts: [['none', 'Normal']],
+      hint: 'Locked \u2014 live CTAs are title case (\u201cApply Now\u201d), never uppercase.', pv: EX_BTN,
+      src: { t: 'admission.wsu.edu CTAs: Apply Now, Find Out More, Check Your Eligibility', u: 'https://admission.wsu.edu/' },
+      vars: function (v) { return { '--wsu-eit-btn-transform': 'none', '--wsu-eit-btn-track': '0em' }; },
       off: { '--wsu-eit-btn-transform': 'none', '--wsu-eit-btn-track': '0em' } },
-    { id: 'density', group: 'Shape & density', name: 'Field density', kind: 'choice', def: 'standard',
-      opts: [['compact', 'Compact'], ['standard', 'Standard'], ['roomy', 'Roomy']],
-      hint: 'Input padding + question spacing together. Compact suits long applications.', pv: EX_DENSITY,
-      vars: function (v) { return DENSITY[v]; }, off: { '--wsu-eit-field-pad-y': '.25rem', '--wsu-eit-field-pad-x': '.4rem', '--wsu-eit-q-gap': '.5rem' } },
-    { id: 'labelweight', group: 'Shape & density', name: 'Label weight', kind: 'choice', def: '600',
-      opts: [['400', 'Regular'], ['600', 'Semibold'], ['700', 'Bold']],
-      hint: 'Weight of question labels.', pv: EX_DENSITY,
+    { id: 'density', group: 'Shape & density', name: 'Field density', kind: 'choice', def: 'wds',
+      opts: [['wds', 'WDS form spec']],
+      hint: 'Locked \u2014 the documented form spacing: 20px input padding, 20px above labels.', pv: EX_DENSITY,
+      src: { t: 'wsu-c-form: input padding 20px; labels margin 20px 0 5px' },
+      vars: function (v) { return { '--wsu-eit-field-pad-y': '1.25rem', '--wsu-eit-field-pad-x': '1.25rem', '--wsu-eit-q-gap': '1.25rem' }; },
+      off: { '--wsu-eit-field-pad-y': '.25rem', '--wsu-eit-field-pad-x': '.4rem', '--wsu-eit-q-gap': '.5rem' } },
+    { id: 'labelweight', group: 'Shape & density', name: 'Label weight', kind: 'choice', def: '500',
+      opts: [['500', 'Medium']],
+      hint: 'Locked \u2014 the documented question-label weight (radio/checkbox item labels are 400).', pv: EX_DENSITY,
+      src: { t: 'wsu-c-form: labels 14px weight 500' },
       vars: function (v) { return { '--wsu-eit-label-weight': v }; }, off: { '--wsu-eit-label-weight': '400' } },
-    { id: 'labelsize', group: 'Shape & density', name: 'Label size', kind: 'range', min: 0.85, max: 1.1, def: 0.95, step: 0.05,
-      fmt: PX, hint: 'Size of question labels.', pv: EX_DENSITY,
-      vars: function (v) { return { '--wsu-eit-label-size': v + 'rem' }; }, off: { '--wsu-eit-label-size': '16px' } },
-    { id: 'textareah', group: 'Shape & density', name: 'Textarea height', kind: 'range', min: 2.5, max: 12, def: 7, step: 0.5, unit: 'rem',
+    { id: 'labelsize', group: 'Shape & density', name: 'Label size', kind: 'choice', def: '.875rem',
+      opts: [['.875rem', '14px']],
+      hint: 'Locked \u2014 the documented label size.', pv: EX_DENSITY,
+      src: { t: 'wsu-c-form: labels 14px' },
+      vars: function (v) { return { '--wsu-eit-label-size': v }; }, off: { '--wsu-eit-label-size': '16px' } },
+    { id: 'textareah', group: 'Shape & density', name: 'Textarea height', kind: 'range', min: 2.5, max: 12, def: 7, step: 0.5, unit: 'rem', offDefault: true,
       fmt: function (v) { return v + 'rem'; },
       hint: 'Minimum height of multi-line text boxes.', pv: EX_TEXTAREA,
-      vars: function (v) { return { '--wsu-eit-textarea-h': v + 'rem' }; }, off: { '--wsu-eit-textarea-h': '2.5rem' } },
-    { id: 'choicesize', group: 'Shape & density', name: 'Checkbox size', kind: 'range', min: 1.0, max: 1.5, def: 1.15, step: 0.05,
-      fmt: PX, hint: 'Size of radio buttons and checkboxes.', pv: EX_CHOICE,
-      vars: function (v) { return { '--wsu-eit-choice-size': v + 'rem' }; }, off: { '--wsu-eit-choice-size': '1rem' } },
+      src: { t: 'No official example \u2014 only select min-height (75px) is documented. Ships at the browser default.' },
+      vars: function (v) { return { '--wsu-eit-textarea-h': v + 'rem' }; }, off: { '--wsu-eit-textarea-h': 'auto' } },
+    { id: 'choicesize', group: 'Shape & density', name: 'Checkbox size', kind: 'choice', def: '1.375rem',
+      opts: [['1.375rem', '22px']],
+      hint: 'Locked \u2014 the documented control size.', pv: EX_CHOICE,
+      src: { t: 'wsu-c-form: checkboxes and radios 22\u00d722' },
+      vars: function (v) { return { '--wsu-eit-choice-size': v }; }, off: { '--wsu-eit-choice-size': '1rem' } },
 
     /* ── BRAND CUES ── */
-    { id: 'focus', group: 'Brand cues', name: 'Focus ring width', kind: 'range', min: 2, max: 8, def: 3, unit: 'px',
-      hint: 'The keyboard-focus outline. Thicker = easier to spot, busier.', pv: EX_RING,
-      vars: function (v) { return { '--wsu-eit-focus': v + 'px' }; }, off: { '--wsu-eit-focus': '1px' } },
-    { id: 'focuscolor', group: 'Brand cues', name: 'Focus ring color', kind: 'choice', def: 'var(--wsu-eit-brand)',
-      opts: [['var(--wsu-eit-brand)', 'Crimson'], ['var(--wsu-eit-flag)', 'Secondary red'], ['var(--wsu-eit-body)', 'Black']],
-      hint: 'Color of the focus outline.', pv: EX_RING,
-      vars: function (v) { return { '--wsu-eit-focus-color': v }; }, off: { '--wsu-eit-focus-color': 'var(--wsu-eit-brand)' } },
-    { id: 'focusoffset', group: 'Brand cues', name: 'Focus ring offset', kind: 'range', min: 0, max: 5, def: 2, unit: 'px',
+    { id: 'focus', group: 'Brand cues', name: 'Focus ring width', kind: 'range', min: 2, max: 8, def: 3, unit: 'px', offDefault: true,
+      hint: 'The keyboard-focus outline. The live site suppresses input outlines \u2014 an audit fault we don\u2019t copy \u2014 but documents no width, so the kit ships the browser default.', pv: EX_RING,
+      src: { t: 'No documented width. Ships at the browser-default outline width (medium).' },
+      vars: function (v) { return { '--wsu-eit-focus': v + 'px' }; }, off: { '--wsu-eit-focus': 'medium' } },
+    { id: 'focuscolor', group: 'Brand cues', name: 'Focus ring color', kind: 'choice', def: 'var(--wsu-eit-flag)',
+      opts: [['var(--wsu-eit-flag)', 'Red 186']],
+      hint: 'Locked \u2014 focus outlines are documented among the #CA1237 UI accents.', pv: EX_RING,
+      src: { t: 'WDS: focus outlines listed under #CA1237 accents' },
+      vars: function (v) { return { '--wsu-eit-focus-color': v }; }, off: { '--wsu-eit-focus-color': 'var(--wsu-eit-flag)' } },
+    { id: 'focusoffset', group: 'Brand cues', name: 'Focus ring offset', kind: 'range', min: 0, max: 5, def: 2, unit: 'px', offDefault: true,
       hint: 'Gap between the control and its focus ring.', pv: EX_RING,
+      src: { t: 'No official example \u2014 ships at the browser default (0).' },
       vars: function (v) { return { '--wsu-eit-focus-offset': v + 'px' }; }, off: { '--wsu-eit-focus-offset': '0' } },
-    { id: 'edge', group: 'Brand cues', name: 'Required-field edge', kind: 'range', min: 0, max: 8, def: 0, unit: 'px',
-      hint: 'Optional crimson edge on empty required fields. Ships Off — the asterisk marks required. Raise to add a cue that clears as each field is filled.', pv: EX_EDGE,
+    { id: 'edge', group: 'Brand cues', name: 'Required-field edge', kind: 'range', min: 0, max: 8, def: 2, unit: 'px',
+      hint: 'The crimson left edge on required fields \u2014 straight from the live form spec. Kit refinement: it clears once the field is answered.', pv: EX_EDGE,
+      src: { t: 'wsu-c-form: required inputs border-left 2px solid #A60F2D' },
       vars: function (v) { return { '--wsu-eit-edge-hint': v + 'px' }; }, off: { '--wsu-eit-edge-hint': '0' } },
-    { id: 'star', group: 'Brand cues', name: 'Required star color', kind: 'choice', def: '#ca1237',
-      opts: [['#ca1237', 'Secondary red'], ['#a60f2d', 'Crimson']],
-      hint: 'Color of the required-field star. Off shows it in body ink.', pv: EX_STAR,
-      vars: function (v) { return { '--wsu-eit-star': v }; }, off: { '--wsu-eit-star': '#262626' } },
-    { id: 'starsize', group: 'Brand cues', name: 'Required star size', kind: 'range', min: 0.9, max: 1.4, def: 1, step: 0.05,
+    { id: 'star', group: 'Brand cues', name: 'Required star color', kind: 'choice', def: '#ca1237', offDefault: true,
+      opts: [['#ca1237', 'Red 186'], ['#a60f2d', 'Crimson']],
+      hint: 'Live WSU forms show a plain asterisk in body ink \u2014 no colored star is documented, so the kit ships it un-colored.', pv: EX_STAR,
+      src: { t: 'Live forms: plain asterisk. Ships at body ink (browser default).' },
+      vars: function (v) { return { '--wsu-eit-star': v }; }, off: { '--wsu-eit-star': 'inherit' } },
+    { id: 'starsize', group: 'Brand cues', name: 'Required star size', kind: 'range', min: 0.9, max: 1.4, def: 1, step: 0.05, offDefault: true,
       fmt: function (v) { return (+v).toFixed(2) + 'em'; },
       hint: 'Size of the required-field star relative to its label.', pv: EX_STAR,
+      src: { t: 'No official example \u2014 ships at label size (1em).' },
       vars: function (v) { return { '--wsu-eit-star-size': (+v).toFixed(2) + 'em' }; }, off: { '--wsu-eit-star-size': '1em' } },
-    { id: 'selection', group: 'Brand cues', name: 'Text selection', kind: 'choice', def: 'gold',
-      opts: [['gold', 'Goldfinch'], ['crimson', 'Crimson'], ['gray', 'Gray']],
-      hint: 'Highlight color when a visitor selects text.', pv: EX_SELECT,
-      vars: function (v) { return { gold: { '--wsu-eit-select-bg': '#f3e700', '--wsu-eit-select-fg': '#262626' }, crimson: { '--wsu-eit-select-bg': '#a60f2d', '--wsu-eit-select-fg': '#ffffff' }, gray: { '--wsu-eit-select-bg': '#d9d9d9', '--wsu-eit-select-fg': '#262626' } }[v]; },
-      off: { '--wsu-eit-select-bg': 'Highlight', '--wsu-eit-select-fg': 'HighlightText' } },
-    { id: 'topbarrule', group: 'Brand cues', name: 'Topbar hairline', kind: 'range', min: 0, max: 10, def: 4, unit: 'px',
-      hint: 'The thin crimson rule across the very top of every page.', pv: EX_TOPBAR,
+    { id: 'topbarrule', group: 'Brand cues', name: 'Topbar hairline', kind: 'range', min: 0, max: 10, def: 5, unit: 'px',
+      hint: 'The crimson rule across the very top of every page \u2014 now the documented 5px crimson.', pv: EX_TOPBAR,
+      src: { t: 'WDS: header top border 5px #A60F2D' },
       vars: function (v) { return { '--wsu-eit-topbar-rule': v + 'px' }; }, off: { '--wsu-eit-topbar-rule': '0' } },
 
     /* ── PAGE ── */
-    { id: 'col', group: 'Page', name: 'Content width', kind: 'range', min: 56, max: 96, def: 75, unit: 'rem',
-      fmt: function (v) { return (v * 16) + 'px'; },
-      hint: 'The centered white column. Shipped: 1200px. Off = full-bleed.', pv: EX_COL,
-      vars: function (v) { return { '--wsu-eit-col': v + 'rem' }; }, off: { '--wsu-eit-col': 'none' } },
-    { id: 'pagepad', group: 'Page', name: 'Content padding', kind: 'range', min: 0.5, max: 4, def: 2.5, step: 0.25,
-      fmt: function (v) { return v + 'rem'; },
-      hint: 'Breathing room above and below the content column.', pv: EX_PAGEPAD,
-      vars: function (v) { return { '--wsu-eit-page-pad': v + 'rem' }; }, off: { '--wsu-eit-page-pad': '.5rem' } },
+    { id: 'col', group: 'Page', name: 'Content width', kind: 'choice', def: '75rem',
+      opts: [['37.5rem', '600 xnarrow'], ['50rem', '800 narrow'], ['62.5rem', '1000 medium'], ['75rem', '1200 wide'], ['87.5rem', '1400 xwide']],
+      hint: 'The five documented WDS width presets \u2014 the slider is gone because only these five exist on official pages.', pv: EX_COL,
+      src: { t: 'WDS width presets: xnarrow 600 / narrow 800 / medium 1000 / wide 1200 / xwide 1400' },
+      vars: function (v) { return { '--wsu-eit-col': v }; }, off: { '--wsu-eit-col': 'none' } },
+    { id: 'pagepad', group: 'Page', name: 'Content padding', kind: 'choice', def: '2rem', offDefault: true,
+      opts: [['1rem', 'small 1rem'], ['2rem', 'medium 2rem'], ['3rem', 'med-lg 3rem'], ['4rem', 'large 4rem'], ['6rem', 'xlarge 6rem']],
+      hint: 'Options are the documented WDS spacing scale, but no official \u201cpage padding\u201d value is captured \u2014 so the kit ships none.', pv: EX_PAGEPAD,
+      src: { t: 'WDS spacing scale (xsmall .5 \u2192 xlarge 6rem); no documented page-pad step. Ships at 0.' },
+      vars: function (v) { return { '--wsu-eit-page-pad': v }; }, off: { '--wsu-eit-page-pad': '0' } },
     { id: 'paper', group: 'Page', name: 'Content paper', kind: 'choice', def: '#ffffff',
-      opts: [['#ffffff', 'White'], ['#fcfbf7', 'Warm white'], ['#f7f7f7', 'Mist']],
-      hint: 'Background of the content column itself.', pv: EX_WASH,
+      opts: [['#ffffff', 'White']],
+      hint: 'Locked \u2014 official pages set content on white.', pv: EX_WASH,
+      src: { t: 'admission.wsu.edu: white content surfaces', u: 'https://admission.wsu.edu/' },
       vars: function (v) { return { '--wsu-eit-paper': v }; }, off: { '--wsu-eit-paper': '#ffffff' } },
-    { id: 'wash', group: 'Page', name: 'Page backdrop', kind: 'choice', def: '#f5f5f5',
-      opts: [['#f5f5f5', 'Light gray'], ['#ffffff', 'White'], ['#eff0f1', 'Cool gray']],
-      hint: 'The area outside the content column. Off = no backdrop (white).', pv: EX_WASH,
-      vars: function (v) { return { '--wsu-eit-wash': v }; }, off: { '--wsu-eit-wash': '#ffffff' } }
+    { id: 'wash', group: 'Page', name: 'Page backdrop', kind: 'choice', def: '#ffffff',
+      opts: [['#ffffff', 'White (live pages)'], ['#f7f7f7', 'Gray-5 band']],
+      hint: 'Live pages are white edge-to-edge; gray-5 is the documented section-band tint.', pv: EX_WASH,
+      src: { t: 'admission.wsu.edu: white page \u00b7 wsu-color-background--gray-5 card sections', u: 'https://admission.wsu.edu/' },
+      vars: function (v) { return { '--wsu-eit-wash': v }; }, off: { '--wsu-eit-wash': '#ffffff' } },
+
+    /* ── DISPLAY & PATTERNS ── */
+    { id: 'dispstroke', group: 'Display & patterns', name: 'Display outline', kind: 'range', min: 0, max: 5, def: 2, unit: 'px',
+      fmt: function (v) { return +v === 0 ? 'Solid' : v + 'px'; },
+      hint: 'Outlined is the documented preference; 0 = solid lettering (also approved). Thickness matched to the guide\u2019s own artwork.', pv: EX_DISPLAY,
+      src: { t: 'EM Visual Style Guide \u00b7 Type Design: \u201coutlined preferred, solid acceptable\u201d' },
+      vars: function (v) { return +v === 0 ? { '--wsu-eit-display-stroke': '0', '--wsu-eit-display-fill': 'var(--wsu-eit-display-color)' } : { '--wsu-eit-display-stroke': v + 'px', '--wsu-eit-display-fill': 'transparent' }; },
+      off: { '--wsu-eit-display-stroke': '0', '--wsu-eit-display-fill': 'var(--wsu-eit-body)' } },
+    { id: 'dispsize', group: 'Display & patterns', name: 'Display size', kind: 'range', min: 2.5, max: 5, def: 4.5, step: 0.25,
+      fmt: PX, hint: 'The documented hero-display range tops out at 5rem.', pv: EX_DISPLAY,
+      src: { t: 'WDS: hero titles 4.5\u20135rem \u00b7 EM: \u201cmake type large and impactful\u201d' },
+      vars: function (v) { return { '--wsu-eit-display-size': v + 'rem' }; }, off: { '--wsu-eit-display-size': '2rem' } },
+    { id: 'disptrack', group: 'Display & patterns', name: 'Display tracking', kind: 'range', min: -0.04, max: 0.04, def: -0.01, step: 0.01, offDefault: true,
+      fmt: function (v) { return (+v).toFixed(2) + 'em'; },
+      hint: 'Letter-spacing on the display word.', pv: EX_DISPLAY,
+      src: { t: 'No official example \u2014 ships at the browser default (normal).' },
+      vars: function (v) { return { '--wsu-eit-display-track': (+v).toFixed(2) + 'em' }; }, off: { '--wsu-eit-display-track': '0em' } },
+    { id: 'dispcolor', group: 'Display & patterns', name: 'Display color', kind: 'choice', def: 'var(--wsu-eit-brand)',
+      opts: [['var(--wsu-eit-brand)', 'Crimson'], ['#ccc9c8', 'Light Gray']],
+      hint: 'Crimson as in the EM artwork; Light Gray as the guide\u2019s own background texture (2025 cheat-sheet swatch).', pv: EX_DISPLAY,
+      src: { t: 'EM guide artwork \u00b7 2025 Cheat Sheet: Light Gray #CCC9C8' },
+      vars: function (v) { return { '--wsu-eit-display-color': v }; }, off: { '--wsu-eit-display-color': 'var(--wsu-eit-brand)' } },
+    { id: 'patcolor', group: 'Display & patterns', name: 'Pattern color', kind: 'choice', def: 'var(--wsu-eit-brand)',
+      opts: [['var(--wsu-eit-brand)', 'Crimson'], ['#ccc9c8', 'Light Gray']],
+      hint: 'EM rule: patterns only in approved brand colors. brand.wsu.edu renders them light gray.', pv: EX_PATTERN,
+      src: { t: 'EM guide: approved brand colors \u00b7 brand.wsu.edu/imagery pattern swatches', u: 'https://brand.wsu.edu/imagery/' },
+      vars: function (v) { return { '--wsu-eit-pattern-color': v }; }, off: { '--wsu-eit-pattern-color': 'var(--wsu-eit-brand)' } },
+    { id: 'patopacity', group: 'Display & patterns', name: 'Pattern strength', kind: 'range', min: 0.03, max: 0.25, def: 0.1, step: 0.01,
+      fmt: function (v) { return Math.round(v * 100) + '%'; },
+      hint: 'Visually matched to the official pattern swatches (light gray on white). This example shows the true value; color/scale examples floor at 15%.', pv: EX_PATTERN_TRUE,
+      src: { t: 'Matched to brand.wsu.edu/imagery swatch appearance', u: 'https://brand.wsu.edu/imagery/' },
+      vars: function (v) { return { '--wsu-eit-pattern-opacity': String(v) }; }, off: { '--wsu-eit-pattern-opacity': '0' } },
+    { id: 'patscale', group: 'Display & patterns', name: 'Pattern scale', kind: 'range', min: 0.5, max: 2, def: 1, step: 0.1,
+      fmt: function (v) { return (+v).toFixed(1) + '\u00d7'; },
+      hint: 'Tile size of the pattern texture. 1\u00d7 = the artwork\u2019s own authored scale.', pv: EX_PATTERN,
+      src: { t: '1\u00d7 = official artwork scale (brand.wsu.edu/imagery)', u: 'https://brand.wsu.edu/imagery/' },
+      vars: function (v) { return { '--wsu-eit-pattern-scale': String(v) }; }, off: { '--wsu-eit-pattern-scale': '1' } }
   ];
 
   var KEY = 'wsu-eit-tune-v1';   /* our key only — never touch other storage */
@@ -1096,7 +1192,7 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   state.off = state.off || {};   /* per-feature On/Off disable flags */
 
   function val(s) { return (s.id in state) ? state[s.id] : s.def; }
-  function isOff(s) { return !!(state.off && state.off[s.id]); }
+  function isOff(s) { var o = state.off ? state.off[s.id] : undefined; return o === undefined ? !!s.offDefault : !!o; }   /* unsourced settings ship Off (TUNE-SOURCES.md) */
   /* the value a token falls back to when its feature is switched Off */
   function offPrimary(s) { var om = s.off || {}, k = Object.keys(om); return k.length ? om[k[0]] : null; }
   function offDisplay(s) { var v = offPrimary(s); if (v == null) return 'default'; if (s.kind === 'choice' && s.opts) { for (var i = 0; i < s.opts.length; i++) if (String(s.opts[i][0]) === String(v)) return s.opts[i][1]; } return String(v); }
@@ -1104,7 +1200,7 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   function updateBars() {
     var cS = specById('col'), mS = specById('measure');
     var cBar = document.getElementById('tpv-col-bar');
-    if (cBar && cS) cBar.style.width = isOff(cS) ? '100%' : Math.round(val(cS) / cS.max * 100) + '%';
+    if (cBar && cS) cBar.style.width = isOff(cS) ? '100%' : Math.round(parseFloat(val(cS)) / 87.5 * 100) + '%';
     var mBar = document.getElementById('tpv-measure');
     if (mBar && mS) mBar.style.width = isOff(mS) ? '100%' : Math.round(val(mS) / mS.max * 100) + '%';
   }
@@ -1124,7 +1220,7 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
         for (k in om) root.style.setProperty(k, om[k]);
         return;
       }
-      var map = s.vars(val(s)), atDef = String(val(s)) === String(s.def);
+      var map = s.vars(val(s)), atDef = String(val(s)) === String(s.def) && !s.offDefault;
       for (k in map) {
         if (atDef) root.style.removeProperty(k);
         else root.style.setProperty(k, map[k]);
@@ -1142,12 +1238,13 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
     SPEC.forEach(function (s) {
       var k, first = true;
       if (isOff(s)) {                       /* disabled features export their OFF map */
+        if (s.offDefault) return;         /* Off IS the shipped default \u2014 no deviation */
         var om = s.off || {};
         for (k in om) { out.push('  ' + k + ': ' + om[k] + ';' + (first ? '   /* ' + s.name + ': OFF (shipped: ' + fmt(s, s.def) + ') */' : '')); first = false; }
         return;
       }
       var v = val(s);
-      if (String(v) === String(s.def)) return;
+      if (String(v) === String(s.def) && !s.offDefault) return;   /* enabling an unsourced setting is itself a deviation */
       var map = s.vars(v);
       for (k in map) {
         out.push('  ' + k + ': ' + map[k] + ';' + (first ? '   /* ' + s.name + ': ' + fmt(s, v) + ' (shipped: ' + fmt(s, s.def) + ') */' : ''));
@@ -1160,7 +1257,7 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
   }
 
   /* group order for the card layout */
-  var GROUPS = ['Type', 'Shape & density', 'Brand cues', 'Page'];
+  var GROUPS = ['Type', 'Shape & density', 'Brand cues', 'Page', 'Display & patterns'];
 
   /* build the controls as grouped cards. Each card pairs a control with a
      LIVE EXAMPLE that consumes the very token it drives — so you see exactly
@@ -1214,6 +1311,13 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
       });
     }
 
+    if (s.src) {
+      var srcP = document.createElement('p');
+      srcP.className = 'tune-src';
+      srcP.innerHTML = 'Source: ' + (s.src.u ? '<a href="' + s.src.u + '" target="_blank" rel="noopener">' + s.src.t + '</a>' : s.src.t);
+      ctl.appendChild(srcP);
+    }
+
     var pv = document.createElement('div');
     pv.className = 'tune-card__pv';
     pv.innerHTML = '<span class="tune-pv-tag">Live example</span>' + s.pv;
@@ -1224,7 +1328,8 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
     card.appendChild(body);
 
     head.querySelector('.tune-toggle').addEventListener('click', function () {
-      if (state.off[s.id]) delete state.off[s.id]; else state.off[s.id] = true;
+      var nowOff = !isOff(s);
+      if (nowOff === !!s.offDefault) delete state.off[s.id]; else state.off[s.id] = nowOff;
       syncUI(); applyAll(); save();
     });
     return card;
@@ -1245,6 +1350,21 @@ document.getElementById('fixture-alert-btn').addEventListener('click', function 
     sec.appendChild(grid);
     host.appendChild(sec);
   });
+
+  /* group jump-links at the top of the takeover — 50 cards is a long scroll */
+  (function () {
+    var nav = document.createElement('nav');
+    nav.className = 'tune-jump';
+    nav.setAttribute('aria-label', 'Setting groups');
+    [].forEach.call(host.querySelectorAll('.tune-group__h'), function (h) {
+      h.id = 'tg-' + h.textContent.toLowerCase().replace(/[^a-z]+/g, '-').replace(/^-|-$/g, '');
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent;
+      nav.appendChild(a);
+    });
+    if (nav.childNodes.length) host.insertBefore(nav, host.firstChild);
+  })();
 
   function syncUI() {
     SPEC.forEach(function (s) {

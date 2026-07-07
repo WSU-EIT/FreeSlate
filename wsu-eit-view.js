@@ -3,30 +3,31 @@
    ----------------------------------------------------------------
    Reads window.WSU_VIEW (set inline in each index_*.html) and trims the
    Tune panel down to the handful of settings THAT view proposes — or, in
-   'presets' mode, replaces the 41 knobs with a 3-way personality picker.
+   'presets' mode, replaces the full control set with a 3-way personality picker.
 
    It changes NOTHING about the kit: build.css / wsu-eit-extras.css and the
-   full 41-token configurator in wsu-eit-showcase.js are untouched. This file
+   full 49-control configurator in wsu-eit-showcase.js are untouched. This file
    only hides cards the showcase already built and drives the SAME
    --wsu-eit-* custom properties the kit already consumes. Delete the two
    lines that load it and you are back to the full showcase.
 
-   Purpose: give the team five concrete "what people actually want" subsets
-   to react to, instead of debating all 41 at once.
+   Purpose: give the team six concrete "what people actually want" subsets
+   to react to, instead of debating all 49 at once.
    ════════════════════════════════════════════════════════════════ */
 (function () {
   var V = window.WSU_VIEW;
   if (!V) return;
 
-  /* the five proposed views + the full set — drives the switcher tabs that
+  /* the six proposed views + the full set — drives the switcher tabs that
      appear on every one of these pages so the team can flip between them */
   var VIEWS = [
     { id: 'essentials',  file: 'index_essentials.html',      label: 'Essentials',   n: 6 },
     { id: 'readability', file: 'index_readability.html',     label: 'Readability',  n: 8 },
     { id: 'formfeel',    file: 'index_form-feel.html',       label: 'Form feel',    n: 9 },
     { id: 'guardrails',  file: 'index_brand-guardrails.html', label: 'Guardrails',   n: 7 },
+    { id: 'displaypatterns', file: 'index_display-patterns.html', label: 'Display & patterns', n: 9 },
     { id: 'presets',     file: 'index_presets.html',         label: 'Presets only', n: 0 },
-    { id: 'full',        file: 'index.html',                 label: 'Full set',     n: 41 }
+    { id: 'full',        file: 'index.html',                 label: 'Full set',     n: 49 }
   ];
 
   function ready(fn) {
@@ -151,7 +152,7 @@
     /* swap the generic intro for this view's banner */
     var railTune = document.getElementById('rail-tune');
     var intro = railTune ? railTune.querySelector('.tune-intro') : null;
-    var b = banner(shown + ' of 41 settings shown');
+    var b = banner(shown + ' of ' + cards.length + ' settings shown');
     if (intro) intro.parentNode.replaceChild(b, intro);
     else if (railTune) railTune.insertBefore(b, railTune.firstChild);
   }

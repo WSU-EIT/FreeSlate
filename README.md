@@ -74,7 +74,7 @@ Set it to the brand palette so authored content can't reach for off-brand ink.
 ## Quick start
 
 - **See everything:** open `index.html` in a browser. It's a searchable
-  catalog of 108 paste-ready patterns, 27 sourced brand-rule cards, the 80-icon
+  catalog of 145 paste-ready patterns, 42 sourced brand-rule cards, the 80-icon
   brand set, logos, and photography — each with a live preview and copy-paste
   markup, and each annotated with *what / why / how / when / in Slate / learn
   more*. A **Tune the kit** tab lets you try design-token changes live and
@@ -138,7 +138,7 @@ Workflow: edit in `/dev` → **Preview** a real form **in the test instance** �
 |---|---|
 | `build.xslt` | The page template Slate wraps every external page in: topbar, footer, the `wsu-eit` ownership hook, skip link, and the links to everything below. **A broken `build.xslt` breaks every external page — test instance first, always.** |
 | `build-fonts.css` | Montserrat (the brand web face) + the WSU icon font, via `@import`. |
-| `build.css` | The whole styling layer: design tokens, page frame, global links, type, inputs, buttons, the verified Slate mapping layer, validation, and print / contrast / motion guards. Fully commented with a Ctrl+F **FIND-IT index** (`§TOKENS`, `§LINKS`, `§INPUTS`, `§ERRORS`, …). |
+| `build.css` | The whole styling layer: design tokens, page frame, global links, type, inputs, buttons, the verified Slate mapping layer, validation, the outlined display type + brand patterns (`§DISPLAY` / `§PATTERNS` — self-contained, with embedded PNG masks rendered from the real Montserrat), and print / contrast / motion guards. Fully commented with a Ctrl+F **FIND-IT index** (`§TOKENS`, `§LINKS`, `§INPUTS`, `§ERRORS`, …). |
 | `wsu-eit-extras.css` | Eleven opt-in, CSS-only components an editor adds with one wrapper class — carousel, FAQ accordion, steps, cards, stats, banner, timeline, badges, feature cards, tables, scroll-reveal — plus `§ACCENTS` utilities for the approved secondary colors. Its own FIND-IT index inside. |
 | `wsu-eit-a11y.js` | **Accessibility helper & fixer.** Nine repairs that are impossible in CSS, each verified against real Slate output (control naming, empty-label removal, date-part names, `aria-required`, failed-submit alert, new-tab notices, iframe titles, `alt` backstop, `aria-current`). Idempotent; re-runs on Slate's AJAX fragment swaps. Deleting it restores some WAVE errors but changes nothing visual. |
 | `wsu-eit-extras.js` | **Opt-in behaviors,** activated only by `data-eit-*` attributes: copy buttons, character counter, local-time rendering, FAQ expand-all, static-list filter. A page with none of those attributes is untouched. Anything Slate does natively was deliberately left out (see RESEARCH.md). |
@@ -148,12 +148,13 @@ Workflow: edit in `/dev` → **Preview** a real form **in the test instance** �
 | File | What it is |
 |---|---|
 | `index.html` | The showcase / sample page above. Internal tool; its scripts never ship to Slate. |
-| `index_essentials.html`, `index_readability.html`, `index_form-feel.html`, `index_brand-guardrails.html`, `index_presets.html` | Five **curated views** of the Tune tab — each shows only the handful of settings a given audience actually wants, so the team can decide which subset to expose instead of debating all of them at once. `…_presets.html` swaps the knobs for a three-way personality picker. |
+| `index_essentials.html`, `index_readability.html`, `index_form-feel.html`, `index_brand-guardrails.html`, `index_display-patterns.html`, `index_presets.html` | Six **curated views** of the Tune tab — each shows only the handful of settings a given audience actually wants, so the team can decide which subset to expose instead of debating all of them at once. `…_presets.html` swaps the knobs for a three-way personality picker. |
 | `wsu-eit-showcase.js` | The showcase page's interactivity: search, tag/chapter/class filtering, pretty⇄minified snippet toggle, copy-to-clipboard, the vision simulator, per-example docs, and the Tune-the-kit configurator. External because Slate's static host blocks inline scripts; the showcase's own styling stays inline in `index.html`. |
 | `wsu-eit-view.js` | The curated-view layer the five `index_*.html` files load. Reads a small `window.WSU_VIEW` config and hides every Tune card except its allow-list (or renders the preset picker). Touches nothing in the kit. |
 | `wsu-eit-icons.js` | The 80 official brand icons baked in as inline-SVG data, so the showcase needs zero separate icon uploads. |
 | `wsu-eit-glossary.js` | Plain-English tooltips: jargon in the explanatory copy gets a dotted underline + a tap/keyboard popover, and a full glossary collapses into the About chapter. |
 | `README.md`, `RESEARCH.md` | This file, and the pattern-decision record (what the kit uses, and what it deliberately skips, with reasons). |
+| `docs.html` | Browser-rendered view of the three `.md` docs. It fetches them at runtime, so open it from a hosted or local-server copy — `file://` won't load the markdown. |
 | `SLATE-COOKBOOK.md` | Copy-paste examples for every Slate surface this kit touches — XSLT page template, conditional branding, `--fw-*` overrides, the Slate DOM contract, per-form CSS, Instructions blocks, portals + Liquid, events, deployment, and caching. The platform-integration companion to RESEARCH.md (which covers CSS/HTML pattern decisions). |
 
 Brand **icons** (`wsu-eit-icon-*.svg`) and **images** (`wsu-eit-img-*.png`)
@@ -167,7 +168,8 @@ groups them: `build*` (Slate template trio) · `wsu-eit-*.css/.js` (kit code)
 
 The showcase's **Tune the kit** tab is a live design-token configurator. It
 opens full-width as grouped cards — **Type**, **Shape & density**, **Brand
-cues**, **Page** — with 41 controls, each driving a real `build.css §TOKENS`
+cues**, **Page**, **Display & patterns** — with 49 controls, each driving a
+real `build.css §TOKENS`
 variable bounded to a brand-safe range (the character-creator model: move any
 control, you still can't leave the brand).
 
@@ -182,9 +184,16 @@ control, you still can't leave the brand).
 - Settings persist per-browser and affect only the showcase; no real form
   changes until the override lands in `build.css`.
 
-Because 41 controls is a lot to hand a stakeholder, the five `index_*.html`
+Because 49 controls is a lot to hand a stakeholder, the six `index_*.html`
 views each expose a different curated subset — a way to find the settings
 people actually care about and get down to those.
+
+**Sourcing doctrine (2026-07): no guessed values.** Every control's shipped
+value is traced to a real example on an official WSU page or captured
+official CSS, cited on the card itself and in the matching `build.css
+§TOKENS` comment. Settings with no official example ship **Off at the
+browser default**; single-example settings ship **locked**. The full
+per-setting evidence table is `TUNE-SOURCES.md`.
 
 ---
 

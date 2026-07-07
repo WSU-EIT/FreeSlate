@@ -60,7 +60,7 @@
              global links, type, inputs, buttons, the verified Slate mapping
              layer, validation, and print/contrast/motion guards. Every
              tunable size lives as a §TOKENS variable. -->
-        <link href="/shared/build.css?v=20260622" rel="stylesheet" />
+        <link href="/shared/build.css?v=20260701" rel="stylesheet" />
         <!-- Opt-in editor components (reel/carousel, FAQ accordion, steps,
              cards, stats, banner, timeline, badges, feature cards, tables,
              scroll reveal). All CSS-only. Safe to remove: pages lose the
@@ -83,6 +83,10 @@
         <!-- Slate-contributed head content (framework CSS, per-form Edit Styles, title) -->
         <xsl:apply-templates select="xhtml:html/xhtml:head/node()" />
 
+        <!-- Global horizontal-scroll clamp. Inherited defensive rule; it can
+             mask real overflow bugs and edge-cases position:sticky. TODO: in a
+             test-instance pass, remove it, hunt any actual overflowing element,
+             and scope the fix there instead. Kept until that audit happens. -->
         <style>html { overflow-x: hidden; }</style>
         <script src="/shared/google-tag-manager.js?v=20231121" />
       </head>
@@ -155,6 +159,10 @@
             </div>
           </footer>
           <footer class="wsu-eit-baseline">
+            <!-- YEARLY: update the copyright year each January (deploy/CHECKLIST.md).
+                 Kept hardcoded on purpose — fw:year() would work but an untested
+                 fw: call in a file that fails EVERY page on error isn't worth
+                 saving one edit a year. -->
             <div>&#xA9; 2026 Washington State University &#xB7; Office of Admissions &#xB7; <span class="wsu-eit-credit">Built by Enrollment Information Technology</span></div>
             <nav class="wsu-eit-baseline__menu" aria-label="University policies">
               <ul>
