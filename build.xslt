@@ -61,7 +61,7 @@
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xhtml fw">
 
   <!-- Release version — bump on every publish. Shown as plain text in the footer. -->
-  <xsl:variable name="brandVersion" select="'SHOWCASE-2.2.1'" />
+  <xsl:variable name="brandVersion" select="'SHOWCASE-2.3.0'" />
   <!-- SHOWCASE 6 — CONDITIONAL BRANDING via Slate's fw: functions.
        The lockup title is computed server-side from the page path: inquiry forms
        read "Request Information", application pages read "Apply", everything else
@@ -165,8 +165,10 @@
              honor Custom Color Replacement for links. */
           .wsu-content a:link,.wsu-content a:visited{color:#a60f2d !important;}
           .wsu-content a:hover,.wsu-content a:focus{color:#a60f2d !important;}
-          /* The one genuinely-custom rule: required-field asterisk. */
-          .wsu-content .form_question[data-required="1"] .form_label::after{content:" *";color:var(--wsu-crimson);}
+          /* NOTE: the crimson "*" required marker was intentionally REMOVED — required
+             is now spelled out in words under each field (the aria-wired
+             "This field is required." hint), which is clearer and more accessible than
+             an asterisk. Re-add a marker here only if design wants both. */
           /* LAYOUT-TABLE FIX. Slate builds forms/login with tables it marks
              role="none"/role="presentation" (positioning, not data). The WSU
              bundle styles every bare table element (crimson top border + cell
