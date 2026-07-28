@@ -59,9 +59,8 @@
 <!-- fw namespace = Slate's Framework library. Declaring it enables server-side
      fw:* functions in this transform, e.g. fw:year() for the copyright year. -->
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xhtml fw">
-
   <!-- Release version — bump on every publish. Shown as plain text in the footer. -->
-  <xsl:variable name="brandVersion" select="'SHOWCASE-2.3.0'" />
+  <xsl:variable name="brandVersion" select="'SHOWCASE-2.3.2'" />
   <!-- SHOWCASE 6 — CONDITIONAL BRANDING via Slate's fw: functions.
        The lockup title is computed server-side from the page path: inquiry forms
        read "Request Information", application pages read "Apply", everything else
@@ -75,25 +74,19 @@
       <xsl:otherwise>Admissions</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-
   <xsl:template match="/">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-
       <!-- FRAMEWORK CONTRACT — pulls in Slate's base template. Keep. -->
       <template path="/shared/base.xslt" xmlns="http://technolutions.com/framework" />
-
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <!-- Preconnects. -->
         <link rel="preconnect" href="https://cdn.web.wsu.edu" crossorigin="crossorigin" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
-
         <!-- Montserrat — the CDN bundle names it but ships no files, so load it
              from Google Fonts exactly as admission.wsu.edu does. -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&amp;display=swap" />
-
         <!-- Base reset + WSU icon font + the official 2.x design system bundle.
              Load order is normative: normalize → icons → design system. -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
@@ -103,12 +96,10 @@
           <xsl:text>
           </xsl:text>
         </script>
-
         <!-- Slate-contributed head content (framework CSS, per-form Edit Styles,
              page <title>). Placed BEFORE our fw-* block so our :root variable
              values win the cascade and Slate consumes OUR palette. -->
         <xsl:apply-templates select="xhtml:html/xhtml:head/node()" />
-
         <!-- ============================================================
              SLATE CUSTOM COLOR REPLACEMENT + one custom rule.
              This is the sanctioned branding hook, not a specificity override.
@@ -119,14 +110,14 @@
         <style>
           <xsl:text>
           :root{
-            /* WSU 2025 palette — raw values live here ONLY (the CDN exposes no
+            /* WSU 2025 palette &#x2014; raw values live here ONLY (the CDN exposes no
                :root color vars to reference). */
             --wsu-crimson:#a60f2d; --wsu-crimson-hover:#ca1237; --wsu-crimson-deep:#680222;
             --wsu-dark-gray:#4d4d4d; --wsu-white:#ffffff; --wsu-input-border:#b2b2b2;
 
-            /* Slate's documented framework variables — Slate paints itself with these. */
+            /* Slate's documented framework variables &#x2014; Slate paints itself with these. */
             /* COMPLETE documented Slate Custom Color Replacement set (every variable
-               from Technolutions KB ▸ Branding ▸ Custom Color Replacement), mapped to
+               from Technolutions KB &#x25B8; Branding &#x25B8; Custom Color Replacement), mapped to
                the WSU palette. Slate paints its own chrome from these. */
             --fw-body-text:var(--wsu-dark-gray);          /* body text */
             --fw-link-text:var(--wsu-crimson);            /* hyperlinks (the blue-link fix) */
@@ -155,7 +146,7 @@
             accent-color:var(--wsu-crimson);              /* native checkbox / radio */
           }
           /* Keep the unit-header lockup charcoal: Slate's a:link (0,1,1) reaches into
-             our chrome and would recolor it. Scope to the lockup ONLY — do NOT include
+             our chrome and would recolor it. Scope to the lockup ONLY &#x2014; do NOT include
              .wsu-header-global, because the crumb bar (wsu-header-global--style-system)
              styles its own links light (#f2f2f2) on the dark bar, and forcing
              color:inherit there makes them dark-on-dark / illegible. */
@@ -165,7 +156,7 @@
              honor Custom Color Replacement for links. */
           .wsu-content a:link,.wsu-content a:visited{color:#a60f2d !important;}
           .wsu-content a:hover,.wsu-content a:focus{color:#a60f2d !important;}
-          /* NOTE: the crimson "*" required marker was intentionally REMOVED — required
+          /* NOTE: the crimson "*" required marker was intentionally REMOVED &#x2014; required
              is now spelled out in words under each field (the aria-wired
              "This field is required." hint), which is clearer and more accessible than
              an asterisk. Re-add a marker here only if design wants both. */
@@ -173,17 +164,17 @@
              role="none"/role="presentation" (positioning, not data). The WSU
              bundle styles every bare table element (crimson top border + cell
              gridlines), which bleeds onto those layout tables. Strip WSU table
-             chrome from presentational tables ONLY — real data tables (no such
+             chrome from presentational tables ONLY &#x2014; real data tables (no such
              role) keep it. Keyed on Slate's own marker, so it fixes every such
              page automatically. */
           .wsu-content table[role="none"],.wsu-content table[role="presentation"],
-          .wsu-content table[role="none"] > *,.wsu-content table[role="presentation"] > *,
+          .wsu-content table[role="none"] &gt; *,.wsu-content table[role="presentation"] &gt; *,
           .wsu-content table[role="none"] th,.wsu-content table[role="none"] td,
           .wsu-content table[role="presentation"] th,.wsu-content table[role="presentation"] td{
             border:0 !important;background:transparent !important;
           }
           /* ============ ACCESSIBILITY (AAA-oriented, structural only) ============
-             No WDS colors are overridden here — the design-system palette ships as-is
+             No WDS colors are overridden here &#x2014; the design-system palette ships as-is
              (per WSU standards). These rules are semantics/visibility helpers only;
              every colour used is a WDS token (--wsu-*). */
 
@@ -194,12 +185,12 @@
           .wsu-content .wsu-subfield{display:inline-flex;flex-direction:column;vertical-align:top;margin-right:.75rem;}
           .wsu-content .wsu-subfield__label{font-size:.8rem;font-weight:600;color:var(--wsu-dark-gray);margin-bottom:.2em;}
 
-          /* A11Y — explicit, announced "This field is required." under EVERY required
+          /* A11Y &#x2014; explicit, announced "This field is required." under EVERY required
              field. Conveyed in WORDS (not asterisk/colour alone), associated to the
              control via aria-describedby by the transform below. --wsu-dark-gray = AAA. */
           .wsu-content .form_question[data-required="1"] .wsu-required-hint{display:block;font-size:.8rem;color:var(--wsu-dark-gray);margin-top:.3em;}
 
-          /* A11Y — visible keyboard focus indicator (2.4.7 / focus-appearance).
+          /* A11Y &#x2014; visible keyboard focus indicator (2.4.7 / focus-appearance).
              Crimson is a WDS token; this is an additive safety net over the bundle. */
           .wsu-content a:focus-visible,.wsu-content button:focus-visible,
           .wsu-content input:focus-visible,.wsu-content select:focus-visible,
@@ -207,40 +198,38 @@
             outline:3px solid var(--wsu-crimson);outline-offset:2px;
           }
 
-          /* A11Y — respect reduced-motion preference (2.3.3). Only affects users who
+          /* A11Y &#x2014; respect reduced-motion preference (2.3.3). Only affects users who
              ask for it; no visual change otherwise. */
           @media (prefers-reduced-motion: reduce){
             *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
           }
           </xsl:text>
         </style>
-
         <!-- Instance analytics (served from Slate /shared/). Delete if unused. -->
         <script src="/shared/gtm-primary-container.js">
           <xsl:text>
           </xsl:text>
         </script>
       </head>
-
       <body>
         <!-- Carry through any attributes Slate put on <body>. -->
         <xsl:copy-of select="xhtml:html/xhtml:body/@*" />
-
         <!-- ===================== OFFICIAL WSU CHROME ===================== -->
         <div class="wsu-wrapper-global">
-
           <!-- Official skip link. -->
           <a class="wsu-skip-to-main" href="#wsu-content-main">Skip to content</a>
-
           <!-- TOP BAR (restored): official system crumb bar — the dark WSU /
                campus strip admission.wsu.edu carries. -->
           <header class="wsu-header-global wsu-header-global--style-system" role="navigation" aria-label="Washington State University system">
             <ul class="wsu-header-global__menu">
-              <li><a href="https://wsu.edu">Washington State University</a></li>
-              <li><a href="https://pullman.wsu.edu">Pullman</a></li>
+              <li>
+                <a href="https://wsu.edu">Washington State University</a>
+              </li>
+              <li>
+                <a href="https://pullman.wsu.edu">Pullman</a>
+              </li>
             </ul>
           </header>
-
           <!-- Brand header: official navless global header — wordmark + canon
                boxed cougar head. All official classes; CDN styles + drives it. -->
           <!-- Brand header, admission.wsu.edu style: wsu-header-unit with a
@@ -260,14 +249,16 @@
                     </svg>
                   </span>
                   <span class="wsu-logo-lockup__title-wrapper">
-                    <span class="wsu-logo-lockup__subtitle"></span>
-                    <span class="wsu-logo-lockup__title"><xsl:value-of select="$bandTitle" /></span>
+                    <span class="wsu-logo-lockup__subtitle">
+                    </span>
+                    <span class="wsu-logo-lockup__title">
+                      <xsl:value-of select="$bandTitle" />
+                    </span>
                   </span>
                 </a>
               </div>
             </div>
           </header>
-
           <!-- Site + content wells, matching admission.wsu.edu nesting.
                main carries wsu-wrapper-main (layout) + wsu-content (styles bare
                buttons/inputs) + wsu-container (measure/rhythm); the form sits in
@@ -276,47 +267,51 @@
             <div class="wsu-wrapper-content">
               <main role="main" id="wsu-content-main" class="wsu-wrapper-main wsu-content wsu-container" tabindex="-1">
                 <article class="wsu-article">
-
                   <!-- FRAMEWORK CONTRACT — the hand-off. Slate's rendered form
                        body is dropped in right here. -->
                   <xsl:apply-templates select="xhtml:html/xhtml:body/node()" />
-
                 </article>
               </main>
             </div>
           </div>
-
           <!-- Official global footer. Build version appended as plain text. -->
           <footer class="wsu-footer-global">
             <div class="wsu-footer-global__copyright">
               <!-- Year rendered server-side by Slate's fw:year() (Framework library).
                    Requires xmlns:fw on the stylesheet root, declared above. -->
-              <xsl:text>&#xA9; Washington State University </xsl:text><xsl:value-of select="fw:year()" /><xsl:text> &#183; branding v</xsl:text><xsl:value-of select="$brandVersion" />
+              <xsl:text>&#xA9; Washington State University </xsl:text>
+              <xsl:value-of select="fw:year()" />
+              <xsl:text> &#xB7; branding v</xsl:text>
+              <xsl:value-of select="$brandVersion" />
             </div>
             <nav class="wsu-footer-global__navigation" aria-label="WSU footer menu" id="wsu-footer-global">
               <ul class="wsu-menu-tertiary">
-                <li><a href="https://access.wsu.edu/">Access</a></li>
-                <li><a href="https://policies.wsu.edu/">Policies</a></li>
-                <li><a href="https://portal.wsu.edu/">MyWSU</a></li>
-                <li><a href="https://socialmedia.wsu.edu/">Follow&#160;WSU</a></li>
+                <li>
+                  <a href="https://access.wsu.edu/">Access</a>
+                </li>
+                <li>
+                  <a href="https://policies.wsu.edu/">Policies</a>
+                </li>
+                <li>
+                  <a href="https://portal.wsu.edu/">MyWSU</a>
+                </li>
+                <li>
+                  <a href="https://socialmedia.wsu.edu/">Follow&#xA0;WSU</a>
+                </li>
               </ul>
             </nav>
           </footer>
-
         </div>
         <!-- =================== END OFFICIAL WSU CHROME =================== -->
-
         <!-- Official 2.x behaviour bundle — last in body so it runs against a
              complete DOM. Padded. -->
         <script src="https://cdn.web.wsu.edu/designsystem/2.x/dist/bundles/wsu-design-system.js">
           <xsl:text>
           </xsl:text>
         </script>
-
       </body>
     </html>
   </xsl:template>
-
   <!-- ############################################################
        SHOWCASE TRANSFORMS
        Demonstrations of the XSLT class-injection mechanic, using REAL 2.x classes
@@ -325,7 +320,6 @@
        commenting the template out. For production you'd cherry-pick — build.xslt
        (the sibling file) keeps only the essentials.
        ############################################################ -->
-
   <!-- SHOWCASE 1 — WRAP EVERY FORM IN A CARD.
        Slate renders one <form> per public page. We wrap it in a bare wsu-callout,
        which the bundle styles as a card (gray-5 panel, radius, soft shadow, top
@@ -339,7 +333,6 @@
       </xsl:copy>
     </aside>
   </xsl:template>
-
   <!-- SHOWCASE 2 — TURN SLATE SECTION HEADERS INTO REAL WSU MARKED HEADINGS.
        Slate emits section headers as an element carrying class form_h2. We REPLACE
        it with a real h2 (so it picks up the bundle's h1-h6 typography) AND add the
@@ -350,7 +343,6 @@
       <xsl:apply-templates select="node()" />
     </h2>
   </xsl:template>
-
   <!-- SHOWCASE 3 — DATA TABLES GET wsu-table.
        Append wsu-table to real data tables. Layout tables (role=none/presentation)
        are excluded so the layout-table strip rule above still wins on the login
@@ -358,11 +350,12 @@
        proofs for wsu-table variants — a good example of a SAFE, additive transform.) -->
   <xsl:template match="xhtml:table[not(@role='none') and not(@role='presentation')]">
     <xsl:copy>
-      <xsl:attribute name="class"><xsl:value-of select="normalize-space(concat(@class, ' wsu-table'))" /></xsl:attribute>
+      <xsl:attribute name="class">
+        <xsl:value-of select="normalize-space(concat(@class, ' wsu-table'))" />
+      </xsl:attribute>
       <xsl:apply-templates select="@*[name() != 'class'] | node()" />
     </xsl:copy>
   </xsl:template>
-
   <!-- SHOWCASE 4 (DEMO) — TARGET A SPECIFIC INPUT TYPE (your "date input" idea).
        Bare date inputs are ALREADY styled by the bundle, so this is illustrative:
        it shows how to match ONE input type and tag it. The marker class here has no
@@ -370,22 +363,24 @@
        it is purely a demonstration of the targeting mechanic. Harmless if left on. -->
   <xsl:template match="xhtml:input[@type='date']">
     <xsl:copy>
-      <xsl:attribute name="class"><xsl:value-of select="normalize-space(concat(@class, ' wsu-showcase-date'))" /></xsl:attribute>
+      <xsl:attribute name="class">
+        <xsl:value-of select="normalize-space(concat(@class, ' wsu-showcase-date'))" />
+      </xsl:attribute>
       <xsl:apply-templates select="@*[name() != 'class'] | node()" />
     </xsl:copy>
   </xsl:template>
-
   <!-- SHOWCASE 5 (DEMO) — SECONDARY BUTTON VARIANT.
        If Slate labels a button "Cancel", tag it as the WSU outline/secondary button
        (a real 2.x variant). Matching on button text is fragile — verify against your
        real forms before relying on it. Shown active as a demonstration. -->
   <xsl:template match="xhtml:button[normalize-space(.)='Cancel']">
     <xsl:copy>
-      <xsl:attribute name="class"><xsl:value-of select="normalize-space(concat(@class, ' wsu-button wsu-button--style-outline'))" /></xsl:attribute>
+      <xsl:attribute name="class">
+        <xsl:value-of select="normalize-space(concat(@class, ' wsu-button wsu-button--style-outline'))" />
+      </xsl:attribute>
       <xsl:apply-templates select="@*[name() != 'class'] | node()" />
     </xsl:copy>
   </xsl:template>
-
   <!-- ============================================================
        A11Y — MULTI-PART DATE SELECTS GET REAL, VISIBLE LABELS.
        Slate renders Month/Day/Year as three select elements with an aria-label
@@ -398,7 +393,9 @@
        ============================================================ -->
   <xsl:template match="xhtml:select[@aria-label='Month' or @aria-label='Day' or @aria-label='Year']">
     <span class="wsu-subfield">
-      <label class="wsu-subfield__label" for="{@id}"><xsl:value-of select="@aria-label" /></label>
+      <label class="wsu-subfield__label" for="{@id}">
+        <xsl:value-of select="@aria-label" />
+      </label>
       <xsl:copy>
         <xsl:apply-templates select="@*[name() != 'aria-label' and name() != 'aria-describedby']" />
         <xsl:if test="ancestor::xhtml:div[contains(concat(' ', normalize-space(@class), ' '), ' form_question ')][@data-required='1']">
@@ -410,16 +407,13 @@
       </xsl:copy>
     </span>
   </xsl:template>
-
   <!-- ============================================================
        A11Y — ASSOCIATE EVERY REQUIRED CONTROL WITH THE "REQUIRED" HINT.
        For inputs/textareas/plain selects inside a required question, add
        aria-describedby pointing at the hint (so screen readers announce the words
        on the control, not just as trailing text). Date sub-selects are excluded —
        the template above already handles them. Real buttons/hidden fields excluded. -->
-  <xsl:template match="xhtml:input[ancestor::xhtml:div[contains(concat(' ', normalize-space(@class), ' '), ' form_question ')][@data-required='1']][not(@type='hidden' or @type='submit' or @type='button' or @type='reset')]
-                     | xhtml:textarea[ancestor::xhtml:div[contains(concat(' ', normalize-space(@class), ' '), ' form_question ')][@data-required='1']]
-                     | xhtml:select[ancestor::xhtml:div[contains(concat(' ', normalize-space(@class), ' '), ' form_question ')][@data-required='1']][not(@aria-label='Month' or @aria-label='Day' or @aria-label='Year')]">
+  <xsl:template match="xhtml:input[ancestor::xhtml:div[contains(concat(' ', normalize-space(@class), ' '), ' form_question ')][@data-required='1']][not(@type='hidden' or @type='submit' or @type='button' or @type='reset')]&#xA;                     | xhtml:textarea[ancestor::xhtml:div[contains(concat(' ', normalize-space(@class), ' '), ' form_question ')][@data-required='1']]&#xA;                     | xhtml:select[ancestor::xhtml:div[contains(concat(' ', normalize-space(@class), ' '), ' form_question ')][@data-required='1']][not(@aria-label='Month' or @aria-label='Day' or @aria-label='Year')]">
     <xsl:copy>
       <xsl:apply-templates select="@*[name() != 'aria-describedby']" />
       <xsl:attribute name="aria-describedby">
@@ -428,7 +422,6 @@
       <xsl:apply-templates select="node()" />
     </xsl:copy>
   </xsl:template>
-
   <!-- ============================================================
        A11Y — EXPLICIT "REQUIRED" SUBTEXT, AUTOMATICALLY, ANNOUNCED.
        Slate marks required questions with data-required="1" (editors set "required"
@@ -444,7 +437,6 @@
       <span class="wsu-required-hint" id="{generate-id()}-req">This field is required.</span>
     </xsl:copy>
   </xsl:template>
-
   <!-- ============================================================
        IDENTITY PASS-THROUGH — MUST BE LAST, MUST BE PRESENT.
        Everything Slate emits that we did not explicitly place above flows out
@@ -456,5 +448,4 @@
       <xsl:apply-templates select="@* | node()" />
     </xsl:copy>
   </xsl:template>
-
 </xsl:stylesheet>
