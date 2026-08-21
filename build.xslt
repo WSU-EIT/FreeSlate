@@ -203,15 +203,74 @@
             border:0 !important;background:transparent !important;
           }
 
-          /* SLATE'S OWN MODAL HOST. dialog_host carries inline left/top but takes
-             its position from Slate's stylesheet. Under the design system reset it
-             falls back to static, so the hidden ~500px dialog sits in normal flow
-             and reserves a blank block in the middle of the form
-             (visibility:hidden still occupies space). Restoring absolute
-             positioning collapses it and leaves the "More Info" modal working.
-             Found on the live test form; keep this. */
-          .dialog_host{position:absolute;}
-          .progress_box{position:relative;}
+          /* SLATE'S OWN MODAL HOST ("More Info" popups).
+             Two things were wrong on the live form. First, dialog_host carries
+             inline left/top but takes its POSITION from Slate's stylesheet;
+             under the design system reset it fell back to static, so the hidden
+             ~500px dialog sat in normal flow and reserved a blank block
+             mid-page. Second, once shown it was absolutely positioned against
+             the document, so it scrolled with the page, ran off the top under
+             the header, and had no backdrop.
+
+             Fixed centring in the viewport fixes both. The inline left/top calc
+             Slate writes has to be overridden, hence !important — this is the
+             one place in this file that needs it. */
+          .progress_box{position:static;}
+          .dialog_host{
+            position:fixed!important;
+            left:50%!important;
+            top:50%!important;
+            right:auto!important;
+            bottom:auto!important;
+            transform:translate(-50%,-50%);
+            width:min(560px,calc(100vw - 2rem));
+            max-height:min(80vh,calc(100vh - 4rem));
+            display:flex;
+            flex-direction:column;
+            background:#fff;
+            box-shadow:0 10px 40px rgba(0,0,0,.35);
+            border-top:4px solid #a60f2d;
+          }
+          /* Backdrop. z-index:-1 keeps it behind the dialog's own background
+             but inside the host's stacking context, so no extra markup. */
+          .dialog_host::before{
+            content:"";
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,.45);
+            z-index:-1;
+          }
+          /* Slate's inner wrappers vary by dialog type; make whichever one
+             holds the copy the scrolling region. */
+          .dialog_host > *{min-height:0;}
+          .dialog_host .dialog_content,
+          .dialog_host .dialog_body,
+          .dialog_host .dialog{
+            overflow-y:auto;
+            -webkit-overflow-scrolling:touch;
+          }
+          .dialog_host .dialog_title,
+          .dialog_host .dialog_header{
+            padding:1.125rem 1.5rem;
+            font-weight:700;
+            font-size:1.25rem;
+            border-bottom:1px solid #e5e5e5;
+            flex:0 0 auto;
+          }
+          .dialog_host .dialog_content,
+          .dialog_host .dialog_body{padding:1.125rem 1.5rem;}
+          .dialog_host .dialog_buttons,
+          .dialog_host .dialog_footer{
+            display:flex;
+            justify-content:flex-end;
+            gap:.75rem;
+            padding:1rem 1.5rem;
+            border-top:1px solid #e5e5e5;
+            background:#f7f7f7;
+            flex:0 0 auto;
+          }
+          /* The Close button was clipping its own label. */
+          .dialog_host button{line-height:1.5;padding:.625rem 1.5rem;}
 
           /* ============ ACCESSIBILITY (AAA-oriented, structural only) ============
              No WDS colors are overridden here &#x2014; the design-system palette ships as-is
