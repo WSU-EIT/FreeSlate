@@ -78,17 +78,24 @@
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xhtml fw">
   <!-- Release version — bump on every publish. Shown as plain text in the footer. -->
   <xsl:variable name="brandVersion" select="'3.0.0'" />
+  <!-- ============================================================
+       SET THIS PER SECTION. Copy this file for a new section, change the
+       one line below, done.
+       NOTE: fw:path() sees the PATH only, never the query string. A form
+       reached as /register/?id=… matches none of the branches below and
+       lands on $unit-name — which is why the page read "Admissions" until
+       this was set.
+       ============================================================ -->
+  <xsl:variable name="unit-name">FutureCoug</xsl:variable>
+
   <!-- CONDITIONAL BRANDING via Slate's fw: functions.
-       The lockup title is computed server-side from the page path: inquiry forms
-       read "Request Information", application pages read "Apply", everything else
-       falls back to "Admissions". This is Slate's sanctioned conditional-branding
-       pattern (fw:path() + xsl:choose), and it always includes a default.
-       Hardcode a single title here if you would rather not branch. -->
+       Path-specific overrides first, $unit-name as the default. Delete the
+       xsl:choose entirely if every page should read the same. -->
   <xsl:variable name="bandTitle">
     <xsl:choose>
       <xsl:when test="contains(fw:path(), '/register/inquiry')">Request Information</xsl:when>
       <xsl:when test="contains(fw:path(), '/apply')">Apply</xsl:when>
-      <xsl:otherwise>Admissions</xsl:otherwise>
+      <xsl:otherwise><xsl:value-of select="$unit-name" /></xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
   <xsl:template match="/">
@@ -265,7 +272,8 @@
                lives in the crumb bar above; this lockup carries the unit title.
                Utility bar / mobile-menu toggles are intentionally omitted (they
                open slide-in panels we don't ship on a Slate form). -->
-          <header class="wsu-header-unit" aria-label="Washington State University Admissions">
+          <header class="wsu-header-unit">
+            <xsl:attribute name="aria-label">Washington State University <xsl:value-of select="$bandTitle" /></xsl:attribute>
             <div class="wsu-header-unit__inner">
               <div class="wsu-header-unit__banner">
                 <a href="https://wsu.edu" class="wsu-logo-lockup wsu-logo-lockup--style-unit" aria-label="Go to WSU Homepage">
