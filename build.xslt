@@ -36,7 +36,7 @@
       width:fit-content, capped at 560px / the viewport.
 
   WHAT CHANGED IN 3.0.1
-    · Required-field error highlight restored. 3.0 set --fw-error-background to
+    · Required-field error highlight restored. 3.0 set fw-error-background to
       transparent, so after an incomplete submit nothing marked which questions
       were missing. It is now a light crimson tint (#f9e5e9); body text on it
       stays AAA.
@@ -382,8 +382,6 @@
                    Requires xmlns:fw on the stylesheet root, declared above. -->
               <xsl:text>&#xA9; Washington State University </xsl:text>
               <xsl:value-of select="fw:year()" />
-              <xsl:text> &#xB7; branding v</xsl:text>
-              <xsl:value-of select="$brandVersion" />
             </div>
             <nav class="wsu-footer-global__navigation" aria-label="WSU footer menu" id="wsu-footer-global">
               <ul class="wsu-menu-tertiary">
