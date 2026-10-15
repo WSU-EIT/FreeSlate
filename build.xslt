@@ -375,8 +375,6 @@
                    Requires xmlns:fw on the stylesheet root, declared above. -->
               <xsl:text>&#xA9; Washington State University </xsl:text>
               <xsl:value-of select="fw:year()" />
-              <xsl:text> &#xB7; branding v</xsl:text>
-              <xsl:value-of select="$brandVersion" />
             </div>
             <nav class="wsu-footer-global__navigation" aria-label="WSU footer menu" id="wsu-footer-global">
               <ul class="wsu-menu-tertiary">
