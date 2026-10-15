@@ -29,8 +29,14 @@
        tables, Slate's modal host, and the a11y safety net. Everything else is
        official.
 
+  WHAT CHANGED IN 3.0.2
+    · Dialog hugs Slate's content. Slate's inner dialog box has its own fixed
+      width, narrower than our 560px host, which left an empty strip on the
+      right (the gray block in 3.0, white in 3.0.1). The host is now
+      width:fit-content, capped at 560px / the viewport.
+
   WHAT CHANGED IN 3.0.1
-    · Required-field error highlight restored. 3.0 set fw-error-background to
+    · Required-field error highlight restored. 3.0 set --fw-error-background to
       transparent, so after an incomplete submit nothing marked which questions
       were missing. It is now a light crimson tint (#f9e5e9); body text on it
       stays AAA.
@@ -88,7 +94,7 @@
      fw:* functions in this transform, e.g. fw:year() for the copyright year. -->
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xhtml fw">
   <!-- Release version — bump on every publish. Shown as plain text in the footer. -->
-  <xsl:variable name="brandVersion" select="'3.0.1'" />
+  <xsl:variable name="brandVersion" select="'3.0.2'" />
   <!-- ============================================================
        SET THIS PER SECTION. Copy this file for a new section, change the
        one line below, done.
@@ -233,7 +239,8 @@
             inset:0!important;
             margin:auto;
             height:fit-content;
-            width:min(560px,calc(100vw - 2rem));
+            width:fit-content;
+            max-width:min(560px,calc(100vw - 2rem));
             max-height:min(80vh,calc(100vh - 4rem));
             z-index:1000;
             display:flex;
@@ -244,7 +251,7 @@
           }
           /* Slate's inner wrappers vary by dialog type; make whichever one
              holds the copy the scrolling region. */
-          .dialog_host > *{min-height:0;}
+          .dialog_host > *{min-height:0;max-width:100%;}
           .dialog_host .dialog_content,
           .dialog_host .dialog_body,
           .dialog_host .dialog{
@@ -375,6 +382,8 @@
                    Requires xmlns:fw on the stylesheet root, declared above. -->
               <xsl:text>&#xA9; Washington State University </xsl:text>
               <xsl:value-of select="fw:year()" />
+              <xsl:text> &#xB7; branding v</xsl:text>
+              <xsl:value-of select="$brandVersion" />
             </div>
             <nav class="wsu-footer-global__navigation" aria-label="WSU footer menu" id="wsu-footer-global">
               <ul class="wsu-menu-tertiary">
