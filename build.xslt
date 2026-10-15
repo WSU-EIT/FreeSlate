@@ -153,7 +153,7 @@
             --fw-success-text:#2e7d17;                    /* success message text (readable green) */
             --fw-success-accent:#529214;                  /* success border */
             --fw-success-background:#e6efc2;              /* success background */
-            --fw-error-background:transparent;            /* required/invalid field wash (WSU: off) */
+            --fw-error-background:#f9e5e9;               /* required/invalid field wash (WSU: light red) */
             --fw-warning-accent:#c69214;                  /* warning border */
             --fw-warning-background:#fffbe6;              /* warning background */
             --fw-datepicker-text:var(--wsu-dark-gray);    /* datepicker day/month text */
