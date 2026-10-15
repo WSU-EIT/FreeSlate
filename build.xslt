@@ -30,7 +30,7 @@
        official.
 
   WHAT CHANGED IN 3.0.1
-    · Required-field error highlight restored. 3.0 set --fw-error-background to
+    · Required-field error highlight restored. 3.0 set fw-error-background to
       transparent, so after an incomplete submit nothing marked which questions
       were missing. It is now a light crimson tint (#f9e5e9); body text on it
       stays AAA.
