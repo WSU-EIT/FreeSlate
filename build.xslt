@@ -29,6 +29,17 @@
        tables, Slate's modal host, and the a11y safety net. Everything else is
        official.
 
+  WHAT CHANGED IN 3.0.1
+    · Required-field error highlight restored. 3.0 set --fw-error-background to
+      transparent, so after an incomplete submit nothing marked which questions
+      were missing. It is now a light crimson tint (#f9e5e9); body text on it
+      stays AAA.
+    · Dialog backdrop fixed. 3.0 centred .dialog_host with transform, which made
+      the position:fixed ::before backdrop size itself to the dialog instead of
+      the viewport — it showed as a gray block on the right of the popup. The
+      dialog is now centred with inset:0 + margin:auto, the backdrop is a
+      100vmax box-shadow, and z-index keeps it above the WSU header.
+
   WHAT CHANGED IN 3.0  (from the branding-sandbox review)
     · Crumb bar carries the WSU link only. The campus crumb was dropped: a Slate
       form is not a campus page, and "Pullman" is wrong for online/other-campus
@@ -77,7 +88,7 @@
      fw:* functions in this transform, e.g. fw:year() for the copyright year. -->
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xhtml fw">
   <!-- Release version — bump on every publish. Shown as plain text in the footer. -->
-  <xsl:variable name="brandVersion" select="'3.0.0'" />
+  <xsl:variable name="brandVersion" select="'3.0.1'" />
   <!-- ============================================================
        SET THIS PER SECTION. Copy this file for a new section, change the
        one line below, done.
@@ -153,7 +164,7 @@
             --fw-success-text:#2e7d17;                    /* success message text (readable green) */
             --fw-success-accent:#529214;                  /* success border */
             --fw-success-background:#e6efc2;              /* success background */
-            --fw-error-background:#f9e5e9;               /* required/invalid field wash (WSU: light red) */
+            --fw-error-background:#f9e5e9;                /* required/invalid question highlight after submit (light crimson; #262626 on it is AAA) */
             --fw-warning-accent:#c69214;                  /* warning border */
             --fw-warning-background:#fffbe6;              /* warning background */
             --fw-datepicker-text:var(--wsu-dark-gray);    /* datepicker day/month text */
@@ -203,42 +214,33 @@
             border:0 !important;background:transparent !important;
           }
 
-          /* SLATE'S OWN MODAL HOST ("More Info" popups).
-             Two things were wrong on the live form. First, dialog_host carries
-             inline left/top but takes its POSITION from Slate's stylesheet;
-             under the design system reset it fell back to static, so the hidden
-             ~500px dialog sat in normal flow and reserved a blank block
-             mid-page. Second, once shown it was absolutely positioned against
-             the document, so it scrolled with the page, ran off the top under
-             the header, and had no backdrop.
+          /* SLATE'S OWN MODAL HOST ("More Info" popups, "required fields" alert).
+             dialog_host carries inline left/top but takes its POSITION from
+             Slate's stylesheet; under the design system reset it fell back to
+             static, so the hidden ~500px dialog sat in normal flow and reserved a
+             blank block mid-page.
 
-             Fixed centring in the viewport fixes both. The inline left/top calc
-             Slate writes has to be overridden, hence !important — this is the
-             one place in this file that needs it. */
+             3.0.1: centred with inset:0 + margin:auto instead of transform. A
+             transform makes position:fixed descendants size to the dialog, not
+             the viewport, so 3.0's ::before backdrop rendered as a gray block on
+             the dialog itself. The backdrop is now the first box-shadow (100vmax
+             spread covers any viewport); the second is WDS elevation step 4.
+             The inline left/top Slate writes has to be overridden, hence
+             !important — the one place in this file that needs it. */
           .progress_box{position:static;}
           .dialog_host{
             position:fixed!important;
-            left:50%!important;
-            top:50%!important;
-            right:auto!important;
-            bottom:auto!important;
-            transform:translate(-50%,-50%);
+            inset:0!important;
+            margin:auto;
+            height:fit-content;
             width:min(560px,calc(100vw - 2rem));
             max-height:min(80vh,calc(100vh - 4rem));
+            z-index:1000;
             display:flex;
             flex-direction:column;
             background:#fff;
-            box-shadow:0 10px 40px rgba(0,0,0,.35);
             border-top:4px solid #a60f2d;
-          }
-          /* Backdrop. z-index:-1 keeps it behind the dialog's own background
-             but inside the host's stacking context, so no extra markup. */
-          .dialog_host::before{
-            content:"";
-            position:fixed;
-            inset:0;
-            background:rgba(0,0,0,.45);
-            z-index:-1;
+            box-shadow:0 0 0 100vmax rgba(0,0,0,.45),0 0 17px rgba(0,0,0,.5);
           }
           /* Slate's inner wrappers vary by dialog type; make whichever one
              holds the copy the scrolling region. */
