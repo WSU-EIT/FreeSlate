@@ -29,6 +29,17 @@
        tables, Slate's modal host, and the a11y safety net. Everything else is
        official.
 
+  WHAT CHANGED IN 3.0.3
+    · "(Required)" now reaches grouped questions. Birthdate and address
+      render as div.form_question > fieldset > div.form_label, so 3.0.2's
+      "label is a direct child of the question" match skipped them. The
+      template now also matches a label that is a direct child of a
+      fieldset inside a required question.
+    · "(Required)" on Slate's built-in pages such as /account/register.
+      They have no form_question markup; Slate marks required controls with
+      data-validate="{ required: true }", so a label whose control (or
+      fieldset of controls) carries that is flagged.
+
   WHAT CHANGED IN 3.0.2
     · Dialog hugs Slate's content. Slate's inner dialog box has its own fixed
       width, narrower than our 560px host, which left an empty strip on the
@@ -94,7 +105,7 @@
      fw:* functions in this transform, e.g. fw:year() for the copyright year. -->
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xhtml fw">
   <!-- Release version — bump on every publish. Shown as plain text in the footer. -->
-  <xsl:variable name="brandVersion" select="'3.0.2'" />
+  <xsl:variable name="brandVersion" select="'3.0.3'" />
   <!-- ============================================================
        SET THIS PER SECTION. Copy this file for a new section, change the
        one line below, done.
@@ -473,7 +484,13 @@
        instructional-text blocks that also carry form_label are untouched.
        Reword in one place to change site-wide.
        ============================================================ -->
-  <xsl:template match="xhtml:*[contains(concat(' ', normalize-space(@class), ' '), ' form_label ')][parent::xhtml:div[contains(concat(' ', normalize-space(@class), ' '), ' form_question ')][@data-required='1']]">
+  <!-- 3.0.3: grouped questions wrap their label in a fieldset. Verified on
+       live markup (wst.test, Oct 2026):
+         div.form_question[data-required] > label.form_label              (text fields)
+         div.form_question[data-required] > fieldset > div.form_label     (birthdate, address)
+       Address sub-labels (Country, Street…) sit one level deeper, inside a
+       div, so they are not flagged; the group label carries it. -->
+  <xsl:template match="xhtml:*[contains(concat(' ', normalize-space(@class), ' '), ' form_label ')][parent::xhtml:*[contains(concat(' ', normalize-space(@class), ' '), ' form_question ')][@data-required='1'] or parent::xhtml:fieldset[parent::xhtml:*[contains(concat(' ', normalize-space(@class), ' '), ' form_question ')][@data-required='1']]]">
     <xsl:copy>
       <xsl:apply-templates select="@* | node()" />
       <span class="wsu-required-flag">(Required)</span>
@@ -496,6 +513,23 @@
         <xsl:apply-templates select="node()" />
       </xsl:copy>
     </span>
+  </xsl:template>
+  <!-- ============================================================
+       REQUIRED FIELDS ON SLATE'S BUILT-IN PAGES (e.g. /account/register).
+       These pages are not built with the form builder: no form_question,
+       no data-required. Slate instead puts the rule on the control itself,
+       data-validate="{ required: true, help: '...' }", and enforces it with
+       a JavaScript alert. So: any label whose for= points at a control
+       that is required (or at a fieldset holding one, e.g. Birthdate's
+       Month/Day/Year) gets "(Required)". form_label labels are excluded;
+       the form-builder template above owns those.
+       ============================================================ -->
+  <xsl:key name="by-id" match="xhtml:*[@id]" use="@id" />
+  <xsl:template match="xhtml:label[@for][not(contains(concat(' ', normalize-space(@class), ' '), ' form_label '))][key('by-id', @for)[contains(translate(@data-validate, ' ', ''), 'required:true') or .//xhtml:*[contains(translate(@data-validate, ' ', ''), 'required:true')]]]">
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node()" />
+      <span class="wsu-required-flag">(Required)</span>
+    </xsl:copy>
   </xsl:template>
   <!-- ============================================================
        IDENTITY PASS-THROUGH — MUST BE LAST, MUST BE PRESENT.
