@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns:fw="http://technolutions.com/framework">
+  <menu xmlns="http://technolutions.com/framework">
+    <link id="frm?400c8dd1-ec53-4919-b20b-41f632cb585b" periodKey="2025,2026">My Information</link>
+    <link id="frm?c5e365df-4254-44a1-bd08-7350ffca59c8" periodKey="2027">My Information</link>
+    <link id="frm?be92660f-8033-4068-b60d-f6f58d92c7fc" pageKey="Show Spring 26 AE Academic Plans">My Spring 2026 Academic English Plans</link>
+    <link id="frm?fe830934-1b0f-4d53-8a22-9dc05209ca4d" pageKey="Show Spring 27 AE Academic Plans">My Spring 2027 Academic English Plans</link>
+    <link id="frm?40775a24-86e5-49cc-9b6a-2c65d54b77ea" pageKey="Show Spring 26 GFP Academic Plans">My Spring 2026 Academic Plans</link>
+    <link id="frm?d28d8be1-e33b-493d-b7b3-8e3ab05d7ee0" pageKey="Show Summer 26 AE Academic Plans">My Summer 2026 Academic English Plans</link>
+    <link id="frm?01a9f922-f39e-4955-91b1-11e4116889b5" pageKey="Show Summer 27 AE Academic Plans">My Summer 2027 Academic English Plans</link>
+    <link id="frm?4490f24b-2655-48b3-9494-f2d7b9da17d3" pageKey="Show Fall 26 AE Academic Plans">My Fall 2026 Academic English Plans</link>
+    <link id="frm?cae8a2aa-b39a-4a57-b56f-ee62a7eb0a6e" pageKey="Show Fall 27 AE Academic Plans">My Fall 2027 Academic English Plans</link>
+    <link id="frm?fd8914e5-2bab-4caa-a3aa-365971746cb7" pageKey="Show Fall 26 GFP Academic Plans">My Fall 2026 Academic Plans</link>
+    <link id="frm?59de59f7-06f6-4c73-8a0d-d7876761bb79" periodKey="2025,2026">Contact Information</link>
+    <link id="frm?1724339d-2353-46ab-87ba-ca64d67e9ed9" periodKey="2027">Contact Information</link>
+    <link id="frm?7e6eeca2-8a6e-4316-b041-ccd659636134" periodKey="2026">International</link>
+    <link id="frm?64280546-7f0a-4f20-8d2a-cb554a8f2601" periodKey="2027">International</link>
+    <link id="tes" pageKey="Show AEGBR Test Scores Page,Show AE Test Scores Page">Test Scores</link>
+    <link id="certify">Certification</link>
+    <link id="review">Review</link>
+  </menu>
+  <part id="job">
+  </part>
+  <part id="act">
+  </part>
+  <part id="tes">
+    <p>
+      <k>test_GMAT</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>test_GRE</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+If you have taken the TOEFL, IELTS, or Duolingo, those exams can be used as proof of English proficiency. Click on <u>Add Test</u> to enter your self-reported test scores.<br />
+Please have your official scores sent to WSU by the testing agency.
+</body>
+        </html>
+      </v>
+    </p>
+  </part>
+  <part id="aca">
+    <p>
+      <k>autocomplete</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>major</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>major2</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>minor</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>rank</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>language</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <span style="font-size:12pt">
+              <span style="background:white">
+                <span style="font-family:&quot;Times New Roman&quot;,serif">
+                  <span style="font-size:9.0pt">
+                    <span style="font-family:&quot;Arial&quot;,sans-serif">
+                      <span style="color:black">Add all educational institutions colleges and universities you have attended or will be attending before enrolling at Washington State University.</span>
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </span>
+            <br />
+            <br />
+            <span style="font-size:12pt">
+              <span style="background:white">
+                <span style="font-family:&quot;Times New Roman&quot;,serif">
+                  <strong>
+                    <span style="font-size:9.0pt">
+                      <span style="font-family:&quot;Arial&quot;,sans-serif">
+                        <span style="color:#981e32">Washington State University requires official transcripts from every institution of higher education attended. You must list ALL colleges or universities you have and/or are currently attending, regardless of the type of school, whether you believe any credit will transfer, or how many credits, if any, you've earned.</span>
+                      </span>
+                    </span>
+                  </strong>
+                </span>
+              </span>
+            </span>
+            <br />
+            <br />
+            <span style="font-size:12pt">
+              <span style="background:white">
+                <span style="font-family:&quot;Times New Roman&quot;,serif">
+                  <span style="font-size:9.0pt">
+                    <span style="font-family:&quot;Arial&quot;,sans-serif">
+                      <span style="color:#323232">Failure to fulfill this reporting requirement may result in adverse consequences, such as denial of enrollment, revocation of admission, delay or denial of financial aid and/or denial of transfer credits. Additionally, intentionally omitting or falsifying information in an application for admission is a violation of the WSU Standards of Conduct for Students and may result in additional penalties; including, but not limited to, suspension, expulsion and/or revocation of a degree awarded from WSU. WSU reserves the right to verify any of this information with the appropriate entity.</span>
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </span>
+            <br />
+            <br />
+            <span style="font-size:12pt">
+              <span style="background:white">
+                <span style="font-family:&quot;Times New Roman&quot;,serif">
+                  <span style="font-size:9.0pt">
+                    <span style="font-family:&quot;Arial&quot;,sans-serif">
+                      <span style="color:#323232">Please note: If you list incorrect dates of attendance, we may require you to submit additional information, which will delay the processing of your application. You may need to contact institutions you've previously attended to verify dates of attendance.</span>
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </span>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>limit</k>
+      <v>10</v>
+    </p>
+    <p>
+      <k>title</k>
+      <v>Schools Attended</v>
+    </p>
+    <p>
+      <k>conferred</k>
+      <v>Date of Graduation</v>
+    </p>
+    <p>
+      <k>upload</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="per">
+    <p>
+      <k>first</k>
+      <v>Legal First Name</v>
+    </p>
+    <p>
+      <k>last</k>
+      <v>Legal Last or Family Name</v>
+    </p>
+    <p>
+      <k>preferred</k>
+      <v>Preferred first name</v>
+    </p>
+    <p>
+      <k>alias</k>
+      <v>Former Last or Family Name</v>
+    </p>
+    <p>
+      <k>address_header</k>
+      <v>Mailing Address</v>
+    </p>
+    <p>
+      <k>middle</k>
+      <v>Legal Middle Name</v>
+    </p>
+    <p>
+      <k>citizenship</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>biographical_help</k>
+      <v>WSU recognizes that people may identify their gender and/or sex in non-binary ways. Federal reporting requires we report on binary categories. Once a student enrolls, legal sex can be changed (including to legal sex "X") with the appropriate documents. The student's academic record will then reflect their correct gender and/or sex identity. If you have questions, please contact Gender Identity/Expression and Sexual Orientation Resource Center (GIESORC) at GIESORC@wsu.edu.</v>
+    </p>
+    <p>
+      <k>address_expires_optional</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>citizenship2</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>resident</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>alien</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>visa</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>race</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>ethnicity</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_expires</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>prefix</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>business</k>
+      <v>Alternate</v>
+    </p>
+    <p>
+      <k>mobile</k>
+      <v>Alternate</v>
+    </p>
+    <p>
+      <k>tribal</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>phone</k>
+      <v>Mobile</v>
+    </p>
+  </part>
+  <part id="ref">
+  </part>
+  <part id="certify">
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <p>
+              <span style="font-size:12px;">
+                <span style="font-family:Arial,Helvetica,sans-serif;">Please double-check your application (names, date of birth, email address, term, school(s) attended, etc.) for accuracy. Once your application has been submitted, changes can only be made by contacting International Admissions at <a href="mailto:international@wsu.edu">international@wsu.edu</a>.</span>
+              </span>
+            </p>
+            <div class="den den-gray den-shadowless den-outline den-sm">
+              <div class="ufe-pledge-wrap">
+                <div class="ufe-pledge-text">
+                  <span style="font-size:12px;">
+                    <span style="font-family:Arial,Helvetica,sans-serif;">I affirm that my application is true, accurate, and complete to the best of my knowledge and belief. I acknowledge that the Washington State University (WSU) Standards of Conduct for Students apply from the time my application for admission is submitted. I acknowledge that any misinformation, misrepresentation, or omission may result in adverse consequences, such as denial of enrollment, revocation of admission, delay or denial of financial aid and/or denial of transfer credits. Additionally, intentionally omitting or falsifying information in an application for admission is a violation of the WSU Standards of Conduct for Students and may result in additional penalties; including, but not limited to, suspension, expulsion and/or revocation of a degree awarded from WSU. I hereby authorize WSU to verify with appropriate entities that the information contained within this application is true, accurate, and complete. I hereby authorize other educational institutions or agencies to release all of my education records (including but not limited to records pertaining to my academic history, student conduct, and any and all disciplinary matters) to WSU to enable the university to evaluate my application for admission. All documents sent to the office of International Admissions become the property of Washington State University and will not be returned.</span>
+                  </span>
+                  <br />
+                  <br />
+&#xA0;</div>
+              </div>
+            </div>
+          </body>
+        </html>
+      </v>
+    </p>
+  </part>
+  <part id="review">
+    <p>
+      <k>submit_text_pay</k>
+      <v>Finalize Application</v>
+    </p>
+  </part>
+  <part id="upl?portfolio">
+  </part>
+  <part id="status">
+    <p>
+      <k>preferred_name</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>checklist_finaid</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>ref_edit</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>confirm</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <br />
+Thank you for submitting your application!
+</body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>address_edit</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_delete</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>checklist_help_complete</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+All required checklist items have been satisfied. We will begin reviewing your application shortly.
+</body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>materials_transcript_upload</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="default">
+  </part>
+  <part id="login">
+  </part>
+  <part id="register">
+  </part>
+  <part id="payment_Event Payment">
+    <p>
+      <k>provider</k>
+      <v>slate_test</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>f0ee87f6-478b-4b61-bdc7-419d7aaac602</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>this is the text to send for disputed payments, such as description of refund policy, link to policy, description of payment purpose. we will need to figure out what to put here</v>
+    </p>
+  </part>
+  <part id="payment_Application Fee">
+    <p>
+      <k>provider</k>
+      <v>slate</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>51e26de8-b670-4ae2-b2ed-c6c5760fe6cf</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>Payments for Washington State University admissions application fees are often paid by relatives of the student, and disputes sometimes occur because the credit card holder doesn't recognize the charge later. We've contacted the student and asked them to contact the credit card holder to verify that the charge was intended. Payments should appear on the credit card statement with the description of WSU APPLICATION FEE. As stated on the admission application, the fee is non-refundable.</v>
+    </p>
+  </part>
+  <part id="payment">
+  </part>
+  <part id="payment_Alive Orientation Fees">
+    <p>
+      <k>provider</k>
+      <v>slate</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>c181b934-57d5-4e9f-a64d-cbcd6b6e4d75</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="payment_International Fee">
+    <p>
+      <k>provider</k>
+      <v>slate</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>b7359525-0a17-4b1f-b79e-80c8d2f4ab8e</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>Payments for Washington State University international student confirmation fees are often paid by relatives of the student, and disputes sometimes occur because the credit card holder doesn't recognize the charge later. We've contacted the student and asked them to contact the credit card holder to verify that the charge was intended. Payments should appear on the credit card statement with the description of WSU CONFIRMATION FEE. As stated on the confirmation form, the fee is non-refundable.</v>
+    </p>
+    <p>
+      <k>address</k>
+      <v>0</v>
+    </p>
+  </part>
+  <part id="payment_Application Fee (Flywire)">
+    <p>
+      <k>provider</k>
+      <v>peer_transfer</v>
+    </p>
+    <p>
+      <k>provider_id</k>
+      <v>slate</v>
+    </p>
+    <p>
+      <k>destination_id</k>
+      <v>wsuappfee</v>
+    </p>
+    <p>
+      <k>status_to_mark_paid</k>
+      <v>guaranteed</v>
+    </p>
+    <p>
+      <k>url</k>
+      <v>https://gateway.flywire.com/v1/transfers.json</v>
+    </p>
+  </part>
+  <part id="payment_International Fee (Flywire)">
+    <p>
+      <k>provider</k>
+      <v>peer_transfer</v>
+    </p>
+    <p>
+      <k>provider_id</k>
+      <v>slate</v>
+    </p>
+    <p>
+      <k>destination_id</k>
+      <v>wsuenrollmentfee</v>
+    </p>
+    <p>
+      <k>status_to_mark_paid</k>
+      <v>guaranteed</v>
+    </p>
+    <p>
+      <k>url</k>
+      <v>https://gateway.flywire.com/v1/transfers.json</v>
+    </p>
+  </part>
+  <part id="payment_Agent Application Tuition Deposit">
+    <p>
+      <k>provider</k>
+      <v>slate</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>2f7e92c9-8894-48d0-af40-d0a366edf1b7</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>Payments for Washington State University international student tuition deposits for agent-sourced applicants are often paid by relatives of the student, and disputes sometimes occur because the credit card holder doesn't recognize the charge later. We've contacted the student and asked them to contact the credit card holder to verify that the charge was intended. Payments should appear on the credit card statement with the description of WA STATE INTL TUIT DEP. As stated on the confirmation form, the fee is non-refundable, but will be applied to the student's tuition if they enroll.</v>
+    </p>
+  </part>
+  <part id="payment_Agent Application Tuition Deposit (Flywire)">
+    <p>
+      <k>provider</k>
+      <v>peer_transfer</v>
+    </p>
+    <p>
+      <k>provider_id</k>
+      <v>slate</v>
+    </p>
+    <p>
+      <k>destination_id</k>
+      <v>wsutuitiondep</v>
+    </p>
+    <p>
+      <k>status_to_mark_paid</k>
+      <v>guaranteed</v>
+    </p>
+    <p>
+      <k>url</k>
+      <v>https://gateway.flywire.com/v1/transfers.json</v>
+    </p>
+  </part>
+</application>
