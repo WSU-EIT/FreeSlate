@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns:fw="http://technolutions.com/framework">
+  <menu xmlns="http://technolutions.com/framework">
+    <link id="home?wplacement">Return to Placement Exam Portal</link>
+    <link id="frm?9d6d42f1-fd36-42f6-8804-4b12a9591312">Profile</link>
+    <link id="frm?8bc75b04-5084-41d6-87ee-40d7f52674d9">Section 1</link>
+    <link id="frm?d05635f7-3baa-4ebc-99ed-e64fd3c4d1ce">Essay Prompt</link>
+    <link id="certify">Signature</link>
+    <link id="review">Review</link>
+  </menu>
+  <part id="job">
+  </part>
+  <part id="act">
+  </part>
+  <part id="tes">
+  </part>
+  <part id="aca">
+    <p>
+      <k>autocomplete</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>key_display</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>key_required</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="per">
+    <p>
+      <k>first</k>
+      <v>Legal First</v>
+    </p>
+    <p>
+      <k>last</k>
+      <v>Legal Last or Family</v>
+    </p>
+    <p>
+      <k>preferred</k>
+      <v>Preferred first name</v>
+    </p>
+    <p>
+      <k>alias</k>
+      <v>Former Last or Family Name</v>
+    </p>
+    <p>
+      <k>prefix</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_header</k>
+      <v>Home Address and Phone</v>
+    </p>
+    <p>
+      <k>address_expires</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_expires_optional</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>middle</k>
+      <v>Legal Middle</v>
+    </p>
+  </part>
+  <part id="ref">
+    <p>
+      <k>download</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>title</k>
+      <v>Letters of Recommendation</v>
+    </p>
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <div style="font-size: 12pt;">
+              <span style="background:white">
+                <span style="font-family:&quot;Times New Roman&quot;,serif">
+                  <span style="font-size:9.0pt">
+                    <span style="font-family:&quot;Arial&quot;,sans-serif">List at least one person who will write a recommendation in support of this application. One letter must come from a direct supervisor, or someone that can speak to your work, management and/or leadership. In order for us to receive the most accurate feedback possible, your references will be asked to address your abilities in the educational objective you list as your first choice.<br /><br />
+When using the online reference form to list references you must include valid email addresses. Once you have completed and submitted your application, your references will be contacted directly by us via email with directions for submitting their letters of recommendation on your behalf. Keep in mind that it is your responsibility to make sure references have submitted their recommendations by the deadline.<br /><br />
+In accordance with the Family Educational Rights &amp; Privacy Act of 1974, you may waive your right to inspect the recommendation by selecting the "Waive Access" checkbox. Should you choose not to waive the right, you will only have access to the recommendation after you enroll in a Graduate Program at Washington State University. We recommend that you please contact your references prior to submitting your application to ensure that they will be willing to complete a letter of recommendation on your behalf if you do not waive your right to read the letter<br /><br />
+Please enter your recommender's contact information by clicking "Add Recommender" below.</span>
+                  </span>
+                </span>
+              </span>
+            </div>
+            <ul>
+              <li style="font-size: 12pt;">
+                <span style="background:white">
+                  <span style="font-family:&quot;Times New Roman&quot;,serif">
+                    <span style="font-size:9.0pt">
+                      <span style="font-family:&quot;Arial&quot;,sans-serif">The recommender will receive an email requesting they upload a letter of recommendation.</span>
+                    </span>
+                  </span>
+                </span>
+              </li>
+              <li>
+                <span style="font-size:12pt">
+                  <span style="background:white">
+                    <span style="font-family:&quot;Times New Roman&quot;,serif">
+                      <span style="font-size:9.0pt">
+                        <span style="font-family:&quot;Arial&quot;,sans-serif">If necessary, you may send reminders or exclude recommenders by using the "Edit" button next to the recommender's name.</span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>add</k>
+      <v>Add Recommender</v>
+    </p>
+    <p>
+      <k>limit</k>
+      <v>10</v>
+    </p>
+    <p>
+      <k>offline</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>offline_print</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>company</k>
+      <v>Institution</v>
+    </p>
+    <p>
+      <k>position</k>
+      <v>Position</v>
+    </p>
+    <p>
+      <k>phone_required</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>email_help</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>waiver</k>
+      <v>Waive access?</v>
+    </p>
+    <p>
+      <k>prefix</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>relationship</k>
+      <v>0</v>
+    </p>
+  </part>
+  <part id="certify">
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <span style="font-size:16px;">
+            </span>
+            <span style="font-size:16px;">
+            </span>
+            <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+            </span>
+            <p>
+              <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+                <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Sign below to verify that the work you have submitted is yours alone and the information you provided is accurate and truthful.</span>
+              </span>
+            </p>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>title</k>
+      <v>Signature</v>
+    </p>
+  </part>
+  <part id="review">
+    <p>
+      <k>download</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <script type="text/javascript">/*<![CDATA[*/
+        $(document).ready(function() {
+        $('p.error').html('We have found at least one issue that is preventing you from submitting your exam. Please click the link(s) below to correct all errors before submitting.');
+        $('p.warning').html('We have identified some common errors that students often run into. Please review the following to verify your responses are as intended and continue to submit if everything looks correct.');
+          $('b').html('');
+        });/*]]>*/</script>
+            <title>
+            </title>
+          </head>
+          <body>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>submit_text</k>
+      <v>Submit Exam</v>
+    </p>
+    <p>
+      <k>submit_confirm</k>
+      <v>0</v>
+    </p>
+  </part>
+  <part id="upl?portfolio">
+  </part>
+  <part id="status">
+    <p>
+      <k>checklist</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>checklist_finaid</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>materials</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>payment</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>download</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_edit</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_delete</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>ref_edit</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>preferred_name</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="default">
+  </part>
+  <part id="login">
+  </part>
+  <part id="register">
+  </part>
+  <part id="payment_Event Payment">
+    <p>
+      <k>provider</k>
+      <v>slate_test</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>f0ee87f6-478b-4b61-bdc7-419d7aaac602</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>this is the text to send for disputed payments, such as description of refund policy, link to policy, description of payment purpose. we will need to figure out what to put here</v>
+    </p>
+  </part>
+</application>
