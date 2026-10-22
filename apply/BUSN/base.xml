@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns:fw="http://technolutions.com/framework">
+  <menu xmlns="http://technolutions.com/framework">
+    <link id="home?BUSN" roundKey="BUSN">Home</link>
+    <link id="frm?22e8ccdf-7c42-4581-a0d0-f9a2620d06fa" roundKey="BUSN">Profile</link>
+    <link id="frm?ebec1df2-1e3d-4260-a7e1-591e89a64d52" roundKey="BUSN">Personal Background</link>
+    <link id="frm?f37fd49f-2148-4a69-b3f7-8183935705c3" roundKey="BUSN">Enrollment Plans</link>
+    <link id="frm?4206dfc4-46a6-4f44-b938-3a060c7bf752" pageKey="Show MBA Education Page" roundKey="BUSN">Education</link>
+    <link id="frm?e3a9d5d3-9659-433d-a6b1-7fc2acd2b55d" roundKey="BUSN">Supplemental Information</link>
+    <link id="frm?d5749c13-5610-4749-b576-12c7b79c1d55" pageKey="Show MBA Supporting Documents Page" roundKey="BUSN">Supporting Documents</link>
+    <link id="frm?2f93146b-0202-4bf0-a241-533f66efe6d2" roundKey="BUSN">Letters of Recommendation</link>
+    <link id="frm?4f38d4eb-6bf6-4cbc-b66e-742dea50342d" pageKey="Show MBA Payment Page" roundKey="BUSN">Payment</link>
+    <link id="certify">Signature</link>
+    <link id="review">Review</link>
+  </menu>
+  <part id="job">
+  </part>
+  <part id="act">
+  </part>
+  <part id="tes">
+  </part>
+  <part id="aca">
+    <p>
+      <k>autocomplete</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>key_display</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>key_required</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="per">
+    <p>
+      <k>first</k>
+      <v>Legal First</v>
+    </p>
+    <p>
+      <k>last</k>
+      <v>Legal Last or Family</v>
+    </p>
+    <p>
+      <k>preferred</k>
+      <v>Preferred first name</v>
+    </p>
+    <p>
+      <k>alias</k>
+      <v>Former Last or Family Name</v>
+    </p>
+    <p>
+      <k>prefix</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_header</k>
+      <v>Home Address and Phone</v>
+    </p>
+    <p>
+      <k>address_expires</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_expires_optional</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>middle</k>
+      <v>Legal Middle</v>
+    </p>
+  </part>
+  <part id="ref">
+    <p>
+      <k>download</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>title</k>
+      <v>Letters of Recommendation</v>
+    </p>
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <div style="font-size: 12pt;">
+              <span style="background:white">
+                <span style="font-family:&quot;Times New Roman&quot;,serif">
+                  <span style="font-size:9.0pt">
+                    <span style="font-family:&quot;Arial&quot;,sans-serif">List at least one person who will write a recommendation in support of this application. One letter must come from a direct supervisor, or someone that can speak to your work, management and/or leadership. In order for us to receive the most accurate feedback possible, your references will be asked to address your abilities in the educational objective you list as your first choice.<br /><br />
+When using the online reference form to list references you must include valid email addresses. Once you have completed and submitted your application, your references will be contacted directly by us via email with directions for submitting their letters of recommendation on your behalf. Keep in mind that it is your responsibility to make sure references have submitted their recommendations by the deadline.<br /><br />
+In accordance with the Family Educational Rights &amp; Privacy Act of 1974, you may waive your right to inspect the recommendation by selecting the "Waive Access" checkbox. Should you choose not to waive the right, you will only have access to the recommendation after you enroll in a Graduate Program at Washington State University. We recommend that you please contact your references prior to submitting your application to ensure that they will be willing to complete a letter of recommendation on your behalf if you do not waive your right to read the letter<br /><br />
+Please enter your recommender's contact information by clicking "Add Recommender" below.</span>
+                  </span>
+                </span>
+              </span>
+            </div>
+            <ul>
+              <li style="font-size: 12pt;">
+                <span style="background:white">
+                  <span style="font-family:&quot;Times New Roman&quot;,serif">
+                    <span style="font-size:9.0pt">
+                      <span style="font-family:&quot;Arial&quot;,sans-serif">The recommender will receive an email requesting they upload a letter of recommendation.</span>
+                    </span>
+                  </span>
+                </span>
+              </li>
+              <li>
+                <span style="font-size:12pt">
+                  <span style="background:white">
+                    <span style="font-family:&quot;Times New Roman&quot;,serif">
+                      <span style="font-size:9.0pt">
+                        <span style="font-family:&quot;Arial&quot;,sans-serif">If necessary, you may send reminders or exclude recommenders by using the "Edit" button next to the recommender's name.</span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>add</k>
+      <v>Add Recommender</v>
+    </p>
+    <p>
+      <k>limit</k>
+      <v>10</v>
+    </p>
+    <p>
+      <k>offline</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>offline_print</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>company</k>
+      <v>Institution</v>
+    </p>
+    <p>
+      <k>position</k>
+      <v>Position</v>
+    </p>
+    <p>
+      <k>phone_required</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>email_help</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>waiver</k>
+      <v>Waive access?</v>
+    </p>
+    <p>
+      <k>prefix</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>relationship</k>
+      <v>0</v>
+    </p>
+  </part>
+  <part id="certify">
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <span style="font-size:16px;">
+            </span>
+            <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+              <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">WSU does not discriminate and prohibits discrimination on the basis of sex, race, color, national origin, disability, age, religion, creed, genetic information, marital status, protected veteran/military status, or immigration or citizenship status in any education program or activity that it operates compliant with Title IX and other civil rights laws and regulations. Inquiries regarding Title IX, ADA, or other civil rights laws, as well as reports of discrimination can be directed to the<a href="mailto:ccr@wsu.edu"> Compliance and Civil Rights</a>, <a href="mailto:ada.coordinator@wsu.edu">WSU ADA Coordinator</a>, or <a href="mailto:titleix.coordinator@wsu.edu">WSU Title IX Coordinator</a>. More information on WSU&#x2019;s policies and procedures to respond to discrimination and harassment are available here: <a href="https://ccr.wsu.edu/notice-of-nondiscrimination" target="_blank">Nondiscrimination statement</a>. </span>
+            </span>
+            <br />
+            <br />
+            <br />
+            <br />
+            <span style="font-size:16px;">
+            </span>
+            <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+            </span>
+            <span style="font-size:16px;">
+            </span>
+            <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+            </span>
+            <p>
+              <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+                <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">I affirm that my application is true, complete, and accurate to the best of my knowledge and belief. I acknowledge that the Washington State University (WSU) Standards of Conduct for Students apply from the time I submit my application for admission. I acknowledge that misinformation, misrepresentation, or omission of information as well as the submission of any materials that are incomplete, forged, fraudulent, misleading, altered from the original, or obtained under false pretenses violate the WSU Standards of Conduct for Students and may result in sanctions, including but not limited to: denial of enrollment, revocation of admission and any financial offers, denial of transfer credits, expulsion, and/or revocation of a degree awarded from WSU. I hereby authorize WSU to verify with appropriate entities that the information contained within this application is true, accurate, and complete. I hereby authorize other educational institutions or agencies to release all of my education records (including but not limited to records pertaining to my academic history, student conduct, and any and all disciplinary matters) to WSU to enable the university to evaluate my application for admission. I agree to abide by the standards, rules, policies and procedures of WSU, and the Carson College of Business Graduate Programs.</span>
+              </span>
+            </p>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>title</k>
+      <v>Signature</v>
+    </p>
+  </part>
+  <part id="review">
+    <p>
+      <k>download</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>submit_text_pay</k>
+      <v>Submit Application</v>
+    </p>
+  </part>
+  <part id="upl?portfolio">
+  </part>
+  <part id="status">
+    <p>
+      <k>checklist</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>checklist_finaid</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>materials</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>payment</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>download</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_edit</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_delete</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>ref_edit</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>preferred_name</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="default">
+  </part>
+  <part id="login">
+  </part>
+  <part id="register">
+  </part>
+  <part id="payment_Event Payment">
+    <p>
+      <k>provider</k>
+      <v>slate_test</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>f0ee87f6-478b-4b61-bdc7-419d7aaac602</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>this is the text to send for disputed payments, such as description of refund policy, link to policy, description of payment purpose. we will need to figure out what to put here</v>
+    </p>
+  </part>
+  <part id="payment">
+    <p>
+      <k>provider</k>
+      <v>slate</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>6bc18611-0c58-4441-8fd9-350917ffee17</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>Payments for Washington State University admissions application fees are often paid by relatives of the student, and disputes sometimes occur because the credit card holder doesn't recognize the charge later. We've contacted the student and asked them to contact the credit card holder to verify that the charge was intended. Payments should appear on the credit card statement with the description of WSU APPLICATION FEE. As stated on the admission application, the fee is non-refundable.</v>
+    </p>
+    <p>
+      <k>address</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="payment_MBA Application Fee">
+    <p>
+      <k>provider</k>
+      <v>slate</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>6bc18611-0c58-4441-8fd9-350917ffee17</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>Payments for Washington State University admissions application fees are often paid by relatives of the student, and disputes sometimes occur because the credit card holder doesn't recognize the charge later. We've contacted the student and asked them to contact the credit card holder to verify that the charge was intended. Payments should appear on the credit card statement with the description of WSU APPLICATION FEE. As stated on the admission application, the fee is non-refundable.</v>
+    </p>
+    <p>
+      <k>address</k>
+      <v>1</v>
+    </p>
+  </part>
+</application>
