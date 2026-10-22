@@ -33,6 +33,9 @@
     · A required label written as paragraphs (a question, then a consent or
       help paragraph, e.g. "May we text you?") gets "(Required)" at the end
       of its first non-empty paragraph instead of after the fine print.
+    · No "(Required)" on login forms (any form with a password input):
+      Slate's 150px label column clipped it, and both fields are obviously
+      required. Register and reset keep theirs.
 
   WHAT CHANGED IN 3.0.3
     · "(Required)" now reaches grouped questions. Birthdate and address
@@ -671,6 +674,9 @@
        that is required (or at a fieldset holding one, e.g. Birthdate's
        Month/Day/Year) gets "(Required)". form_label labels are excluded;
        the form-builder template above owns those.
+       3.0.4: skipped on login forms (any form with a password input). The
+       fields are self-evidently required, and Slate's login layout fixes the
+       label column at 150px with overflow hidden, which clipped the flag.
        ============================================================ -->
   <!-- C#:
          // xsl:key is an index built ONCE per page, before any template runs:
@@ -684,12 +690,19 @@
          // match: a plain label (not a form-builder form_label) whose for= points
          // at a required control, or at a fieldset that contains one
          // (Birthdate's for="birthdate" points at the fieldset around Month/Day/Year)
+         // ...except on a login form (any form with a password box): everyone
+         // knows both fields are required, and Slate's 150px label column
+         // clips "Password (Required)" (table.plain th has overflow: hidden).
+         bool IsLoginForm(XElement e) =>
+             e.Ancestors("form").Any(f => f.Descendants("input").Any(i => i.Attr("type") == "password"));
+
          if (el.Name == "label" && el.Attr("for") != null && !el.HasClass("form_label") &&
+             !IsLoginForm(el) &&
              byId[el.Attr("for")].Any(t => IsRequiredControl(t) || t.Descendants().Any(IsRequiredControl)))
              return new XElement("label", el.Attributes(), el.Nodes().Select(Visit), RequiredFlag());
   -->
   <xsl:key name="by-id" match="xhtml:*[@id]" use="@id" />
-  <xsl:template match="xhtml:label[@for][not(contains(concat(' ', normalize-space(@class), ' '), ' form_label '))][key('by-id', @for)[contains(translate(@data-validate, ' ', ''), 'required:true') or .//xhtml:*[contains(translate(@data-validate, ' ', ''), 'required:true')]]]">
+  <xsl:template match="xhtml:label[@for][not(contains(concat(' ', normalize-space(@class), ' '), ' form_label '))][not(ancestor::xhtml:form[.//xhtml:input[@type='password']])][key('by-id', @for)[contains(translate(@data-validate, ' ', ''), 'required:true') or .//xhtml:*[contains(translate(@data-validate, ' ', ''), 'required:true')]]]">
     <xsl:copy>
       <xsl:apply-templates select="@* | node()" />
       <span class="wsu-required-flag">(Required)</span>
