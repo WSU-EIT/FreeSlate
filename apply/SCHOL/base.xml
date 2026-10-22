@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns:fw="http://technolutions.com/framework">
+  <menu xmlns="http://technolutions.com/framework">
+    <link id="home?scholarships" roundKey="SCHOL">Scholarship Home</link>
+    <link id="frm?c2ea85d2-2b93-4162-8bfa-2218527acd3e" periodKey="2025">Admissions Information</link>
+    <link id="frm?404af13b-b14e-400a-b448-cfd7d28e827d" periodKey="2026">Admissions Information</link>
+    <link id="frm?76770787-10bb-4c1b-862e-fcf924b29824" periodKey="2025">General Information</link>
+    <link id="frm?a617b268-8121-43fd-bac4-a0f5036b4d88" periodKey="2026">General Information</link>
+    <link id="frm?8dca7350-103c-454b-9011-b7824334516a" periodKey="2025">Your Personal Statement</link>
+    <link id="frm?51e00778-9558-4c0c-86af-2761e9431f57" periodKey="2026">Your Personal Statement</link>
+    <link id="frm?1e21177f-55d5-4437-a258-0bb04a705960" periodKey="2025">Your Activities</link>
+    <link id="frm?241dde84-2994-4d6e-af88-5a21d6282344" periodKey="2026">Your Activities</link>
+    <link id="frm?9bd1d986-74e3-42ac-a566-e5090f0e5c78" periodKey="2025">Scholarship Areas</link>
+    <link id="frm?36247b58-e486-4e43-9574-6d1117f3a459" periodKey="2026">Scholarship Areas</link>
+    <link id="frm?99fd09e8-ca52-40b1-9475-b335e70c3b25" periodKey="2025">Scholarship Thank you letter Information</link>
+    <link id="frm?be32e369-60a4-4dda-8dcb-5f7dab6d25da" periodKey="2025">Application Certification</link>
+    <link id="frm?c83b42af-44a3-4e13-8536-20013819ae08" periodKey="2026">Application Certification</link>
+    <link id="certify">Signature</link>
+    <link id="review">Review</link>
+  </menu>
+  <part id="job">
+  </part>
+  <part id="act">
+  </part>
+  <part id="tes">
+  </part>
+  <part id="aca">
+    <p>
+      <k>autocomplete</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>key_display</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>key_required</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="per">
+    <p>
+      <k>first</k>
+      <v>Legal First</v>
+    </p>
+    <p>
+      <k>last</k>
+      <v>Legal Last or Family</v>
+    </p>
+    <p>
+      <k>preferred</k>
+      <v>Preferred first name</v>
+    </p>
+    <p>
+      <k>alias</k>
+      <v>Former Last or Family Name</v>
+    </p>
+    <p>
+      <k>prefix</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_header</k>
+      <v>Home Address and Phone</v>
+    </p>
+    <p>
+      <k>address_expires</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_expires_optional</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>middle</k>
+      <v>Legal Middle</v>
+    </p>
+  </part>
+  <part id="ref">
+  </part>
+  <part id="certify">
+  </part>
+  <part id="review">
+    <p>
+      <k>download</k>
+      <v>0</v>
+    </p>
+  </part>
+  <part id="upl?portfolio">
+  </part>
+  <part id="status">
+    <p>
+      <k>checklist</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>checklist_finaid</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>materials</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>payment</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>download</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_edit</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_delete</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>ref_edit</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>preferred_name</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="default">
+  </part>
+  <part id="login">
+  </part>
+  <part id="register">
+  </part>
+  <part id="payment_Event Payment">
+    <p>
+      <k>provider</k>
+      <v>slate_test</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>f0ee87f6-478b-4b61-bdc7-419d7aaac602</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>this is the text to send for disputed payments, such as description of refund policy, link to policy, description of payment purpose. we will need to figure out what to put here</v>
+    </p>
+  </part>
+</application>
