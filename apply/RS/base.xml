@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns:fw="http://technolutions.com/framework">
+  <menu xmlns="http://technolutions.com/framework">
+    <link id="home?GlobalRS" pageKey="Show Global Campus Running Start">Home</link>
+    <link id="home?RS" pageKey="Show Tri-Cities Campus Running Start" roundKey="RS">Home</link>
+    <link id="frm?344ad8f7-11d7-4db6-a4a8-b9240d32b73c" roundKey="RS">Profile</link>
+    <link id="frm?7e7ba8fc-0df8-4959-9cd5-4f2875ece1dc" roundKey="RS">Residency</link>
+    <link id="frm?ab935a0e-3ef3-4896-b375-e9d2a9637881" roundKey="RS">Academics</link>
+    <link id="frm?3dbb02e4-69f7-48d8-9e8d-6dbc47499499" roundKey="RS">Grades and Fees Confirmation</link>
+    <link id="frm?3cd7c0a0-ff85-4c9b-a450-fcc42f512b91" pageKey="Show Global Campus Running Start">Certification</link>
+    <link id="frm?ab94a8e1-f3cc-4f9f-a7db-9d71425e1fc6" pageKey="Show Tri-Cities Campus Running Start">Signature</link>
+    <link id="review" roundKey="RS">Review</link>
+  </menu>
+  <part id="job">
+  </part>
+  <part id="act">
+  </part>
+  <part id="tes">
+  </part>
+  <part id="aca">
+    <p>
+      <k>autocomplete</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>key_display</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>key_required</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="per">
+    <p>
+      <k>first</k>
+      <v>Legal First</v>
+    </p>
+    <p>
+      <k>last</k>
+      <v>Legal Last or Family</v>
+    </p>
+    <p>
+      <k>preferred</k>
+      <v>Preferred first name</v>
+    </p>
+    <p>
+      <k>alias</k>
+      <v>Former Last or Family Name</v>
+    </p>
+    <p>
+      <k>prefix</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_header</k>
+      <v>Home Address and Phone</v>
+    </p>
+    <p>
+      <k>address_expires</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_expires_optional</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>middle</k>
+      <v>Legal Middle</v>
+    </p>
+  </part>
+  <part id="ref">
+    <p>
+      <k>title</k>
+      <v>List of Recommenders</v>
+    </p>
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+            <title>
+            </title>
+          </head>
+          <body>
+            <span style="font-size:12pt">
+              <span style="background:white">
+                <span style="font-family:&quot;Times New Roman&quot;,serif">
+                  <span style="font-size:9.0pt">
+                    <span style="font-family:&quot;Arial&quot;,sans-serif">List three people who will submit letters of recommendation for you. Two should be professors or lab instructors who can speak to your academic strengths and skills. One should be from a work or volunteer supervisor.<br /><br />
+Recommendations are only accepted electronically. We do not accept emailed or paper letters of recommendation.&#xA0;<br /><br />
+Please enter your recommender's contact information by clicking "Add Recommender" below.</span>
+                  </span>
+                </span>
+              </span>
+            </span>
+            <ul type="disc">
+              <li>
+                <span style="background:white">
+                  <span style="font-family:&quot;Times New Roman&quot;,serif">
+                    <span style="font-size:9.0pt">
+                      <span style="font-family:&quot;Arial&quot;,sans-serif">The recommender will receive an email requesting they upload a letter of recommendation.</span>
+                    </span>
+                  </span>
+                </span>
+              </li>
+              <li style="font-size:12pt">
+                <span style="background:white">
+                  <span style="font-family:&quot;Times New Roman&quot;,serif">
+                    <span style="font-size:9.0pt">
+                      <span style="font-family:&quot;Arial&quot;,sans-serif">If necessary, you may send reminders or exclude recommenders by using the "Edit" button next to the recommender's name.</span>
+                    </span>
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>add</k>
+      <v>Add Recommender</v>
+    </p>
+    <p>
+      <k>limit</k>
+      <v>3</v>
+    </p>
+    <p>
+      <k>offline</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>offline_print</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>position</k>
+      <v>Title</v>
+    </p>
+    <p>
+      <k>phone_required</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>email_help</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_required</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>download</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>personal_message</k>
+      <v>1</v>
+    </p>
+  </part>
+  <!--<part id="certify">
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <span style="font-size:16px;">
+            </span>
+            <span style="font-size:16px;">
+            </span>
+            <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+            </span>
+            <p>
+              <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+                <strong>
+                </strong>
+                <strong>Notice of Nondiscrimination&#xA0;</strong>
+                <br />
+                <br />
+      WSU does not discriminate and prohibits discrimination on the basis of sex, race, color, national origin, disability, age, religion, creed, genetic information, marital status, protected veteran/military status, or immigration or citizenship status in any education program or activity that it operates compliant with Title IX and other civil rights laws and regulations. Inquiries regarding Title IX, ADA, or other civil rights laws, as well as reports of discrimination can be directed to the<a href="mailto:ccr@wsu.edu">&#xA0;Compliance and Civil Rights</a>,&#xA0;<a href="mailto:ada.coordinator@wsu.edu">WSU ADA Coordinator</a>, or&#xA0;<a href="mailto:titleix.coordinator@wsu.edu">WSU Title IX Coordinator</a>. More information on WSU&#x2019;s policies and procedures to respond to discrimination and harassment are available here:&#xA0;<a href="https://ccr.wsu.edu/notice-of-nondiscrimination" target="_blank">Nondiscrimination statement</a>.<strong><br /><br />
+      I understand that:</strong></span>
+            </p>
+            <ul>
+              <li>
+                <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Enrollment in specific college classes cannot be guaranteed, even if the classes are needed to fulfill high school graduation requirements.</span>
+              </li>
+              <li>
+                <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">I am responsible for ensuring WSU courses completed through the Running Start program meet high school graduation requirements.</span>
+              </li>
+              <li>
+                <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">If I begin WSU Running Start in the Fall semester and drop all WSU Fall semester courses (Term Withdraw) eligibility for the Spring semester remains active.&#xA0;</span>
+              </li>
+              <li>
+                <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">I am responsible for meeting deadlines for dropping or withdrawing from classes as stated in the Washington State University academic calendar and must notify my WSU Academic Advisor and high school counselor.</span>
+              </li>
+              <li>
+                <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">I must provide my own transportation to and from WSU Tri-Cities or utilize the Ben-Franklin Transit to attend classes on campus.&#xA0;</span>
+              </li>
+              <li>
+                <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">While on campus attending classes, university, classroom, and student conduct codes apply to me as a Running Start student.&#xA0;</span>
+              </li>
+              <li>
+                <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">If I do not remain in good academic standing according to WSU Academic Regulations 38 or 39 at the end of the semester, <span style="background-color:#f1c40f;">I will be dis-enrolled from the university and the Running Start program at&#xA0;WSU Tri-Cities.</span></span>
+              </li>
+              <li>
+                <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">After completing coursework at WSU, It is my responsibility for requesting official WSU transcripts through the WSU Registrar&#x2019;s Office.</span>
+              </li>
+              <li>
+                <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">In no way does my participation in the WSU Tri-Cities Running Start program guarantee admission to Washington State University as an undergraduate student (post-high school).&#xA0;</span>
+              </li>
+            </ul>
+            <p>
+              <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">By signing below,&#x202F;I acknowledge that I have read, understand, and will comply with the conditions of being a Running Start student and the expectations of Washington State University enrollment. I also understand that submitting this application DOES NOT guarantee admission into the WSU&#x202F;Tri-Cities Running Start program.&#xA0;</span>
+            </p>
+            <span style="color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+            </span>
+          </body>
+        </html>
+      </v>
+    </p>
+  </part> -->
+  <part id="review">
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <strong>After you submit this page, you will be asked to submit supporting materials including your high school transcript before your application will be considered complete.&#xA0;</strong>
+          </body>
+        </html>
+      </v>
+    </p>
+  </part>
+  <part id="upl?portfolio">
+  </part>
+  <part id="status">
+  </part>
+  <part id="default">
+    <p>
+      <k>footer_help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <span style="font-size:14px;">
+              <br />
+Fees will be calculated based on your application submission:</span>
+            <br />
+            <span style="font-size:14px;">
+              <strong>&#x2022;&#xA0;</strong>Admission application&#x2014;Freshman, international, and transfer students: $70</span>
+            <br />
+            <span style="font-size:14px;">
+              <strong>&#x2022;&#xA0;</strong>Admission application&#x2014;Graduate Bridge: $70</span>
+            <br />
+            <span style="font-size:14px;">
+              <strong>&#x2022;&#xA0;</strong>Admission application&#x2014;Academic English: $70</span>
+            <br />
+            <span style="font-size:14px;">
+              <strong>&#x2022;&#xA0;</strong>Admission application&#x2014;Returning undergraduate WSU students and non-degree seeking students: $35</span>
+            <br />
+            <span style="font-size:14px;">
+              <span style="font-size:14px;">
+                <strong>
+                  <br />
+&#x2022;&#xA0;</strong>Supplemental application&#x2014;Nutrition Exercise &amp; Physiology and Certificate of Medical Ethics: No fee</span>
+            </span>
+            <p>
+              <span style="font-size:14px;">
+                <i>Application fees are non-refundable. Qualified students may apply for a fee waiver during the application process.</i>
+                <br />
+                <br />
+                <strong>
+                  <span style="color:#c0392b;">The&#xA0;2022-2023&#xA0;Scholarship Application is now closed.</span>
+                </strong>
+              </span>
+            </p>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>title</k>
+      <v>APPLY HERE!</v>
+    </p>
+    <p>
+      <k>period_help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+Admissions applications: You may only apply for one term at a time.
+</body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>returning_help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <p>Current WSU student with a Network ID?</p>
+            <p>
+              <strong>
+                <a href="https://futurecoug.wsu.edu/manage/login?realm=&amp;r=/apply/">Log in</a>
+              </strong>
+            </p>
+            <p>
+              <br />
+Returning to your application(s)?</p>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>create_help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <p>Use Google/Facebook/LinkedIn authentication to create your application</p>
+            <p>
+              <strong>
+                <a href="https://futurecoug.wsu.edu/account/login?r=https%3a%2f%2ffuturecoug.wsu.edu%2fapply%2f">Start your application</a>
+              </strong>
+              <br />
+              <br />
+              <br />
+or create a WSU application account</p>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+Interested in applying for 2023? <a href="https://futurecoug.wsu.edu/register/appnotifyme">Let us know</a>&#xA0;and we will notify you when the 2023 admission application launches.<br />
+&#xA0;
+</body>
+        </html>
+      </v>
+    </p>
+  </part>
+  <part id="login">
+    <p>
+      <k>footer</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+If you are having issues with your PIN or login, please <a href="mailto:future.coug@wsu.edu" style="color: #A60F2D; text-decoration: none; font-weight: 500;">contact us</a> for assistance.&#xA0;
+</body>
+        </html>
+      </v>
+    </p>
+  </part>
+  <part id="register">
+  </part>
+  <part id="payment_Event Payment">
+    <p>
+      <k>provider</k>
+      <v>slate_test</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>f0ee87f6-478b-4b61-bdc7-419d7aaac602</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>this is the text to send for disputed payments, such as description of refund policy, link to policy, description of payment purpose. we will need to figure out what to put here</v>
+    </p>
+  </part>
+  <part id="payment_New Coug Orientation Fees">
+  </part>
+</application>
