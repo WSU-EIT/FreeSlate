@@ -29,6 +29,11 @@
        tables, Slate's modal host, and the a11y safety net. Everything else is
        official.
 
+  WHAT CHANGED IN 3.0.4
+    · A required label written as paragraphs (a question, then a consent or
+      help paragraph, e.g. "May we text you?") gets "(Required)" at the end
+      of its first non-empty paragraph instead of after the fine print.
+
   WHAT CHANGED IN 3.0.3
     · "(Required)" now reaches grouped questions. Birthdate and address
       render as div.form_question > fieldset > div.form_label, so 3.0.2's
@@ -105,7 +110,7 @@
      fw:* functions in this transform, e.g. fw:year() for the copyright year. -->
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xhtml fw">
   <!-- Release version — bump on every publish. Shown as plain text in the footer. -->
-  <xsl:variable name="brandVersion" select="'3.0.3'" />
+  <xsl:variable name="brandVersion" select="'3.0.4'" />
   <!-- ============================================================
        SET THIS PER SECTION. Copy this file for a new section, change the
        one line below, done.
@@ -126,6 +131,26 @@
       <xsl:otherwise><xsl:value-of select="$unit-name" /></xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
+  <!-- C# equivalent of the page template. Runs ONCE for the whole document:
+       builds the WSU page and drops Slate's own head and body content into it.
+
+         XElement Page(XDocument slate)
+         {
+             var head = slate.Root.Element("head");
+             var body = slate.Root.Element("body");
+             return new XElement("html", new XAttribute("lang", "en"),
+                 new XElement("head",
+                     MetaAndCdnLinks(),                  // fonts, normalize, wsu-icons, 2.x bundle
+                     head.Nodes().Select(Visit),         // Slate's own CSS, scripts, title
+                     InlineStyle()),                     // fw-* palette + the short rule list
+                 new XElement("body",
+                     body.Attributes(),                  // keep whatever Slate put on body
+                     WsuHeader(bandTitle),
+                     new XElement("main",
+                         new XElement("article", new XAttribute("class", "wsu-article"),
+                             body.Nodes().Select(Visit))),   // THE hand-off: every template below runs from here
+                     WsuFooter(year: Fw.Year())));
+         } -->
   <xsl:template match="/">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
       <!-- FRAMEWORK CONTRACT — pulls in Slate's base template. Keep. -->
@@ -427,6 +452,42 @@
        These run against Slate's INPUT XHTML, so every element is matched with
        the xhtml: prefix. Comment any one out to turn it off.
        ############################################################ -->
+  <!-- ============================================================
+       HOW TO READ THE TEMPLATES BELOW (C# MENTAL MODEL)
+       ============================================================
+       The whole stylesheet behaves like ONE recursive visitor. Slate calls it
+       once on its rendered page; every template is one "case" in it.
+
+         XNode Visit(XNode node)
+         {
+             // Each <xsl:template match="..."> below is one of these cases.
+             // XSLT picks the most specific pattern that matches; anything
+             // nothing matches falls through to Identity (the last template).
+             foreach (var t in templatesBySpecificity)
+                 if (t.Matches(node)) return t.Body(node);
+             return Identity(node);
+         }
+
+       Translation table:
+         <xsl:template match="P">              if (node matches P) { ...body... }
+         <xsl:apply-templates select="X"/>     foreach (var n in X) output.Add(Visit(n));
+         <xsl:copy>...</xsl:copy>              new XElement(el.Name, ...)   (same tag, children supplied by the body)
+         <xsl:value-of select="X"/>            output.Add(new XText(X))
+         a literal tag, e.g. <h2 class="a">     new XElement("h2", new XAttribute("class", "a"), ...)
+         @class                                el.Attr("class")             (null when missing)
+         node()                                el.Nodes()                   (child elements AND text)
+         parent::X  /  .//X                    el.Parent  /  el.Descendants()
+         contains(concat(' ', normalize-space(@class), ' '), ' x ')
+                                               el.HasClass("x")             (whole-word class test, so
+                                                                             "form_label" does not match
+                                                                             "form_label_extra")
+       Helpers the pseudo-code uses:
+         string Attr(this XElement e, string n) => e.Attribute(n)?.Value;
+         bool HasClass(this XElement e, string c) =>
+             (e.Attr("class") ?? "").Split(' ', RemoveEmptyEntries).Contains(c);
+         XElement RequiredFlag() =>
+             new XElement("span", new XAttribute("class", "wsu-required-flag"), "(Required)");
+       ============================================================ -->
   <!--
     NOTE ON THE REMOVED FORM CARD (was SHOWCASE 1)
     2.3.2 wrapped every <form> in <aside class="wsu-callout">, which the bundle
@@ -443,6 +504,12 @@
        Slate emits section headers as an element carrying class form_h2. We REPLACE
        it with a real h2 (so it picks up the bundle's h1-h6 typography) AND add the
        wsu-heading style-marked class (the crimson mark under the text). -->
+  <!-- C#:
+         if (el.HasClass("form_h2"))
+             return new XElement("h2",
+                 new XAttribute("class", markedHeadingClass),   // the class written in the template below
+                 el.Nodes().Select(Visit));                      // keep the heading text; drop Slate's own tag and attributes
+  -->
   <xsl:template match="xhtml:*[contains(concat(' ', normalize-space(@class), ' '), ' form_h2 ')]">
     <h2 class="wsu-heading--style-marked">
       <xsl:apply-templates select="node()" />
@@ -451,6 +518,13 @@
   <!-- DATA TABLES GET wsu-table.
        Layout tables (role=none/presentation) are excluded so the layout-table
        strip rule above still wins on the login page. -->
+  <!-- C#:
+         if (el.Name == "table" && el.Attr("role") != "none" && el.Attr("role") != "presentation")
+             return new XElement("table",
+                 new XAttribute("class", NormalizeSpace(el.Attr("class") + " wsu-table")),
+                 el.Attributes().Where(a => a.Name != "class"),  // every other attribute unchanged
+                 el.Nodes().Select(Visit));                       // rows and cells keep being visited
+  -->
   <xsl:template match="xhtml:table[not(@role='none') and not(@role='presentation')]">
     <xsl:copy>
       <xsl:attribute name="class">
@@ -463,6 +537,13 @@
        If Slate labels a button "Cancel", tag it as the WSU outline/secondary
        button so Submit stays the only filled action. Matching on button text is
        fragile — verify against your real forms before relying on it. -->
+  <!-- C#:
+         if (el.Name == "button" && NormalizeSpace(el.Value) == "Cancel")
+             return new XElement("button",
+                 new XAttribute("class", NormalizeSpace(el.Attr("class") + " " + outlineButtonClasses)),  // as written below
+                 el.Attributes().Where(a => a.Name != "class"),
+                 el.Nodes().Select(Visit));
+  -->
   <xsl:template match="xhtml:button[normalize-space(.)='Cancel']">
     <xsl:copy>
       <xsl:attribute name="class">
@@ -490,10 +571,65 @@
          div.form_question[data-required] > fieldset > div.form_label     (birthdate, address)
        Address sub-labels (Country, Street…) sit one level deeper, inside a
        div, so they are not flagged; the group label carries it. -->
+  <!-- C#:
+         bool IsRequiredQuestion(XElement q) =>
+             q != null && q.HasClass("form_question") && q.Attr("data-required") == "1";
+
+         // match: the question's own label, either directly inside the
+         // question or directly inside a fieldset that is directly inside it
+         if (el.HasClass("form_label") &&
+             (IsRequiredQuestion(el.Parent) ||
+              (el.Parent?.Name == "fieldset" && IsRequiredQuestion(el.Parent.Parent))))
+         {
+             var copy = new XElement(el.Name, el.Attributes());
+             var firstP = el.Elements("p")                   // direct child paragraphs only
+                            .FirstOrDefault(p => p.Value.Replace('\u00A0', ' ').Trim() != "");
+             if (firstP != null)
+             {
+                 // Paragraph label ("May we text you?" + consent text):
+                 // flag goes at the end of the first non-empty paragraph.
+                 foreach (var child in el.Nodes())
+                     copy.Add(child == firstP                // generate-id(.) = generate-id($firstP)
+                         ? new XElement("p", firstP.Attributes(), firstP.Nodes().Select(Visit), RequiredFlag())
+                         : Visit(child));
+             }
+             else
+             {
+                 // Plain label ("First Name"): flag goes at the end.
+                 copy.Add(el.Nodes().Select(Visit), RequiredFlag());
+             }
+             return copy;
+         }
+  -->
   <xsl:template match="xhtml:*[contains(concat(' ', normalize-space(@class), ' '), ' form_label ')][parent::xhtml:*[contains(concat(' ', normalize-space(@class), ' '), ' form_question ')][@data-required='1'] or parent::xhtml:fieldset[parent::xhtml:*[contains(concat(' ', normalize-space(@class), ' '), ' form_question ')][@data-required='1']]]">
+    <!-- A label written as paragraphs (question, then a consent or help
+         paragraph) gets the flag at the end of its first non-empty
+         paragraph, so it reads "May we text you? (Required)" instead of
+         trailing the fine print. Plain labels get it at the end as before. -->
+    <xsl:variable name="firstP" select="xhtml:p[normalize-space(translate(., '&#xA0;', ' '))][1]" />
     <xsl:copy>
-      <xsl:apply-templates select="@* | node()" />
-      <span class="wsu-required-flag">(Required)</span>
+      <xsl:apply-templates select="@*" />
+      <xsl:choose>
+        <xsl:when test="$firstP">
+          <xsl:for-each select="node()">
+            <xsl:choose>
+              <xsl:when test="generate-id(.) = generate-id($firstP)">
+                <xsl:copy>
+                  <xsl:apply-templates select="@* | node()" />
+                  <span class="wsu-required-flag">(Required)</span>
+                </xsl:copy>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="." />
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:for-each>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="node()" />
+          <span class="wsu-required-flag">(Required)</span>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:copy>
   </xsl:template>
   <!-- ============================================================
@@ -503,6 +639,18 @@
        programmatic), and DROP the now-redundant aria-label so the accessible name
        comes from the real label (no double naming).
        ============================================================ -->
+  <!-- C#:
+         var part = el.Attr("aria-label");
+         if (el.Name == "select" && (part == "Month" || part == "Day" || part == "Year"))
+             return new XElement("span", new XAttribute("class", "wsu-subfield"),
+                 new XElement("label",
+                     new XAttribute("class", "wsu-subfield__label"),
+                     new XAttribute("for", el.Attr("id")),   // for="{@id}": ties the label to this select
+                     part),                                  // visible text: Month / Day / Year
+                 new XElement("select",
+                     el.Attributes().Where(a => a.Name != "aria-label"),  // drop the now-redundant aria-label
+                     el.Nodes().Select(Visit)));                          // the options, unchanged
+  -->
   <xsl:template match="xhtml:select[@aria-label='Month' or @aria-label='Day' or @aria-label='Year']">
     <span class="wsu-subfield">
       <label class="wsu-subfield__label" for="{@id}">
@@ -524,6 +672,22 @@
        Month/Day/Year) gets "(Required)". form_label labels are excluded;
        the form-builder template above owns those.
        ============================================================ -->
+  <!-- C#:
+         // xsl:key is an index built ONCE per page, before any template runs:
+         var byId = slate.Descendants()
+                         .Where(e => e.Attr("id") != null)
+                         .ToLookup(e => e.Attr("id"));          // key('by-id', x) is byId[x]
+
+         bool IsRequiredControl(XElement e) =>
+             (e.Attr("data-validate") ?? "").Replace(" ", "").Contains("required:true");
+
+         // match: a plain label (not a form-builder form_label) whose for= points
+         // at a required control, or at a fieldset that contains one
+         // (Birthdate's for="birthdate" points at the fieldset around Month/Day/Year)
+         if (el.Name == "label" && el.Attr("for") != null && !el.HasClass("form_label") &&
+             byId[el.Attr("for")].Any(t => IsRequiredControl(t) || t.Descendants().Any(IsRequiredControl)))
+             return new XElement("label", el.Attributes(), el.Nodes().Select(Visit), RequiredFlag());
+  -->
   <xsl:key name="by-id" match="xhtml:*[@id]" use="@id" />
   <xsl:template match="xhtml:label[@for][not(contains(concat(' ', normalize-space(@class), ' '), ' form_label '))][key('by-id', @for)[contains(translate(@data-validate, ' ', ''), 'required:true') or .//xhtml:*[contains(translate(@data-validate, ' ', ''), 'required:true')]]]">
     <xsl:copy>
@@ -537,6 +701,16 @@
        unchanged. Without it, XSLT's built-in defaults strip unmatched elements
        to text and the form vanishes.
        ============================================================ -->
+  <!-- C#: the default case, reached when no template above matched.
+         return node switch
+         {
+             XElement e => new XElement(e.Name,
+                               e.Attributes(),                  // attributes copied as-is
+                               e.Nodes().Select(Visit)),        // and keep visiting children, so a
+                                                                // form_label deep inside still gets flagged
+             _          => node                                 // text, comments: copied unchanged
+         };
+  -->
   <xsl:template match="@* | node()">
     <xsl:copy>
       <xsl:apply-templates select="@* | node()" />
