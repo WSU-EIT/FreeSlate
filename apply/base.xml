@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns:fw="http://technolutions.com/framework">
+  <menu xmlns="http://technolutions.com/framework">
+    <link id="home?nep_app" pageKey="Show NEP Pages" roundKey="SUPPL">Return to NEP Home</link>
+    <link id="home?pms_app" pageKey="Show PMS Pages" roundKey="SUPPL">Return to PMS Home</link>
+    <link id="frm?d81d259a-f840-5455-043d-30189df4726f">Personal Information</link>
+    <link id="frm?da7f7f1c-02b4-4575-b805-c93340e47a91" pageKey="Show NEP Pages" roundKey="SUPPL">NEP Personal Statement</link>
+    <link id="certify" roundKey="SUPPL">Signature</link>
+    <link id="review" roundKey="SUPPL">Review</link>
+  </menu>
+  <part id="job">
+  </part>
+  <part id="act">
+  </part>
+  <part id="tes">
+  </part>
+  <part id="aca">
+    <p>
+      <k>autocomplete</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>key_display</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>key_required</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="per">
+    <p>
+      <k>first</k>
+      <v>Legal First</v>
+    </p>
+    <p>
+      <k>last</k>
+      <v>Legal Last or Family</v>
+    </p>
+    <p>
+      <k>preferred</k>
+      <v>Preferred first name</v>
+    </p>
+    <p>
+      <k>alias</k>
+      <v>Former Last or Family Name</v>
+    </p>
+    <p>
+      <k>prefix</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_header</k>
+      <v>Home Address and Phone</v>
+    </p>
+    <p>
+      <k>address_expires</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_expires_optional</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>middle</k>
+      <v>Legal Middle</v>
+    </p>
+  </part>
+  <part id="ref">
+    <p>
+      <k>title</k>
+      <v>List of Recommenders</v>
+    </p>
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <span style="font-size:1.1rem;">
+              <b>Letter of Recommendation</b>.<br />
+    One letter from a professor or lab teaching assistant is required. This should speak to your academic strengths and skills, and preferably be from one of the BS NEP prerequisite science courses. You may also choose to include a letter from a work or volunteer supervisor that speaks to your experience, work ethic, and professional skills.</span>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>add</k>
+      <v>Add Recommender</v>
+    </p>
+    <p>
+      <k>limit</k>
+      <v>2</v>
+    </p>
+    <p>
+      <k>offline</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>offline_print</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>position</k>
+      <v>Title</v>
+    </p>
+    <p>
+      <k>phone_required</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>email_help</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>address_required</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>download</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>personal_message</k>
+      <v>1</v>
+    </p>
+  </part>
+  <part id="certify">
+  </part>
+  <part id="review" />
+  <part id="upl?portfolio">
+  </part>
+  <part id="status">
+  </part>
+  <part id="default">
+    <p>
+      <k>footer_help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <span style="font-size:14px;">
+              <br />
+    Fees will be calculated based on your application submission:</span>
+            <br />
+            <span style="font-size:14px;">
+              <strong>&#x2022;&#xA0;</strong>Admission application&#x2014;First-year, international, and transfer students: $70</span>
+            <br />
+            <span style="font-size:14px;">
+              <strong>&#x2022;&#xA0;</strong>Admission application&#x2014;International Master's Program (Graduate Bridge): $70</span>
+            <br />
+            <span style="font-size:14px;">
+              <strong>&#x2022;&#xA0;</strong>Admission application&#x2014;Academic English: $70</span>
+            <br />
+            <span style="font-size:14px;">
+              <strong>&#x2022;&#xA0;</strong>Admission application&#x2014;Non-degree seeking students: $35<span style="font-size:14px;"><br /><span style="font-size:14px;"><strong>&#x2022;&#xA0;</strong>Admission application&#x2014;<span style="font-size:14px;">Returning undergraduate WSU students: No Charge</span></span></span></span>
+            <p>
+              <span style="font-size:14px;">
+                <i>Application fees are non-refundable. Qualified students may apply for a fee waiver during the application process.</i>
+              </span>
+            </p>
+            <p>
+              <span style="font-size:14px;">
+                <strong>
+                  <span style="color:#a60f2d;">To apply for scholarships, please visit&#xA0;<a href="http://scholarships.wsu.edu">scholarships.wsu.edu</a></span>
+                </strong>
+              </span>
+            </p>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>title</k>
+      <v>APPLY HERE!</v>
+    </p>
+    <p>
+      <k>period_help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+    Admissions applications: You may only apply for one term at a time.
+  </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>create_help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <p>
+      Use Google/Facebook/LinkedIn authentication to create your application
+    </p>
+            <p>
+              <strong>
+                <a href="https://futurecoug.wsu.edu/account/login?r=https%3a%2f%2ffuturecoug.wsu.edu%2fapply%2f">Start your application</a>
+              </strong>
+              <br />
+              <br />
+              <br />
+      or create a WSU application account
+    </p>
+          </body>
+        </html>
+      </v>
+    </p>
+    <p>
+      <k>help</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+            <script src="https://platform.collegevine.com/trellis/webchat/embed/026565a9-bf46-4b8d-a24e-224b36757239.js">
+            </script>
+          </body>
+        </html>
+      </v>
+    </p>
+  </part>
+  <part id="login">
+    <p>
+      <k>footer</k>
+      <v>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <title>
+            </title>
+          </head>
+          <body>
+If you are having issues with your PIN or login, please <a href="mailto:future.coug@wsu.edu" style="color: #A60F2D; text-decoration: none; font-weight: 500;">contact us</a> for assistance.&#xA0;
+</body>
+        </html>
+      </v>
+    </p>
+  </part>
+  <part id="register">
+  </part>
+  <part id="payment_Event Payment">
+    <p>
+      <k>provider</k>
+      <v>slate_test</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>f0ee87f6-478b-4b61-bdc7-419d7aaac602</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>this is the text to send for disputed payments, such as description of refund policy, link to policy, description of payment purpose. we will need to figure out what to put here</v>
+    </p>
+  </part>
+  <part id="payment_New Coug Orientation Fees">
+  </part>
+  <part id="payment_Deposit Tri-Cities">
+    <p>
+      <k>provider</k>
+      <v>slate</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>0513bab9-b263-4d82-a948-4f1b57f39d64</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>address</k>
+      <v>0</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>Washington State University Tri-Cities New Student Enrollment Fee</v>
+    </p>
+  </part>
+  <part id="payment_Deposit Pharmacy">
+    <p>
+      <k>provider</k>
+      <v>slate</v>
+    </p>
+    <p>
+      <k>payment_account</k>
+      <v>4df79203-2ba6-4040-8092-18d2b2113999</v>
+    </p>
+    <p>
+      <k>checking</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>credit</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>address</k>
+      <v>1</v>
+    </p>
+    <p>
+      <k>dispute_text</k>
+      <v>Payments for Washington State University Pharmacy Deposit fees are often paid by relatives of the student, and disputes sometimes occur because the credit card holder doesn't recognize the charge later. We've contacted the student and asked them to contact the credit card holder to verify that the charge was intended. Payments should appear on the credit card statement with the description of WSU DEPOSIT. As stated on the admission application, the fee is non-refundable.</v>
+    </p>
+  </part>
+</application>
