@@ -29,6 +29,19 @@
        tables, Slate's modal host, and the a11y safety net. Everything else is
        official.
 
+  WHAT CHANGED IN 3.0.6
+    · Ported the intent of the web team's 2021 Slate overrides
+      (/shared/web-design-system-overrides.css) using 2.x values: group
+      question labels (Birthdate, Address, radio groups) styled like every
+      other label, the application sidebar styled as the 2.x vertical menu
+      and stacked under 1040px, and event calendar availability colors.
+
+  WHAT CHANGED IN 3.0.5
+    · Slate's primary button in popups (e.g. "Create Application" in the
+      "Let's Get Started" dialog) was dark gray text on crimson, 1.1:1.
+      Dialogs sit outside .wsu-content, so the WDS button rule never applied.
+      Now white on crimson, crimson-light on hover, matching WDS buttons.
+
   WHAT CHANGED IN 3.0.4
     · A required label written as paragraphs (a question, then a consent or
       help paragraph, e.g. "May we text you?") gets "(Required)" at the end
@@ -113,7 +126,7 @@
      fw:* functions in this transform, e.g. fw:year() for the copyright year. -->
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xhtml fw">
   <!-- Release version — bump on every publish. Shown as plain text in the footer. -->
-  <xsl:variable name="brandVersion" select="'3.0.4'" />
+  <xsl:variable name="brandVersion" select="'3.0.6'" />
   <!-- ============================================================
        SET THIS PER SECTION. Copy this file for a new section, change the
        one line below, done.
@@ -319,6 +332,63 @@
           }
           /* The Close button was clipping its own label. */
           .dialog_host button{line-height:1.5;padding:.625rem 1.5rem;}
+
+          /* SLATE'S PRIMARY BUTTON IN POPUPS (3.0.5), e.g. "Create Application"
+             in the "Let's Get Started" dialog. Slate paints every button's text
+             with fw-body-text and its primary button background with
+             fw-button-default-background, which we set to crimson above: dark
+             gray on crimson, 1.1:1. Slate attaches dialogs to body, outside
+             .wsu-content, so the WDS ".wsu-content button" rule never reaches
+             them. This matches that rule: white on crimson (7.7:1), WDS
+             crimson-light on hover (5.75:1). Without the hover rule Slate turns
+             the button light gray (fw-dialog-header) under white text. */
+          button.default,input[type="button"].default,input[type="submit"].default,ul.action a.default{color:#fff;}
+          .wsu-content ul.action a.default:link,.wsu-content ul.action a.default:visited{color:#fff !important;}
+          .no-touch button.default:hover,.no-touch button.default:focus,
+          .no-touch input[type="button"].default:hover,.no-touch input[type="submit"].default:hover,
+          .no-touch ul.action a.default:hover{background-color:var(--wsu-crimson-hover);color:#fff;}
+
+          /* ============ PORTED FROM THE 2021 SLATE OVERRIDES (3.0.6) ============
+             The WSU web team's /shared/web-design-system-overrides.css did these
+             for the 1.x system. Same intent; every value below is copied from
+             the 2.x bundle (cited per rule), nothing new is invented. */
+
+          /* Group question labels. Birthdate, address and radio/checkbox groups
+             label themselves with div.form_label inside a fieldset (Slate hides
+             the legend), and the 2.x bundle only styles real label elements,
+             so these rendered lighter than every other label. Values: 2.x
+             "label" rule (src/elements/form, wsu-label mixin). */
+          .wsu-content .form_question fieldset &gt; .form_label{display:block;font-size:.875rem;font-weight:600;line-height:1.5;margin-bottom:.1em;}
+
+          /* Application sidebar (#side and #menu, built from each base.xml menu).
+             Old file: 200px column, charcoal 600-weight links, 5px left bar.
+             2.x equivalent: .wsu-menu-collapse.wsu-menu-collapse--style-vertical
+             (text #3f3f3f .875rem 600, padding .6875rem .875rem .6875rem 1.125rem,
+             hover bar #b2b2b2 on #f2f2f2, current bar #ca1237). width:auto undoes
+             Slate's 130px link / 150px menu so the links fill the column.
+             !important only on color, to beat the content-link rule above. */
+          .wsu-content #side{width:200px;}
+          .wsu-content #main{padding-left:2rem;box-sizing:border-box;max-width:100%;}
+          .wsu-content div#menu{width:auto;}
+          .wsu-content div#menu ul li a:link,.wsu-content div#menu ul li a:visited{display:block;width:auto;padding:.6875rem .875rem .6875rem 1.125rem;border-left:5px solid transparent;color:#3f3f3f !important;font-size:.875rem;font-weight:600;line-height:1.5;text-decoration:none;}
+          .wsu-content div#menu ul li a:hover,.wsu-content div#menu ul li a:focus{border-left-color:#b2b2b2;background-color:#f2f2f2;}
+          .wsu-content div#menu ul li a.selected{border-left-color:#ca1237;background-color:transparent;}
+          /* Old file stacked the sidebar above the form from 720px to 1040px.
+             Phones now get this template too (Mobile Template key), so the
+             stack applies to every width up to 1040px, and Slate's fixed 715px
+             #main is released so it can't overflow a phone. */
+          @media screen and (max-width:1040px){
+            .wsu-content #side{width:auto;float:none;border-bottom:6px solid #eee;margin-bottom:3rem;padding-bottom:2rem;}
+            .wsu-content #main{float:none;width:auto;padding-left:0;}
+          }
+
+          /* Event date calendars. Old file was the only thing coloring available
+             and unavailable dates; without it both looked identical. Retired
+             crimson #981e32 updated to the 2025 crimson; white date text so it
+             reads on the fill (7.7:1). Unavailable crimson on #ccc is 4.8:1. */
+          .ui-datepicker-calendar .available,.calendar_legend.available{background-color:#a60f2d;}
+          .ui-datepicker-calendar .unavailable,.calendar_legend.unavailable{background-color:#cccccc;}
+          .wsu-content .ui-datepicker-calendar .available a:link,.wsu-content .ui-datepicker-calendar .available a:visited,.ui-datepicker-calendar .available a{color:#fff !important;}
 
           /* ============ ACCESSIBILITY (AAA-oriented, structural only) ============
              No WDS colors are overridden here &#x2014; the design-system palette ships as-is
