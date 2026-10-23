@@ -29,6 +29,29 @@
        tables, Slate's modal host, and the a11y safety net. Everything else is
        official.
 
+  WHAT CHANGED IN 3.0.9
+    · Slate's body-text color variable (fw-body-text) is now the 2.x body
+      color #262626, not dark gray #4d4d4d. Slate paints its status
+      messages ("To log in, please enter..."), typed input text, non-default
+      popup buttons and table-row links with it; they now match the page.
+
+  WHAT CHANGED IN 3.0.8
+    · Form controls use the official face. Slate's stock CSS forced Arial on
+      buttons (!important), text inputs, selects and textareas; the 2.x
+      bundle wants Montserrat on buttons and the inherited page font
+      (Montserrat) on inputs. Found by the UI tool's new comparison against
+      the official 2.x bundle.
+
+  WHAT CHANGED IN 3.0.7
+    · Lockup link: removed aria-label="Go to WSU Homepage". The visible text
+      is the unit title, so the label hid it from voice-control users (axe
+      label-content-name-mismatch, WCAG 2.5.3 Label in Name). Its name now
+      comes from the visible title, as on admission.wsu.edu.
+    · Crumb bar: role="navigation" is not allowed on header (axe
+      aria-allowed-role). Now role="presentation", which ARIA allows on
+      header, so it is not a second banner next to the unit header. Same
+      markup, classes and look as the official crumb bar.
+
   WHAT CHANGED IN 3.0.6
     · Ported the intent of the web team's 2021 Slate overrides
       (/shared/web-design-system-overrides.css) using 2.x values: group
@@ -126,7 +149,7 @@
      fw:* functions in this transform, e.g. fw:year() for the copyright year. -->
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xhtml fw">
   <!-- Release version — bump on every publish. Shown as plain text in the footer. -->
-  <xsl:variable name="brandVersion" select="'3.0.6'" />
+  <xsl:variable name="brandVersion" select="'3.0.9'" />
   <!-- ============================================================
        SET THIS PER SECTION. Copy this file for a new section, change the
        one line below, done.
@@ -207,12 +230,13 @@
                :root color vars to reference). */
             --wsu-crimson:#a60f2d; --wsu-crimson-hover:#ca1237; --wsu-crimson-deep:#680222;
             --wsu-dark-gray:#4d4d4d; --wsu-white:#ffffff; --wsu-input-border:#b2b2b2;
+            --wsu-body-text:#262626;   /* the 2.x bundle's body color (3.0.9) */
 
             /* Slate's documented framework variables &#x2014; Slate paints itself with these. */
             /* COMPLETE documented Slate Custom Color Replacement set (every variable
                from Technolutions KB &#x25B8; Branding &#x25B8; Custom Color Replacement), mapped to
                the WSU palette. Slate paints its own chrome from these. */
-            --fw-body-text:var(--wsu-dark-gray);          /* body text */
+            --fw-body-text:var(--wsu-body-text);          /* body text */
             --fw-link-text:var(--wsu-crimson);            /* hyperlinks (the blue-link fix) */
             --fw-active-text:var(--wsu-crimson-hover);    /* link hover / search match */
             --fw-muted-text:#595959;                      /* "loading..." temporary text */
@@ -348,6 +372,17 @@
           .no-touch input[type="button"].default:hover,.no-touch input[type="submit"].default:hover,
           .no-touch ul.action a.default:hover{background-color:var(--wsu-crimson-hover);color:#fff;}
 
+          /* FORM CONTROL FONT (3.0.8). Slate's /fw/framework/base.css forces
+             buttons to Arial with !important, and its input rules (plus
+             /shared/base.css) set text inputs, selects and textareas to Arial.
+             The 2.x bundle's own values: .wsu-content button is
+             "Montserrat, sans-serif"; inputs inherit the page font (normalize).
+             !important on buttons only, because Slate's rule uses it. The popup
+             button is included to match the 3.0.5 popup fix. */
+          .wsu-content button,.wsu-content input[type="button"],.wsu-content input[type="submit"],.wsu-content input[type="reset"],
+          .dialog_host button{font-family:Montserrat,sans-serif !important;}
+          .wsu-content input,.wsu-content select,.wsu-content textarea{font-family:inherit;}
+
           /* ============ PORTED FROM THE 2021 SLATE OVERRIDES (3.0.6) ============
              The WSU web team's /shared/web-design-system-overrides.css did these
              for the 1.x system. Same intent; every value below is copied from
@@ -436,7 +471,11 @@
                a Slate form is not a campus page, and naming one campus is wrong
                for online and other-campus applicants. Add a second <li> back if
                your form really is campus-specific. -->
-          <header class="wsu-header-global wsu-header-global--style-system" role="navigation" aria-label="Washington State University system">
+          <!-- 3.0.7: role="presentation" keeps this from being a second page
+               banner (axe landmark-no-duplicate-banner) next to the unit header
+               below. Markup is otherwise the official crumb bar, unwrapped: a
+               nav wrapper here moves the text off-centre. -->
+          <header class="wsu-header-global wsu-header-global--style-system" role="presentation">
             <ul class="wsu-header-global__menu">
               <li>
                 <a href="https://wsu.edu">Washington State University</a>
@@ -453,7 +492,7 @@
             <xsl:attribute name="aria-label">Washington State University <xsl:value-of select="$bandTitle" /></xsl:attribute>
             <div class="wsu-header-unit__inner">
               <div class="wsu-header-unit__banner">
-                <a href="https://wsu.edu" class="wsu-logo-lockup wsu-logo-lockup--style-unit" aria-label="Go to WSU Homepage">
+                <a href="https://wsu.edu" class="wsu-logo-lockup wsu-logo-lockup--style-unit">
                   <span class="wsu-logo-lockup__icon-wrapper">
                     <svg role="img" aria-labelledby="wsu-coug-head__title" class="wsu-coug-head" enable-background="new 0 0 70.2 69.6" version="1.1" viewBox="0 0 70.2 69.6" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
                       <title id="wsu-coug-head__title">WSU Cougar Head</title>
