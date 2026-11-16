@@ -31,6 +31,21 @@
        tables, Slate's modal host, and the a11y safety net. Everything else is
        official.
 
+  WHAT CHANGED IN 3.0.22
+    · The "(Required)" marker in a question label now looks like the one on
+      wsu.edu's own forms (for example wsu.edu/digital-accessibility/questions):
+      red, italic, regular weight, slightly smaller than the label. It was
+      dark gray, upright, and the label's size. The four values are copied
+      from the stylesheet of Gravity Forms, the form tool behind WSU's
+      WordPress forms; the red is listed in build.css's palette under its own
+      heading with a link to that stylesheet, because the WSU design system
+      has no color for this marker. On white it is 5.85:1 (AA; the gray was
+      8.59:1), and 4.89:1 on the highlight a missed required question gets.
+    · Only the style changes. The marker is still the word "(Required)" inside
+      the label, written by the same templates below, so screen readers and
+      the accessible name are exactly as before. In build.xslt only the
+      version number changes.
+
   WHAT CHANGED IN 3.0.21
     · build.css now writes every color once, in a palette at the top of the
       file. Each palette entry is named after its official source (the WSU
@@ -250,7 +265,7 @@
      fw:* functions in this transform, e.g. fw:year() for the copyright year. -->
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xhtml fw">
   <!-- Release version — bump on every publish. Written into <head> (3.0.16). -->
-  <xsl:variable name="brandVersion" select="'3.0.21'" />
+  <xsl:variable name="brandVersion" select="'3.0.22'" />
   <!-- ============================================================
        SET THIS PER SECTION. Copy this file for a new section, change the
        one line below, done.

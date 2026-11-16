@@ -2,14 +2,14 @@
 
 Tools for making Slate (Technolutions) pages at Washington State University look and behave like the WSU Web Design System 2.x. Everything here is deterministic: no AI runs in any of these files, and every change the cleaner makes is listed with the rule that made it.
 
-Build of 2026-11-16, source commit `a7d769e` on the `html-cleaner` branch.
+Build of 2026-11-16, source commit `9558d4b` on the `html-cleaner` branch.
 
 ## The files
 
 | File | What it is | How to use it |
 |---|---|---|
 | `FreeSlate.html` | The whole tool in one self-contained page: the Slate HTML Cleaner, the bookmark builder, and all the documentation. | Download it and open it in any browser. Nothing you paste leaves the page. |
-| `build.xslt` | Slate Branding Editor template, version 3.0.21. | Paste into the Branding Editor's `build.xslt`. |
+| `build.xslt` | Slate Branding Editor template, version 3.0.22. | Paste into the Branding Editor's `build.xslt`. |
 | `build.css` | The stylesheet that goes with it. Slate serves it as `/shared/build.css`. | Paste into the Branding Editor's `build.css`. |
 | `install.html` | The "WSU tools" bookmark with the standard settings. | Open it and drag the link to your bookmarks bar. |
 | `source/` | The source: C# cleaner, tests, samples, the JavaScript port, the bookmark code, the build scripts, the evidence scripts and research notes. | Only needed to change or rebuild the tools. |
@@ -24,15 +24,15 @@ Tabs: Three panes, Device check, Slate editor bookmark, About, XSLT & CSS, Troub
 
 ## build.xslt and build.css
 
-`build.xslt` links `/shared/build.css?v=3.0.21` at the end of `<head>`, so it loads after Slate's own stylesheets. Deploy in this order:
+`build.xslt` links `/shared/build.css?v=3.0.22` at the end of `<head>`, so it loads after Slate's own stylesheets. Deploy in this order:
 
 1. Branding Editor, `build.css`: paste, **Save**, then **Publish Changes**.
 2. Branding Editor, `build.xslt`: paste, **Save**, then **Publish Changes**.
-3. View the source of a public page. It should show `WSU build.xslt 3.0.21` and `/shared/build.css?v=3.0.21`.
+3. View the source of a public page. It should show `WSU build.xslt 3.0.22` and `/shared/build.css?v=3.0.22`.
 
 When `build.css` changes, raise `brandVersion` in `build.xslt` as well. Slate caches `/shared/` files for 24 hours, and published branding can take a while to reach a signed-in session. A hard refresh helps.
 
-Every colour in `build.css` is written once, in a palette at the top of the file, under the name its official source gives it and with a link to that source: the WSU Web Design System's source palette and published stylesheet, Slate's own default, or the WSU Spine. Everything below the palette uses `var(--name)`; no colour value appears anywhere else. To use a new colour, add it to the palette with its source first. The evidence for each one, including live `*.wsu.edu` pages, is in the **XSLT & CSS** tab of `FreeSlate.html`.
+Every colour in `build.css` is written once, in a palette at the top of the file, under the name its official source gives it and with a link to that source: the WSU Web Design System's source palette and published stylesheet, Slate's own default, the WSU Spine, or (for the red "(Required)" marker) the Gravity Forms stylesheet behind wsu.edu's own forms. Everything below the palette uses `var(--name)`; no colour value appears anywhere else. To use a new colour, add it to the palette with its source first. The evidence for each one, including live `*.wsu.edu` pages, is in the **XSLT & CSS** tab of `FreeSlate.html`.
 
 ## install.html (the WSU tools bookmark)
 

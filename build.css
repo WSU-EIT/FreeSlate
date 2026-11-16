@@ -1,5 +1,5 @@
 /* ============================================================================
-   WSU Slate branding  -  build.css  (goes with build.xslt 3.0.21 and later)
+   WSU Slate branding  -  build.css  (goes with build.xslt 3.0.22 and later)
    ============================================================================
    This file is how WSU's Slate forms and pages look. Edit it in Slate's
    Branding Editor (the file named build.css; Slate serves it as
@@ -94,6 +94,19 @@
 
   --wsu-spine--yellow:#c69214;
 
+  /* GRAVITY FORMS (the form tool behind the forms on wsu.edu; not a design
+     system colour)
+
+       The design system has no colour for the "(Required)" marker. On
+       wsu.edu's own forms the marker is coloured by Gravity Forms, WSU's
+       WordPress form plugin, so this is the red a visitor sees there.
+       Source: Gravity Forms' stylesheet as wsu.edu serves it, in the rule
+       ".gform_wrapper .gfield_required":
+       https://wsu.edu/digital-accessibility/wp-content/plugins/gravityforms/assets/css/dist/theme.min.css
+       See it on https://wsu.edu/digital-accessibility/questions/ */
+
+  --gravityforms--required:#c02b0a;
+
   /* ============================ END OF PALETTE ============================
      No colour values below this line. Only var(--name). */
 
@@ -165,8 +178,14 @@ html :where(.wsu-content) a.wsu-button{color:var(--wsu-color--white);}
    the requirement is part of the field's accessible name and nothing
    trails the input. Replaces the "This field is required." hint that
    sat under every field: same information in words, a third of the
-   vertical space. Regular weight so the field name still leads. */
-.wsu-content .wsu-required-flag{font-weight:400;color:var(--wsu-color--gray-70);margin-left:.35em;}
+   vertical space. Regular weight so the field name still leads.
+   3.0.22: the marker looks like the one on wsu.edu's own forms: red,
+   italic, regular weight, 13.008px. All four values are copied from
+   Gravity Forms' rules ".gform_wrapper .gfield_required" and
+   ".gfield_required_text" (the stylesheet linked in the palette). It
+   is still the word "(Required)" inside the label, so the meaning
+   never depends on the colour. The red on white is 5.85:1 (AA). */
+.wsu-content .wsu-required-flag{font-style:italic;font-weight:400;font-size:13.008px;color:var(--gravityforms--required);margin-left:.35em;}
 
 /* LAYOUT-TABLE FIX. Slate builds forms/login with tables it marks
    role="none"/role="presentation" (positioning, not data). The WSU
