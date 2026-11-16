@@ -1,0 +1,271 @@
+/* ============================================================================
+   WSU Slate branding  -  build.css  (goes with build.xslt 3.0.20 and later)
+   ============================================================================
+   This file is how WSU's Slate forms and pages look. Edit it in Slate's
+   Branding Editor (the file named build.css; Slate serves it as
+   /shared/build.css). build.xslt only builds the page around it (header,
+   footer, wrappers, the "(Required)" flags) and links this file.
+
+   HOW IT IS LOADED
+     Slate doesn't link build.css by itself: build.xslt links it at the end of
+     the <head>, as /shared/build.css?v=<build.xslt version>, after Slate's CSS
+     and the WSU design system, so these rules come last and override them
+     where they need to. (Don't confuse it with /shared/base.css: that is
+     Slate's own platform file, which the Branding Editor doesn't change.)
+
+   WHEN YOU CHANGE THIS FILE
+     Save it, then bump brandVersion at the top of build.xslt and save that
+     too. The ?v= then changes and every browser fetches the new copy right
+     away. Without the bump, people who visited recently can see the old
+     styles for up to a day (Slate lets browsers keep /shared/ files 24 hours).
+
+   WHAT IS IN HERE
+     1. Slate Custom Color Replacement: the WSU palette handed to Slate through
+        its own documented color variables (fw-* and the c... names), so
+        Slate's own CSS repaints itself on-brand (Technolutions KB > Branding >
+        Custom Color Replacement). Not a specificity override.
+     2. Our short list of custom rules, each with a note on why it is needed.
+
+   These are the rules of 3.0.18's <style> block, unchanged apart from the
+   3.0.19 colors. Slate's stock base.css rules (Arial 12px, blue links, the old
+   #side/#main layout widths) are not repeated here: the WSU design system and
+   the rules below replace them.
+   ============================================================================ */
+
+:root{
+  /* WSU 2025 palette -- raw values live here ONLY (the CDN exposes no
+     :root color vars to reference). */
+  --wsu-crimson:#a60f2d; --wsu-crimson-hover:#ca1237;   /* $wsu-color--crimson, $wsu-color--crimson-light */
+  --wsu-dark-gray:#4d4d4d; --wsu-white:#ffffff; --wsu-input-border:#b2b2b2;
+  --wsu-body-text:#262626;   /* the 2.x bundle's body color (3.0.9) */
+
+  /* Slate's documented framework variables -- Slate paints itself with these. */
+  /* COMPLETE documented Slate Custom Color Replacement set (every variable
+     from Technolutions KB > Branding > Custom Color Replacement), mapped to
+     the WSU palette. Slate paints its own chrome from these. */
+  --fw-body-text:var(--wsu-body-text);          /* body text */
+  --fw-link-text:var(--wsu-crimson);            /* hyperlinks (framework CSS) */
+  /* Slate's color variables, named for the color they replace. /shared/base.css
+     uses them directly: a:link is var(--c0000FFFF,#00f) (blue) and a:hover is
+     var(--cFF0000FF,#f00) (red). Both become crimson, as content links were in
+     3.0.16. (3.0.17: replaces the !important link rule.) */
+  --c0000FFFF:var(--wsu-crimson);               /* Slate blue: links */
+  --cFF0000FF:var(--wsu-crimson);               /* Slate red: link hover, error text */
+  --fw-active-text:var(--wsu-crimson-hover);    /* link hover / search match */
+  --fw-muted-text:#595959;                      /* "loading..." temporary text */
+  --fw-input-border:var(--wsu-input-border);    /* text box / select borders */
+  --fw-button-background:#e6e6e6;               /* non-default popup buttons ($wsu-color--gray-10) */
+  --fw-button-default-background:var(--wsu-crimson); /* default button (Submit) */
+  --fw-success-text:var(--wsu-body-text);       /* success message text: WSU text color; the green is Slate's own border and background below */
+  --fw-success-accent:#529214;                  /* success border */
+  --fw-success-background:#e6efc2;              /* success background */
+  --fw-error-background:#fae6ea;                /* required/invalid question highlight after submit ($wsu-color--crimson-accent; #262626 on it is AAA) */
+  --fw-warning-accent:#c69214;                  /* warning border (WSU Spine's yellow; the design system has none) */
+  --fw-warning-background:#ffffcc;              /* warning background (Slate's own default; the design system has no tint for it) */
+  --fw-datepicker-text:var(--wsu-dark-gray);    /* datepicker day/month text */
+  --fw-datepicker-background-active:var(--wsu-crimson);  /* selected date */
+  --fw-datepicker-background-hover:#f2f2f2;     /* hovered date */
+  --fw-tab-text:#595959;                        /* tabs / subtabs text */
+  --fw-tab-text-hover:var(--wsu-crimson);       /* tabs / subtabs hover text */
+  --fw-tab-background:#f2f2f2;                   /* tabs / subtabs background */
+  --fw-tab-background-hover:#fafafa;            /* tabs / subtabs hover background */
+  --fw-suggest-background-hover:#f2f2f2;        /* autosuggest hovered result */
+  --fw-table-row-border:#d9d9d9;               /* table row divider */
+  --fw-dialog-header:#f2f2f2;                    /* dialog header background */
+  --fw-dialog-footer-border:#e5e5e5;           /* dialog body/footer divider */
+  accent-color:var(--wsu-crimson);              /* native checkbox / radio */
+}
+/* Keep the unit-header lockup charcoal: Slate's a:link (0,1,1) reaches into
+   our chrome and would recolor it. Scope to the lockup ONLY -- do NOT include
+   .wsu-header-global, because the crumb bar (wsu-header-global--style-system)
+   styles its own links light (#f2f2f2) on the dark bar, and forcing
+   color:inherit there makes them dark-on-dark / illegible. */
+.wsu-header-unit a.wsu-logo-lockup:link,.wsu-header-unit a.wsu-logo-lockup:visited{color:inherit !important;}
+/* Links styled as official buttons keep the bundle's white text. Slate's
+   a:link (0,1,1) outranks the bundle's .wsu-button (0,1,0); this is
+   (0,1,2), so it wins over Slate but still loses to the bundle's
+   outline/tertiary variants and their hover colors (0,2,0 and up). */
+html :where(.wsu-content) a.wsu-button{color:#fff;}
+
+/* REQUIRED FIELDS. 3.0 marks required questions with the word
+   "(Required)" appended INSIDE the label (see the transform below), so
+   the requirement is part of the field's accessible name and nothing
+   trails the input. Replaces the "This field is required." hint that
+   sat under every field: same information in words, a third of the
+   vertical space. Regular weight so the field name still leads. */
+.wsu-content .wsu-required-flag{font-weight:400;color:var(--wsu-dark-gray);margin-left:.35em;}
+
+/* LAYOUT-TABLE FIX. Slate builds forms/login with tables it marks
+   role="none"/role="presentation" (positioning, not data). The WSU
+   bundle styles every bare table element (crimson top border + cell
+   gridlines), which bleeds onto those layout tables. Strip WSU table
+   chrome from presentational tables ONLY -- real data tables (no such
+   role) keep it. Keyed on Slate's own marker, so it fixes every such
+   page automatically, including the login page.
+   3.0.10: child selectors only, so the reset stops at the layout
+   table's own cells. Descendant selectors also blanked tables nested
+   inside a layout cell, e.g. the event calendar on /portal/visit,
+   whose available dates went white on white. */
+.wsu-content table[role="none"],.wsu-content table[role="presentation"],
+.wsu-content table[role="none"] > *,.wsu-content table[role="presentation"] > *,
+.wsu-content table[role="none"] > * > tr > th,.wsu-content table[role="none"] > * > tr > td,
+.wsu-content table[role="presentation"] > * > tr > th,.wsu-content table[role="presentation"] > * > tr > td{
+  border:0 !important;background:transparent !important;
+}
+
+/* SLATE'S OWN MODAL HOST ("More Info" popups, "required fields" alert).
+   dialog_host carries inline left/top but takes its POSITION from
+   Slate's stylesheet; under the design system reset it fell back to
+   static, so the hidden ~500px dialog sat in normal flow and reserved a
+   blank block mid-page.
+
+   3.0.1: centred with inset:0 + margin:auto instead of transform. A
+   transform makes position:fixed descendants size to the dialog, not
+   the viewport, so 3.0's ::before backdrop rendered as a gray block on
+   the dialog itself. The backdrop is now the first box-shadow (100vmax
+   spread covers any viewport); the second is WDS elevation step 4.
+   The inline left/top Slate writes has to be overridden, hence
+   !important -- the one place in this file that needs it.
+   3.0.18: Slate's own .progress_box rule (position:absolute) is left
+   alone. Overriding it put the hidden pop-up block that editors paste
+   into a question's label back into the layout, leaving a gap. */
+.dialog_host{
+  position:fixed!important;
+  inset:0!important;
+  margin:auto;
+  height:fit-content;
+  width:fit-content;
+  max-width:min(560px,calc(100vw - 2rem));
+  max-height:min(80vh,calc(100vh - 4rem));
+  z-index:1000;
+  display:flex;
+  flex-direction:column;
+  background:#fff;
+  border-top:4px solid #a60f2d;
+  box-shadow:0 0 0 100vmax rgba(0,0,0,.45),0 0 17px rgba(0,0,0,.5);
+}
+/* Slate's inner wrappers vary by dialog type; make whichever one
+   holds the copy the scrolling region. */
+.dialog_host > *{min-height:0;max-width:100%;}
+.dialog_host .dialog_content,
+.dialog_host .dialog_body,
+.dialog_host .dialog{
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.dialog_host .dialog_title,
+.dialog_host .dialog_header{
+  padding:1.125rem 1.5rem;
+  font-weight:700;
+  font-size:1.25rem;
+  border-bottom:1px solid #e5e5e5;
+  flex:0 0 auto;
+}
+.dialog_host .dialog_content,
+.dialog_host .dialog_body{padding:1.125rem 1.5rem;}
+.dialog_host .dialog_buttons,
+.dialog_host .dialog_footer{
+  display:flex;
+  justify-content:flex-end;
+  gap:.75rem;
+  padding:1rem 1.5rem;
+  border-top:1px solid #e5e5e5;
+  background:#f7f7f7;
+  flex:0 0 auto;
+}
+/* The Close button was clipping its own label. */
+.dialog_host button{line-height:1.5;padding:.625rem 1.5rem;}
+
+/* SLATE'S PRIMARY BUTTON IN POPUPS (3.0.5), e.g. "Create Application"
+   in the "Let's Get Started" dialog. Slate paints every button's text
+   with fw-body-text and its primary button background with
+   fw-button-default-background, which we set to crimson above: dark
+   gray on crimson, 1.1:1. Slate attaches dialogs to body, outside
+   .wsu-content, so the WDS ".wsu-content button" rule never reaches
+   them. This matches that rule: white on crimson (7.7:1), WDS
+   crimson-light on hover (5.75:1). Without the hover rule Slate turns
+   the button light gray (fw-dialog-header) under white text. */
+button.default,input[type="button"].default,input[type="submit"].default,ul.action a.default{color:#fff;}
+.wsu-content ul.action a.default:link,.wsu-content ul.action a.default:visited{color:#fff !important;}
+.no-touch button.default:hover,.no-touch button.default:focus,
+.no-touch input[type="button"].default:hover,.no-touch input[type="submit"].default:hover,
+.no-touch ul.action a.default:hover{background-color:var(--wsu-crimson-hover);color:#fff;}
+
+/* FORM CONTROL FONT (3.0.8). Slate's /fw/framework/base.css forces
+   buttons to Arial with !important, and its input rules (plus
+   /shared/base.css) set text inputs, selects and textareas to Arial.
+   The 2.x bundle's own values: .wsu-content button is
+   "Montserrat, sans-serif"; inputs inherit the page font (normalize).
+   !important on buttons only, because Slate's rule uses it. The popup
+   button is included to match the 3.0.5 popup fix. */
+.wsu-content button,.wsu-content input[type="button"],.wsu-content input[type="submit"],.wsu-content input[type="reset"],
+.dialog_host button{font-family:Montserrat,sans-serif !important;}
+.wsu-content input,.wsu-content select,.wsu-content textarea{font-family:inherit;}
+
+/* ============ PORTED FROM THE 2021 SLATE OVERRIDES (3.0.6) ============
+   The WSU web team's /shared/web-design-system-overrides.css did these
+   for the 1.x system. Same intent; every value below is copied from
+   the 2.x bundle (cited per rule), nothing new is invented. */
+
+/* Group question labels. Birthdate, address and radio/checkbox groups
+   label themselves with div.form_label inside a fieldset (Slate hides
+   the legend), and the 2.x bundle only styles real label elements,
+   so these rendered lighter than every other label. Values: 2.x
+   "label" rule (src/elements/form, wsu-label mixin). */
+.wsu-content .form_question fieldset > .form_label{display:block;font-size:.875rem;font-weight:600;line-height:1.5;margin-bottom:.1em;}
+
+/* Application sidebar (#side and #menu, built from each base.xml menu).
+   Old file: 200px column, charcoal 600-weight links, 5px left bar.
+   2.x equivalent: .wsu-menu-collapse.wsu-menu-collapse--style-vertical
+   (text #3f3f3f .875rem 600, padding .6875rem .875rem .6875rem 1.125rem,
+   hover bar #b2b2b2 on #f2f2f2, current bar #ca1237). width:auto undoes
+   Slate's 130px link / 150px menu so the links fill the column.
+   !important only on color (kept from 3.0.6). */
+.wsu-content #side{width:200px;}
+.wsu-content #main{padding-left:2rem;box-sizing:border-box;max-width:100%;}
+.wsu-content div#menu{width:auto;}
+.wsu-content div#menu ul li a:link,.wsu-content div#menu ul li a:visited{display:block;width:auto;padding:.6875rem .875rem .6875rem 1.125rem;border-left:5px solid transparent;color:#3f3f3f !important;font-size:.875rem;font-weight:600;line-height:1.5;text-decoration:none;}
+.wsu-content div#menu ul li a:hover,.wsu-content div#menu ul li a:focus{border-left-color:#b2b2b2;background-color:#f2f2f2;}
+.wsu-content div#menu ul li a.selected{border-left-color:#ca1237;background-color:transparent;}
+/* Old file stacked the sidebar above the form from 720px to 1040px.
+   Phones now get this template too (Mobile Template key), so the
+   stack applies to every width up to 1040px, and Slate's fixed 715px
+   #main is released so it can't overflow a phone. */
+@media screen and (max-width:1040px){
+  .wsu-content #side{width:auto;float:none;border-bottom:6px solid #eee;margin-bottom:3rem;padding-bottom:2rem;}
+  .wsu-content #main{float:none;width:auto;padding-left:0;}
+}
+
+/* Event date calendars. Old file was the only thing coloring available
+   and unavailable dates; without it both looked identical. Retired
+   crimson #981e32 updated to the 2025 crimson; white date text so it
+   reads on the fill (7.7:1). Unavailable crimson on #ccc is 4.8:1. */
+.ui-datepicker-calendar .available,.calendar_legend.available{background-color:#a60f2d;}
+.ui-datepicker-calendar .unavailable,.calendar_legend.unavailable{background-color:#cccccc;}
+.wsu-content .ui-datepicker-calendar .available a:link,.wsu-content .ui-datepicker-calendar .available a:visited,.ui-datepicker-calendar .available a{color:#fff !important;}
+
+/* ============ ACCESSIBILITY (AAA-oriented, structural only) ============
+   No WDS colors are overridden here -- the design-system palette ships as-is
+   (per WSU standards). These rules are semantics/visibility helpers only;
+   every colour used is a WDS token (--wsu-*). */
+
+/* A11Y - visible REAL labels for multi-part date selects (Month/Day/Year).
+   Slate gives those selects an aria-label only; the transform below turns
+   each into a proper visible label element and drops the now-redundant
+   aria-label. wsu-dark-gray on white = 8.45:1 (AAA). */
+.wsu-content .wsu-subfield{display:inline-flex;flex-direction:column;vertical-align:top;margin-right:.75rem;}
+.wsu-content .wsu-subfield__label{font-size:.8rem;font-weight:600;color:var(--wsu-dark-gray);margin-bottom:.2em;}
+
+/* A11Y -- visible keyboard focus indicator (2.4.7 / focus-appearance).
+   Crimson is a WDS token; this is an additive safety net over the bundle. */
+.wsu-content a:focus-visible,.wsu-content button:focus-visible,
+.wsu-content input:focus-visible,.wsu-content select:focus-visible,
+.wsu-content textarea:focus-visible,.wsu-skip-to-main:focus-visible{
+  outline:3px solid var(--wsu-crimson);outline-offset:2px;
+}
+
+/* A11Y -- respect reduced-motion preference (2.3.3). Only affects users who
+   ask for it; no visual change otherwise. */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+}
