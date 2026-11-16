@@ -1,5 +1,5 @@
 /* ============================================================================
-   WSU Slate branding  -  build.css  (goes with build.xslt 3.0.20 and later)
+   WSU Slate branding  -  build.css  (goes with build.xslt 3.0.21 and later)
    ============================================================================
    This file is how WSU's Slate forms and pages look. Edit it in Slate's
    Branding Editor (the file named build.css; Slate serves it as
@@ -20,72 +20,145 @@
      styles for up to a day (Slate lets browsers keep /shared/ files 24 hours).
 
    WHAT IS IN HERE
-     1. Slate Custom Color Replacement: the WSU palette handed to Slate through
+     1. The palette: every colour this file uses, each defined once, named
+        after its official source. It is the ONLY place a colour value is
+        written. Everything below it says var(--name).
+     2. Slate Custom Color Replacement: the palette handed to Slate through
         its own documented color variables (fw-* and the c... names), so
         Slate's own CSS repaints itself on-brand (Technolutions KB > Branding >
         Custom Color Replacement). Not a specificity override.
-     2. Our short list of custom rules, each with a note on why it is needed.
+     3. Our short list of custom rules, each with a note on why it is needed.
 
-   These are the rules of 3.0.18's <style> block, unchanged apart from the
-   3.0.19 colors. Slate's stock base.css rules (Arial 12px, blue links, the old
-   #side/#main layout widths) are not repeated here: the WSU design system and
-   the rules below replace them.
+   THE COLOUR RULE
+     Never write a colour value outside the palette. To use a new colour, add
+     it to the palette first, with the official name and where it comes from.
+     If it has no official source, it does not go in.
    ============================================================================ */
 
 :root{
-  /* WSU 2025 palette -- raw values live here ONLY (the CDN exposes no
-     :root color vars to reference). */
-  --wsu-crimson:#a60f2d; --wsu-crimson-hover:#ca1237;   /* $wsu-color--crimson, $wsu-color--crimson-light */
-  --wsu-dark-gray:#4d4d4d; --wsu-white:#ffffff; --wsu-input-border:#b2b2b2;
-  --wsu-body-text:#262626;   /* the 2.x bundle's body color (3.0.9) */
+  /* ==========================================================================
+     1. PALETTE  -  the only place in this file where a colour value is written
+     ==========================================================================
 
-  /* Slate's documented framework variables -- Slate paints itself with these. */
-  /* COMPLETE documented Slate Custom Color Replacement set (every variable
-     from Technolutions KB > Branding > Custom Color Replacement), mapped to
-     the WSU palette. Slate paints its own chrome from these. */
-  --fw-body-text:var(--wsu-body-text);          /* body text */
-  --fw-link-text:var(--wsu-crimson);            /* hyperlinks (framework CSS) */
-  /* Slate's color variables, named for the color they replace. /shared/base.css
-     uses them directly: a:link is var(--c0000FFFF,#00f) (blue) and a:hover is
-     var(--cFF0000FF,#f00) (red). Both become crimson, as content links were in
-     3.0.16. (3.0.17: replaces the !important link rule.) */
-  --c0000FFFF:var(--wsu-crimson);               /* Slate blue: links */
-  --cFF0000FF:var(--wsu-crimson);               /* Slate red: link hover, error text */
-  --fw-active-text:var(--wsu-crimson-hover);    /* link hover / search match */
-  --fw-muted-text:#595959;                      /* "loading..." temporary text */
-  --fw-input-border:var(--wsu-input-border);    /* text box / select borders */
-  --fw-button-background:#e6e6e6;               /* non-default popup buttons ($wsu-color--gray-10) */
-  --fw-button-default-background:var(--wsu-crimson); /* default button (Submit) */
-  --fw-success-text:var(--wsu-body-text);       /* success message text: WSU text color; the green is Slate's own border and background below */
-  --fw-success-accent:#529214;                  /* success border */
-  --fw-success-background:#e6efc2;              /* success background */
-  --fw-error-background:#fae6ea;                /* required/invalid question highlight after submit ($wsu-color--crimson-accent; #262626 on it is AAA) */
-  --fw-warning-accent:#c69214;                  /* warning border (WSU Spine's yellow; the design system has none) */
-  --fw-warning-background:#ffffcc;              /* warning background (Slate's own default; the design system has no tint for it) */
-  --fw-datepicker-text:var(--wsu-dark-gray);    /* datepicker day/month text */
-  --fw-datepicker-background-active:var(--wsu-crimson);  /* selected date */
-  --fw-datepicker-background-hover:#f2f2f2;     /* hovered date */
-  --fw-tab-text:#595959;                        /* tabs / subtabs text */
-  --fw-tab-text-hover:var(--wsu-crimson);       /* tabs / subtabs hover text */
-  --fw-tab-background:#f2f2f2;                   /* tabs / subtabs background */
-  --fw-tab-background-hover:#fafafa;            /* tabs / subtabs hover background */
-  --fw-suggest-background-hover:#f2f2f2;        /* autosuggest hovered result */
-  --fw-table-row-border:#d9d9d9;               /* table row divider */
-  --fw-dialog-header:#f2f2f2;                    /* dialog header background */
-  --fw-dialog-footer-border:#e5e5e5;           /* dialog body/footer divider */
-  accent-color:var(--wsu-crimson);              /* native checkbox / radio */
+     WSU WEB DESIGN SYSTEM (what wsu.edu uses)
+
+       Names and definitions come from the design system's source palette,
+       version 3.5.0:
+       https://github.com/wsuwebteam/web-design-system/blob/8218b1f8d77a2dcced77bd7bbd4a8bbac8417fef/_assets/scss/_variables.scss
+       (crimsons: lines 71-73. grays: lines 77-94. white: line 102.
+       drop shadow: line 177.)
+
+       Values are written exactly as the published stylesheet writes them, the
+       one every wsu.edu page loads, so Slate matches wsu.edu:
+       https://cdn.web.wsu.edu/designsystem/2.x/dist/bundles/wsu-design-system.css
+
+       Each variable has the same name as in the source, with -- in place of $.
+       The note after it is the source's own definition. The source defines
+       grays by lightness; when the stylesheet is compiled, five of them
+       (gray-10, 15, 30, 70 and 75) come out one step darker than the hex in
+       the source's comments. We use the published value. Search the published
+       stylesheet for any value below to confirm it. */
+
+  --wsu-color--crimson:#a60f2d;          /* $wsu-color--crimson: #A60F2D */
+  --wsu-color--crimson-light:#ca1237;    /* $wsu-color--crimson-light: #CA1237 */
+  --wsu-color--crimson-accent:#fae6ea;   /* $wsu-color--crimson-accent: #FAE6EA (in the source; the 2.x stylesheet has no rule that uses it yet) */
+  --wsu-color--white:#ffffff;            /* 'white' in $wsu-color-map */
+  --wsu-color--gray-0:#f7f7f7;           /* $wsu-color--gray-0:  hsl(0deg, 0%, 97%) */
+  --wsu-color--gray-5:#f2f2f2;           /* $wsu-color--gray-5:  hsl(0deg, 0%, 95%) */
+  --wsu-color--gray-10:#e5e5e5;          /* $wsu-color--gray-10: hsl(0deg, 0%, 90%) */
+  --wsu-color--gray-15:#d8d8d8;          /* $wsu-color--gray-15: hsl(0deg, 0%, 85%) */
+  --wsu-color--gray-20:#cccccc;          /* $wsu-color--gray-20: hsl(0deg, 0%, 80%) */
+  --wsu-color--gray-30:#b2b2b2;          /* $wsu-color--gray-30: hsl(0deg, 0%, 70%) */
+  --wsu-color--gray-65:#595959;          /* $wsu-color--gray-65: hsl(0deg, 0%, 35%) */
+  --wsu-color--gray-70:#4c4c4c;          /* $wsu-color--gray-70: hsl(0deg, 0%, 30%) */
+  --wsu-color--gray-75:#3f3f3f;          /* $wsu-color--gray-75: hsl(0deg, 0%, 25%) */
+  --wsu-color--gray-85:#262626;          /* $wsu-color--gray-85: hsl(0deg, 0%, 15%); also $wsu-color--text, the body text colour */
+  --wsu-overlay--light:rgba(0,0,0,.45);              /* .wsu-overlay--light, the design system's light page overlay (src/components/overlay/_style.scss, line 46) */
+  --wsu-dropshadow--high:0 0 17px rgba(0,0,0,.5);    /* $wsu-dropshadow--high: 0px 0px 17px rgba(0,0,0,0.5) */
+
+  /* SLATE'S OWN DEFAULTS (not WSU colours)
+
+       The design system has no colours for "success" and "warning" messages,
+       so these three stay exactly as Slate ships them. Source: Slate's
+       framework stylesheet, /fw/framework/base.css, where each one is the
+       built-in default of the Slate variable it is used for below. */
+
+  --slate-default--success-accent:#529214;       /* default of --fw-success-accent */
+  --slate-default--success-background:#e6efc2;   /* default of --fw-success-background */
+  --slate-default--warning-background:#ffffcc;   /* default of --fw-warning-background */
+
+  /* WSU SPINE 2 (WSU's web framework before the design system)
+
+       The design system has no yellow. This is the Spine's, from
+       https://repo.wsu.edu/spine/2/spine.min.css (.yellow-back, .yellow-text). */
+
+  --wsu-spine--yellow:#c69214;
+
+  /* ============================ END OF PALETTE ============================
+     No colour values below this line. Only var(--name). */
+
+  /* ==========================================================================
+     2. SLATE CUSTOM COLOR REPLACEMENT
+     ==========================================================================
+     The COMPLETE documented set (every variable from Technolutions KB >
+     Branding > Custom Color Replacement), each pointed at a palette colour.
+     Slate paints its own chrome from these. */
+  --fw-body-text:var(--wsu-color--gray-85);                  /* body text */
+  --fw-link-text:var(--wsu-color--crimson);                  /* hyperlinks (framework CSS) */
+  /* Slate names the next two variables after the colour they replace: its
+     /shared/base.css paints a:link with the first (Slate's blue) and a:hover
+     with the second (Slate's red). Both become crimson, as content links were
+     in 3.0.16. (3.0.17: replaces the !important link rule.) */
+  --c0000FFFF:var(--wsu-color--crimson);                     /* Slate blue: links */
+  --cFF0000FF:var(--wsu-color--crimson);                     /* Slate red: link hover, error text */
+  --fw-active-text:var(--wsu-color--crimson-light);          /* link hover / search match */
+  --fw-muted-text:var(--wsu-color--gray-65);                 /* "loading..." temporary text */
+  --fw-input-border:var(--wsu-color--gray-30);               /* text box / select borders, as on wsu.edu forms */
+  --fw-button-background:var(--wsu-color--gray-10);          /* non-default popup buttons */
+  --fw-button-default-background:var(--wsu-color--crimson);  /* default button (Submit) */
+  --fw-success-text:var(--wsu-color--gray-85);               /* success message text: WSU text colour; the green is Slate's own border and background below */
+  --fw-success-accent:var(--slate-default--success-accent);          /* success border */
+  --fw-success-background:var(--slate-default--success-background);  /* success background */
+  --fw-error-background:var(--wsu-color--crimson-accent);    /* required/invalid question highlight after submit (body text on it is AAA) */
+  --fw-warning-accent:var(--wsu-spine--yellow);              /* warning border */
+  --fw-warning-background:var(--slate-default--warning-background);  /* warning background */
+  --fw-datepicker-text:var(--wsu-color--gray-70);            /* datepicker day/month text */
+  --fw-datepicker-background-active:var(--wsu-color--crimson);  /* selected date */
+  --fw-datepicker-background-hover:var(--wsu-color--gray-5); /* hovered date */
+  --fw-tab-text:var(--wsu-color--gray-65);                   /* tabs / subtabs text */
+  --fw-tab-text-hover:var(--wsu-color--crimson);             /* tabs / subtabs hover text */
+  --fw-tab-background:var(--wsu-color--gray-5);              /* tabs / subtabs background */
+  --fw-tab-background-hover:var(--wsu-color--gray-0);        /* tabs / subtabs hover background */
+  --fw-suggest-background-hover:var(--wsu-color--gray-5);    /* autosuggest hovered result */
+  --fw-table-row-border:var(--wsu-color--gray-15);           /* table row divider */
+  --fw-dialog-header:var(--wsu-color--gray-5);               /* dialog header background */
+  --fw-dialog-footer-border:var(--wsu-color--gray-10);       /* dialog body/footer divider */
+  accent-color:var(--wsu-color--crimson);                    /* native checkbox / radio */
+
+  /* OLDER NAMES, used by this file up to 3.0.20. Kept so that anything still
+     written with them keeps working. New rules use the palette names. */
+  --wsu-crimson:var(--wsu-color--crimson);
+  --wsu-crimson-hover:var(--wsu-color--crimson-light);
+  --wsu-dark-gray:var(--wsu-color--gray-70);
+  --wsu-white:var(--wsu-color--white);
+  --wsu-input-border:var(--wsu-color--gray-30);
+  --wsu-body-text:var(--wsu-color--gray-85);
 }
+
+/* ============================================================================
+   3. CUSTOM RULES
+   ============================================================================ */
 /* Keep the unit-header lockup charcoal: Slate's a:link (0,1,1) reaches into
    our chrome and would recolor it. Scope to the lockup ONLY -- do NOT include
    .wsu-header-global, because the crumb bar (wsu-header-global--style-system)
-   styles its own links light (#f2f2f2) on the dark bar, and forcing
+   styles its own links light (gray-5) on the dark bar, and forcing
    color:inherit there makes them dark-on-dark / illegible. */
 .wsu-header-unit a.wsu-logo-lockup:link,.wsu-header-unit a.wsu-logo-lockup:visited{color:inherit !important;}
 /* Links styled as official buttons keep the bundle's white text. Slate's
    a:link (0,1,1) outranks the bundle's .wsu-button (0,1,0); this is
    (0,1,2), so it wins over Slate but still loses to the bundle's
    outline/tertiary variants and their hover colors (0,2,0 and up). */
-html :where(.wsu-content) a.wsu-button{color:#fff;}
+html :where(.wsu-content) a.wsu-button{color:var(--wsu-color--white);}
 
 /* REQUIRED FIELDS. 3.0 marks required questions with the word
    "(Required)" appended INSIDE the label (see the transform below), so
@@ -93,7 +166,7 @@ html :where(.wsu-content) a.wsu-button{color:#fff;}
    trails the input. Replaces the "This field is required." hint that
    sat under every field: same information in words, a third of the
    vertical space. Regular weight so the field name still leads. */
-.wsu-content .wsu-required-flag{font-weight:400;color:var(--wsu-dark-gray);margin-left:.35em;}
+.wsu-content .wsu-required-flag{font-weight:400;color:var(--wsu-color--gray-70);margin-left:.35em;}
 
 /* LAYOUT-TABLE FIX. Slate builds forms/login with tables it marks
    role="none"/role="presentation" (positioning, not data). The WSU
@@ -123,7 +196,8 @@ html :where(.wsu-content) a.wsu-button{color:#fff;}
    transform makes position:fixed descendants size to the dialog, not
    the viewport, so 3.0's ::before backdrop rendered as a gray block on
    the dialog itself. The backdrop is now the first box-shadow (100vmax
-   spread covers any viewport); the second is WDS elevation step 4.
+   spread covers any viewport), in the design system's light overlay
+   colour; the second is the design system's high drop shadow.
    The inline left/top Slate writes has to be overridden, hence
    !important -- the one place in this file that needs it.
    3.0.18: Slate's own .progress_box rule (position:absolute) is left
@@ -140,9 +214,9 @@ html :where(.wsu-content) a.wsu-button{color:#fff;}
   z-index:1000;
   display:flex;
   flex-direction:column;
-  background:#fff;
-  border-top:4px solid #a60f2d;
-  box-shadow:0 0 0 100vmax rgba(0,0,0,.45),0 0 17px rgba(0,0,0,.5);
+  background:var(--wsu-color--white);
+  border-top:4px solid var(--wsu-color--crimson);
+  box-shadow:0 0 0 100vmax var(--wsu-overlay--light),var(--wsu-dropshadow--high);
 }
 /* Slate's inner wrappers vary by dialog type; make whichever one
    holds the copy the scrolling region. */
@@ -158,7 +232,7 @@ html :where(.wsu-content) a.wsu-button{color:#fff;}
   padding:1.125rem 1.5rem;
   font-weight:700;
   font-size:1.25rem;
-  border-bottom:1px solid #e5e5e5;
+  border-bottom:1px solid var(--wsu-color--gray-10);
   flex:0 0 auto;
 }
 .dialog_host .dialog_content,
@@ -169,8 +243,8 @@ html :where(.wsu-content) a.wsu-button{color:#fff;}
   justify-content:flex-end;
   gap:.75rem;
   padding:1rem 1.5rem;
-  border-top:1px solid #e5e5e5;
-  background:#f7f7f7;
+  border-top:1px solid var(--wsu-color--gray-10);
+  background:var(--wsu-color--gray-0);
   flex:0 0 auto;
 }
 /* The Close button was clipping its own label. */
@@ -185,11 +259,11 @@ html :where(.wsu-content) a.wsu-button{color:#fff;}
    them. This matches that rule: white on crimson (7.7:1), WDS
    crimson-light on hover (5.75:1). Without the hover rule Slate turns
    the button light gray (fw-dialog-header) under white text. */
-button.default,input[type="button"].default,input[type="submit"].default,ul.action a.default{color:#fff;}
-.wsu-content ul.action a.default:link,.wsu-content ul.action a.default:visited{color:#fff !important;}
+button.default,input[type="button"].default,input[type="submit"].default,ul.action a.default{color:var(--wsu-color--white);}
+.wsu-content ul.action a.default:link,.wsu-content ul.action a.default:visited{color:var(--wsu-color--white) !important;}
 .no-touch button.default:hover,.no-touch button.default:focus,
 .no-touch input[type="button"].default:hover,.no-touch input[type="submit"].default:hover,
-.no-touch ul.action a.default:hover{background-color:var(--wsu-crimson-hover);color:#fff;}
+.no-touch ul.action a.default:hover{background-color:var(--wsu-color--crimson-light);color:var(--wsu-color--white);}
 
 /* FORM CONTROL FONT (3.0.8). Slate's /fw/framework/base.css forces
    buttons to Arial with !important, and its input rules (plus
@@ -217,51 +291,54 @@ button.default,input[type="button"].default,input[type="submit"].default,ul.acti
 /* Application sidebar (#side and #menu, built from each base.xml menu).
    Old file: 200px column, charcoal 600-weight links, 5px left bar.
    2.x equivalent: .wsu-menu-collapse.wsu-menu-collapse--style-vertical
-   (text #3f3f3f .875rem 600, padding .6875rem .875rem .6875rem 1.125rem,
-   hover bar #b2b2b2 on #f2f2f2, current bar #ca1237). width:auto undoes
+   (text gray-75 .875rem 600, padding .6875rem .875rem .6875rem 1.125rem,
+   hover bar gray-30 on gray-5, current bar crimson-light). width:auto undoes
    Slate's 130px link / 150px menu so the links fill the column.
    !important only on color (kept from 3.0.6). */
 .wsu-content #side{width:200px;}
 .wsu-content #main{padding-left:2rem;box-sizing:border-box;max-width:100%;}
 .wsu-content div#menu{width:auto;}
-.wsu-content div#menu ul li a:link,.wsu-content div#menu ul li a:visited{display:block;width:auto;padding:.6875rem .875rem .6875rem 1.125rem;border-left:5px solid transparent;color:#3f3f3f !important;font-size:.875rem;font-weight:600;line-height:1.5;text-decoration:none;}
-.wsu-content div#menu ul li a:hover,.wsu-content div#menu ul li a:focus{border-left-color:#b2b2b2;background-color:#f2f2f2;}
-.wsu-content div#menu ul li a.selected{border-left-color:#ca1237;background-color:transparent;}
+.wsu-content div#menu ul li a:link,.wsu-content div#menu ul li a:visited{display:block;width:auto;padding:.6875rem .875rem .6875rem 1.125rem;border-left:5px solid transparent;color:var(--wsu-color--gray-75) !important;font-size:.875rem;font-weight:600;line-height:1.5;text-decoration:none;}
+.wsu-content div#menu ul li a:hover,.wsu-content div#menu ul li a:focus{border-left-color:var(--wsu-color--gray-30);background-color:var(--wsu-color--gray-5);}
+.wsu-content div#menu ul li a.selected{border-left-color:var(--wsu-color--crimson-light);background-color:transparent;}
 /* Old file stacked the sidebar above the form from 720px to 1040px.
    Phones now get this template too (Mobile Template key), so the
    stack applies to every width up to 1040px, and Slate's fixed 715px
-   #main is released so it can't overflow a phone. */
+   #main is released so it can't overflow a phone. The divider under
+   the stacked sidebar is gray-10, the design system's light border
+   ('light' in $wsu-color-border-map). */
 @media screen and (max-width:1040px){
-  .wsu-content #side{width:auto;float:none;border-bottom:6px solid #eee;margin-bottom:3rem;padding-bottom:2rem;}
+  .wsu-content #side{width:auto;float:none;border-bottom:6px solid var(--wsu-color--gray-10);margin-bottom:3rem;padding-bottom:2rem;}
   .wsu-content #main{float:none;width:auto;padding-left:0;}
 }
 
 /* Event date calendars. Old file was the only thing coloring available
    and unavailable dates; without it both looked identical. Retired
-   crimson #981e32 updated to the 2025 crimson; white date text so it
-   reads on the fill (7.7:1). Unavailable crimson on #ccc is 4.8:1. */
-.ui-datepicker-calendar .available,.calendar_legend.available{background-color:#a60f2d;}
-.ui-datepicker-calendar .unavailable,.calendar_legend.unavailable{background-color:#cccccc;}
-.wsu-content .ui-datepicker-calendar .available a:link,.wsu-content .ui-datepicker-calendar .available a:visited,.ui-datepicker-calendar .available a{color:#fff !important;}
+   Spine crimson updated to the design system crimson; white date text
+   so it reads on the fill (7.7:1). Unavailable crimson on gray-20 is
+   4.8:1. */
+.ui-datepicker-calendar .available,.calendar_legend.available{background-color:var(--wsu-color--crimson);}
+.ui-datepicker-calendar .unavailable,.calendar_legend.unavailable{background-color:var(--wsu-color--gray-20);}
+.wsu-content .ui-datepicker-calendar .available a:link,.wsu-content .ui-datepicker-calendar .available a:visited,.ui-datepicker-calendar .available a{color:var(--wsu-color--white) !important;}
 
 /* ============ ACCESSIBILITY (AAA-oriented, structural only) ============
    No WDS colors are overridden here -- the design-system palette ships as-is
    (per WSU standards). These rules are semantics/visibility helpers only;
-   every colour used is a WDS token (--wsu-*). */
+   every colour used is a palette variable (--wsu-color--*). */
 
 /* A11Y - visible REAL labels for multi-part date selects (Month/Day/Year).
    Slate gives those selects an aria-label only; the transform below turns
    each into a proper visible label element and drops the now-redundant
-   aria-label. wsu-dark-gray on white = 8.45:1 (AAA). */
+   aria-label. gray-70 on white is AAA. */
 .wsu-content .wsu-subfield{display:inline-flex;flex-direction:column;vertical-align:top;margin-right:.75rem;}
-.wsu-content .wsu-subfield__label{font-size:.8rem;font-weight:600;color:var(--wsu-dark-gray);margin-bottom:.2em;}
+.wsu-content .wsu-subfield__label{font-size:.8rem;font-weight:600;color:var(--wsu-color--gray-70);margin-bottom:.2em;}
 
 /* A11Y -- visible keyboard focus indicator (2.4.7 / focus-appearance).
    Crimson is a WDS token; this is an additive safety net over the bundle. */
 .wsu-content a:focus-visible,.wsu-content button:focus-visible,
 .wsu-content input:focus-visible,.wsu-content select:focus-visible,
 .wsu-content textarea:focus-visible,.wsu-skip-to-main:focus-visible{
-  outline:3px solid var(--wsu-crimson);outline-offset:2px;
+  outline:3px solid var(--wsu-color--crimson);outline-offset:2px;
 }
 
 /* A11Y -- respect reduced-motion preference (2.3.3). Only affects users who

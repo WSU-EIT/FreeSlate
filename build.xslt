@@ -31,6 +31,27 @@
        tables, Slate's modal host, and the a11y safety net. Everything else is
        official.
 
+  WHAT CHANGED IN 3.0.21
+    · build.css now writes every color once, in a palette at the top of the
+      file. Each palette entry is named after its official source (the WSU
+      design system's source palette on GitHub, Slate's own default, or the
+      WSU Spine) and links to it. Everything below the palette refers to a
+      palette name: no color value appears anywhere else in the file, and the
+      FreeSlate build refuses a build.css that breaks this rule.
+    · Each design system color now has ONE value: the one the published
+      stylesheet on cdn.web.wsu.edu writes. 3.0.20 spelled some grays two
+      ways (the published value in some rules, the hex from the source's
+      comment in others). Five values change, each to an official one:
+        gray 70 (required flag, date sub-labels, datepicker text): #4d4d4d to #4c4c4c
+        gray 10 (pop-up buttons): #e6e6e6 to #e5e5e5
+        gray 15 (table row divider): #d9d9d9 to #d8d8d8
+        tab hover background: #fafafa to gray 0, #f7f7f7 (#fafafa was not a palette color)
+        divider under the stacked sidebar: #eee to gray 10, #e5e5e5 (#eee came
+          from the 2021 overrides file and was not a palette color)
+      The first three are one step out of 255 and can't be seen.
+    · No rule is added, removed or reordered. In build.xslt only the version
+      number changes.
+
   WHAT CHANGED IN 3.0.20
     · Links /shared/build.css, the stylesheet in Slate's Branding Editor.
       3.0.19 linked /shared/base.css, which is Slate's own platform file (the
@@ -229,7 +250,7 @@
      fw:* functions in this transform, e.g. fw:year() for the copyright year. -->
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="xhtml fw">
   <!-- Release version — bump on every publish. Written into <head> (3.0.16). -->
-  <xsl:variable name="brandVersion" select="'3.0.20'" />
+  <xsl:variable name="brandVersion" select="'3.0.21'" />
   <!-- ============================================================
        SET THIS PER SECTION. Copy this file for a new section, change the
        one line below, done.
